@@ -24,8 +24,8 @@ import { AVATAR_COLOR, AVATAR_TYPE, AVATAR_VARIANT } from '../../../types/cssCla
 import { appendEnchantedStylingLink, SNAPSHOT_WINDOW_HEIGHT, SNAPSHOT_WINDOW_WIDTH } from '../utils';
 
 // Icon imports
-import addIcon from '../../../static/assets/add-icon.svg';
-import placeHolderImage from '../../../static/assets/test-avatar-image.jpg';
+import addIcon from '../../assets/add-icon.svg';
+import placeHolderImage from '../../assets/test-avatar-image.jpg';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/folder';
 
 function renderAvatarVariant() {
@@ -34,78 +34,78 @@ function renderAvatarVariant() {
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Letter and Rounded</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_LETTER} type=${AVATAR_TYPE.AVATAR_ROUNDED} avatarText="Abc"> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_LETTER} type=${AVATAR_TYPE.AVATAR_ROUNDED} avatarText="Abc"></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Letter and Circular</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_LETTER} type=${AVATAR_TYPE.AVATAR_CIRCULAR} avatarText="Abc"> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_LETTER} type=${AVATAR_TYPE.AVATAR_CIRCULAR} avatarText="Abc"></dx-avatar>
         </div>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>No iconUrl and type</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
-          <label>No iconUr</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON} type=${AVATAR_TYPE.AVATAR_ROUNDED}> ></dx-avatar>
+          <label>No iconUrl</label>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON} type=${AVATAR_TYPE.AVATAR_ROUNDED}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Icon and Rounded</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON} type=${AVATAR_TYPE.AVATAR_ROUNDED} iconUrl=${addIcon}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON} type=${AVATAR_TYPE.AVATAR_ROUNDED} iconUrl=${addIcon}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Icon and Circular</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON} type=${AVATAR_TYPE.AVATAR_CIRCULAR} iconUrl=${addIcon}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON} type=${AVATAR_TYPE.AVATAR_CIRCULAR} iconUrl=${addIcon}></dx-avatar>
         </div>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>No iconTemplate and type</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>No iconTemplate</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} type=${AVATAR_TYPE.AVATAR_ROUNDED}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} type=${AVATAR_TYPE.AVATAR_ROUNDED}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Icon and Rounded</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconTemplate=${html`<icon-folder></icon-folder>`}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconTemplate=${html`<icon-folder></icon-folder>`}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Icon and Circular</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconTemplate=${html`<icon-folder></icon-folder>`}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconTemplate=${html`<icon-folder></icon-folder>`}></dx-avatar>
         </div>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>No imgUrl and type</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>No imgUrl</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG} type=${AVATAR_TYPE.AVATAR_ROUNDED}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG} type=${AVATAR_TYPE.AVATAR_ROUNDED}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Image and Rounded</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG} type=${AVATAR_TYPE.AVATAR_ROUNDED} .imgUrl=${placeHolderImage}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG} type=${AVATAR_TYPE.AVATAR_ROUNDED} .imgUrl=${placeHolderImage}></dx-avatar>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label>Image and Circular</label>
-          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG} type=${AVATAR_TYPE.AVATAR_CIRCULAR} .imgUrl=${placeHolderImage}> ></dx-avatar>
+          <dx-avatar variant=${AVATAR_VARIANT.AVATAR_IMG} type=${AVATAR_TYPE.AVATAR_CIRCULAR} .imgUrl=${placeHolderImage}></dx-avatar>
         </div>
       </div>
     </div>
