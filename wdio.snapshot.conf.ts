@@ -38,12 +38,6 @@ export const config = {
           './src/components/**/*.ts'
         ],
         force: true
-      },
-      resolve: {
-        alias: {
-          // Replace '@enchanted-prod/logger' with mock logger since using it times out the tests
-          '@enchanted-prod/logger': path.resolve(__dirname, './src/_tests_/mocks/logger.mock.ts')
-        }
       }
     }
   }],
