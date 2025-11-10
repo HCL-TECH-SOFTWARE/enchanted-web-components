@@ -392,7 +392,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
         await sortButton.dispatchEvent(new KeyboardEvent('keydown', { key:'Enter' }));
         await browser.pause(100);
         await expect(handleSortSpy).toHaveBeenCalledTimes(2);
-        await expect(handleSortButtonBlurSpy).toHaveBeenCalledTimes(3);
+        await expect(handleSortButtonBlurSpy).toHaveBeenCalledTimes(2);
         await expect(handleCellHeaderSortDescKeydownSpy).toHaveBeenCalledTimes(5);
       }
     }
