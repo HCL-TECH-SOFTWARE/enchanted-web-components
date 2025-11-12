@@ -607,3 +607,16 @@ export enum ACCORDION_SUMMARY_PARTS {
   DX_ACCORDION_SECONDARY = 'secondary',
   DX_ACCORDION_SECONDARY_RTL = 'secondary-rtl'
 }
+
+export enum POPOVER_PARTS {
+  POPOVER_WRAPPER = 'wrapper',
+  POPOVER_ARROW = 'arrow',
+  POPOVER_CONTAINER = 'container',
+  POPOVER_CONTAINER_RTL = 'container-rtl',
+  POPOVER_CONTENT = 'content',
+  POPOVER_LABEL = 'label',
+  POPOVER_TEXT = 'text',
+  POPOVER_CLOSE_ICON = 'close-icon',
+  POPOVER_CLOSE_ICON_RTL = 'close-icon-rtl',
+  POPOVER_TARGET = 'target'
+}

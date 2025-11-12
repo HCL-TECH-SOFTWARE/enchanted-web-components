@@ -46,7 +46,8 @@
 @use 'components/ac/dx-multiple-select-chip.scss';
 @use 'components/ac/dx-accordion.scss';
 @use 'components/ac/dx-accordion-summary.scss';
-@use "common/typography";
+@use 'components/ac/dx-popover.scss';
+@use 'common/typography';
 
 dx-anchor {
   @include dx-anchor.dx-anchor-base-styles;
@@ -250,4 +251,8 @@ dx-multiple-select-chip {
 dx-toggle-button {
   @include dx-icon-button.dx-icon-button-base-styles;
   @include dx-toggle-button.dx-toggle-button-base-styles;
+}
+
+dx-popover {
+  @include dx-popover.dx-popover-base-styles;
 }
