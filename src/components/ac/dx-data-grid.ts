@@ -1012,7 +1012,7 @@ export class DxDataGrid extends DxAcBaseElement {
 	    else if (this.dxDataGridContext?.total === 0) {
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">         
-						<dx-svg-icon .icon=${html`<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>`} ?useCurrentColor=${true}></dx-svg-icon>
+						<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.results.found')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 						${unsafeHTML(this.getMessage('output.message.no.match.found', [{ '{search_term}': String(this.dxDataGridContext?.searchValue) }]))}
@@ -1025,7 +1025,7 @@ export class DxDataGrid extends DxAcBaseElement {
 			  console.warn(`${this.getMessage('output.message.no.engine.found')}, ${this.getMessage('output.message.contact.admin')}`);
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-						<dx-svg-icon .icon=${html`<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>`} ?useCurrentColor=${true}></dx-svg-icon>
+						<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.engine.found')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 						${this.getMessage('output.message.contact.admin')}
@@ -1038,7 +1038,7 @@ export class DxDataGrid extends DxAcBaseElement {
 			  console.warn(`${this.getMessage('output.message.no.content.sources.found')}, ${this.getMessage('output.message.contact.admin')}`);
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}"> 
-						<dx-svg-icon .icon=${html`<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>`} ?useCurrentColor=${true}></dx-svg-icon>
+						<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.content.sources.found')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 						${this.getMessage('output.message.contact.admin')}
@@ -1048,7 +1048,7 @@ export class DxDataGrid extends DxAcBaseElement {
 	    } else {
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-						<dx-svg-icon .icon=${html`<icon-items-search-initial size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-initial>`} ?useCurrentColor=${true}></dx-svg-icon>
+						<icon-items-search-initial size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-initial>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('authoring.data.grid.initial.message')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 								${this.isFeatureTagCloudEnabled
