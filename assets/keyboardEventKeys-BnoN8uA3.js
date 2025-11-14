@@ -1,0 +1,1 @@
+var E=(A=>(A.ENTER="Enter",A.TAB="Tab",A.ESCAPE="Escape",A.ARROW_UP="ArrowUp",A.ARROW_DOWN="ArrowDown",A.ARROW_LEFT="ArrowLeft",A.ARROW_RIGHT="ArrowRight",A.BACKSPACE="Backspace",A.DELETE="Delete",A.SPACE=" ",A.SHIFT="Shift",A.CONTROL="Control",A.ALT="Alt",A))(E||{});export{E as K};
