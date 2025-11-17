@@ -52,6 +52,11 @@ export class DxIconButton extends DxAcBaseElement {
   @property({ type: String })
   ariaLabel: string = '';
 
+  public _focusButton() {
+    const button = this.renderRoot.querySelector('dx-button');
+    button?._focusButton();
+  }
+
   render() {
     return html`
       <dx-button 

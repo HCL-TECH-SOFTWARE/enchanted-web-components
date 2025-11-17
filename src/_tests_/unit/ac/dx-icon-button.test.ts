@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, render } from 'lit';
-import { $, expect } from '@wdio/globals';
+import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
 import '../../../components/ac/dx-icon-button';
@@ -25,6 +25,7 @@ import { initSessionStorage } from '../../utils';
 
 // Icon imports
 import { svgIconSearch } from '../../assets/svg-search';
+import { DxIconButton } from '../../../components/ac/dx-icon-button';
 
 describe('DxIconButton component testing', () => {
   before(async () => {
@@ -115,5 +116,52 @@ describe('DxIconButton component testing', () => {
     let buttonElement = await component.$('>>>dx-button[data-testid="dx-icon-button"]').getElement();
     let svgElement = await buttonElement.$('>>>span[data-testid="dx-svg-test"]').getElement();
     await expect(svgElement).toBeExisting();
+  });
+
+  it('DxIconButton - should focus the button when _focusButton is called', async () => {
+    render(
+      html`
+        <dx-icon-button
+          .icon=${
+            html`
+              <span data-testid="dx-svg-test">${svgIconSearch}</span>
+            `
+          }
+          data-testid="dx-icon-button"
+        >
+        </dx-icon-button>
+      `,
+      document.body
+    );
+
+    const iconButton = document.querySelector('dx-icon-button') as DxIconButton;
+    if (!iconButton) {
+      throw new Error('DxIconButton component not found');
+    }
+    
+    // Wait for the component to be fully rendered
+    await iconButton.updateComplete;
+    
+    const dxButton = iconButton.shadowRoot?.querySelector('dx-button');
+    if (dxButton) {
+      await (dxButton as DxIconButton).updateComplete;
+    }
+    
+    // Call _focusButton to set focus
+    iconButton._focusButton();
+    
+    // Wait for focus to be applied
+    await browser.pause(100);
+    
+    // Check what element is actually focused - navigate through shadow DOMs
+    const focusedElementInfo = await browser.execute(
+      `const iconBtn = document.querySelector('dx-icon-button');
+       const dxBtn = iconBtn?.shadowRoot?.querySelector('dx-button');
+       const activeInDxBtn = dxBtn?.shadowRoot?.activeElement;
+       return activeInDxBtn?.getAttribute('data-testid');`
+    ) as string;
+    
+    // The actual button inside dx-button shadow DOM should be focused
+    await expect(focusedElementInfo).toBe('dx-button');
   });
 });
