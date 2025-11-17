@@ -64,6 +64,12 @@ export class DxButton extends DxAcBaseElement {
   @property({ type: String })
   ariaLabel: string = '';
 
+  @property({ type: String })
+  ariaHasPopup: string = '';
+
+  @property({ type: String })
+  ariaExpanded: string = 'false';
+
   @query('svg')
   private _svgIcon!: SVGElement;
 
@@ -183,7 +189,8 @@ export class DxButton extends DxAcBaseElement {
         @focus=${() => {return this.focused = true;}}
         @blur=${() => {return this.focused = false;}}
         aria-label=${this.ariaLabel}
-        role="button"
+        aria-haspopup=${this.ariaHasPopup}
+        ${this.ariaExpanded ? `aria-expanded="${this.ariaExpanded}"` : nothing}
         tabindex="0"
       >
         ${this.endicon ? nothing : this.renderIcon(this.endicon)}
