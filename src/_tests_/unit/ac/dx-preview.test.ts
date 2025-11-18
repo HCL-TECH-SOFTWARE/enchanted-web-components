@@ -12,17 +12,18 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-import { html, render, TemplateResult } from 'lit';
+import { html, nothing, render, TemplateResult } from 'lit';
 import { $, browser, expect } from '@wdio/globals';
 import { fn } from '@wdio/browser-runner';
 import fetchMock from 'fetch-mock';
 
 import { initSessionStorage } from '../../utils';
-import { AssetRendition, PreviewItem } from '../../../components/ac/dx-preview';
+import { AssetRendition, DxPreview, PreviewItem } from '../../../components/ac/dx-preview';
 import { PREVIEW_PARTS } from '../../../types/cssClassEnums';
 import { ItemTypes, ValidationStatus } from '../../../types/dx-preview';
 import { OptionData } from '../../../types/dx-input-select';
 import '../../../components/ac/dx-preview';
+import { KeyboardInputKeys } from '../../../utils/keyboardEventKeys';
 
 const dxLocalization: Map<string, string> = new Map<string, string>();
 dxLocalization.set('preview.item.unsupported.title', 'Unable to preview');
@@ -82,14 +83,13 @@ const mockItems = [mockImageItem, mockVideoItem, mockImageItem2];
 
 describe('DxPreview component testing', () => {
   const cleanup = () => {
-    const component = document.body.querySelector('dx-preview');
-    if (component) {
-      document.body.removeChild(component);
-    }
+    // Use Lit's render with nothing to properly clean up
+    render(nothing, document.body);
     fetchMock.restore();
   };
 
   before(async () => {
+    await browser.setWindowSize(1600, 1200);
     await initSessionStorage();
     fetchMock.restore();
   });
@@ -607,9 +607,7 @@ describe('DxPreview component testing', () => {
     await expect(zoomPercentageButton).toHaveText('25%');
   });
 
-  // TODO: skip this test case for now since it is failing intermittently in pr checks
-  // This will be fixed on this ticket https://hclsw-jirads.atlassian.net/browse/DXQ-46193
-  it.skip('DxPreview - should toggle between 100% and fit-to-screen-percentage', async () => {
+  it('DxPreview - should toggle between 100% and fit-to-screen-percentage', async () => {
     render(
       html`
         <dx-preview open .items=${[mockImageItem]} ></dx-preview>
@@ -617,31 +615,42 @@ describe('DxPreview component testing', () => {
       document.body
     );
     const component = await $('dx-preview').getElement();
-    let zoomPercentageButton = await component.$(`>>>dx-button[data-testid="dx-preview-zoom-percentage-button"]`);
+    const getZoomPercentageButton = () => {
+      return component.$(`>>>dx-button[data-testid="dx-preview-zoom-percentage-button"]`);
+    };
+    let zoomPercentageButton = await getZoomPercentageButton();
     await zoomPercentageButton.waitForClickable();
-    await expect(zoomPercentageButton).toHaveText('50%');
 
-    await zoomPercentageButton.moveTo();
-    zoomPercentageButton = await component.$(`>>>dx-button[data-testid="dx-preview-zoom-percentage-button"]`);
-    await zoomPercentageButton.click();
-    await browser.waitUntil(
-      async () => {return (await zoomPercentageButton.getText() === '100%', {
-        timeout: 5000,
-        timeoutMsg: 'Expected zoom percentage to become "100%" after first click'
-      });}
-    );
-    await expect(zoomPercentageButton).toHaveText('100%');
+    const initialZoomText = await zoomPercentageButton.getText();
+    await expect(initialZoomText).not.toBe('100%');
 
+    zoomPercentageButton = await getZoomPercentageButton();
     await zoomPercentageButton.moveTo();
-    zoomPercentageButton = await component.$(`>>>dx-button[data-testid="dx-preview-zoom-percentage-button"]`);
     await zoomPercentageButton.click();
+
     await browser.waitUntil(
-      async () => {return (await zoomPercentageButton.getText() === '50%', {
+      async () => {
+        const btn = await getZoomPercentageButton();
+        return (await btn.getText() === '100%');
+      }, {
         timeout: 5000,
-        timeoutMsg: 'Expected zoom percentage to become "50%" after second click'
-      });}
+        timeoutMsg: `Expected zoom to become '100%' after first click (was: ${initialZoomText})`,
+      }
     );
-    await expect(zoomPercentageButton).toHaveText('50%');
+
+    zoomPercentageButton = await getZoomPercentageButton();
+    await zoomPercentageButton.moveTo();
+    await zoomPercentageButton.click();
+
+    await browser.waitUntil(
+      async () => {
+        const btn = await getZoomPercentageButton();
+        return (await btn.getText() === initialZoomText);
+      }, {
+        timeout: 5000,
+        timeoutMsg: `Expected zoom to return to '${initialZoomText}' after second click`,
+      }
+    );
   }); 
 
   it('DxPreview - should disable zoom-out buttons at min zoom level', async () => {
@@ -1014,5 +1023,100 @@ describe('DxPreview component testing', () => {
 
     await expect(await component.getProperty('hasError')).toBeTruthy();
     await expect(await component.getProperty('errorType')).toEqual(ValidationStatus.ERROR_BAD_REQUEST);
+  });
+
+  it('DxPreview - should trap focus within the component when open', async () => {
+    render(
+      html`
+        <div>
+          <dx-preview open .items=${[mockImageItem]}></dx-preview>
+        </div>
+      `,
+      document.body
+    );
+
+    const dxPreview = document.querySelector('dx-preview') as DxPreview;
+    if (!dxPreview) {
+      throw new Error('DxPreview component not found');
+    }
+    
+    // Wait for the component to be fully rendered
+    await dxPreview.updateComplete;
+    
+    // Wait a bit for the image to load and zoom controls to appear
+    await browser.pause(500);
+    
+    const component = await $('dx-preview').getElement();
+    const zoomInButton = await component.$('>>>[data-testid="dx-preview-zoom-in-button"]').getElement();
+    await expect(zoomInButton).toBeDisplayed();
+    
+    // Get all focusable elements in the preview
+    const focusableInfo = await browser.execute(
+      `const preview = document.querySelector('dx-preview');
+       const focusableElements = preview?.shadowRoot?.querySelectorAll('dx-icon-button:not([disabled]), dx-button:not([disabled]), dx-input-select:not([disabled])');
+       const elementsArray = Array.from(focusableElements || []);
+       return {
+         count: elementsArray.length,
+         testIds: elementsArray.map(el => el.getAttribute('data-testid'))
+       };`
+    ) as {count: number, testIds: string[]};
+    
+    await expect(focusableInfo.count).toBeGreaterThan(0);
+    
+    // Helper function to get the currently focused element's test ID
+    const getActiveElementTestId = async () => {
+      return await browser.execute(
+        `const preview = document.querySelector('dx-preview');
+         // Check which component in the preview shadow root is currently the activeElement
+         const activeInPreview = preview?.shadowRoot?.activeElement;
+         return activeInPreview?.getAttribute('data-testid');`
+      ) as string;
+    };
+    
+    // Focus the first element (back button) using _focusButton
+    await browser.execute(
+      `const preview = document.querySelector('dx-preview');
+       const backBtn = preview?.shadowRoot?.querySelector('[data-testid="dx-preview-back-button"]');
+       if (backBtn && typeof backBtn._focusButton === 'function') {
+         backBtn._focusButton();
+       }`
+    );
+    await browser.pause(100);
+    
+    let activeTestId = await getActiveElementTestId();
+    await expect(activeTestId).toBe('dx-preview-back-button');
+    
+    // Simulate Tab key press to move to next element
+    await browser.keys([KeyboardInputKeys.TAB]);
+    await browser.pause(100);
+    
+    activeTestId = await getActiveElementTestId();
+    await expect(activeTestId).toBe(focusableInfo.testIds[1]);
+    
+    // Tab through all elements until we reach the last one
+    for (let i = 2; i < focusableInfo.count; i++) {
+      await browser.keys([KeyboardInputKeys.TAB]);
+      await browser.pause(50);
+      activeTestId = await getActiveElementTestId();
+    }
+    
+    // Verify we're at the last element
+    activeTestId = await getActiveElementTestId();
+    const lastElementTestId = focusableInfo.testIds[focusableInfo.count - 1];
+    await expect(activeTestId).toBe(lastElementTestId);
+    
+    // Now press Tab again - should wrap to first element due to focus trap
+    await browser.keys([KeyboardInputKeys.TAB]);
+    await browser.pause(100);
+    
+    activeTestId = await getActiveElementTestId();
+    await expect(activeTestId).toBe(focusableInfo.testIds[0]);
+    
+    // Test Shift+Tab to go backwards - should wrap to last element
+    await browser.keys([KeyboardInputKeys.SHIFT, KeyboardInputKeys.TAB]);
+    await browser.pause(100);
+    
+    activeTestId = await getActiveElementTestId();
+    await expect(activeTestId).toBe(lastElementTestId);
   });
 });

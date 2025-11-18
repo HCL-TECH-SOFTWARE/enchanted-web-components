@@ -48,6 +48,9 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/zoom--in';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/download';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--left';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--right';
+import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { DxButton } from './dx-button';
+import { DxIconButton } from './dx-icon-button';
 
 export interface AssetRendition {
   id: string;
@@ -605,9 +608,37 @@ export class DxPreview extends DxAcBaseElement {
     );
   }
 
+  private _handleTrapFocus(event: KeyboardEvent) {
+    const focusableElements = this.renderRoot?.querySelectorAll('dx-icon-button:not([disabled]), dx-button:not([disabled]), dx-input-select:not([disabled])');
+    const firstElement = focusableElements?.[0] as DxIconButton | DxButton;
+    const lastElement = focusableElements?.[focusableElements.length - 1] as DxIconButton | DxButton;
+    const activeElement = this.renderRoot && (this.renderRoot as ShadowRoot).activeElement;
+
+    if (event.shiftKey) {
+      if (activeElement === firstElement) {
+        lastElement?._focusButton();
+        event.preventDefault();
+      }
+    } else {
+      if (activeElement === lastElement) {
+        firstElement?._focusButton();
+        event.preventDefault(); // Stop the default Tab action
+      }
+    }
+  }
+
+  private _handleKeydown = (event: KeyboardEvent) => {
+    if (!this.open) return;
+
+    if (event.key === KeyboardInputKeys.TAB) {
+      this._handleTrapFocus(event);
+    }
+  };
+
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('resize', this._handleResize);
+    window.addEventListener('keydown', this._handleKeydown);
 
     if (this.renditionLabel == '') this.renditionLabel = this.getMessage('preview.rendition.label');
     if (this.selectButtonTitle == '') this.selectButtonTitle = this.getMessage('select');
@@ -615,6 +646,7 @@ export class DxPreview extends DxAcBaseElement {
 
   disconnectedCallback() {
     window.removeEventListener('resize', this._handleResize);
+    window.removeEventListener('keydown', this._handleKeydown);
     super.disconnectedCallback();
   }
   
@@ -661,7 +693,6 @@ export class DxPreview extends DxAcBaseElement {
                 @click=${this._handleBack}
                 data-testid="dx-preview-back-button"
                 size=${ICON_BUTTON_SIZES.MEDIUM}
-                tabindex="0"
                 ariaLabel=${this.getMessage('preview.tooltip.back.button')}
               >
               </dx-icon-button>

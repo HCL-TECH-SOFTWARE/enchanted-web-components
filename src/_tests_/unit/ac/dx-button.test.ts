@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, render } from 'lit';
-import { $, expect } from '@wdio/globals';
+import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
 import '../../../components/ac/dx-button';
@@ -24,6 +24,7 @@ import { initSessionStorage } from '../../utils';
 
 // Icon imports
 import { svgIconSearch } from '../../assets/svg-search';
+import { DxButton } from '../../../components/ac/dx-button';
 
 describe('DxButton component testing', () => {
   before(async () => {
@@ -195,5 +196,28 @@ describe('DxButton component testing', () => {
     await expect(imgElement).not.toBeExisting();
     let svgElement = await buttonElement.$('>>>span[data-testid="dx-svg-test"]').getElement();
     await expect(svgElement).toBeExisting();
+  });
+
+  it('DxButton - should focus the button when _focusButton is called', async () => {
+    render(
+      html`
+        <dx-button
+          buttontext="sample-buttontext"
+          data-testid="dx-button"
+        >
+        </dx-button>
+      `,
+      document.body
+    );
+    let dxButton = await document.querySelector('dx-button') as DxButton;
+    // Call the _focusButton method
+    dxButton._focusButton();
+
+    // Wait for the focus to be applied
+    await browser.pause(100); // Small delay to ensure focus is set
+
+    // Verify that the button is focused
+    const activeElement = document.querySelector('dx-button')?.shadowRoot?.activeElement?.getAttribute('data-testid');
+    await expect(activeElement).toBe(dxButton.getAttribute('data-testid'));
   });
 });

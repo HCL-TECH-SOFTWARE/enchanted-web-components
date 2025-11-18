@@ -201,6 +201,11 @@ export class DxTablePagination extends DxAcBaseElement {
               .options=${this.options}
               @change=${this.handleChange}
               ?disabled=${this.disabled}
+              ariaLabel=${
+                this.getMessage('output.pagination.rows.per.page.aria.label', [
+                  { '{rows_per_page}': this.rowSizeState.toString() }
+                ])
+              }
             ></dx-input-select>
             <span part=${TABLE_PAGINATION_PARTS.ROWS_DESCRIPTION}>
               ${this.rowMessage}
@@ -227,6 +232,7 @@ export class DxTablePagination extends DxAcBaseElement {
               data-testid="${DxPaginationActions.FIRST_PAGE}"
               @click=${debounce(() => { this.handleClick(DxPaginationActions.FIRST_PAGE); }, 300)}
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
+              ariaLabel=${this.getMessage('output.pagination.first.page.aria.label')}
             >
             </dx-button>
             <dx-button
@@ -249,6 +255,7 @@ export class DxTablePagination extends DxAcBaseElement {
               data-testid="${DxPaginationActions.PREVIOUS_PAGE}"
               @click=${debounce(() => { this.handleClick(DxPaginationActions.PREVIOUS_PAGE); }, 300)}
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
+              ariaLabel=${this.getMessage('output.pagination.previous.page.aria.label')}
             >
             </dx-button>
             <dx-input-select
@@ -261,6 +268,10 @@ export class DxTablePagination extends DxAcBaseElement {
               @change=${this.handleChange}
               ?disabled=${this.disabled}
               hiddenIcon=${true}
+              ariaLabel=${this.getMessage('output.pagination.current.page.aria.label', [
+                { '{current_page}': this.currentPageState.toString() },
+                { '{total_pages}': this.pagesCount.toString() }
+              ])}
             ></dx-input-select>
             <span part=${TABLE_PAGINATION_PARTS.PAGES_DESCRIPTION}>
               &nbsp; ${this.renderSlash()} ${this.pagesCount} &nbsp;
@@ -285,6 +296,7 @@ export class DxTablePagination extends DxAcBaseElement {
               data-testid="${DxPaginationActions.NEXT_PAGE}"
               @click=${debounce(() => { this.handleClick(DxPaginationActions.NEXT_PAGE); }, 300)}
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
+              ariaLabel=${this.getMessage('output.pagination.next.page.aria.label')}
             >
             </dx-button>
             <dx-button
@@ -307,6 +319,7 @@ export class DxTablePagination extends DxAcBaseElement {
               data-testid="${DxPaginationActions.LAST_PAGE}"
               @click=${debounce(() => { this.handleClick(DxPaginationActions.LAST_PAGE); }, 300)}
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
+              ariaLabel=${this.getMessage('output.pagination.last.page.aria.label')}
             >
             </dx-button>
           </div>
