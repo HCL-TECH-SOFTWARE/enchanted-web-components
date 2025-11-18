@@ -782,4 +782,37 @@ describe('Data Grid Generic testing', () => {
       }
     }
   });
+
+  it('DxDataGridGeneric - should focus on row when focusOnRow is called', async () => {
+    render(
+      html`
+        <div style="width: 2000px;">
+          <dx-data-grid-generic
+            .columns=${columns}
+            isLoading=${false}
+            customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
+            customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
+            .data=${data}
+            .localization=${dxLocalization}
+          ></dx-data-grid-generic>
+        </div>
+      `,
+      document.body,
+    );
+
+    // Need to pause to allow rendering to complete
+    await browser.pause(SHORT_PAUSE);
+    const element = document.querySelector('dx-data-grid-generic');
+
+    if (!element) {
+      throw new Error('DxDataGridGeneric element not found');
+    }
+
+    const rowIndexToFocus = 1;
+    element.focusOnRow(rowIndexToFocus);
+    // Need to pause to allow to process the focus event
+    await browser.pause(SHORT_PAUSE);
+    const focusedElement = element.shadowRoot?.activeElement?.getAttribute('data-testid');
+    await expect(focusedElement).toBe(`dx-table-row-${rowIndexToFocus}`);
+  });
 });

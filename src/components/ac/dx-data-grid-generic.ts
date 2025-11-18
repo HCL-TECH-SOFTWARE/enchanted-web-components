@@ -649,6 +649,14 @@ export class DxDataGridGeneric extends DxAcBaseElement {
     this.currentHoverField = '';
   }
 
+  public async focusOnRow(index: number) {
+    await this.updateComplete;
+    const row = this.renderRoot.querySelector(`#table-row-${index}`) as HTMLElement;
+    if (row) {
+      row.focus();
+    }
+  }
+
   handleCellHeaderFocus(evt: FocusEvent, currentHoverField: string, index: number) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -843,7 +851,7 @@ export class DxDataGridGeneric extends DxAcBaseElement {
       }
       else if (this.data && this.data?.searchItems && this.data?.searchItems.length > 0) {
         const tableBody = html`
-          ${this.data.searchItems.map((data: unknown, index: number) => {
+          ${this.data.searchItems.map((data: Record<string, unknown>, index: number) => {
           const rowContent = columnsObj
             .map((header: DxDataGridColDef) => { return getObjectValue(this.specialFields, data, header.field, header.keyForStringify); })
             .join(', ');
@@ -1097,8 +1105,9 @@ export class DxDataGridGeneric extends DxAcBaseElement {
                                             imgurl="${item.icon}"
                                             tabindex=0
                                             exportparts="${ICON_BUTTON_EXPORT_PARTS}"
-                                            @click=${(evt: MouseEvent) => { 
+                                            @click=${(evt: PointerEvent) => { 
                                               evt.stopPropagation();
+                                              data.isMouseEvent = evt.pointerType === 'mouse';
                                               return item.click && item.click(evt, { data, column: header }); 
                                             }}
                                             @keydown=${(evt: KeyboardEvent) => {

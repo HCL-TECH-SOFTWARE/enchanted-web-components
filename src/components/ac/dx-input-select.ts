@@ -82,6 +82,9 @@ export class DxInputSelect extends DxAcBaseElement {
   @property({ type: Boolean })
   showRemoveLabel = false;
   
+  @property({ type: String })
+  ariaLabel = '';
+  
   connectedCallback(): void {
     super.connectedCallback();
     this.parseOptions();
@@ -154,6 +157,8 @@ export class DxInputSelect extends DxAcBaseElement {
         data-testid="dx-input-select-listitem"
         .isSelected=${typeof option === 'string' ? this.selectedValue === option : this.selectedId === (option as OptionData)?.id}
         key="${uuid()}"
+        role="option"
+        aria-selected="${(typeof option === 'string' ? this.selectedValue === option : this.selectedId === (option as OptionData)?.id) ? 'true' : 'false'}"
         id="${typeof option === 'string' ? uuid() : (option as OptionData).id || option}">
         ${typeof option === 'string' ? option : (option as OptionData).name || option}
       </dx-list-item>
@@ -292,7 +297,15 @@ export class DxInputSelect extends DxAcBaseElement {
       <div part=${INPUT_SELECT_PARTS.DIV} @focusout=${this.handleFocusOut} tabindex=-1>
         <div part=${INPUT_SELECT_PARTS.DIV_LABEL}>
           ${!this.hiddenLabel ? html`
-            <label data-testid="dx-input-select-label" part=${(this.disabled) ? `${INPUT_SELECT_PARTS.LABEL} ${INPUT_SELECT_PARTS.LABEL_DISABLED}` : INPUT_SELECT_PARTS.LABEL} tabindex=-1">
+            <label data-testid="dx-input-select-label" 
+              part=${
+                (this.disabled) ? 
+                `${INPUT_SELECT_PARTS.LABEL} ${INPUT_SELECT_PARTS.LABEL_DISABLED}` :
+                INPUT_SELECT_PARTS.LABEL
+              } 
+              tabindex="-1"
+              id="label-${this.field}"
+            >
               ${label}
             </label>
           ` : nothing}
@@ -316,10 +329,14 @@ export class DxInputSelect extends DxAcBaseElement {
           .icon="${!this.hiddenIcon ? html`<icon-caret-down size="16" color="rgba(0, 0, 0, 0.60)"></icon-caret-down>` : nothing}"
           ?endicon="${true}"
           ?disabled=${this.disabled}
+          id="button-${this.field}"
+          ariaHaspopup="listbox"
+          ariaExpanded="${this.toggleDropDown ? 'true' : 'false'}"
+          ariaLabel="${this.ariaLabel}"
         >
         </dx-button>
         ${!this.disabled && this.toggleDropDown ? html `
-          <dx-list exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="dx-input-select-list">
+          <dx-list exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="dx-input-select-list" id="list-${this.field}" role="listbox">
             ${options.map((option: string | OptionData) => {return this.getSelectedOption(option);})}
           </dx-list>
         ` : nothing}
