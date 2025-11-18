@@ -96,5 +96,25 @@ export const DX_DATA_GRID_COLUMNS: DxDataGridColDef[] = [
   { field: 'contentPath', headerName: 'Location', sortEnable: true },
 ];
 
+export const DX_DATA_GRID_PICKER_COLUMNS: DxDataGridColDef[] = [
+  {
+    field: 'title', 
+    headerName: 'Title',
+    avatar: true,
+    headerSubtitle: (data) => {
+      return (data as SampleDataRow).subtitle;
+    },
+    isLink: (data) => {
+      return (data as SampleDataRow).type === 'collection';
+    },
+    avatarType: 'type',
+    sortEnable: true,
+  },
+  { field: 'description', headerName: 'Description', sortEnable: false },
+  { field: 'type', headerName: 'Type', sortEnable: true },
+  { field: 'tags', headerName: 'Tags', sortEnable: false },
+  { field: 'updated', headerName: 'Last Modified', sortEnable: true },
+];
+
 export const SHORT_PAUSE = 100;
 export const LONG_PAUSE = 500;

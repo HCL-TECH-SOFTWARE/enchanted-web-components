@@ -24,16 +24,17 @@ import '../../../components/ac/dx-circular-progress.ts';
 // Helper imports
 import { DxDataGridColDef, SortOrder } from '../../../types/dx-data-grid';
 import { appendEnchantedStylingLink, SNAPSHOT_WINDOW_HEIGHT, SNAPSHOT_WINDOW_WIDTH } from '../utils';
-import { sampleData } from '../../unit/fixture/sampleData.js';
+import { sampleDamData, sampleData } from '../../unit/fixture/sampleData.js';
 import { spyOn } from '@wdio/browser-runner';
 import { initDataGridLocalizedStrings } from '../../helpers';
-import { DX_DATA_GRID_COLUMNS } from '../../constants.js';
+import { DX_DATA_GRID_COLUMNS, DX_DATA_GRID_PICKER_COLUMNS } from '../../constants.js';
 import { DATA_GRID_PARTS } from '../../../types/cssClassEnums.js';
 import { initSessionStorage } from '../../utils.js';
 
 const dxLocalization: Map<string, string> = initDataGridLocalizedStrings();
 
 const testColDef: DxDataGridColDef[] = DX_DATA_GRID_COLUMNS;
+const testPickerColDef: DxDataGridColDef[] = DX_DATA_GRID_PICKER_COLUMNS;
 
 const data = {
   searchItems: sampleData.hits.hits,
@@ -41,6 +42,14 @@ const data = {
   sortAttribute: '',
   sortDirection: undefined,
   selectedSearchItems: [...sampleData.hits.hits],
+};
+
+const pickerData = {
+  searchItems: sampleDamData.hits.hits,
+  total: sampleDamData.hits.total.value || 0,
+  sortAttribute: '',
+  sortDirection: undefined,
+  selectedSearchItems: [...sampleDamData.hits.hits],
 };
 
 describe('DxDataGridGeneric - Snapshot testing', () => {
@@ -448,6 +457,27 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
 
     await browser.setWindowSize(2000, SNAPSHOT_WINDOW_HEIGHT);
     await expect(browser).toMatchFullPageSnapshot('dx-data-grid-generic-with-picker-width-of-2000-2', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('DxDataGridGeneric - should capture Data Grid component with header subtitle - Picker', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div style="width: 700px; height: 600px;">
+          <dx-data-grid-generic
+            .localization=${dxLocalization}
+            .columns="${testPickerColDef}"
+            .data="${pickerData}"></dx-data-grid-generic>
+        </div>
+      `,
+      document.body,
+    );
+
+    await browser.setWindowSize(SNAPSHOT_WINDOW_WIDTH, SNAPSHOT_WINDOW_HEIGHT);
+    await expect(browser).toMatchFullPageSnapshot('dx-data-grid-generic-2-with-header-subtitle-snapshot-baseline-picker', 100);
 
     document.head.removeChild(link);
   });
