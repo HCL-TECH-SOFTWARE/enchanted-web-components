@@ -277,4 +277,15 @@
     background-color: palette.clr(light, background, paper) !important;
     height: 28px !important;
   }
+
+  // Visually hidden live region for screen reader announcements
+  // Uses the "visually hidden" pattern to hide content from sighted users
+  // while keeping it accessible to screen readers
+  .dx-dialog-live-region {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
 }

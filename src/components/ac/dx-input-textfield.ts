@@ -76,6 +76,9 @@ export class DxInputTextfield extends DxAcBaseElement {
   @property({ type: String })
   autocomplete: AutoCompleteTextfieldEnum = AutoCompleteTextfieldEnum.ON;
 
+  @property({ type: String, attribute: 'aria-label' })
+  override ariaLabel: string | null = null;
+
   @state()
   private tempValueHolder: string = '';
 
@@ -264,9 +267,7 @@ export class DxInputTextfield extends DxAcBaseElement {
     // eslint-disable-next-line no-console
     console.debug(`Rendering ${this.tagName}: value - ${this.value}, disabled - ${this.disabled}, has searched before - ${this.hassearchedbefore}`);
     return html`
-      <div part="div" role="searchbox" 
-        aria-label=${this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}
-      >
+      <div part="div">
         ${this.label
           ? html`<label data-testid="dx-input-textfield-label" for=${`input-${this.field}`} part="label">${this.label}</label>`
           : nothing }
@@ -285,6 +286,7 @@ export class DxInputTextfield extends DxAcBaseElement {
           .value=${this.value}
           ?disabled=${this.ignoreDisable ? false : this.disabled}
           autocomplete=${this.autocomplete}
+          aria-label=${this.ariaLabel || this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}
         />
         <!-- This icon will take color from the parent component as useCurrentColor set to true -->
         ${this.clearIconUrl

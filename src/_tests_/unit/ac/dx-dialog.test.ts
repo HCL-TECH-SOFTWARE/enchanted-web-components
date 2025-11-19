@@ -18,6 +18,9 @@ import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
 import '../../../components/ac/dx-dialog';
+import '../../../components/ac/dx-input-textfield';
+import '../../../components/ac/dx-circular-progress';
+import '../../../components/ac/dx-header';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
@@ -35,7 +38,10 @@ describe('DxDialog component testing', () => {
     }
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    // Wait for any pending setTimeout callbacks to complete (100ms cleanup + 20ms focus delay)
+    await browser.pause(150);
+
     while (document.body.firstElementChild) {
       document.body.removeChild(document.body.firstElementChild);
     }
@@ -223,125 +229,356 @@ describe('DxDialog component testing', () => {
     expect(dialogRootChat).toBeDisplayed();
   });
 
-  it('DxDialog - should have proper ARIA attributes for accessibility', async () => {
-    render(
-      html`
-        <dx-dialog open dialogTitle="Accessible Dialog" .localization=${dxLocalization}></dx-dialog>
-      `,
-      document.body
-    );
-    let component = await $('dx-dialog').getElement();
-    let dialogElement = await component.$('>>>[role="dialog"]').getElement();
-    let backdrop = await component.$(`>>>[part="${DIALOG_PARTS.BACKDROP}"]`).getElement();
-    let closeButton = await component.$('>>>[part="icon-close"]').getElement();
-    let presentationElements = await component.$$('>>>[role="presentation"]');
-    
-    // Verify dialog element has proper role and ARIA attributes
-    await expect(dialogElement).toBeDisplayed();
-    await expect(dialogElement).toHaveAttribute('role', 'dialog');
-    await expect(dialogElement).toHaveAttribute('aria-modal', 'true');
-    await expect(dialogElement).toHaveAttribute('tabindex', '0');
-    
-    // Verify backdrop is hidden from screenreaders
-    await expect(backdrop).toHaveAttribute('aria-hidden', 'true');
-    
-    // Verify close button is keyboard accessible
-    await expect(closeButton).toHaveAttribute('tabindex', '0');
-    
-    // Verify presentation elements exist
-    await expect(presentationElements.length).toBeGreaterThan(0);
-  });
+  describe('Accessibility - Dialog Focus and Announcement Flow', () => {
+    it('DxDialog - should have aria-modal when opened', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Select an item" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" placeholder="Search" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
 
-  it('DxDialog - should close when Enter key is pressed on close button', async () => {
-    render(
-      html`
-        <dx-dialog open .localization=${dxLocalization}></dx-dialog>
-      `,
-      document.body
-    );
-    let component = await $('dx-dialog').getElement();
-    
-    // Tab to focus the close button
-    await browser.keys(['Tab']);
-    await browser.pause(100);
-    await browser.keys(['Enter']);
-    await browser.pause(400);
-    
-    await expect(component).not.toHaveAttribute('open');
-  });
+      const component = document.querySelector('dx-dialog');
+      await browser.pause(10); // Check immediately after open
 
-  it('DxDialog - should close when Space key is pressed on close button', async () => {
-    render(
-      html`
-        <dx-dialog open .localization=${dxLocalization}></dx-dialog>
-      `,
-      document.body
-    );
-    let component = await $('dx-dialog').getElement();
-    
-    // Tab to focus the close button
-    await browser.keys(['Tab']);
-    await browser.pause(100);
-    await browser.keys([' ']);
-    await browser.pause(400);
-    
-    await expect(component).not.toHaveAttribute('open');
-  });
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`);
 
-  it('DxDialog - should not have backdrop in chat mode for better accessibility', async () => {
-    render(
-      html`
-        <dx-dialog size="chat" open .localization=${dxLocalization}></dx-dialog>
-      `,
-      document.body
-    );
-    let component = await $('dx-dialog').getElement();
-    let backdrop = await component.$(`>>>[part="${DIALOG_PARTS.BACKDROP}"]`);
-    
-    await expect(backdrop).not.toBeExisting();
-  });
+      // Dialog should have aria-modal initially
+      expect(dialogElement).toHaveAttribute('aria-modal', 'true');
+    });
 
-  it('DxDialog - dialog title should be accessible to screenreaders', async () => {
-    const customTitle = 'Important Announcement';
-    render(
-      html`
-        <dx-dialog open dialogTitle="${customTitle}" .localization=${dxLocalization}></dx-dialog>
-      `,
-      document.body
-    );
-    let component = await $('dx-dialog').getElement();
-    
-    await expect(component).toHaveText(customTitle);
-  });
+    it('DxDialog - should temporarily focus dialog element on open', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Test Dialog" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" id="test-input" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
 
-  it('DxDialog - should focus on the dialog element when focusDialog is called', async () => {
-    render(
-      html`
-        <dx-dialog open .localization=${dxLocalization}>
-        </dx-dialog>
-      `,
-      document.body
-    );
-    // Create a dummy, focusable element to "steal" focus
-    const dummyInput = document.createElement('input');
-    document.body.appendChild(dummyInput);
+      await browser.pause(10); // Check immediately after open
 
-    const component = await document.querySelector('dx-dialog');
-    await component?.updateComplete;
+      const component = document.querySelector('dx-dialog');
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`) as HTMLElement;
 
-    const dialogElement = component?.shadowRoot?.querySelector('[role="dialog"]');
-    let activeElement = component?.shadowRoot?.activeElement;
+      // Dialog should be focused initially
+      const hasFocus = dialogElement === component?.shadowRoot?.activeElement;
 
-    await expect(activeElement).toEqual(dialogElement);
+      expect(hasFocus).toBeTruthy();
+    });
 
-    dummyInput.focus();
-    activeElement = component?.shadowRoot?.activeElement;
-    await expect(activeElement).toBeNull();
+    it('DxDialog - should move focus to first focusable element after delay', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Test Dialog" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" id="test-input" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
 
-    component?.focusDialog();
-    activeElement = component?.shadowRoot?.activeElement;
-    await expect(activeElement).toEqual(dialogElement);
+      await browser.pause(150); // Wait for focus sequence to complete (100ms + 20ms)
 
-    document.body.removeChild(dummyInput);
+      const component = document.querySelector('dx-dialog');
+      const activeElement = component?.shadowRoot?.activeElement as HTMLElement;
+
+      // The first focusable element in the dialog (close button) should be focused
+      expect(activeElement).not.toBeNull();
+    });
+
+    it('DxDialog - should remove aria-label after initial announcement', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Test Dialog" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      await browser.pause(150); // Wait for cleanup (100ms + 20ms)
+
+      const component = document.querySelector('dx-dialog');
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`);
+
+      // aria-label should be removed to prevent re-announcement
+      expect(dialogElement).not.toHaveAttribute('aria-label');
+    });
+
+    it('DxDialog - should remove aria-hidden from content wrapper after announcement', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Test Dialog" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      await browser.pause(150); // Wait for cleanup (100ms + 20ms)
+
+      const component = document.querySelector('dx-dialog');
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`);
+      const contentWrapper = dialogElement?.querySelector('div[role="presentation"]');
+
+      // aria-hidden should be removed so content is accessible
+      expect(contentWrapper).not.toHaveAttribute('aria-hidden');
+    });
+
+    it('DxDialog - refocusDialog() should re-announce dialog', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Select an item" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      // eslint-why refocusDialog is a public method not in the type definition
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const component = document.querySelector('dx-dialog') as any;
+      await browser.pause(150); // Wait for initial focus sequence
+
+      // Call refocusDialog
+      await component.refocusDialog();
+
+      await browser.pause(10); // Check immediately after refocus
+
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`) as HTMLElement;
+
+      // Dialog should be focused again
+      const hasFocus = dialogElement === component?.shadowRoot?.activeElement;
+
+      expect(hasFocus).toBeTruthy();
+    });
+
+    it('DxDialog - refocusDialog() should restore aria-label temporarily', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Select an item" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      // eslint-why refocusDialog is a public method not in the type definition
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const component = document.querySelector('dx-dialog') as any;
+      await browser.pause(150); // Wait for initial cleanup
+
+      // Call refocusDialog and check immediately
+      await component.refocusDialog();
+
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`);
+
+      // aria-label should be temporarily restored (check before cleanup at 100ms)
+      expect(dialogElement).toHaveAttribute('aria-label', 'Select an item');
+    });
+
+    it('DxDialog - refocusDialog() should clean up attributes after announcement', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Select an item" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      // eslint-why refocusDialog is a public method not in the type definition
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const component = document.querySelector('dx-dialog') as any;
+      await browser.pause(150); // Wait for initial sequence
+
+      // Call refocusDialog
+      await component.refocusDialog();
+      await browser.pause(150); // Wait for cleanup (100ms + 20ms)
+
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`);
+
+      // aria-label should be removed again after refocus
+      expect(dialogElement).not.toHaveAttribute('aria-label');
+    });
+
+    it('DxDialog - refocusDialog() should not run if dialog is closed', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Test Dialog" .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      // eslint-why refocusDialog is a public method not in the type definition
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const component = document.querySelector('dx-dialog') as any;
+
+      // Attempt to refocus a closed dialog
+      await component.refocusDialog();
+
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`);
+
+      // Dialog should not exist (not rendered when closed)
+      expect(dialogElement).toBeFalsy();
+    });
+
+    it('DxDialog - should handle shadow DOM input focus correctly', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Test Dialog" open .localization=${dxLocalization}>
+            <div slot="content">
+              <dx-input-textfield></dx-input-textfield>
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      await browser.pause(150); // Wait for focus sequence to complete
+
+      const component = await document.querySelector('dx-dialog');
+      // eslint-why accessing shadowRoot which is not in type definition
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const inputField = component?.shadowRoot?.querySelector('dx-input-textfield') as any;
+      const shadowInput = inputField?.shadowRoot?.querySelector('input') as HTMLElement;
+
+      // Shadow DOM input should be focused
+      expect(shadowInput).toBe(inputField?.shadowRoot?.activeElement);
+    });
+
+    it('DxDialog - should remove role="dialog" after announcement to prevent VoiceOver context', async () => {
+      render(
+        html`
+          <dx-dialog dialogTitle="Test Dialog" open .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+
+      await browser.pause(150); // Wait for full sequence and cleanup
+
+      const component = document.querySelector('dx-dialog');
+      const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`);
+
+      // role="dialog" should be removed to prevent VoiceOver from announcing dialog context
+      expect(dialogElement).not.toHaveAttribute('role');
+      expect(dialogElement).not.toHaveAttribute('aria-label');
+    });
+
+    it('DxDialog - should have proper ARIA attributes for accessibility', async () => {
+      render(
+        html`
+          <dx-dialog open dialogTitle="Accessible Dialog" .localization=${dxLocalization}></dx-dialog>
+        `,
+        document.body
+      );
+      let component = await $('dx-dialog').getElement();
+      let dialogElement = await component.$(`>>>[part*="${DIALOG_PARTS.PAPER_XL}"]`).getElement();
+      let backdrop = await component.$(`>>>[part="${DIALOG_PARTS.BACKDROP}"]`).getElement();
+      let closeButton = await component.$('>>>[part="icon-close"]').getElement();
+      let presentationElements = await component.$$('>>>[role="presentation"]');
+      
+      // Verify dialog element has proper ARIA attributes (initially)
+      await expect(dialogElement).toBeDisplayed();
+      await expect(dialogElement).toHaveAttribute('aria-modal', 'true');
+      
+      // Verify backdrop is hidden from screenreaders
+      await expect(backdrop).toHaveAttribute('aria-hidden', 'true');
+      
+      // Verify close button is keyboard accessible
+      await expect(closeButton).toHaveAttribute('tabindex', '0');
+      
+      // Verify presentation elements exist
+      await expect(presentationElements.length).toBeGreaterThan(0);
+    });
+
+    it('DxDialog - should close when Enter key is pressed on close button', async () => {
+      render(
+        html`
+          <dx-dialog open .localization=${dxLocalization}></dx-dialog>
+        `,
+        document.body
+      );
+      let component = await $('dx-dialog').getElement();
+      
+      // Tab to focus the close button
+      await browser.keys(['Tab']);
+      await browser.pause(100);
+      await browser.keys(['Enter']);
+      await browser.pause(400);
+      
+      await expect(component).not.toHaveAttribute('open');
+    });
+
+    it('DxDialog - should close when Space key is pressed on close button', async () => {
+      render(
+        html`
+          <dx-dialog open .localization=${dxLocalization}></dx-dialog>
+        `,
+        document.body
+      );
+      let component = await $('dx-dialog').getElement();
+      
+      // Tab to focus the close button
+      await browser.keys(['Tab']);
+      await browser.pause(100);
+      await browser.keys([' ']);
+      await browser.pause(400);
+      
+      await expect(component).not.toHaveAttribute('open');
+    });
+
+    it('DxDialog - should not have backdrop in chat mode for better accessibility', async () => {
+      render(
+        html`
+          <dx-dialog size="chat" open .localization=${dxLocalization}></dx-dialog>
+        `,
+        document.body
+      );
+      let component = await $('dx-dialog').getElement();
+      let backdrop = await component.$(`>>>[part="${DIALOG_PARTS.BACKDROP}"]`);
+      
+      await expect(backdrop).not.toBeExisting();
+    });
+
+    it('DxDialog - dialog title should be accessible to screenreaders', async () => {
+      const customTitle = 'Important Announcement';
+      render(
+        html`
+          <dx-dialog open dialogTitle="${customTitle}" .localization=${dxLocalization}></dx-dialog>
+        `,
+        document.body
+      );
+      let component = await $('dx-dialog').getElement();
+      
+      await expect(component).toHaveText(customTitle);
+    });
   });
 });

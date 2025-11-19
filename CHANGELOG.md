@@ -18,6 +18,7 @@
 - Fixed `dx-preview` interactive elements to have proper `aria-hidden` and `aria-label` attributes
 - Fixed keyboard accessibility for `dx-dialog` close button
 - Improved accessibility of `dx-breadcrumbs` component for screen readers
+- Improved accessibility of `dx-dialog` component for screen readers
 - Fix `dx-preview` component bug of previewing the same item will open the first index item in preview.
 
 ### Changed
