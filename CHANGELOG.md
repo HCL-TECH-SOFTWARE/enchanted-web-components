@@ -7,6 +7,7 @@
 - Added `focusDialog()` public method in `dx-dialog` component
 
 ### Fixed
+- Improved accessibility of `dx-breadcrumbs` component for screen readers
 
 ### Changed
 - Updated `dx-data-grid-generic` component with improved ARIA attributes:

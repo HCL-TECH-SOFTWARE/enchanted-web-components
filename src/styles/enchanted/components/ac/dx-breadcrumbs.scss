@@ -42,6 +42,10 @@
     list-style-type: none;
   }
 
+  &::part(breadcrumbs-item-list) {
+    list-style-type: none;
+  }
+
   &::part(breadcrumbs-item-last-icon) {
     margin: 0 4px 0 2px;
     --icon-theme-color: #{map.get(themeMap.$enchantedPalette, BLACK100P)};

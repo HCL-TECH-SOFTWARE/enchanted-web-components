@@ -451,6 +451,7 @@ export enum BREADCRUMBS_PART {
   BREADCRUMBS_ICON = 'breadcrumbs-icon',
   BREADCRUMBS_SEPARATOR = 'breadcrumbs-separator',
   BREADCRUMBS_ITEM = 'breadcrumbs-item',
+  BREADCRUMBS_ITEM_LIST = 'breadcrumbs-item-list',
   BREADCRUMBS_DISABLED = 'disabled',
   BREADCRUMBS_ITEM_LAST = 'breadcrumbs-item-last',
   BREADCRUMBS_ITEM_LAST_ICON = 'breadcrumbs-item-last-icon',

@@ -183,7 +183,7 @@ describe('DxBreadcrumbs component testing', () => {
     let component = await $('dx-breadcrumbs-item').getElement();
     await expect(component).toBeDisplayed();
 
-    let breadcrumbsItem = await component.$(`>>>li[part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM} ${BREADCRUMBS_PART.BREADCRUMBS_DISABLED}"]`).getElement();
+    let breadcrumbsItem = await component.$(`>>>div[part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM} ${BREADCRUMBS_PART.BREADCRUMBS_DISABLED}"]`).getElement();
     await expect(breadcrumbsItem).toBeExisting();
   });
 

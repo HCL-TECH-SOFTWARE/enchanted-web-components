@@ -52,42 +52,53 @@ export class DxBreadcrumbs extends DxAcBaseElement {
 
   render() {
     return html`
-      <nav part="${BREADCRUMBS_PART.BREADCRUMBS_CONTAINER}">
-        <ul part="${BREADCRUMBS_PART.BREADCRUMBS_LIST}" role="navigation">
-        ${ 
-          this.paths?.map((path: PathType, index) => {
-            return html`
-              ${
-                index < this.paths.length-1 ? 
-                  html`<dx-breadcrumbs-item
-                        @click="${(event: Event) => {
-                          if (this.handleBreadcrumbClick && !path.disabled) this.handleBreadcrumbClick(event, path);
-                        }}"
-                        .path="${path}"
-                        key="breadcrumb-${index}"
-                        exportparts="${this.exportParts}"
-                        data-testid="breadcrumbs-item"
-                      >
-                      </dx-breadcrumbs-item>
-                      <li part="${BREADCRUMBS_PART.BREADCRUMBS_SEPARATOR}" aria-hidden="true">
-                        <dx-svg-icon .icon=${ this.isLtr
-                          ? html`<icon-chevron-right size="16"></icon-chevron-right>`
-                          : html`<icon-chevron-left size="16"></icon-chevron-left>`
-                        } ?useCurrentColor=${true}></dx-svg-icon>
-                      </li>` :
-                  html`<dx-breadcrumbs-item
-                        .path="${path}"
-                        key="breadcrumb-${index}"
-                        exportparts="${this.exportParts}"
-                        .partProp="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LAST}"
-                        data-testid="breadcrumbs-item"
-                        aria-current="page"
-                      />`
-              }
-            `;
-          })
-        }
-        </ul>
+      <nav
+        part="${BREADCRUMBS_PART.BREADCRUMBS_CONTAINER}"
+        role="presentation"
+      >
+        <div role="group">
+          <ul part="${BREADCRUMBS_PART.BREADCRUMBS_LIST}" role="presentation">
+          ${ 
+            this.paths?.map((path: PathType, index) => {
+              return html`
+                ${
+                  index < this.paths.length-1 ? 
+                    html`
+                      <li part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LIST}" key="breadcrumb-${index}">
+                        <dx-breadcrumbs-item
+                          @click="${(event: Event) => {
+                            if (this.handleBreadcrumbClick && !path.disabled) this.handleBreadcrumbClick(event, path);
+                          }}"
+                          .path="${path}"
+                          key="breadcrumb-${index}"
+                          exportparts="${this.exportParts}"
+                          data-testid="breadcrumbs-item"
+                        >
+                        </dx-breadcrumbs-item>
+                      </li>
+                        <li part="${BREADCRUMBS_PART.BREADCRUMBS_SEPARATOR}" aria-hidden="true">
+                          <dx-svg-icon .icon=${ this.isLtr
+                            ? html`<icon-chevron-right size="16"></icon-chevron-right>`
+                            : html`<icon-chevron-left size="16"></icon-chevron-left>`
+                          } ?useCurrentColor=${true}></dx-svg-icon>
+                        </li>` :
+                    html`
+                      <li part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LIST}" key="breadcrumb-${index}">
+                        <dx-breadcrumbs-item
+                          .path="${path}"
+                          key="breadcrumb-${index}"
+                          exportparts="${this.exportParts}"
+                          partProp="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LAST}"
+                          data-testid="breadcrumbs-item"
+                          aria-current="page"
+                        />
+                      </li>`
+                }
+              `;
+            })
+          }
+          </ul>
+        </div>
       </nav>
     `;
   }

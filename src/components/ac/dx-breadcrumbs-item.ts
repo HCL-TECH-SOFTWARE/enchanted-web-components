@@ -99,14 +99,14 @@ export class DxBreadcrumbsItem extends DxAcBaseElement {
 
   render() {
     return html`
-      <li part="${this.getPartValue()}" key=${this.key} title=${this.path?.title}>
+      <div part="${this.getPartValue()}" key=${this.key} title=${this.path?.title}>
         <a href="#" part="${this.partProp ? BREADCRUMBS_PART.BREADCRUMBS_LINK_LAST: BREADCRUMBS_PART.BREADCRUMBS_LINK}" tabindex="${this.isDisabled() ? '-1' : '0'}">
           <div part="${BREADCRUMBS_PART.BREADCRUMBS_CONTENT}">
             ${this.renderIcon()}
             ${this.path?.title && html`<span part="${BREADCRUMBS_PART.BREADCRUMBS_TEXT}" data-testid="breadcrumbs-title">${this.path.title}</span>`}
           </div>
         </a>
-      </li>
+      </div>
     `;
   }
 }
