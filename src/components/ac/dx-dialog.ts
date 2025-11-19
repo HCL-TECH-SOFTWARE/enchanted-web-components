@@ -179,7 +179,7 @@ export class DxDialog extends DxAcBaseElement {
         <div role="presentation" part=${isChatMode ? DIALOG_PARTS.DIALOG_ROOT_CHAT : DIALOG_PARTS.DIALOG_ROOT}>
           ${isChatMode ? nothing : html`<div aria-hidden="true" part=${DIALOG_PARTS.BACKDROP} @click=${debounce(this.handleClose, 300)}></div>`}
           <div tabindex="-1" role="presentation" part=${this.getContainerPart()}>
-            <div role="dialog" part=${this.getPaperPart()} tabindex="0">
+            <div role="dialog" part=${this.getPaperPart()} tabindex="0" aria-modal="true">
               <div ?part=${this.overrideTitle ? DIALOG_PARTS.TITLE : ""}>
                 ${this.overrideTitle
                   ? html`<slot name="title"></slot>`

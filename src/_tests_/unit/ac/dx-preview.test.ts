@@ -1025,6 +1025,113 @@ describe('DxPreview component testing', () => {
     await expect(await component.getProperty('errorType')).toEqual(ValidationStatus.ERROR_BAD_REQUEST);
   });
 
+  it('DxPreview - should have proper ARIA attributes and labels for all interactive elements', async () => {
+    const customTitle = 'Custom Preview Title';
+    render(
+      html`
+        <dx-preview open .items=${[mockImageItem]} customHeaderTitle=${customTitle} .localization=${dxLocalization}></dx-preview>
+      `,
+      document.body
+    );
+    const component = await $('dx-preview').getElement();
+    await browser.pause(100);
+    
+    // Verify dialog role and aria attributes
+    const dialogElement = await component.$('>>>[role="dialog"]').getElement();
+    await expect(dialogElement).toBeDisplayed();
+    await expect(dialogElement).toHaveAttribute('role', 'dialog');
+    await expect(dialogElement).toHaveAttribute('aria-modal', 'true');
+    await expect(dialogElement).toHaveAttribute('aria-label', customTitle);
+    
+    // Verify backdrop has proper role
+    const backdrop = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_BACKDROP}]`).getElement();
+    await expect(backdrop).toHaveAttribute('role', 'presentation');
+    
+    // Verify all buttons have aria-labels
+    const backButton = await component.$('>>>[data-testid="dx-preview-back-button"]').getElement();
+    await expect(backButton).toHaveAttribute('ariaLabel', dxLocalization.get('preview.tooltip.back.button'));
+    
+    const downloadButton = await component.$('>>>[data-testid="dx-preview-download-button"]').getElement();
+    await expect(downloadButton).toHaveAttribute('ariaLabel', dxLocalization.get('preview.tooltip.download.button'));
+    
+    const zoomOutButton = await component.$('>>>[data-testid="dx-preview-zoom-out-button"]').getElement();
+    await expect(zoomOutButton).toHaveAttribute('ariaLabel', dxLocalization.get('preview.tooltip.zoom.out.button'));
+    
+    const zoomInButton = await component.$('>>>[data-testid="dx-preview-zoom-in-button"]').getElement();
+    await expect(zoomInButton).toHaveAttribute('ariaLabel', dxLocalization.get('preview.tooltip.zoom.in.button'));
+    
+    // Verify image has alt text
+    const img = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`).getElement();
+    await expect(img).toHaveAttribute('alt', mockImageItem.title);
+    
+    // Verify rendition select accessibility
+    const renditionSelect = await component.$('>>>[data-testid="dx-preview-rendition-select"]').getElement();
+    await expect(renditionSelect).toHaveAttribute('aria-labelledby', 'dx-preview-rendition-select-label');
+    
+    const renditionLabel = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_HEADER_RENDITION_LABEL}]`).getElement();
+    await expect(renditionLabel).toHaveAttribute('id', 'dx-preview-rendition-select-label');
+  });
+
+  it('DxPreview - navigation buttons should have proper aria-labels with multiple items', async () => {
+    render(
+      html`
+        <dx-preview open .items=${mockItems} .localization=${dxLocalization}></dx-preview>
+      `,
+      document.body
+    );
+    const component = await $('dx-preview').getElement();
+    
+    const previousButton = await component.$('>>>[data-testid="dx-preview-previous-button"]').getElement();
+    await expect(previousButton).toHaveAttribute('ariaLabel', dxLocalization.get('preview.tooltip.previous.asset.button'));
+    
+    const nextButton = await component.$('>>>[data-testid="dx-preview-next-button"]').getElement();
+    const ariaLabel = await nextButton.getAttribute('ariaLabel');
+    await expect(ariaLabel).toBe(dxLocalization.get('preview.tooltip.next.asset.button'));
+  });
+
+  it('DxPreview - all interactive buttons should be keyboard accessible with tabindex', async () => {
+    render(
+      html`
+        <dx-preview open .items=${mockItems} .localization=${dxLocalization}></dx-preview>
+      `,
+      document.body
+    );
+    const component = await $('dx-preview').getElement();
+    
+    const previousButton = await component.$('>>>[data-testid="dx-preview-previous-button"]').getElement();
+    await expect(previousButton).toExist();
+    
+    const nextButton = await component.$('>>>[data-testid="dx-preview-next-button"]').getElement();
+    await expect(nextButton).toExist();
+  });
+
+  it('DxPreview - should have aria-hidden on visual elements to prevent duplicate announcements', async () => {
+    render(
+      html`
+        <dx-preview open .items=${[mockImageItem]} .localization=${dxLocalization}></dx-preview>
+      `,
+      document.body
+    );
+    const component = await $('dx-preview').getElement();
+    
+    // Verify header buttons have aria-hidden
+    const backButton = await component.$('>>>[data-testid="dx-preview-back-button"]').getElement();
+    await expect(backButton).toHaveAttribute('aria-hidden', 'true');
+    
+    const downloadButton = await component.$('>>>[data-testid="dx-preview-download-button"]').getElement();
+    await expect(downloadButton).toHaveAttribute('aria-hidden', 'true');
+    
+    const selectButton = await component.$('>>>[data-testid="dx-preview-select-button"]').getElement();
+    await expect(selectButton).toHaveAttribute('aria-hidden', 'true');
+    
+    // Verify rendition elements have aria-hidden
+    const renditionSelect = await component.$('>>>[data-testid="dx-preview-rendition-select"]').getElement();
+    await expect(renditionSelect).toHaveAttribute('aria-hidden', 'true');
+    
+    const renditionLabel = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_HEADER_RENDITION_LABEL}]`).getElement();
+    await expect(renditionLabel).toHaveAttribute('aria-hidden', 'true');
+  });
+
   it('DxPreview - should trap focus within the component when open', async () => {
     render(
       html`

@@ -223,6 +223,97 @@ describe('DxDialog component testing', () => {
     expect(dialogRootChat).toBeDisplayed();
   });
 
+  it('DxDialog - should have proper ARIA attributes for accessibility', async () => {
+    render(
+      html`
+        <dx-dialog open dialogTitle="Accessible Dialog" .localization=${dxLocalization}></dx-dialog>
+      `,
+      document.body
+    );
+    let component = await $('dx-dialog').getElement();
+    let dialogElement = await component.$('>>>[role="dialog"]').getElement();
+    let backdrop = await component.$(`>>>[part="${DIALOG_PARTS.BACKDROP}"]`).getElement();
+    let closeButton = await component.$('>>>[part="icon-close"]').getElement();
+    let presentationElements = await component.$$('>>>[role="presentation"]');
+    
+    // Verify dialog element has proper role and ARIA attributes
+    await expect(dialogElement).toBeDisplayed();
+    await expect(dialogElement).toHaveAttribute('role', 'dialog');
+    await expect(dialogElement).toHaveAttribute('aria-modal', 'true');
+    await expect(dialogElement).toHaveAttribute('tabindex', '0');
+    
+    // Verify backdrop is hidden from screenreaders
+    await expect(backdrop).toHaveAttribute('aria-hidden', 'true');
+    
+    // Verify close button is keyboard accessible
+    await expect(closeButton).toHaveAttribute('tabindex', '0');
+    
+    // Verify presentation elements exist
+    await expect(presentationElements.length).toBeGreaterThan(0);
+  });
+
+  it('DxDialog - should close when Enter key is pressed on close button', async () => {
+    render(
+      html`
+        <dx-dialog open .localization=${dxLocalization}></dx-dialog>
+      `,
+      document.body
+    );
+    let component = await $('dx-dialog').getElement();
+    
+    // Tab to focus the close button
+    await browser.keys(['Tab']);
+    await browser.pause(100);
+    await browser.keys(['Enter']);
+    await browser.pause(400);
+    
+    await expect(component).not.toHaveAttribute('open');
+  });
+
+  it('DxDialog - should close when Space key is pressed on close button', async () => {
+    render(
+      html`
+        <dx-dialog open .localization=${dxLocalization}></dx-dialog>
+      `,
+      document.body
+    );
+    let component = await $('dx-dialog').getElement();
+    
+    // Tab to focus the close button
+    await browser.keys(['Tab']);
+    await browser.pause(100);
+    await browser.keys([' ']);
+    await browser.pause(400);
+    
+    await expect(component).not.toHaveAttribute('open');
+  });
+
+  it('DxDialog - should not have backdrop in chat mode for better accessibility', async () => {
+    render(
+      html`
+        <dx-dialog size="chat" open .localization=${dxLocalization}></dx-dialog>
+      `,
+      document.body
+    );
+    let component = await $('dx-dialog').getElement();
+    let backdrop = await component.$(`>>>[part="${DIALOG_PARTS.BACKDROP}"]`);
+    
+    await expect(backdrop).not.toBeExisting();
+  });
+
+  it('DxDialog - dialog title should be accessible to screenreaders', async () => {
+    const customTitle = 'Important Announcement';
+    render(
+      html`
+        <dx-dialog open dialogTitle="${customTitle}" .localization=${dxLocalization}></dx-dialog>
+      `,
+      document.body
+    );
+    let component = await $('dx-dialog').getElement();
+    
+    await expect(component).toHaveText(customTitle);
+  });
+
   it('DxDialog - should focus on the dialog element when focusDialog is called', async () => {
     render(
       html`

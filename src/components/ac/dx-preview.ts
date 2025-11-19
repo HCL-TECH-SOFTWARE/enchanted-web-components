@@ -148,9 +148,9 @@ export class DxPreview extends DxAcBaseElement {
 
     if (changedProperties.has('open') && this.open) {
       requestAnimationFrame(() => {
-        const previewHeader = this.renderRoot?.querySelector('[data-testid="dx-preview-header"]');
-        if (previewHeader instanceof HTMLElement) {
-          previewHeader.focus();
+        const previewDialog = this.renderRoot?.querySelector('[role="dialog"]') as HTMLElement;
+        if (previewDialog) {
+          previewDialog.focus();
         }
       });
     }
@@ -674,15 +674,17 @@ export class DxPreview extends DxAcBaseElement {
     const zoomOutLabel = this.getMessage('preview.tooltip.zoom.out.button');
     const zoomInLabel = this.getMessage('preview.tooltip.zoom.in.button');
     const percentageLabel = this.getMessage(this.zoomPercentage === 100 ? 'preview.tooltip.zoom.to.fit' : 'preview.tooltip.view.actual.size');
+    const titleHeader = this.customHeaderTitle ?? this.items[this.currentItemIndex]?.title ?? this.getMessage('preview.header.title');
     return html`
     <div part=${PREVIEW_PARTS.PREVIEW_BACKDROP} 
       ?open=${this.open} 
       tabindex="-1"
+      role="presentation"
     >
-      <div part=${PREVIEW_PARTS.PREVIEW_CONTAINER}>
-        <div part=${PREVIEW_PARTS.PREVIEW_HEADER} data-testid="dx-preview-header" tabindex="-1">
+      <div part=${PREVIEW_PARTS.PREVIEW_CONTAINER} role="dialog" aria-modal="true" tabindex="-1" aria-label=${titleHeader} aria-modal="true">
+        <div part=${PREVIEW_PARTS.PREVIEW_HEADER} data-testid="dx-preview-header">
           <div part=${PREVIEW_PARTS.PREVIEW_HEADER_START_ACTIONS}>
-            <dx-tooltip tooltiptext=${this.getMessage('preview.tooltip.back.button')} exportparts=${TOOLTIP_EXPORT_PARTS} aria-atomic="true">
+            <dx-tooltip tooltiptext=${this.getMessage('preview.tooltip.back.button')} exportparts=${TOOLTIP_EXPORT_PARTS}>
               <dx-icon-button
                 slot="target"
                 .icon=${ this.isLtr
@@ -694,14 +696,12 @@ export class DxPreview extends DxAcBaseElement {
                 data-testid="dx-preview-back-button"
                 size=${ICON_BUTTON_SIZES.MEDIUM}
                 ariaLabel=${this.getMessage('preview.tooltip.back.button')}
+                aria-hidden="true"
               >
               </dx-icon-button>
             </dx-tooltip>
             <span part=${PREVIEW_PARTS.PREVIEW_HEADER_TITLE}>
-              ${this.customHeaderTitle ??
-              (this.currentItemIndex !== null
-                ? this.items[this.currentItemIndex]?.title
-                : nothing)}
+              ${titleHeader}
             </span>
           </div>
           ${ (isImageType && currentItemRenditions && currentItemRenditions.length > 0) ? html`<div part=${PREVIEW_PARTS.PREVIEW_HEADER_MIDDLE_ACTIONS}>
@@ -723,8 +723,7 @@ export class DxPreview extends DxAcBaseElement {
                 @change=${this._handleRenditionSelectChange}
                 data-testid="dx-preview-rendition-select"
                 part=${PREVIEW_PARTS.PREVIEW_HEADER_RENDITION_INPUT_SELECT}
-                role="menu"
-                aria-haspopup="true"
+                aria-hidden="true"
               >
               </dx-input-select>
             </div>` : nothing}
@@ -740,6 +739,7 @@ export class DxPreview extends DxAcBaseElement {
                     data-testid="dx-preview-download-button"
                     size=${ICON_BUTTON_SIZES.MEDIUM}
                     ariaLabel=${downloadLabel}
+                    aria-hidden="true"
                   >
                   </dx-icon-button>
                 </dx-tooltip>
@@ -750,6 +750,7 @@ export class DxPreview extends DxAcBaseElement {
                   variant=${BUTTON_VARIANT.BUTTON_CONTAINED_VAR}
                   @click=${this._handleSelectButtonClick}
                   data-testid="dx-preview-select-button"
+                  aria-hidden="true"
                   >
                 </dx-button>
              ` : nothing }
@@ -815,7 +816,7 @@ export class DxPreview extends DxAcBaseElement {
                   data-testid="dx-preview-next-button"
                   size=${ICON_BUTTON_SIZES.MEDIUM}
                   inversecolor
-                  .ariaLabel=${nextLabel}
+                  ariaLabel=${nextLabel}
                 >
                 </dx-icon-button>
               </dx-tooltip>
@@ -840,7 +841,7 @@ export class DxPreview extends DxAcBaseElement {
                       data-testid="dx-preview-zoom-out-button"
                       size=${ICON_BUTTON_SIZES.MEDIUM}
                       inversecolor
-                      .ariaLabel=${zoomOutLabel}
+                      ariaLabel=${zoomOutLabel}
                     >
                     </dx-icon-button>
                   </dx-tooltip>
