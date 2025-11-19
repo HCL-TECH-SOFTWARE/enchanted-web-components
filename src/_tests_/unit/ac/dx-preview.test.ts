@@ -1226,4 +1226,32 @@ describe('DxPreview component testing', () => {
     activeTestId = await getActiveElementTestId();
     await expect(activeTestId).toBe(lastElementTestId);
   });
+
+  it('DxPreview - should not reset the currentItemIndex when back button is click', async () => {
+    const previewBack = fn();
+    const initialIndex = 1;
+
+    render(
+      html`
+        <dx-preview open .items=${[mockImageItem]} @preview-back=${previewBack} .currentItemIndex=${initialIndex}></dx-preview>
+      `,
+      document.body
+    );
+
+    const component = await $('dx-preview').getElement();
+    await expect(await component.getProperty('currentItemIndex')).toEqual(initialIndex);
+
+    let backButton = await component.$(`>>>[data-testid="dx-preview-back-button"]`).getElement();
+    await backButton.waitForClickable();
+    await backButton.moveTo();
+    backButton = await component.$(`>>>[data-testid="dx-preview-back-button"]`).getElement();
+    await backButton.click();
+
+    await expect(previewBack).toHaveBeenCalled();
+
+    const indexAfterBack = await component.getProperty('currentItemIndex');
+    await expect(indexAfterBack).toEqual(initialIndex);
+
+    await expect(await component.getProperty('open')).toBe(false);
+  });
 });

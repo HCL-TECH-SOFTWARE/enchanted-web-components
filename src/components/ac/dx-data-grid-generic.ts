@@ -867,8 +867,14 @@ export class DxDataGridGeneric extends DxAcBaseElement {
         const tableBody = html`
           ${this.data.searchItems.map((data: Record<string, unknown>, index: number) => {
           const rowContent = columnsObj
-            .map((header: DxDataGridColDef) => { return getObjectValue(this.specialFields, data, header.field, header.keyForStringify); })
-            .join(', ');
+            .map((header: DxDataGridColDef) => {
+              const rowValues = [getObjectValue(this.specialFields, data, header.field, header.keyForStringify)];
+              const subtitle = header.subtitle?.(data, header); 
+
+              if (subtitle) rowValues.push(subtitle);
+              
+              return rowValues.join(', ');
+            }).join(', ');
 
           return html`
             <tr
@@ -910,7 +916,11 @@ export class DxDataGridGeneric extends DxAcBaseElement {
               const avatarName = getFormattedString(getObjectValue(this.specialFields, data, header.iconTypeTooltip));
               return html`
               <td 
-                part="${DATA_GRID_PARTS.TABLE_CELL_CONTAINER} ${this.customeTableCellPart.replace('{index}', ind.toString())}"
+                part="${
+                  header.subtitle && header.subtitle(data, header)
+                  ? DATA_GRID_PARTS.TABLE_CELL_CONTAINER_MULTI_LINES
+                  : DATA_GRID_PARTS.TABLE_CELL_CONTAINER
+                } ${this.customeTableCellPart.replace('{index}', ind.toString())}"
                 role="gridcell"
               >
                 <div part="${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV.replace('{index}', ind.toString())}">
@@ -939,8 +949,15 @@ export class DxDataGridGeneric extends DxAcBaseElement {
                           part="${DATA_GRID_PARTS.TABLE_CELL_LINK}"
                           tabindex="-1"
                         >
-                          ${cellValue}
+                          <span part="${DATA_GRID_PARTS.TABLE_CELL_TEXT}">${cellValue}</span>
                         </a>
+                        ${
+                          header.subtitle && header.subtitle(data, header)
+                          ? html`
+                            <p part="${DATA_GRID_PARTS.TABLE_CELL_SUBTITLE}">${header.subtitle(data, header)}</p>
+                          ` 
+                          : nothing
+                        }
                       `
                       : html`
                         <span

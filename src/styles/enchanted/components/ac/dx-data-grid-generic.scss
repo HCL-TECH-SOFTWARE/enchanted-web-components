@@ -123,12 +123,17 @@
     background-color: palette.clr(light, action, hover);
   }
 
-  &::part(table-cell-container) {
+  &::part(table-cell-container),
+  &::part(table-cell-container-multi-lines) {
     display: inline-flex;
     min-width: 0px;
     flex: 1 1 0%;
     padding: 8px 12px;
     box-sizing: border-box;
+  }
+
+  &::part(table-cell-container-multi-lines) {
+    padding: 5px 12px;
   }
   
   &::part(table-header-container) {
@@ -396,6 +401,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
+  }
+
+  &::part(table-cell-subtitle) {
+    @include typography.caption;
+    margin: 0;
+    color: palette.clr(light, text, secondary);
   }
 
   &::part(table-header-menu-item):focus {

@@ -238,7 +238,6 @@ export class DxPreview extends DxAcBaseElement {
     this.hasError = false;
     this.isMediaReady = false;
     this.errorType = null;
-    this.currentItemIndex = 0;
     this.selectedRenditionId = null;
     this.currentDisplaySource = null;
     this.zoomPercentage = this._ZOOM_DEFAULT;

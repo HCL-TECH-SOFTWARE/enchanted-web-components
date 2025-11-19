@@ -23,4 +23,5 @@ export type SampleDataRow = {
   status: 'published'| 'draft',
   updated: string;
   contentPath: string;
+  subtitle: string;
 };
