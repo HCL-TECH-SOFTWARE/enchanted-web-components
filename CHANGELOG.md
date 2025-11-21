@@ -5,6 +5,7 @@
 ### Added
 
 ### Fixed
+- Fixed `dx-breadcrumbs` component list styling by adding `list-style-type: none` to ensure proper rendering
 
 ### Changed
 
