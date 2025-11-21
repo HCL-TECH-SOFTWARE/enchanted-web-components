@@ -173,10 +173,20 @@ export class DxInputSelect extends DxAcBaseElement {
     }
   }
 
+  private ignoreNextFocusOut = false;
+
   private handleFocusOut(event: FocusEvent) {
-    if (!this.contains(event.relatedTarget as Node)) {
-      this.toggleDropDown = false;
+      // If user interacted with the dropdown list (e.g., scrollbar), ignore this focusout
+    if (this.ignoreNextFocusOut) {
+      this.ignoreNextFocusOut = false;
+      return;
     }
+    const related = event.relatedTarget as Element | null;
+      // If focus moves anywhere inside this component, do nothing
+    if (related && this.contains(related)) {
+      return;
+    }
+    this.toggleDropDown = false;
   }
 
   /**
@@ -336,7 +346,8 @@ export class DxInputSelect extends DxAcBaseElement {
         >
         </dx-button>
         ${!this.disabled && this.toggleDropDown ? html `
-          <dx-list exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="dx-input-select-list" id="list-${this.field}" role="listbox">
+          <dx-list exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="dx-input-select-list" id="list-${this.field}" role="listbox"
+            @mousedown=${() => { this.ignoreNextFocusOut = true; }}>
             ${options.map((option: string | OptionData) => {return this.getSelectedOption(option);})}
           </dx-list>
         ` : nothing}
