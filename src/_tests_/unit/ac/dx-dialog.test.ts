@@ -154,13 +154,15 @@ describe('DxDialog component testing', () => {
       document.body
     );
 
-    let component = await document.querySelector('dx-dialog');
-    const dialog = await document.querySelector('dx-dialog');
-    const activeElement = dialog?.shadowRoot?.querySelector(':focus')?.getAttribute('part');
-    await expect(component).toBeDisplayed();
-    const dialogElement = component?.shadowRoot?.querySelector('[role="dialog"]')?.getAttribute('part');
+    await browser.pause(10); // Check immediately after open
 
-    await expect(dialogElement).toEqual(activeElement);
+    let component = await document.querySelector('dx-dialog');
+    const dialogElement = component?.shadowRoot?.querySelector(`[part*="${DIALOG_PARTS.PAPER_XL}"]`) as HTMLElement;
+    await expect(component).toBeDisplayed();
+
+    // Dialog should be focused initially
+    const hasFocus = dialogElement === component?.shadowRoot?.activeElement;
+    await expect(hasFocus).toBeTruthy();
   });
 
   it('DxDialog - support size md', async () => {

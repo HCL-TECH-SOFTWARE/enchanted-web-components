@@ -5,8 +5,12 @@
 ### Added
 
 ### Fixed
+- Refactored `dx-dialog` component to use reactive state properties (`@state()`) for ARIA attributes instead of direct DOM manipulation, improving maintainability and alignment with Lit's reactive programming model
+- Fixed `dx-dialog` test for auto-focus behavior to properly check dialog element focus state
 
 ### Changed
+- Changed `dx-dialog` accessibility implementation to use Lit reactive state for `role`, `aria-label`, `tabindex`, and content visibility management
+- Updated `dx-dialog` live region to be part of the template instead of dynamically created
 
 ### Breaking changes
 

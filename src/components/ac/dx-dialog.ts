@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
 
@@ -51,6 +51,21 @@ export class DxDialog extends DxAcBaseElement {
   @property({ type: Boolean })
   removeBorder = false;
 
+  @state()
+  private _dialogRole: 'dialog' | null = null;
+
+  @state()
+  private _dialogAriaLabel: string | null = null;
+
+  @state()
+  private _dialogTabindex: string | null = null;
+
+  @state()
+  private _contentAriaHidden: boolean = false;
+
+  @state()
+  private _liveRegionText: string = '';
+
   connectedCallback(): void {
     super.connectedCallback();
     if (this.dialogTitle === '') {
@@ -75,45 +90,27 @@ export class DxDialog extends DxAcBaseElement {
   private async _performDialogFocusSequence() {
     await this.updateComplete;
 
-    // Use part selector for refocus scenarios
-    const dialogElement = this.renderRoot.querySelector(`[part*="${this.getPaperPart()}"]`) as HTMLElement;
-    const contentWrapper = dialogElement?.querySelector('div[role="presentation"]') as HTMLElement;
+    // Set reactive properties for initial announcement
+    // Note: "dialog" is a standard ARIA role term that screen readers handle automatically
+    this._liveRegionText = `${this.dialogTitle}, dialog`;
+    this._dialogRole = 'dialog';
+    this._dialogAriaLabel = this.dialogTitle;
+    this._dialogTabindex = '-1';
+    this._contentAriaHidden = true;
 
+    // Wait for render to complete
+    await this.updateComplete;
+
+    // Focus the dialog element
+    const dialogElement = this.renderRoot.querySelector(`[part*="${this.getPaperPart()}"]`) as HTMLElement;
     if (!dialogElement) return;
 
-    // For NVDA: Create a live region to announce the dialog opening
-    // This ensures NVDA announces the dialog even before focus moves
-    let liveRegion = this.renderRoot.querySelector('#dialog-announce') as HTMLElement;
-    if (!liveRegion) {
-      liveRegion = document.createElement('div');
-      liveRegion.id = 'dialog-announce';
-      liveRegion.className = 'dx-dialog-live-region';
-      liveRegion.setAttribute('role', 'status');
-      liveRegion.setAttribute('aria-live', 'polite');
-      liveRegion.setAttribute('aria-atomic', 'true');
-      dialogElement.parentElement?.appendChild(liveRegion);
-    }
-    // Announce for NVDA
-    liveRegion.textContent = `${this.dialogTitle}, dialog`;
-
-    // Set role="dialog" and aria-label for VoiceOver announcement
-    dialogElement.setAttribute('role', 'dialog');
-    dialogElement.setAttribute('aria-label', this.dialogTitle);
-    dialogElement.setAttribute('aria-modal', 'true');
-
-    // Make content hidden temporarily for clean announcement
-    if (contentWrapper) {
-      contentWrapper.setAttribute('aria-hidden', 'true');
-    }
-
-    // Temporarily make dialog focusable and focus it for announcement
-    dialogElement.setAttribute('tabindex', '-1');
     dialogElement.focus();
 
     // CRITICAL: Remove role and aria-label BEFORE moving focus to prevent VoiceOver from including dialog context
     // This is the key - cleanup happens BEFORE focus moves, not after
     setTimeout(() => {
-      this._cleanupDialogAttributes(dialogElement, contentWrapper, liveRegion);
+      this._cleanupDialogAttributes();
       // Move focus after a tiny additional delay to ensure cleanup is complete
       setTimeout(() => {
         this._focusFirstElement();
@@ -124,26 +121,15 @@ export class DxDialog extends DxAcBaseElement {
   /**
    * Helper to clean up dialog attributes after announcement
    */
-  private _cleanupDialogAttributes(dialogElement: HTMLElement, contentWrapper: HTMLElement | undefined, liveRegion?: HTMLElement) {
-    dialogElement.removeAttribute('tabindex');
-
-    // CRITICAL: Remove aria-label to prevent it from being announced with child elements
-    dialogElement.removeAttribute('aria-label');
-
+  private _cleanupDialogAttributes() {
     // CRITICAL: Remove role="dialog" to prevent VoiceOver from announcing dialog context with children
     // VoiceOver includes "dialog" and counts items when this role is present during child focus
     // We remove it entirely - the modal behavior is maintained by aria-modal on the container
-    dialogElement.removeAttribute('role');
-
-    // Remove aria-hidden from content so child elements are properly accessible
-    if (contentWrapper) {
-      contentWrapper.removeAttribute('aria-hidden');
-    }
-
-    // Clear the live region after announcement
-    if (liveRegion) {
-      liveRegion.textContent = '';
-    }
+    this._dialogRole = null;
+    this._dialogAriaLabel = null;
+    this._dialogTabindex = null;
+    this._contentAriaHidden = false;
+    this._liveRegionText = '';
   }
 
   /**
@@ -282,11 +268,16 @@ export class DxDialog extends DxAcBaseElement {
         <div role="presentation" part=${isChatMode ? DIALOG_PARTS.DIALOG_ROOT_CHAT : DIALOG_PARTS.DIALOG_ROOT}>
           ${isChatMode ? nothing : html`<div aria-hidden="true" part=${DIALOG_PARTS.BACKDROP} @click=${debounce(this.handleClose, 300)}></div>`}
           <div tabindex="-1" role="presentation" part=${this.getContainerPart()}>
+            <!-- Live region for NVDA screen reader announcements -->
+            <div id="dialog-announce" class="dx-dialog-live-region" role="status" aria-live="polite" aria-atomic="true">${this._liveRegionText}</div>
             <div
               part=${this.getPaperPart()}
+              role=${this._dialogRole || nothing}
+              aria-label=${this._dialogAriaLabel || nothing}
+              tabindex=${this._dialogTabindex || nothing}
               aria-modal="true"
             >
-              <div role="presentation" aria-hidden="true">
+              <div role="presentation" aria-hidden=${this._contentAriaHidden || nothing}>
                 <div role="presentation">
                   <div ?part=${this.overrideTitle ? DIALOG_PARTS.TITLE : ""}>
                     ${this.overrideTitle
