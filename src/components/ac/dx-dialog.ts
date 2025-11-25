@@ -277,7 +277,7 @@ export class DxDialog extends DxAcBaseElement {
               tabindex=${this._dialogTabindex || nothing}
               aria-modal="true"
             >
-              <div role="presentation" aria-hidden=${this._contentAriaHidden || nothing}>
+              <div role="presentation" aria-hidden=${this._contentAriaHidden}>
                 <div role="presentation">
                   <div ?part=${this.overrideTitle ? DIALOG_PARTS.TITLE : ""}>
                     ${this.overrideTitle
