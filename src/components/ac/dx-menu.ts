@@ -133,7 +133,6 @@ export class DxMenu extends DxAcBaseElement {
           <div part=${MENU_PARTS.PAPER_ROOT} id="menu${this.componentId}" style="visibility: hidden;">
             <dx-list
               role="menu"
-              class="size-${this.size}"
               exportparts="${Object.values(LIST_PARTS).join(',')}"
               @menuItemClick=${this.handleMenuItemClick}
             >
