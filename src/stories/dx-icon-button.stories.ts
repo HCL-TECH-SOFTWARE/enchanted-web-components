@@ -48,12 +48,12 @@ const meta: Meta<DxIconButtonProps> = {
     <dx-icon-button
       size="${args.size}"
       ?withPadding=${args.withPadding}
+      ?disabled=${args.disabled}
       .icon=${
         html`
           ${svgIconSearch}
         `
       }
-      ?disabled=${args.disabled}
       ?inverseColor=${args.inverseColor}
     ></dx-icon-button>
   `;},
