@@ -40,6 +40,13 @@ export class DxIconButton extends DxAcBaseElement {
   @property({ type: String })
   imgurl = '';
 
+  private _handleClick(event: Event) {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
   @property()
   icon: TemplateResult | undefined;
   
@@ -70,9 +77,10 @@ export class DxIconButton extends DxAcBaseElement {
         ?disabled=${this.disabled}
         .icon=${this.icon}
         ariaLabel=${this.ariaLabel}
-      >
-      </dx-button>
-    `;
+        @click=${this._handleClick}
+        >
+        </dx-button>
+      `;
   }
 }
 

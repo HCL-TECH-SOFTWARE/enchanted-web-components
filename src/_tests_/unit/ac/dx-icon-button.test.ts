@@ -144,7 +144,7 @@ describe('DxIconButton component testing', () => {
     
     const dxButton = iconButton.shadowRoot?.querySelector('dx-button');
     if (dxButton) {
-      await (dxButton as DxIconButton).updateComplete;
+      await (dxButton as unknown as DxIconButton).updateComplete;
     }
     
     // Call _focusButton to set focus
