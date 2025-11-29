@@ -38,6 +38,7 @@
 - Added `focusOnLoadingContainer()` public method in `dx-data-grid-generic` component
 - Added `focusDialog()` public method in `dx-dialog` component
 - Added `subtitle` part to `dx-data-grid-generic` component.
+- Added new `placement` and `size` property for `dx-menu` component.
 
 ### Fixed
 - Fixed screen reader accessibility in `dx-preview` component by adding proper ARIA labels, roles, and attributes
@@ -59,6 +60,7 @@
 - Added `aria-colcount`, `aria-rowcount`, and `aria-busy` attributes to table element
 - Added `role="status"` and `aria-label` to loading container
 - Wrapped table header and body in `<thead>` and `<tbody>` elements for better semantic structure
+- Refactored menu placement logic using a switch statment for clarity and maintainability.
 - Using debug instead of console as logging framework. `export DEBUG=enchanted-web-components:*` is enabling the specific debug messages
 
 ## 1.1.0

@@ -51,13 +51,34 @@
     position: absolute;
     overflow-y: auto;
     overflow-x: hidden;
-    min-width: 16px;
+    // The min-width can be overridden by setting the --dropdown-menu-min-width CSS variable and it will be set by actual UI side as required.
+    min-width: var(--dropdown-menu-min-width, 16px);
     min-height: 16px;
-    max-width: calc(100% - 32px);
     max-height: calc(100% - 32px);
-    width: 100px;
+    width: auto;
     border-radius: 4px;
     outline: 0px;
     padding: 0px;
+  }
+
+  &::part(unordered-list) {
+    padding: 5px 0px;
+  }
+
+  &[size="sm"] dx-menu-item::part(menu-item) {
+    font-size: 12px;
+    line-height: 16px;
+    min-height: 20px;
+    padding: 3px 0px;
+  }
+
+  &[size="sm"]::part(unordered-list) {
+    padding: 4px 0px;
+  }
+  
+  &[size="sm"]::part(paper-root),
+  &[size="md"]::part(paper-root) {
+    width: auto;
+    max-width: calc(100% - 32px);
   }
 }

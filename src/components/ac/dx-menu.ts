@@ -36,6 +36,12 @@ export class DxMenu extends DxAcBaseElement {
   @property({ type: Number })
   menuDelay = 300;
 
+  @property({ type: String, reflect: true })
+  placement: 'bottom-start' | 'bottom-end' = 'bottom-start';
+
+  @property({ type: String, reflect: true })
+  size: 'sm' | 'md' = 'md';
+
   @state() componentId = uuid();
   @state() openMenu = false;
 
@@ -61,10 +67,21 @@ export class DxMenu extends DxAcBaseElement {
       const targetLeft = targetPosition.left;
       const targetRight = targetPosition.right;
       const targetTop = targetPosition.top + targetPosition.height;
+      const menuWidth = menu.offsetWidth;
       menu.style.position = 'absolute';
-      menu.style.left = `${isLTR() ? targetLeft : targetRight-100}px`;
       menu.style.top = `${targetTop}px`;
       menu.style.visibility = 'visible';
+
+      switch (this.placement) {
+        case 'bottom-start':
+          menu.style.left = `${isLTR() ? targetLeft : targetRight - menuWidth}px`;
+          break;
+        case 'bottom-end':
+          menu.style.left = `${targetRight - menuWidth}px`;
+          break;
+        default:
+          menu.style.left = `${isLTR() ? targetLeft : targetRight - menuWidth}px`;   
+      }  
     }
   }
 

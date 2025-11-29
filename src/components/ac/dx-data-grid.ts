@@ -958,6 +958,7 @@ export class DxDataGrid extends DxAcBaseElement {
 														" 
 														@change="${this.handleOverFlowMenu}"
 														menuDelay=0
+														style="--dropdown-menu-min-width: 100px;"
 													>
 														<div slot="target-anchor">
 															<dx-icon-button
