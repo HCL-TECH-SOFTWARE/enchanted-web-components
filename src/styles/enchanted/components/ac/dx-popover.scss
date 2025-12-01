@@ -41,32 +41,35 @@
         visibility: visible;
     }
 
-    &[theme='light']::part(wrapper) {
+    // Light theme (default - when inverse is false or not set)
+    &:not([inverse])::part(wrapper) {
         background-color: palette.clr('light', 'background', 'paper');
         color: map.get(themeMap.$enchantedPalette, BLACK87P);
     }
 
-    &[theme='light']::part(arrow) {
+    &:not([inverse])::part(arrow) {
         background-color: palette.clr('light', 'background', 'paper');
     }
 
-    &[theme='dark']::part(wrapper) {
+    // Dark theme (when inverse is true)
+    &[inverse]::part(wrapper) {
         background: rgb(56, 56, 56, 1);
         color: map.get(themeMap.$enchantedPalette, WHITE100P);
         box-shadow: 
             0px 4px 16px rgba(0, 0, 0, 0.12),
             0px 8px 24px rgba(0, 0, 0, 0.14);
     }
-    &[theme='dark']::part(arrow) {
+    
+    &[inverse]::part(arrow) {
         background: rgb(56, 56, 56, 1);
         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     }
 
-    &[theme='dark']::part(container),
-    &[theme='dark']::part(label),
-    &[theme='dark']::part(text),
-    &[theme='dark']::part(close-icon),
-    &[theme='dark']::part(close-icon-rtl)
+    &[inverse]::part(container),
+    &[inverse]::part(label),
+    &[inverse]::part(text),
+    &[inverse]::part(close-icon),
+    &[inverse]::part(close-icon-rtl)
     {
         color: map.get(themeMap.$enchantedPalette, WHITE100P);
         background: transparent;
@@ -86,7 +89,6 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        padding: 12px;
         gap: 8px;
         inline-size: calc(100% - 40px);
     }
@@ -164,6 +166,7 @@
         direction: rtl;
         text-align: right;
         align-items: flex-end;
+        display: flex;
     } 
   
     &::part(arrow) {
@@ -206,7 +209,7 @@
 
     &[arrow="1:00"]::part(arrow) {
         top: -8px;
-        right: 12px;
+        right: 18px;
         transform: rotate(0)
     }
 

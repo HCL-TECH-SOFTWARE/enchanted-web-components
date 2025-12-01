@@ -37,7 +37,8 @@
   &::part(avatar-div-circular) {
     height: 24px;
     width: 24px;
-    outline: 1px solid palette.$avatar-border-color;
+    box-sizing: border-box;
+    border: 1px solid palette.clr(light, border, secondary);
     border-radius: 50%;
     display: flex;
     -webkit-box-pack: center;
@@ -47,31 +48,28 @@
   }
 
   &::part(avatar-span-rounded) {
-    height: 16px;
-    width: 16px;
     @include typography.caption;
     border-radius: 2px;
-    padding: 5px;
-    border-radius: 2px;
+    color: var(--icon-theme-color);
   }
 
   &::part(avatar-span-circular) {
     @include typography.caption;
     border-radius: 50%;
-    padding: 5px;
+    color: var(--icon-theme-color);
   }
 
   &::part(avatar-icon-rounded) {
     height: 16px;
     width: 16px;
     border-radius: 2px;
-    padding: 4px;
+    --icon-theme-size: 16px;
   }
 
   &::part(avatar-icon-circular) {
-    height: 10px;
-    width: 12px;
-    padding: 5px;
+    line-height: 0;
+    box-sizing: border-box;
+    --icon-theme-size: 16px;
   }
 
   &::part(avatar-icon-template-rounded) {
@@ -81,20 +79,15 @@
   }
 
   &::part(avatar-icon-template-circular) {
-    height: 10px;
-    width: 12px;
     line-height: 0;
     box-sizing: border-box;
-    padding: 5px;
-    --icon-theme-height: 10px;
-    --icon-theme-width: 12px;
+    --icon-theme-size: 16px;
   }
 
   &::part(avatar-image-rounded) {
     height: 24px;
     width: 24px;
     object-fit: cover;
-    align-self: baseline;
   }
 
   &::part(avatar-image-circular) {
@@ -111,8 +104,8 @@
   }
 
   &::part(avatar-default-color) {
-    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, GRAY800)};
-    background-color: map.get(themeMap.$enchantedPalette, GRAY100);
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, NG800)};
+    background-color: map.get(themeMap.$enchantedPalette, NG100);
   }
 
   &::part(avatar-red) {

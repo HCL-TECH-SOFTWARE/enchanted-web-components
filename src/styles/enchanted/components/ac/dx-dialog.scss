@@ -281,7 +281,7 @@
   // Visually hidden live region for screen reader announcements
   // Uses the "visually hidden" pattern to hide content from sighted users
   // while keeping it accessible to screen readers
-  .dx-dialog-live-region {
+  &::part(live-region) {
     position: absolute;
     left: -10000px;
     width: 1px;

@@ -269,7 +269,7 @@ export class DxDialog extends DxAcBaseElement {
           ${isChatMode ? nothing : html`<div aria-hidden="true" part=${DIALOG_PARTS.BACKDROP} @click=${debounce(this.handleClose, 300)}></div>`}
           <div tabindex="-1" role="presentation" part=${this.getContainerPart()}>
             <!-- Live region for NVDA screen reader announcements -->
-            <div id="dialog-announce" class="dx-dialog-live-region" role="status" aria-live="polite" aria-atomic="true">${this._liveRegionText}</div>
+            <div part="live-region" id="dialog-announce" role="status" aria-live="polite" aria-atomic="true">${this._liveRegionText}</div>
             <div
               part=${this.getPaperPart()}
               role=${this._dialogRole || nothing}

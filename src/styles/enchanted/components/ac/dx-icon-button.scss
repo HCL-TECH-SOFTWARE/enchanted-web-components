@@ -62,6 +62,13 @@
     border-radius: 2px;
     padding: 0px;
   }
+  &::part(icon-button-contained-disabled),
+  &::part(icon-button-contained-disabled-inverse) {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.38;
+    border: none;
+  }
 
   &::part(icon-button-contained),
   &::part(icon-button-contained-inverse) {
@@ -107,13 +114,6 @@
 
   &::part(icon-button-contained-focused-inverse):hover {
     background-color: palette.clr(dark, action, hover);
-  }
-
-  &::part(icon-button-contained-disabled),
-  &::part(icon-button-contained-disabled-inverse) {
-    border: none;
-    --icon-theme-color: #{palette.clr(dark, action, disabled)};
-    background-color: transparent;
   }
 
   &::part(icon-button-contained):hover,

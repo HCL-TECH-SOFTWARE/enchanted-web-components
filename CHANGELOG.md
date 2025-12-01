@@ -3,6 +3,18 @@
 ## Unreleased
 
 ### Added
+- Added a new storybook component for `dx-popover`.
+- Added new property for disabling popover on hover in `dx-popover`.
+
+### Fixed
+- Fixed the disabled state bug of `dx-icon-button`.
+
+### Changed
+- Changed `dx-dialog` live region styling from a CSS class selector to a `part` attribute with `::part()` selector, ensuring proper accessibility and visual hiding inside shadow DOM. This resolves issues with screen reader announcements and visible text flashes on dialog open.
+
+### Breaking changes
+
+## 1.2.1
 
 ### Fixed
 - Refactored `dx-dialog` component to use reactive state properties (`@state()`) for ARIA attributes instead of direct DOM manipulation, improving maintainability and alignment with Lit's reactive programming model
@@ -14,8 +26,7 @@
 ### Changed
 - Changed `dx-dialog` accessibility implementation to use Lit reactive state for `role`, `aria-label`, `tabindex`, and content visibility management
 - Updated `dx-dialog` live region to be part of the template instead of dynamically created
-
-### Breaking changes
+- Set the correct border and outline color on the `dx-avatar` component
 
 ## 1.2.0
 

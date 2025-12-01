@@ -28,9 +28,9 @@ const meta: Meta<DxIconButtonProps> = {
   argTypes: {
     size: {
       control: { type: 'select' },
-      options: ['SMALL', 'MEDIUM', 'LARGE'],
+      options: [ICON_BUTTON_SIZES.SMALL, ICON_BUTTON_SIZES.MEDIUM, ICON_BUTTON_SIZES.FAB],
       description: 'The size of the icon button.',
-      table: { defaultValue: { summary: 'SMALL' } },
+      table: { defaultValue: { summary: ICON_BUTTON_SIZES.SMALL } },
     },
     withPadding: { control: 'boolean', description: 'If true, adds padding to the button.', table: { defaultValue: { summary: 'false' } } },
     imgurl: { control: 'text', description: 'The image URL for the icon.', table: { defaultValue: { summary: '' } } },
@@ -48,12 +48,12 @@ const meta: Meta<DxIconButtonProps> = {
     <dx-icon-button
       size="${args.size}"
       ?withPadding=${args.withPadding}
+      ?disabled=${args.disabled}
       .icon=${
         html`
           ${svgIconSearch}
         `
       }
-      ?disabled=${args.disabled}
       ?inverseColor=${args.inverseColor}
     ></dx-icon-button>
   `;},

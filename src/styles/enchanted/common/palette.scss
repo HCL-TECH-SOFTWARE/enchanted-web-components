@@ -19,9 +19,6 @@
 // To-Do: Must update the below colors with the latest values from the Enchanted palette, ask UIUX
 /* start - colors not found in enchanted palette */
 $outline-color: #0029A9;
-$avatar-border-color: #BBBBBB;
-$box-shadow-color: rgba(0, 0, 0, 0.1);
-$tag-cloud-background: rgba(237, 237, 237);
 /* end - colors not found in enchanted palette */
 
 @function clr($mode, $type, $property) {

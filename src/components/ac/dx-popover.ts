@@ -12,7 +12,7 @@
 
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 
 //helper import
@@ -38,18 +38,28 @@ export class DxPopover extends DxAcBaseElement {
 
   @property({ type: Boolean }) showCloseIcon = false;
 
-  @property({ type: String }) theme: 'light' | 'dark' = 'light';
+  @property({ type: Boolean, reflect: true }) inverse = false;
 
   @property({ type: String, reflect: true }) arrow?: DxPopoverArrowPosition;
 
   @property({ type: Boolean }) withpadding = false;
 
-  @state()
-  private isLTR: boolean = getCurrentDirection() === LOCALE_DIRECTIONS.LTR;
-  
-  private _showPopover = () => { this.open = true; };
+  @property({ type: Boolean }) disableHover = false;
 
-  private _hidePopover = () => { this.open = false; };
+  // Used getter to make sure if the direction changes should update
+  private get isLTR(): boolean {
+    return getCurrentDirection() === LOCALE_DIRECTIONS.LTR;
+  }
+  
+  private _showPopover = () => { 
+    if (this.disableHover) return; // <-- Block hover
+    this.open = true;
+  };
+
+  private _hidePopover = () => {
+    if (this.disableHover) return;
+    this.open = false;
+  };
 
   private _onCloseClick = (e: Event) => {
     e.stopPropagation();
@@ -65,7 +75,7 @@ export class DxPopover extends DxAcBaseElement {
         @pointerleave=${this._hidePopover}
       ></slot>
     </div>
-    <div part="${POPOVER_PARTS.POPOVER_WRAPPER}" theme=${this.theme} aria-label=${this.label}>
+    <div part="${POPOVER_PARTS.POPOVER_WRAPPER}" ?inverse=${this.inverse} aria-label=${this.label}>
       ${this.arrow ? html`
       <div part="${POPOVER_PARTS.POPOVER_ARROW}"></div>`: nothing}
         <div part=${this.isLTR ? POPOVER_PARTS.POPOVER_CONTAINER : POPOVER_PARTS.POPOVER_CONTAINER_RTL}>

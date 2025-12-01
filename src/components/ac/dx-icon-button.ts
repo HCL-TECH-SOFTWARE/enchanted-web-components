@@ -40,6 +40,13 @@ export class DxIconButton extends DxAcBaseElement {
   @property({ type: String })
   imgurl = '';
 
+  private _handleClick(event: Event) {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
   @property()
   icon: TemplateResult | undefined;
   
@@ -59,7 +66,7 @@ export class DxIconButton extends DxAcBaseElement {
 
   render() {
     return html`
-      <dx-button 
+      <dx-button
         outlined="false"
         data-testid="dx-icon-button"
         ?inverseColor=${this.inverseColor}
@@ -67,12 +74,13 @@ export class DxIconButton extends DxAcBaseElement {
         size="${this.size}"
         ?withPadding=${this.withPadding}
         exportparts=${ICON_BUTTON_EXPORT_PARTS}
-        .icon=${this.icon}
         ?disabled=${this.disabled}
+        .icon=${this.icon}
         ariaLabel=${this.ariaLabel}
-      >
-      </dx-button>
-    `;
+        @click=${this._handleClick}
+        >
+        </dx-button>
+      `;
   }
 }
 
