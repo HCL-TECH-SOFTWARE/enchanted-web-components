@@ -77,16 +77,129 @@ type Story = StoryObj<DxMenuProps>;
 export const Default: Story = {};
 
 export const AllStates: Story = {
-  args: {
-    items: [
+  render: () => {
+    const items = [
       { text: 'Option 1', value: '1' },
       { text: 'Option 2', value: '2' },
       { text: 'Option 3', value: '3' },
       { text: 'Option 4', value: '4' },
-    ],
-    menuDelay: 300,
-    placement: DxMenuPlacement.BOTTOM_START,
-    size: DxMenuSize.SMALL,
-    dropdownMinWidth: '240px',
+    ];
+
+    const gridStyle = [
+      'display: grid',
+      'grid-template-columns: repeat(2, 1fr)',
+      'gap: 60px',
+      'padding: 40px',
+      'min-height: 600px'
+    ].join('; ') + ';';
+
+    const itemContainerStyle = [
+      'display: flex',
+      'flex-direction: column',
+      'align-items: center',
+      'gap: 20px'
+    ].join('; ') + ';';
+
+    const labelStyle = [
+      'font-weight: 600',
+      'font-size: 14px',
+      'color: #333'
+    ].join('; ') + ';';
+
+    // Open all menus after they are rendered and prevent them from closing
+    setTimeout(() => {
+      const menus = document.querySelectorAll('dx-menu');
+      menus.forEach((menu) => {
+        // eslint-why: Need to access internal menu properties (openMenu, toggleMenuOpen, anchorMenuToTarget) not in public type
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const menuElement = menu as any;
+        
+        // Override the toggleMenuOpen method to keep menus always open
+        const originalToggle = menuElement.toggleMenuOpen;
+        menuElement.toggleMenuOpen = function(evt: MouseEvent | KeyboardEvent) {
+          if (!menuElement.openMenu) {
+            originalToggle.call(menuElement, evt);
+          }
+          // Prevent closing - do nothing if already open
+        };
+        
+        // Open the menu
+        menuElement.openMenu = true;
+        if (menuElement.requestUpdate) {
+          menuElement.requestUpdate();
+        }
+        setTimeout(() => {
+          menuElement.anchorMenuToTarget();
+        }, 350);
+      });
+    }, 200);
+
+    return html`
+      <div style="${gridStyle}">
+        <!-- Small size, Bottom Start -->
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Size: Small, Placement: Bottom Start</span>
+          <dx-menu 
+            style="--dropdown-menu-min-width: 240px;"
+            menuDelay="300"
+            placement="${DxMenuPlacement.BOTTOM_START}"
+            size="${DxMenuSize.SMALL}"
+          >
+            <dx-button slot="target-anchor" variant="contained" size="large" buttontext="Small - Bottom Start"></dx-button>
+            ${items.map((item) => { return html`
+              <dx-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></dx-menu-item>
+            `; })}
+          </dx-menu>
+        </div>
+
+        <!-- Small size, Bottom End -->
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Size: Small, Placement: Bottom End</span>
+          <dx-menu 
+            style="--dropdown-menu-min-width: 240px;"
+            menuDelay="300"
+            placement="${DxMenuPlacement.BOTTOM_END}"
+            size="${DxMenuSize.SMALL}"
+          >
+            <dx-button slot="target-anchor" variant="contained" size="large" buttontext="Small - Bottom End"></dx-button>
+            ${items.map((item) => { return html`
+              <dx-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></dx-menu-item>
+            `; })}
+          </dx-menu>
+        </div>
+
+        <!-- Medium size, Bottom Start -->
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Size: Medium, Placement: Bottom Start</span>
+          <dx-menu 
+            style="--dropdown-menu-min-width: 240px;"
+            menuDelay="300"
+            placement="${DxMenuPlacement.BOTTOM_START}"
+            size="${DxMenuSize.MEDIUM}"
+          >
+            <dx-button slot="target-anchor" variant="contained" size="large" buttontext="Medium - Bottom Start"></dx-button>
+            ${items.map((item) => { return html`
+              <dx-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></dx-menu-item>
+            `; })}
+          </dx-menu>
+        </div>
+
+        <!-- Medium size, Bottom End -->
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Size: Medium, Placement: Bottom End</span>
+          <dx-menu 
+            style="--dropdown-menu-min-width: 240px;"
+            menuDelay="300"
+            placement="${DxMenuPlacement.BOTTOM_END}"
+            size="${DxMenuSize.MEDIUM}"
+          >
+            <dx-button slot="target-anchor" variant="contained" size="large" buttontext="Medium - Bottom End"></dx-button>
+            ${items.map((item) => { return html`
+              <dx-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></dx-menu-item>
+            `; })}
+          </dx-menu>
+        </div>
+      </div>
+    `;
   },
 };
