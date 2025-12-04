@@ -3,6 +3,16 @@
 ## Unreleased
 
 ### Added
+
+### Fixed
+
+### Changed
+
+### Breaking changes
+
+## 1.4.0
+
+### Added
 - Added new `placement` and `size` property for `dx-menu` component.
 
 ### Fixed
