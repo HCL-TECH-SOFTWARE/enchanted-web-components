@@ -28,7 +28,10 @@ export const config = {
       statements: 82,
       branches: 68,
       functions: 78,
-      lines: 80
+      lines: 80,
+      exclude: [
+        'src/_tests_/**',
+      ]
     },
     viteConfig: {
       optimizeDeps: {

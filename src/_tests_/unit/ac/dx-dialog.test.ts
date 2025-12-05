@@ -87,6 +87,7 @@ describe('DxDialog component testing', () => {
     await expect(component).toBeDisplayed();
     expect(component).toHaveText(dxLocalization.get('generic.label'));
     let svgIcon = await component.$('>>>dx-svg-icon').getElement();
+    await browser.pause(100);
     expect(svgIcon).toBeDisplayed();
   });
 
