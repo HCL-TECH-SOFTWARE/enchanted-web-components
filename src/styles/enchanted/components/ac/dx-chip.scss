@@ -21,10 +21,9 @@
   &::part(chip-div) {
     background-color: map.get(themeMap.$enchantedPalette, BLACK8P);
     border-radius: 100px;
-    display:inline-flex;
-    padding:4px;
+    display: inline-flex;
+    padding: 4px;
     align-items: center;
-    height: 24px;
   }
 
   &::part(chip-name) {
@@ -35,7 +34,7 @@
   &::part(chip-count) {
     @include typography.font-default;
     background-color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
-    padding:0px 4px 0px 4px;
+    padding: 0px 4px 0px 4px;
     border-radius: 4px;
     margin-left:4px;
     color: map.get(themeMap.$enchantedPalette, WHITE100P);
@@ -45,9 +44,9 @@
   &::part(chip-count-rtl) {
     @include typography.font-default;
     background-color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
-    padding:0px 4px 0px 4px;
+    padding: 0px 4px 0px 4px;
     border-radius: 4px;
-    margin-right:4px;
+    margin-right: 4px;
     color: map.get(themeMap.$enchantedPalette, WHITE100P);
     align-items: center;
   }

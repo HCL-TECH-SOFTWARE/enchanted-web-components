@@ -3,10 +3,22 @@
 ## Unreleased
 
 ### Added
+- Add `dx-data-grid-generic` storybook story
+- Add `iconUrl` property to the `dx-chip` component
 
 ### Fixed
+- Fix the `XS` size of the `dx-dialog` component
 
 ### Changed
+- Remove unused `error` property from the `dx-multiple-select-chip` component
+- Remove unused `color` property from the `dx-header` component
+- Check and rework all storybook stories
+- Adjust `dx-chip` stylings
+- Adjust `dx-datepicker` stylings
+- Adjust `dx-input-select` stylings
+- Adjust `dx-input-textfield` stylings
+- Adjust `dx-multiple-select-chip` stylings
+- Adjust `dx-snackbar` stylings
 
 ### Breaking changes
 

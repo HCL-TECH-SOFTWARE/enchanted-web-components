@@ -34,15 +34,11 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
 @customElement('dx-header')
 @localized()
 export class DxHeader extends DxAcBaseElement {
-
-  @property({ type: String }) color = 'rgba(0, 0, 0, .32)'; // equivalent to $BLACK32P in ac.scss
   @property({ type: String }) headerTitle = '';
   @property({ type: Boolean }) showBackIcon = false;
-
   @property({ type: Boolean }) isSideNavOpen = false;
   @property({ type: Boolean }) disabled = false;
-  @property()
-  variant: HEADER_VARIANT | undefined = undefined;
+  @property() variant: HEADER_VARIANT | undefined = undefined;
 
   connectedCallback(): void {
     super.connectedCallback();
