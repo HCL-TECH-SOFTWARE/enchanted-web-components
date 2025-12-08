@@ -11,22 +11,22 @@ const meta: Meta = {
     name: {
       control: { type: 'text' },
       description: 'Name of the datepicker input field. Used for form submission and identification. Associates the datepicker with form data when submitted.',
-      table: { category: 'Form', type: { summary: 'string' }, defaultValue: { summary: "'datepicker'" } },
+      table: { category: 'Form', type: { summary: 'string' }, defaultValue: { summary: 'datepicker' } },
     },
     label: {
       control: { type: 'text' },
       description: 'Label text displayed above the datepicker input field. Provides context and identifies the purpose of the date input.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "'Label'" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Label' } },
     },
     field: {
       control: { type: 'text' },
       description: 'Field identifier for the datepicker. Can be used for tracking, validation, or form field mapping purposes.',
-      table: { category: 'Form', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Form', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     helperIconTooltip: {
       control: { type: 'text' },
       description: 'Tooltip text shown when hovering over the helper icon next to the label. Provides additional context or instructions for using the datepicker.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "'Label helper tooltip'" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Label helper tooltip' } },
     },
     locale: {
       control: { type: 'radio' },

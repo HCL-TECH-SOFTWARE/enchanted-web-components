@@ -12,7 +12,7 @@ const meta: Meta = {
       options: ['outlined', 'no-outline'],
       description: 'Defines the accordion style type',
       table: {
-        type: { summary: '"outlined" | "no-outline"' },
+        type: { summary: 'outlined | no-outline' },
         defaultValue: { summary: 'outlined' },
       },
     },

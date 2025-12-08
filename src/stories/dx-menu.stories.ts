@@ -63,7 +63,7 @@ const meta: Meta<DxMenuProps> = {
     dropdownMinWidth: {
       control: { type: 'text' },
       description: 'Minimum width for the dropdown menu. Set via CSS custom property --dropdown-menu-min-width. Example values: "240px", "200px", "300px".',
-      table: { category: 'Styling', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Styling', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     open: {
       control: { type: 'boolean' },

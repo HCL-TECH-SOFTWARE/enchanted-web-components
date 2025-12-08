@@ -110,7 +110,7 @@ const meta: Meta<DxButtonProps> = {
     ariaExpanded: {
       control: 'text',
       description: 'ARIA attribute indicating the expanded state of associated content. Use "true" or "false" to indicate whether controlled content is visible.',
-      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: '"false"' } },
+      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: 'false' } },
     },
   },
   args: {

@@ -149,7 +149,7 @@ const meta: Meta<DxDataGridGenericProps> = {
       control: { type: 'radio' },
       options: ['true', 'false'],
       description: 'Enables hover effects on table rows. When true, rows highlight on mouse hover for better visual feedback.',
-      table: { category: 'Display', type: { summary: 'string' }, defaultValue: { summary: '"false"' } },
+      table: { category: 'Display', type: { summary: 'string' }, defaultValue: { summary: 'false' } },
     },
   },
   args: {

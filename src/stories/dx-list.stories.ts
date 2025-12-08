@@ -21,7 +21,7 @@ const meta: Meta<DxListProps> = {
       control: { type: 'text' },
       description: 'ARIA role attribute for the list element. Common values include "listbox", "menu", or empty string for default list semantics. ' +
         'Enhances accessibility by defining the semantic purpose of the list.',
-      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
   },
   args: {

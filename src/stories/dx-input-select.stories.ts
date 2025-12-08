@@ -50,7 +50,7 @@ const meta: Meta<DxInputSelectProps> = {
     label: {
       control: { type: 'text' },
       description: 'Label text displayed above the select input. Provides context about the selection purpose. Can be visually hidden while maintaining accessibility.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     placeholder: {
       control: { type: 'text' },
@@ -100,12 +100,12 @@ const meta: Meta<DxInputSelectProps> = {
     field: {
       control: { type: 'text' },
       description: 'Field type or name identifier for the input select. Used for form processing or programmatic field identification.',
-      table: { category: 'Form', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Form', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     ariaLabel: {
       control: { type: 'text' },
       description: 'ARIA label for accessibility. Provides descriptive text for screen readers when the visible label is insufficient or hidden.',
-      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
   },
   args: {

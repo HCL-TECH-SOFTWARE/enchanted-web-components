@@ -58,7 +58,7 @@ const meta: Meta<DxIconButtonProps> = {
     imgurl: {
       control: { type: 'text' },
       description: 'Image URL for the icon. Alternative to the icon template property. Use this for external image files or icon URLs.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     disabled: {
       control: { type: 'boolean' },
@@ -73,7 +73,7 @@ const meta: Meta<DxIconButtonProps> = {
     ariaLabel: {
       control: { type: 'text' },
       description: 'ARIA label for accessibility. Provides descriptive text for screen readers since icon buttons lack visible text labels. Required for accessibility.',
-      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
   },
   args: {

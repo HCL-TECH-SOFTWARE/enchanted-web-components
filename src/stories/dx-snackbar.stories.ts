@@ -32,7 +32,7 @@ const meta: Meta<DxSnackbarProps> = {
     message: {
       control: { type: 'text' },
       description: 'Message text displayed in the snackbar. Supports HTML formatting including bold text, line breaks, and other inline elements for rich content display.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     type: {
       control: { type: 'select' },

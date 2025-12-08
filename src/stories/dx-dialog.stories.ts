@@ -11,7 +11,7 @@ const meta: Meta = {
     dialogTitle: {
       control: { type: 'text' },
       description: 'Title text displayed in the dialog header. Provides context about the dialog purpose. Used for accessibility (aria-label) and screen reader announcements.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     size: {
       control: { type: 'radio' },

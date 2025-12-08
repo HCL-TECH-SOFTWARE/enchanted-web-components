@@ -71,12 +71,12 @@ const meta: Meta<DxPopoverProps> = {
     label: {
       control: { type: 'text' },
       description: 'Title text displayed at the top of the popover. Provides a header or summary for the popover content. Only visible when showLabel is true.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "'Label'" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Label' } },
     },
     text: {
       control: { type: 'text' },
       description: 'Description text displayed in the popover body. Main content area for detailed information. Only visible when showText is true.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "'Text'" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Text' } },
     },
     showLabel: {
       control: { type: 'boolean' },
@@ -131,7 +131,7 @@ const meta: Meta<DxPopoverProps> = {
     buttontext: {
       control: { type: 'text' },
       description: 'Text displayed on the target button. Used for demonstration purposes in the story. The popover can be anchored to any element via the target slot.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
   },
   args: {

@@ -12,7 +12,7 @@ const meta: Meta = {
     name: {
       control: { type: 'text' },
       description: 'The text label displayed on the chip. This is the primary content that identifies the chip.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     count: {
       control: { type: 'number', min: 0, max: 99, step: 1 },

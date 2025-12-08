@@ -11,7 +11,7 @@ const meta: Meta = {
     headerTitle: {
       control: { type: 'text' },
       description: 'Title text displayed in the header. Used when variant is undefined or for custom header titles. Overridden by localized messages in specific variants.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: "''" } },
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     variant: {
       control: { type: 'radio' },
