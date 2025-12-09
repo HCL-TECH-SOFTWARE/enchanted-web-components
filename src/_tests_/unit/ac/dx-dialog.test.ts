@@ -486,5 +486,64 @@ describe('DxDialog component testing', () => {
       
       document.documentElement.dir = 'ltr';
     });
+
+    it('DxDialog - should focus element directly when depth >= MAX_FOCUS_DEPTH', async () => {
+      render(
+        html`
+          <dx-dialog open dialogTitle="Test Dialog" .localization=${dxLocalization}>
+            <div slot="content">
+              <input type="text" id="test-input" />
+            </div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+      await browser.pause(150);
+      
+      const component = document.querySelector('dx-dialog') as DxDialog;
+      const testInput = document.querySelector('input#test-input') as HTMLElement;
+      
+      testInput?.blur();
+      await expect(document.activeElement).not.toBe(testInput);
+      
+      const dxDialog = component as unknown as { _focusElement: (element: HTMLElement, depth: number) => void };
+      dxDialog._focusElement(testInput, 10);
+      
+      await expect(document.activeElement).toBe(testInput);
+    });
+
+    it('DxDialog - should traverse renderRoot when element has no shadowRoot but has renderRoot', async () => {
+      render(
+        html`
+          <dx-dialog open dialogTitle="Test Dialog" .localization=${dxLocalization}>
+            <div slot="content"></div>
+          </dx-dialog>
+        `,
+        document.body
+      );
+      await browser.pause(150);
+      
+      const component = document.querySelector('dx-dialog') as DxDialog;
+      
+      const mockRenderRoot = document.createElement('div').attachShadow({ mode: 'open' });
+      const focusableInRenderRoot = document.createElement('input');
+      focusableInRenderRoot.id = 'focusable-render-root';
+      mockRenderRoot.appendChild(focusableInRenderRoot);
+      
+      const mockElement = document.createElement('div');
+      Object.defineProperty(mockElement, 'shadowRoot', {
+        value: null,
+        configurable: true
+      });
+      Object.defineProperty(mockElement, 'renderRoot', {
+        value: mockRenderRoot,
+        configurable: true
+      });
+      
+      const dxDialog = component as unknown as { _focusElement: (element: HTMLElement, depth: number) => void };
+      dxDialog._focusElement(mockElement as unknown as HTMLElement, 0);
+      
+      await expect(mockRenderRoot.querySelector('input')).toBe(focusableInRenderRoot);
+    });
   });
 });

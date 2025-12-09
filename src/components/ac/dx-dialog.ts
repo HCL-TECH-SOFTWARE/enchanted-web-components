@@ -36,6 +36,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 @localized()
 export class DxDialog extends DxAcBaseElement {
   private static readonly FOCUSABLE_SELECTOR = 'dx-input-textfield, dx-button, dx-icon-button, button, input, [tabindex]:not([tabindex="-1"])';
+  private static readonly MAX_FOCUS_DEPTH = 10;
 
   @property({ type: Boolean, reflect: true })
   open = false;
@@ -75,18 +76,15 @@ export class DxDialog extends DxAcBaseElement {
    * Searches slotted content first, then falls back to shadow DOM.
    */
   private _focusFirstElement() {
-    // First, try to find focusable elements in slotted content (light DOM)
     const slots = this.renderRoot.querySelectorAll('slot');
     for (const slot of Array.from(slots)) {
       const assignedElements = slot.assignedElements({ flatten: true });
       for (const element of assignedElements) {
-        // Check if the element itself is focusable
         if (element.matches(DxDialog.FOCUSABLE_SELECTOR)) {
           this._focusElement(element as HTMLElement);
           return;
         }
 
-        // Check for focusable elements within the slotted element
         const focusableChild = element.querySelector(DxDialog.FOCUSABLE_SELECTOR) as HTMLElement;
         if (focusableChild) {
           this._focusElement(focusableChild);
@@ -95,14 +93,12 @@ export class DxDialog extends DxAcBaseElement {
       }
     }
 
-    // If no slotted focusable element found, search in shadow DOM
     const firstFocusable = this.renderRoot.querySelector(DxDialog.FOCUSABLE_SELECTOR) as HTMLElement;
     if (firstFocusable) {
       this._focusElement(firstFocusable);
       return;
     }
 
-    // Fallback: focus the dialog container itself
     const dialogElement = this.renderRoot.querySelector(`[part*="${this.getPaperPart()}"]`) as HTMLElement;
     dialogElement?.focus();
   }
@@ -128,37 +124,40 @@ export class DxDialog extends DxAcBaseElement {
   /**
    * Recursively searches through web component shadow DOMs to find the deepest focusable element.
    * @param element - The element to start searching from
+   * @param depth - Current depth in the shadow DOM tree (used internally for recursion limiting)
    */
-  private _focusElement(element: HTMLElement) {
-    // Recursively search for the deepest focusable element in nested web components
+  private _focusElement(element: HTMLElement, depth: number = 0) {
+    if (depth >= DxDialog.MAX_FOCUS_DEPTH) {
+      (element).focus();
+      return;
+    }
+
     let currentElement: HTMLElement | null = element;
     let foundFocusable: HTMLElement | null = null;
+    let currentDepth = depth;
 
-    while (currentElement) {
-      // Check if current element has shadowRoot
+    while (currentElement && currentDepth < DxDialog.MAX_FOCUS_DEPTH) {
       if (this._hasShadowRoot(currentElement)) {
         const shadowFocusable = currentElement.shadowRoot.querySelector(DxDialog.FOCUSABLE_SELECTOR) as HTMLElement;
         if (shadowFocusable) {
           currentElement = shadowFocusable;
           foundFocusable = shadowFocusable;
-          continue; // Keep going deeper if this element also has shadow DOM
+          currentDepth++;
+          continue;
         }
-      }
-      // Check renderRoot if shadowRoot doesn't exist (for Lit components)
-      else if (this._hasRenderRoot(currentElement)) {
+      } else if (this._hasRenderRoot(currentElement)) {
         const renderRootFocusable = currentElement.renderRoot.querySelector(DxDialog.FOCUSABLE_SELECTOR) as HTMLElement;
         if (renderRootFocusable) {
           currentElement = renderRootFocusable;
           foundFocusable = renderRootFocusable;
-          continue; // Keep going deeper if this element also has renderRoot
+          currentDepth++;
+          continue;
         }
       }
 
-      // No deeper shadow DOM/renderRoot found, use current element
       break;
     }
 
-    // Focus the deepest focusable element found, or the original element
     (foundFocusable || element).focus();
   }
 
