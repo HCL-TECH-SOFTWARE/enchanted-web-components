@@ -60,7 +60,12 @@ function renderHtml() {
 
       <div style="display: flex; flex-direction: column; gap: 5px;">
         <label>with both Start and End Icon</label>
-        <dx-input-textfield .localization=${dxLocalization} exportparts=${HEADER_PARTS.INPUT} .actionIcon=${html`<icon-search size="16" color="currentColor"></icon-search>`} .clearIcon=${html`<icon-close size="16" color="currentColor"></icon-close>`}>
+        <dx-input-textfield
+          .localization=${dxLocalization}
+          exportparts=${HEADER_PARTS.INPUT}
+          .actionIcon=${html`<icon-search size="16" color="currentColor"></icon-search>`}
+          .clearIcon=${html`<icon-close size="16" color="currentColor"></icon-close>`}
+        >
         </dx-input-textfield>
       </div>
     </div>
