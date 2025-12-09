@@ -268,7 +268,7 @@ export class DxDialog extends DxAcBaseElement {
                 ${this.overrideTitle
                   ? html`<slot name="title"></slot>`
                   : html`
-                    <div part=${DIALOG_PARTS.TITLE_ROOT}>
+                    <div part=${isLTR() ? DIALOG_PARTS.TITLE_ROOT : DIALOG_PARTS.TITLE_ROOT_RTL}>
                       <p part=${isLTR() ? DIALOG_PARTS.TITLE_TEXT : DIALOG_PARTS.TITLE_TEXT_RTL}>
                         ${this.dialogTitle}
                       </p>

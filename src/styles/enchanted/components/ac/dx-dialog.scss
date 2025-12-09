@@ -161,6 +161,7 @@
   }
 
   &::part(title-root),
+  &::part(title-root-rtl),
   &::part(icon-root) {
     flex-direction: row;
     -webkit-box-pack: center;
@@ -173,6 +174,12 @@
   &::part(title-root) {
     justify-content: space-between;
     width: 100%;
+  }
+
+  &::part(title-root-rtl) {
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: row-reverse;
   }
 
   &::part(icon-close) {
