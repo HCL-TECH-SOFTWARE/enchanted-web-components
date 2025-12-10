@@ -8,13 +8,15 @@
 
 ### Changed
 
-- Refactored folder structure: renamed `ac` directories to `atomic-component` across the codebase.
-
 ### Breaking changes
 
 #### Type Renaming
 
 - Renamed `DxDataGridColDef` type to `EnchantedDataGridColDef` for consistency with component naming conventions.
+
+#### Folder Restructuring
+
+- Refactored folder structure: renamed `ac` directories to `atomic-component` across the codebase.
 
 #### Web Component Renaming
 
