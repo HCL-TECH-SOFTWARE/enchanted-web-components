@@ -6,17 +6,34 @@
 - Added new `placement` and `size` property for `dx-menu` component.
 - Added `icons` property to `dx-toggle-button` component to support enchanted-icons (TemplateResult array) alongside existing `iconUrls` (string array) for dual-button mode.
 - Added `clearIcon` and `actionIcon` properties to `dx-input-textfield` component to support enchanted-icons (TemplateResult) for icon rendering.
+- Add `dx-data-grid-generic` storybook story
+- Add `icon` property to the `dx-chip` component
 
 ### Fixed
+- Fix the `XS` size of the `dx-dialog` component
+- Fix the `disabled` state for the `dx-header` component
 
 ### Changed
 - Refactored menu placement logic using a switch statement for clarity and maintainability.
 - Updated `dx-toggle-button` component to support both enchanted-icons via `icons` property and static SVG URLs via `iconUrls` property with fallback logic (`icons[0] || iconUrls[0]`).
 - Updated `dx-input-textfield` component to use `clearIcon` and `actionIcon` properties (TemplateResult) instead of URL-based icons.
 - Updated `dx-input-textfield` storybook to use enchanted-icons (`icon-close`, `icon-search`) from `@hcl-software/enchanted-icons-web-component`.
+- Check and rework all storybook stories
+- Adjust `dx-chip` stylings
+- Adjust `dx-datepicker` stylings
+- Adjust `dx-input-select` stylings
+- Adjust `dx-input-textfield` stylings
+- Adjust `dx-multiple-select-chip` stylings
+- Adjust `dx-snackbar` stylings
 
 ### Breaking changes
 - Removed `clearIconUrl` and `actionIconUrl` properties from `dx-input-textfield` component. Use `clearIcon` and `actionIcon` properties instead, which accept TemplateResult for enchanted-icons rendering.
+- Remove unused `error` property from the `dx-multiple-select-chip` component
+- Remove unused `color` property from the `dx-header` component
+- Change `dx-data-grid-generic` interface propertie types (isLoading, hasMiddlewareError, hasContentSourceAvailable, checkboxSelection)
+- Remove `dx-search-center-layout` component
+- Remove the `ignoreDisable` property from the `dx-input-textfield` component
+- Remove useless `open` property from `dx-menu` component
 
 ## 1.4.0
 

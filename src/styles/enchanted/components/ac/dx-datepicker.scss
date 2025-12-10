@@ -79,6 +79,7 @@
     border: 0px;
     vertical-align: top;
     width: 100%;
+    top: -2px;
   }
 
   &::part(#{$part-datepicker-div-label-and-action}) {
@@ -198,7 +199,7 @@
     @include typography.body2;
     color: palette.clr(light, text, primary);
     padding: 0px;
-    height: 1.5em;
+    height: 22px;
     border: none;
     box-sizing: content-box;
     background: none;

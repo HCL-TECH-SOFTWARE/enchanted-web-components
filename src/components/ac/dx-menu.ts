@@ -31,9 +31,6 @@ import { DxMenuPlacement, DxMenuSize } from '../../types/dx-menu';
 @customElement('dx-menu')
 @localized()
 export class DxMenu extends DxAcBaseElement {
-  @property({ type: Boolean })
-  open = false;
-
   @property({ type: Number })
   menuDelay = 300;
 
@@ -55,7 +52,6 @@ export class DxMenu extends DxAcBaseElement {
   }, 100);
 
   connectedCallback(): void {
-    this.openMenu = this.open;
     super.connectedCallback();
     // binding event in this function because we need to access slot elements
     // https://lit.dev/docs/components/events/#adding-event-listeners-to-the-component-or-its-shadow-root

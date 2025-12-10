@@ -89,9 +89,6 @@ export class DxMultipleSelectChip extends DxAcBaseElement {
   @property({ type: Boolean })
   clearIcon = true;
 
-  @property({ type: Boolean })
-  error = false;
-
   @property({ type: String })
   customWidth: string | undefined;
 

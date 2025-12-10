@@ -15,12 +15,13 @@
 // External imports
 import { customElement, property } from 'lit/decorators.js';
 import { DxAcBaseElement } from './dx-ac-base-element';
-import { html, nothing } from 'lit';
+import { html, nothing, TemplateResult } from 'lit';
 
 // Component imports
+import './dx-avatar';
 
 // Helper imports
-import { CHIP_PARTS } from '../../types/cssClassEnums';
+import { AVATAR_TYPE, AVATAR_VARIANT, CHIP_PARTS } from '../../types/cssClassEnums';
 import { getCurrentDirection } from '../localization';
 import { LOCALE_DIRECTIONS } from '../constants';
 
@@ -32,6 +33,7 @@ export class DxChip extends DxAcBaseElement {
   @property({ type: Boolean }) showAvatar = false;
   @property({ type: Boolean }) clearIcon = false; 
   @property({ type: Boolean }) disabled = false; 
+  @property({ type: Object }) icon: TemplateResult | undefined;
 
   private isLocaleRTL () {
     const currentDirection = getCurrentDirection();        
@@ -46,7 +48,7 @@ export class DxChip extends DxAcBaseElement {
     return html`
       <div part=${this.disabled ? `${CHIP_PARTS.CHIP_DIV} ${CHIP_PARTS.CHIP_DIV_DISABLED}` : CHIP_PARTS.CHIP_DIV} tabindex=${this.disabled ? '-1' : '0'}>
         ${this.showAvatar
-          ? html`<dx-avatar variant="avatar-icon" ?disabled=${this.disabled}></dx-avatar>`
+          ? html`<dx-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${this.icon} ?disabled=${this.disabled}></dx-avatar>`
           : nothing}
         <span part=${CHIP_PARTS.CHIP_NAME}>${this.name}</span>
         ${this.showChipCount

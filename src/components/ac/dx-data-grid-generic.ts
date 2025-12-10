@@ -52,7 +52,7 @@ const debug = createDebug('enchanted-web-components:components:ac:dx-data-grid-g
 @customElement('dx-data-grid-generic')
 export class DxDataGridGeneric extends DxAcBaseElement {
   @property()
-  private isLoading: string = 'false';
+  private isLoading: boolean = false;
 
   @state()
   private invalidColDef: boolean = false;
@@ -70,13 +70,13 @@ export class DxDataGridGeneric extends DxAcBaseElement {
   columns: DxDataGridColDef[] = [];
 
   @property()
-  private hasMiddlewareError: string = 'false';
+  private hasMiddlewareError: boolean = false;
 
   @property()
-  private hasContentSourceAvailable: string = 'false';
+  private hasContentSourceAvailable: boolean = false;
 
   @property()
-  private checkboxSelection: string = 'false';
+  private checkboxSelection: boolean = false;
 
   @property()
   private isFeatureTagCloudEnabled: boolean = false;
@@ -744,10 +744,10 @@ export class DxDataGridGeneric extends DxAcBaseElement {
       const columnsObjLength = columnsObj.length;
       if (this.data && this.data?.searchItems
         && this.data?.searchItems.length > 0
-        && this.isLoading === 'false') {
+        && this.isLoading === false) {
         return html`
           <tr part="${DATA_GRID_PARTS.TABLE_ROW_HEADER_CONTAINER}" role="row" aria-rowindex="1">
-          ${this.checkboxSelection === 'true' ? html`
+          ${this.checkboxSelection === true ? html`
             <th part="${DATA_GRID_PARTS.TABLE_SELECT_ALL_CHECKBOX}">
               <input data-testid="dx-data-grid-select-all-checkbox" ?checked=${this.selectAll} @click=${this.handleSelectAll} type="checkbox">
             </th>`
@@ -768,7 +768,7 @@ export class DxDataGridGeneric extends DxAcBaseElement {
               part="${DATA_GRID_PARTS.TABLE_HEADER_CONTAINER} ${this.customTableHeaderPart.replace('{index}', index.toString())}"
               @keydown=${(evt: KeyboardEvent) => { return this.handleCellHeaderKeydown(evt, this.data?.sortDirection || SortOrder.ASC, index); }}
               role="columnheader"
-              aria-colindex="${this.checkboxSelection === 'true' ? index + 2 : index + 1}"
+              aria-colindex="${this.checkboxSelection === true ? index + 2 : index + 1}"
               aria-label="${header.headerName}">
               <div part="${DATA_GRID_PARTS.TABLE_HEADER_CONTAINER_CHILD}">
                 <div
@@ -852,7 +852,7 @@ export class DxDataGridGeneric extends DxAcBaseElement {
   renderTableBody() {
     try {
       const columnsObj = this.columns as DxDataGridColDef[];
-      if (this.isLoading === 'true') {
+      if (this.isLoading === true) {
         return html`
           <div
             id="table-loading-container"
@@ -898,7 +898,7 @@ export class DxDataGridGeneric extends DxAcBaseElement {
               }
               aria-rowindex="${index + 2}"
             >
-              ${this.checkboxSelection === 'true' ? html`
+              ${this.checkboxSelection === true ? html`
               <td part="${DATA_GRID_PARTS.TABLE_SELECT_CHECKBOX_CONTAINER}" role="gridcell">
                 <input
                   @click=${(evt: MouseEvent) => { return this.handleSelection(evt, index); }}
@@ -1195,7 +1195,7 @@ export class DxDataGridGeneric extends DxAcBaseElement {
             </p>
           </div>
         `;
-      } else if (this.hasMiddlewareError === 'true') {
+      } else if (this.hasMiddlewareError === true) {
         debug('%s, %s', this.getMessage('output.message.no.engine.found'), this.getMessage('output.message.contact.admin'));
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
@@ -1206,7 +1206,7 @@ export class DxDataGridGeneric extends DxAcBaseElement {
             </p>
           </div>
         `;
-      } else if (this.hasContentSourceAvailable === 'true') {
+      } else if (this.hasContentSourceAvailable === true) {
         debug('%s, %s', this.getMessage('output.message.no.content.sources.found'), this.getMessage('output.message.contact.admin'));
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}"> 
@@ -1243,9 +1243,9 @@ export class DxDataGridGeneric extends DxAcBaseElement {
           part="${DATA_GRID_PARTS.TABLE_CONTAINER}" 
           role="grid" 
           tabindex="-1" 
-          aria-colcount="${this.columns ? this.columns.length + (this.checkboxSelection === 'true' ? 1 : 0) : 1}"
+          aria-colcount="${this.columns ? this.columns.length + (this.checkboxSelection === true ? 1 : 0) : 1}"
           aria-rowcount="${this.data?.searchItems ? this.data.searchItems.length + 1 : 2}"
-          aria-busy="${this.isLoading === 'true'}"
+          aria-busy="${this.isLoading === true}"
         >
           <thead>
             ${this.renderTableHeader()}

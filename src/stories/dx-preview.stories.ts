@@ -33,19 +33,33 @@ export interface PreviewItem {
 }
 
 /**
- * @typedef DxPreviewProps
+ * @interface DxPreviewProps
  * Props for the dx-preview web component.
  *
  * @property open - Whether the preview is open
- * @property items - The preview items
- * @property customHeaderTitle - Custom header title
- * @property initialItemIndex - Initial item index
+ * @property items - The preview items array
+ * @property customHeaderTitle - Custom header title text
+ * @property component - Custom component or template
+ * @property isPreviousButtonDisabled - Disables the previous button
+ * @property isNextButtonDisabled - Disables the next button
+ * @property renditionLabel - Label for the rendition selector dropdown
+ * @property selectButtonTitle - Title for select button
+ * @property currentItemIndex - Current item index being displayed
+ * @property selectedRenditionId - ID of the currently selected rendition
+ * @property skipSourceValidation - Skip source URL validation
  */
 export interface DxPreviewProps {
   open?: boolean;
   items?: PreviewItem[];
   customHeaderTitle?: string;
-  initialItemIndex?: number;
+  component?: unknown;
+  isPreviousButtonDisabled?: boolean;
+  isNextButtonDisabled?: boolean;
+  renditionLabel?: string;
+  selectButtonTitle?: string;
+  currentItemIndex?: number;
+  selectedRenditionId?: string | null;
+  skipSourceValidation?: boolean;
 }
 
 const IMAGE_RENDITIONS: AssetRendition[] = [
@@ -61,61 +75,110 @@ const PREVIEW_ITEMS: PreviewItem[] = [
 
 const meta: Meta<DxPreviewProps> = {
   title: 'Overlay/dx-preview',
+  component: 'dx-preview',
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'The Preview component displays media items in a full-screen overlay with navigation controls. Supports images, videos, and documents with multiple ' +
+          'renditions. Features include zoom controls, previous/next navigation, rendition selection, and custom header titles. Use this component for viewing and ' +
+          'selecting media assets from collections or galleries.',
+      },
+    },
+  },
   argTypes: {
-    open: { control: 'boolean', description: 'Whether the preview is open', table: { defaultValue: { summary: 'false' } } },
-    items: { control: 'object', description: 'Preview items', table: { defaultValue: { summary: '[]' } } },
-    customHeaderTitle: { control: 'text', description: 'Custom header title', table: { defaultValue: { summary: '' } } },
-    initialItemIndex: { control: 'number', description: 'Initial item index', table: { defaultValue: { summary: '0' } } },
+    open: {
+      control: { type: 'boolean' },
+      description: 'Controls preview visibility. When true, displays the preview overlay in full-screen mode. Close with the close button or ESC key.',
+      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    items: {
+      control: { type: 'object' },
+      description: 'Array of preview items to display. Each item should include id, title, type, optional renditions, and fileExtension. Supports images, videos, PDFs, etc.',
+      table: { category: 'Content', type: { summary: 'PreviewItem[]' }, defaultValue: { summary: '[]' } },
+    },
+    customHeaderTitle: {
+      control: { type: 'text' },
+      description: 'Custom text displayed in the preview header. Overrides the default item title. Use for contextual information or custom naming.',
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
+    },
+    component: {
+      control: { type: 'object' },
+      description: 'Custom component or template to render in the preview area. Allows full customization of the preview content beyond standard media types.',
+      table: { category: 'Content', type: { summary: 'TemplateResult | string' }, defaultValue: { summary: '' } },
+    },
+    isPreviousButtonDisabled: {
+      control: { type: 'boolean' },
+      description: 'Disables the previous navigation button. Automatically set to true when viewing the first item. Can be manually controlled.',
+      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    isNextButtonDisabled: {
+      control: { type: 'boolean' },
+      description: 'Disables the next navigation button. Automatically set to true when viewing the last item. Can be manually controlled.',
+      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    renditionLabel: {
+      control: { type: 'text' },
+      description: 'Label text for the rendition selector dropdown. Appears next to the rendition selection control when multiple renditions are available.',
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
+    },
+    selectButtonTitle: {
+      control: { type: 'text' },
+      description: 'Title text for the select button in the toolbar. Used when preview is in selection mode to choose items.',
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
+    },
+    currentItemIndex: {
+      control: { type: 'number', min: 0, max: PREVIEW_ITEMS.length },
+      description: 'Zero-based index of the currently displayed item. Updates as users navigate through items. Used to track position in the items array.',
+      table: { category: 'State', type: { summary: 'number' }, defaultValue: { summary: '0' } },
+    },
+    selectedRenditionId: {
+      control: { type: 'text' },
+      description: 'ID of the currently selected rendition. Used to control which rendition is displayed when an item has multiple renditions available.',
+      table: { category: 'State', type: { summary: 'string' }, defaultValue: { summary: 'null' } },
+    },
+    skipSourceValidation: {
+      control: { type: 'boolean' },
+      description: 'Skips validation of source URLs when true. Useful for development or when using custom source handlers that may not be standard URLs.',
+      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     open: true,
     items: PREVIEW_ITEMS,
     customHeaderTitle: '',
-    initialItemIndex: 0,
+    component: '',
+    isPreviousButtonDisabled: false,
+    isNextButtonDisabled: false,
+    renditionLabel: 'Rendition',
+    selectButtonTitle: '',
+    currentItemIndex: 0,
+    selectedRenditionId: null,
+    skipSourceValidation: false,
   },
+};
+
+export default meta;
+
+type Story = StoryObj<DxPreviewProps>;
+
+export const DxPreviewStory: Story = {
+  name: 'Default',
   render: (args) => {
     return html`
       <dx-preview
         ?open=${args.open}
         .items=${args.items}
         customHeaderTitle="${args.customHeaderTitle}"
-        .initialItemIndex=${args.initialItemIndex}
+        .component=${args.component}
+        ?isPreviousButtonDisabled=${args.isPreviousButtonDisabled}
+        ?isNextButtonDisabled=${args.isNextButtonDisabled}
+        renditionLabel="${args.renditionLabel}"
+        selectButtonTitle="${args.selectButtonTitle}"
+        .currentItemIndex=${args.currentItemIndex}
+        selectedRenditionId="${args.selectedRenditionId}"
+        ?skipSourceValidation=${args.skipSourceValidation}
       ></dx-preview>
-    `;
-  },
-};
-
-export default meta;
-type Story = StoryObj<DxPreviewProps>;
-
-export const Default: Story = {};
-
-export const AllStates: Story = {
-  render: () => {
-    return html`
-      <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 900px;">
-        <div>
-          <div>Image Preview</div>
-          <dx-preview open .items=${[PREVIEW_ITEMS[0]]}></dx-preview>
-        </div>
-        <div>
-          <div>Video Preview</div>
-          <dx-preview open .items=${[PREVIEW_ITEMS[1]]}></dx-preview>
-        </div>
-        <div>
-          <div>Unsupported File</div>
-          <dx-preview open .items=${[PREVIEW_ITEMS[2]]}></dx-preview>
-        </div>
-        <div>
-          <div>Custom Header Title</div>
-          <dx-preview open .items=${[PREVIEW_ITEMS[0]]} customHeaderTitle="Custom Preview Header"></dx-preview>
-        </div>
-        <div>
-          <div>Closed</div>
-          <dx-preview .items=${[PREVIEW_ITEMS[0]]}></dx-preview>
-        </div>
-      </div>
     `;
   },
 };

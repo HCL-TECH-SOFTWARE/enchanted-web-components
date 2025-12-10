@@ -10,38 +10,59 @@ const meta: Meta = {
     type: {
       control: { type: 'radio' },
       options: ['outlined', 'no-outline'],
-      description: 'Accordion type',
-      defaultValue: 'outlined',
+      description: 'Defines the accordion style type',
+      table: {
+        type: { summary: 'outlined | no-outline' },
+        defaultValue: { summary: 'outlined' },
+      },
     },
     showCheckbox: {
-      control: 'boolean',
-      description: 'Show checkbox',
-      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'Controls the visibility of a checkbox in the accordion header',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     disabled: {
-      control: 'boolean',
-      description: 'Disabled',
-      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'Disables the accordion, preventing user interaction',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     showSecondaryText: {
-      control: 'boolean',
-      description: 'Show secondary text',
-      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'Controls the visibility of secondary text below the label',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     open: {
-      control: 'boolean',
-      description: 'Open',
-      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'Controls whether the accordion is expanded or collapsed',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     label: {
-      control: 'text',
-      description: 'Label',
-      defaultValue: 'Accordion label',
+      control: { type: 'text' },
+      description: 'Main label text displayed in the accordion header',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
     },
     secondaryText: {
-      control: 'text',
-      description: 'Secondary text',
-      defaultValue: 'Secondary text',
+      control: { type: 'text' },
+      description: 'Secondary text displayed below the label (when showSecondaryText is true)',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
     },
   },
   args: {
@@ -56,10 +77,12 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Accordion component with boolean and type property controls.'
-      }
-    }
-  }
+        component: 'An accordion component that allows collapsible content sections with support for '
+          + 'checkboxes, secondary text, and multiple visual styles. Supports both LTR and RTL layouts. '
+          + 'The accordion can be toggled by clicking on the label area or the arrow icon.',
+      },
+    },
+  },
 };
 
 export default meta;
@@ -79,7 +102,6 @@ export const DxAccordion: Story = {
     return html`
       <dx-accordion
         type=${args.type}
-        .type=${args.type}
         ?showCheckbox=${args.showCheckbox}
         ?disabled=${args.disabled}
         ?showSecondaryText=${args.showSecondaryText}
@@ -91,7 +113,6 @@ export const DxAccordion: Story = {
       </dx-accordion>
       <dx-accordion
         type=${args.type}
-        .type=${args.type}
         ?showCheckbox=${args.showCheckbox}
         ?disabled=${args.disabled}
         ?showSecondaryText=${args.showSecondaryText}
@@ -103,7 +124,6 @@ export const DxAccordion: Story = {
       </dx-accordion>
       <dx-accordion
         type=${args.type}
-        .type=${args.type}
         ?showCheckbox=${args.showCheckbox}
         ?disabled=${args.disabled}
         ?showSecondaryText=${args.showSecondaryText}
@@ -115,5 +135,120 @@ export const DxAccordion: Story = {
       </dx-accordion>
     `;
   },
-  name: 'DxAccordion',
+  name: 'Default',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default accordion with customizable properties. Toggle open/closed state, add checkboxes, '
+          + 'and display secondary text. Try different combinations of the controls to see how the component behaves.',
+      },
+    },
+  },
+};
+
+export const AllStates: Story = {
+  render: () => {
+    return html`
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div><strong>Outlined Type</strong></div>
+        <dx-accordion
+          type="outlined"
+          label="Outlined - Closed"
+          ?open=${false}
+        >
+          <div slot="accordion-items">Content for outlined accordion.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="outlined"
+          label="Outlined - Open"
+          ?open=${true}
+        >
+          <div slot="accordion-items">Content for outlined accordion.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="outlined"
+          label="Outlined - With Checkbox"
+          ?showCheckbox=${true}
+        >
+          <div slot="accordion-items">Content with checkbox.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="outlined"
+          label="Outlined - With Secondary Text"
+          secondaryText="This is secondary text"
+          ?showSecondaryText=${true}
+        >
+          <div slot="accordion-items">Content with secondary text.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="outlined"
+          label="Outlined - Disabled"
+          ?disabled=${true}
+        >
+          <div slot="accordion-items">Disabled accordion content.</div>
+        </dx-accordion>
+
+        <div style="margin-top: 24px;"><strong>No-Outline Type</strong></div>
+        <dx-accordion
+          type="no-outline"
+          label="No-Outline - Closed"
+          ?open=${false}
+        >
+          <div slot="accordion-items">Content for no-outline accordion.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="no-outline"
+          label="No-Outline - Open"
+          ?open=${true}
+        >
+          <div slot="accordion-items">Content for no-outline accordion.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="no-outline"
+          label="No-Outline - With Checkbox"
+          ?showCheckbox=${true}
+        >
+          <div slot="accordion-items">Content with checkbox.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="no-outline"
+          label="No-Outline - With Secondary Text"
+          secondaryText="This is secondary text"
+          ?showSecondaryText=${true}
+        >
+          <div slot="accordion-items">Content with secondary text.</div>
+        </dx-accordion>
+        <dx-accordion
+          type="no-outline"
+          label="No-Outline - Disabled"
+          ?disabled=${true}
+        >
+          <div slot="accordion-items">Disabled accordion content.</div>
+        </dx-accordion>
+
+        <div style="margin-top: 24px;"><strong>Combined Features</strong></div>
+        <dx-accordion
+          type="outlined"
+          label="All Features Combined"
+          secondaryText="With checkbox and secondary text"
+          ?showCheckbox=${true}
+          ?showSecondaryText=${true}
+          ?open=${true}
+        >
+          <div slot="accordion-items">
+            This accordion demonstrates all features: outlined type, checkbox, secondary text, and open state.
+          </div>
+        </dx-accordion>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Showcase of all accordion states and variations including both types (outlined and no-outline), '
+          + 'open/closed states, with checkboxes, secondary text, disabled state, and combined features. '
+          + 'This demonstrates the complete range of accordion configurations available.',
+      },
+    },
+  },
 };

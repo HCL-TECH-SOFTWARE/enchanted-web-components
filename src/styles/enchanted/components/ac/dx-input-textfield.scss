@@ -25,12 +25,17 @@
 
   &::part(label) {
     @include typography.font-default;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     display: block;
     color: palette.clr(light, text, secondary);
     font-weight: 600;
     font-size: 12px;
     font-style: normal;
+    color: palette.clr(light, text, secondary);
+  }
+
+  &::part(label-disabled) {
+    color: palette.clr(light, text, disabled);
   }
 
   &::part(input) {
@@ -40,11 +45,16 @@
     display: block;
     width: 100%;
     border: 1px solid palette.clr(light, action, disabled);
+    border-radius: 2px;
     padding: 7px 8px;
-    height: 16px;
+    height: 18px;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
+  }
+
+  &::part(input-disabled) {
+    background-color: palette.clr(light, action, disabledBackground);
   }
 
   &::part(input)::placeholder {
@@ -54,13 +64,15 @@
     font-style: italic;
     font-weight: 400;
   }
-  &::part(input):hover{
+  &::part(input):hover {
     border-radius: 2px;
     border: 1px solid palette.clr(light, action, active);
+    border-radius: 2px;
   }
-  &::part(input):focus{
+  &::part(input):focus {
     border-radius: 4px;
     border: 1px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    border-radius: 2px;
     outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) 1px solid;  
   }
 
@@ -74,7 +86,7 @@
     position: absolute;
     height: 16px;
     width: 16px;
-    top: 8px;
+    top: 29px;
     cursor: pointer;
   }
 
@@ -93,7 +105,7 @@
     position: absolute;
     height: 16px;
     width: 16px;
-    top: 8px;
+    top: 29px;
     cursor: pointer;
   }
 

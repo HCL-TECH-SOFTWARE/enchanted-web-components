@@ -88,7 +88,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
     render(
       html`
         <div style="width: 700px; height: 500px;">
-          <dx-data-grid-generic .localization=${dxLocalization} .columns="${testColDef}" isLoading=${true}></dx-data-grid-generic>
+          <dx-data-grid-generic .localization=${dxLocalization} .columns="${testColDef}" .isLoading=${true}></dx-data-grid-generic>
         </div>
       `,
       document.body,
@@ -107,7 +107,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
     render(
       html`
         <div style="width: 700px; height: 500px;">
-          <dx-data-grid-generic .localization=${dxLocalization} .columns="${testColDef}" hasContentSourceAvailable=${true}></dx-data-grid-generic>
+          <dx-data-grid-generic .localization=${dxLocalization} .columns="${testColDef}" .hasContentSourceAvailable=${true}></dx-data-grid-generic>
         </div>
       `,
       document.body,
@@ -132,7 +132,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
     render(
       html`
         <div style="width: 700px; height: 150px;">
-          <dx-data-grid-generic .localization=${dxLocalization} .columns="${invalidColumn}" hasContentSourceAvailable=${true}></dx-data-grid-generic>
+          <dx-data-grid-generic .localization=${dxLocalization} .columns="${invalidColumn}" .hasContentSourceAvailable=${true}></dx-data-grid-generic>
         </div>
       `,
       document.body,
@@ -154,7 +154,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
         <div style="width: 2000px;">
           <dx-data-grid-generic
             .columns=${testColDef}
-            isLoading=${false}
+            .isLoading=${false}
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_PICKER}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_PICKER}
             .data=${data}
@@ -321,7 +321,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
         <div style="width: 2000px;">
           <dx-data-grid-generic
             .columns=${testColDef}
-            isLoading=${false}
+            .isLoading=${false}
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             .data=${data}
@@ -417,7 +417,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
         <div style="width: 2000px;">
           <dx-data-grid-generic
             .columns=${testColDef}
-            isLoading=${false}
+            .isLoading=${false}
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             .data=${data}
@@ -442,7 +442,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
     render(
       html`
         <div style="width: 2000px;">
-          <dx-data-grid-generic .localization=${dxLocalization} .columns="${testColDef}" hasContentSourceAvailable=${false} 
+          <dx-data-grid-generic .localization=${dxLocalization} .columns="${testColDef}" .hasContentSourceAvailable=${false} 
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_PICKER}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_PICKER}
             .data=${data}
@@ -456,7 +456,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
     await dataGrid.waitForDisplayed();
 
     await browser.setWindowSize(2000, SNAPSHOT_WINDOW_HEIGHT);
-    await expect(browser).toMatchFullPageSnapshot('dx-data-grid-generic-with-picker-width-of-2000-3');
+    await expect(browser).toMatchFullPageSnapshot('dx-data-grid-generic-with-picker-width-of-2000-3', 100);
 
     document.head.removeChild(link);
   });
@@ -469,7 +469,7 @@ describe('DxDataGridGeneric - Snapshot testing', () => {
         <div style="width: 700px; height: 600px;">
           <dx-data-grid-generic
             .columns="${testPickerColDef}"
-            isLoading=${false}
+            .isLoading=${false}
             .data="${pickerData}"
             .localization=${dxLocalization}
           ></dx-data-grid-generic>

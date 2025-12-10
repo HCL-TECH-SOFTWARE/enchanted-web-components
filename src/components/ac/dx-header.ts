@@ -34,15 +34,11 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
 @customElement('dx-header')
 @localized()
 export class DxHeader extends DxAcBaseElement {
-
-  @property({ type: String }) color = 'rgba(0, 0, 0, .32)'; // equivalent to $BLACK32P in ac.scss
   @property({ type: String }) headerTitle = '';
   @property({ type: Boolean }) showBackIcon = false;
-
   @property({ type: Boolean }) isSideNavOpen = false;
   @property({ type: Boolean }) disabled = false;
-  @property()
-  variant: HEADER_VARIANT | undefined = undefined;
+  @property() variant: HEADER_VARIANT | undefined = undefined;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -70,12 +66,14 @@ export class DxHeader extends DxAcBaseElement {
       case HEADER_VARIANT.HEADER_AUTHORING:
         return html`
           <dx-input-textfield label=""
+            ?disabled="${this.disabled}"
             exportparts=${HEADER_PARTS.INPUT} 
             placeholder="${this.getMessage('header.enduser.search.placeholder')}"
           >
           </dx-input-textfield>
           <div part=${HEADER_PARTS.HEADER_SPACING_END}>
-            <dx-button 
+            <dx-button
+              ?disabled="${this.disabled}"
               buttontext=''
               ?outlined="${false}"
               data-testid="dx-filter-button"
@@ -88,7 +86,7 @@ export class DxHeader extends DxAcBaseElement {
         return html`
           <div part=${HEADER_PARTS.HEADER_SPACING_END}>
             <dx-button
-              ?disabled="${this.disabled || nothing}"
+              ?disabled="${this.disabled}"
               .icon="${html`<icon-search size="16" color="currentColor"></icon-search>`}"
               buttontext="${this.getMessage('header.enduser.search')}"
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
@@ -110,7 +108,8 @@ export class DxHeader extends DxAcBaseElement {
           <div part=${this.isSideNavOpen ? HEADER_PARTS.HEADER_SPACING_START_HAMBURGER : HEADER_PARTS.HEADER_SPACING_START} >
             ${this.showBackIcon
               ? html`
-              <dx-button 
+              <dx-button
+              ?disabled="${this.disabled}"
               buttontext=''
               ?outlined="${false}"
               data-testid="dx-back-button"

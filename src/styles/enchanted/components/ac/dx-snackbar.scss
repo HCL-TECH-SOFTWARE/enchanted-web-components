@@ -87,7 +87,6 @@
     height: 20px;
 
     dx-button {
-      height: 20px;
       &::part(button-enchanted-text-inverse), &::part(button-enchanted-text-focused-inverse) {
         border-radius: 2px !important;
         @include typography.subtitle2;

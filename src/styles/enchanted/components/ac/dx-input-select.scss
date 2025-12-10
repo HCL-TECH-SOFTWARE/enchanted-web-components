@@ -37,8 +37,6 @@
   &::part(#{$part-div}) {
     position: relative;
     width: 100%;
-    margin-bottom:10px;
-    margin-top:10px;
   }
   
   &::part(div-label) {
@@ -92,8 +90,9 @@
   &::part(#{$part-button-outlined-focused}),
   &::part(#{$part-button-contained-focused}) {
     border: 1px solid palette.clr(light, border, tertiary);
+    border-radius: 2px;
     width: 100%;
-    height:34px;
+    height: 34px;
     padding: 8px;
     background-color: palette.clr(light, background, paper);
     text-align: left;
@@ -101,7 +100,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 4px;
     box-sizing: border-box;
     @include typography.font-default;
     line-height:20px;
@@ -111,8 +110,9 @@
   &::part(#{$part-button-outlined-disabled}),
   &::part(#{$part-button-contained-disabled}) {
     border: 1px solid palette.clr(light, border, tertiary);
+    border-radius: 2px;
     width: 100%;
-    height:34px;
+    height: 34px;
     padding: 8px;
     background-color: palette.clr(light, action, disabledBackground);
     text-align: left;
@@ -120,7 +120,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 4px;
     box-sizing: border-box;
     @include typography.font-default;
     line-height:20px;
@@ -133,6 +133,7 @@
     padding: 0;
     background-color: palette.clr(light, background, paper);
     border: 1px solid palette.clr(light, action, disabled);
+    border-radius: 2px;
     list-style: none;
     position:absolute;
     z-index: 10; // TODO - we need z-index layout ... I don't know if this z-index is correct

@@ -44,7 +44,6 @@
 
   &::part(chip-div) {
     background-color: palette.clr(light, action, activeOpactiy) !important;
-    padding: 0 4px !important;
     margin-top: 1px;
   }
 
@@ -82,7 +81,6 @@
     overflow: hidden;
     align-items: center;
     gap: 5px;
-    padding-left: 2px;
   }
 
   &::part(clear-and-icon-container) {

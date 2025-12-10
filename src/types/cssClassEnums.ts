@@ -196,7 +196,9 @@ export enum DIALOG_PARTS {
   DIALOG_ROOT_CHAT = 'dialog-root-chat',
   BACKDROP = 'backdrop',
   CONTAINER_XL = 'container-xl',
+  CONTAINER_XS = 'container-xs',
   PAPER_XL = 'paper-xl',
+  PAPER_XS = 'paper-xs',
   TITLE = 'title',
   TITLE_ROOT = 'title-root',
   TITLE_TEXT = 'title-text',
@@ -217,10 +219,12 @@ export enum DIALOG_PARTS {
   CONTAINER_MD = 'container-md',
   CONTAINER_LG = 'container-lg',
   CONTENT_SM = 'content-sm',
+  CONTENT_XS = 'content-xs',
   CONTENT_CHAT = 'content-chat',
   CONTENT_MD = 'content-md',
   CONTENT_LG = 'content-lg',
   ACTION_NO_BORDER = 'action-no-border',
+  PAGINATION_XS = 'pagination-xs',
   PAGINATION_SM = 'pagination-sm',
   PAGINATION_MD = 'pagination-md',
   PAGINATION_LG = 'pagination-lg',
@@ -247,13 +251,6 @@ export enum MENU_ITEM_PARTS {
   TEXT = 'text',
 }
 
-export enum SEARCH_CENTER_LAYOUT_PARTS {
-  SEARCH_OUTPUT_CONTAINER = 'search-output-container',
-  SEARCH_OUTPUT_CONTAINER_NO_TAGS = 'search-output-container-no-tags',
-  TAG_CLOUD_CONTAINER = 'tag-cloud-container',
-  TAG_CLOUD_CONTAINER_HIDDEN = 'tag-cloud-container-hidden',
-}
-
 export enum INPUT_TEXTFIELD_PARTS {
   INPUT = 'input',
   INPUT_DISABLED = 'input-disabled',
@@ -261,6 +258,8 @@ export enum INPUT_TEXTFIELD_PARTS {
   INPUT_ICON_CLEAR_RTL = 'input-icon-clear-rtl',
   INPUT_ICON_BOTH = 'input-icon-both',
   INPUT_ICON_BOTH_RTL = 'input-icon-both-rtl',
+  LABEL = 'label',
+  LABEL_DISABLED = 'label-disabled',
   ICON = 'icon',
   ICON_CLEAR = 'icon-clear',
   ICON_CLEAR_RTL = 'icon-clear-rtl',

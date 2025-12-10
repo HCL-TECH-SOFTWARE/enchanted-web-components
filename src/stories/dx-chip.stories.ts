@@ -1,70 +1,70 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../components/ac/dx-chip';
+import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark';
+import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 
 const meta: Meta = {
   title: 'Data display/dx-chip',
   component: 'dx-chip',
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'radio' },
-      options: ['default', 'primary', 'secondary'],
-      description: 'Chip variant',
-      defaultValue: 'default',
-    },
     name: {
-      control: 'text',
-      description: 'Chip name',
-      defaultValue: 'Chip Name',
+      control: { type: 'text' },
+      description: 'The text label displayed on the chip. This is the primary content that identifies the chip.',
+      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     count: {
       control: { type: 'number', min: 0, max: 99, step: 1 },
-      description: 'Chip count',
-      defaultValue: 0,
+      description: 'The numeric count displayed on the chip when showChipCount is enabled. Useful for showing quantities, notifications, or item counts. Limited to 0-99.',
+      table: { category: 'Content', type: { summary: 'number' }, defaultValue: { summary: '0' } },
     },
     showChipCount: {
-      control: 'boolean',
-      description: 'Show chip count',
-      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'Controls visibility of the count badge. When enabled, displays the count value in a badge next to the chip name. RTL-aware positioning.',
+      table: { category: 'Display', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
     },
     showAvatar: {
-      control: 'boolean',
-      description: 'Show avatar',
-      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'Controls visibility of an avatar icon at the start of the chip. When enabled, displays a dx-avatar component with "avatar-icon" variant.',
+      table: { category: 'Display', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
     },
     clearIcon: {
-      control: 'boolean',
-      description: 'Show clear icon',
-      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'Controls visibility of a clear/remove icon. When enabled, displays a slotted clear icon that can be used to remove or dismiss the chip.',
+      table: { category: 'Display', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+      description: 'Disables the chip, applying disabled styling and preventing interaction. Sets tabindex to -1 when true, making it non-focusable.',
+      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
     },
   },
   args: {
-    variant: 'default',
     name: 'Chip Name',
     count: 0,
     showChipCount: false,
     showAvatar: false,
     clearIcon: false,
+    disabled: false,
   },
   parameters: {
     docs: {
       description: {
-        component: 'Chip component with controls for variant and boolean properties.'
+        component: 'Chip component for displaying compact elements with optional avatar, count badge, and clear icon. ' +
+          'Supports disabled state and RTL text direction. Commonly used for tags, filters, or selected items.'
       }
     }
   }
-};
-
-export default meta;
+};export default meta;
 
 type Story = StoryObj<{
-  variant: string;
   name: string;
   count: number;
   showChipCount: boolean;
   showAvatar: boolean;
   clearIcon: boolean;
+  disabled: boolean;
 }>;
 
 export const DxChip: Story = {
@@ -73,11 +73,115 @@ export const DxChip: Story = {
       <dx-chip
         .name=${args.name}
         .count=${args.count}
+        .icon=${html`<icon-checkmark size='16'></icon-checkmark>`}
         ?showChipCount=${args.showChipCount}
         ?showAvatar=${args.showAvatar}
         ?clearIcon=${args.clearIcon}
-      ></dx-chip>
+        ?disabled=${args.disabled}
+      >
+        <div slot="clear-icon">
+          <icon-close size='16'></icon-close>
+        </div>
+      </dx-chip>
     `;
   },
-  name: 'DxChip',
+  name: 'Default',
+};
+
+export const AllStates: StoryObj = {
+  render: () => {
+    return html`
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div>
+          <h3>Basic Chips</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <dx-chip .name=${'Basic Chip'}></dx-chip>
+            <dx-chip .name=${'With Count'} .count=${5} ?showChipCount=${true}></dx-chip>
+            <dx-chip .name=${'High Count'} .count=${99} ?showChipCount=${true}></dx-chip>
+          </div>
+        </div>
+
+        <div>
+          <h3>Chips with Avatar</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <dx-chip .name=${'Avatar Chip'} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true}></dx-chip>
+            <dx-chip .name=${'Avatar + Count'} .count=${12} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true} ?showChipCount=${true}></dx-chip>
+          </div>
+        </div>
+
+        <div>
+          <h3>Chips with Clear Icon</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <dx-chip .name=${'Clearable Chip'} ?clearIcon=${true}>
+              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
+            </dx-chip>
+            <dx-chip .name=${'Clear + Count'} .count=${8} ?clearIcon=${true} ?showChipCount=${true}>
+              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
+            </dx-chip>
+            <dx-chip .name=${'Clear + Avatar'} ?clearIcon=${true} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true}>
+              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
+            </dx-chip>
+          </div>
+        </div>
+
+        <div>
+          <h3>All Features Combined</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <dx-chip .name=${'Full Featured'} .count=${25} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true} ?showChipCount=${true} ?clearIcon=${true}>
+              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
+            </dx-chip>
+          </div>
+        </div>
+
+        <div>
+          <h3>Disabled States</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <dx-chip .name=${'Disabled Basic'} ?disabled=${true}></dx-chip>
+            <dx-chip .name=${'Disabled + Count'} .count=${7} ?disabled=${true} ?showChipCount=${true}></dx-chip>
+            <dx-chip .name=${'Disabled + Avatar'} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?disabled=${true} ?showAvatar=${true}></dx-chip>
+            <dx-chip .name=${'Disabled + Clear'} ?disabled=${true} ?clearIcon=${true}>
+              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
+            </dx-chip>
+            <dx-chip
+              .name=${'Disabled Full'}
+              .count=${42}
+              .icon=${html`<icon-checkmark size='16'></icon-checkmark>`}
+              ?disabled=${true}
+              ?showAvatar=${true}
+              ?showChipCount=${true}
+              ?clearIcon=${true}
+            >
+              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
+            </dx-chip>
+          </div>
+        </div>
+
+        <div>
+          <h3>Long Text Handling</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <dx-chip .name=${'This is a chip with a very long name that might need handling'}></dx-chip>
+            <dx-chip
+              .name=${'Long Name with Features'}
+              .count=${99}
+              .icon=${html`<icon-checkmark size='16'></icon-checkmark>`}
+              ?showAvatar=${true}
+              ?showChipCount=${true}
+              ?clearIcon=${true}
+            >
+              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
+            </dx-chip>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comprehensive showcase of all chip states and feature combinations. Demonstrates basic chips, chips with counts, ' +
+          'avatars, clear icons, disabled states, and combinations of all features. Includes edge cases like high counts (99) and long text.'
+      }
+    },
+    controls: { disable: true },
+  },
 };

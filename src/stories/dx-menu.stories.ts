@@ -22,6 +22,7 @@ const containerStyle = [
  * @property menuDelay - Delay in ms before opening the menu.
  * @property placement - Menu placement relative to anchor: 'bottom-start' or 'bottom-end'.
  * @property size - Menu size: 'sm' or 'md'.
+ * @property dropdownMinWidth - CSS custom property for minimum dropdown width.
  */
 export interface DxMenuProps {
   items?: { text: string; value: string }[];
@@ -35,11 +36,33 @@ const meta: Meta<DxMenuProps> = {
   title: 'Navigation/dx-menu',
   tags: ['autodocs'],
   argTypes: {
-    items: { control: 'object', description: 'The menu items as an array of objects with text and value.', table: { defaultValue: { summary: '[]' } } },
-    menuDelay: { control: 'number', description: 'Delay in ms before opening the menu.', table: { defaultValue: { summary: '300' } } },
-    placement: { control: 'select', options: Object.values(DxMenuPlacement), description: 'Menu placement relative to anchor.', table: { defaultValue: { summary: DxMenuPlacement.BOTTOM_START } } },
-    size: { control: 'select', options: Object.values(DxMenuSize), description: 'Menu size.', table: { defaultValue: { summary: DxMenuSize.MEDIUM } } },
-    dropdownMinWidth: { control: 'text', description: 'CSS var --dropdown-menu-min-width (e.g., 240px).', table: { defaultValue: { summary: '' } } },
+    items: {
+      control: { type: 'object' },
+      description: 'Array of menu item objects with text and value properties. Used to dynamically generate dx-menu-item components in the story template.',
+      table: { category: 'Content', type: { summary: 'Array<{text: string, value: string}>' }, defaultValue: { summary: '[]' } },
+    },
+    menuDelay: {
+      control: { type: 'number' },
+      description: 'Delay in milliseconds before opening the menu on interaction. Provides a slight pause to prevent accidental menu triggers.',
+      table: { category: 'Behavior', type: { summary: 'number' }, defaultValue: { summary: '300' } },
+    },
+    placement: {
+      control: { type: 'select' },
+      options: Object.values(DxMenuPlacement),
+      description: 'Menu placement relative to the anchor element. Options: "bottom-start" (aligned to start edge) or "bottom-end" (aligned to end edge).',
+      table: { category: 'Layout', type: { summary: 'DxMenuPlacement' }, defaultValue: { summary: DxMenuPlacement.BOTTOM_START } },
+    },
+    size: {
+      control: { type: 'select' },
+      options: Object.values(DxMenuSize),
+      description: 'Menu size variant affecting menu item height and padding. Options: "sm" (small/compact) or "md" (medium/standard).',
+      table: { category: 'Layout', type: { summary: 'DxMenuSize' }, defaultValue: { summary: DxMenuSize.MEDIUM } },
+    },
+    dropdownMinWidth: {
+      control: { type: 'text' },
+      description: 'Minimum width for the dropdown menu. Set via CSS custom property --dropdown-menu-min-width. Example values: "240px", "200px", "300px".',
+      table: { category: 'Styling', type: { summary: 'string' }, defaultValue: { summary: '' } },
+    },
   },
   args: {
     items: [
@@ -51,6 +74,15 @@ const meta: Meta<DxMenuProps> = {
     placement: DxMenuPlacement.BOTTOM_START,
     size: DxMenuSize.MEDIUM,
     dropdownMinWidth: '240px',
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: 'Menu component that displays a dropdown list of menu items anchored to a target element. ' +
+          'Supports customizable placement, size variants, delay timing, and automatic positioning with viewport awareness. ' +
+          'Uses slots for flexible content: target-anchor for the trigger element and menu-items for the dropdown content.'
+      }
+    }
   },
   render: (args) => {
     return html`
@@ -197,5 +229,14 @@ export const AllStates: Story = {
         </div>
       </div>
     `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comprehensive showcase of all menu size and placement combinations. Demonstrates 2 sizes (small, medium) × 2 placements (bottom-start, bottom-end) = 4 total configurations. ' +
+          'Menus are programmatically opened on load to display their appearance and positioning behavior.'
+      }
+    },
+    controls: { disable: true },
   },
 };

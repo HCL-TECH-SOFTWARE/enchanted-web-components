@@ -69,7 +69,6 @@ describe('DxMultiSelectChip component testing', () => {
     await expect(component).toHaveElementProperty('showRemoveLabel', false);
     await expect(component).toHaveElementProperty('emptyOptions', false);
     await expect(component).toHaveElementProperty('clearIcon', true);
-    await expect(component).toHaveElementProperty('error', false);
     await expect(component).not.toHaveAttribute('customWidth');
     await expect(component).not.toHaveAttribute('selectedValue');
     await expect(component).not.toHaveAttribute('options');
