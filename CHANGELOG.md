@@ -3,43 +3,53 @@
 ## Unreleased
 
 ### Added
+
+### Fixed
+
+### Changed
+
+### Breaking changes
+
+## 2.0.0
+
+### Added
 - Added new `placement` and `size` property for `dx-menu` component.
 - Added `icons` property to `dx-toggle-button` component to support enchanted-icons (TemplateResult array) alongside existing `iconUrls` (string array) for dual-button mode.
 - Added `clearIcon` and `actionIcon` properties to `dx-input-textfield` component to support enchanted-icons (TemplateResult) for icon rendering.
-- Add `dx-data-grid-generic` storybook story
-- Add `icon` property to the `dx-chip` component
+- Added `dx-data-grid-generic` storybook story
+- Added `icon` property to the `dx-chip` component
 - Added a new storybook for the theme inspector and also added some new color tokens.
 - Added comprehensive accessibility focus tests for `dx-dialog` component.
 - Added RTL support for `dx-dialog` default title layout.
 
 ### Fixed
-- Fix `dx-preview` image zoom functionality to enable scrolling on all sides when zoomed beyond 100%.
-- Fix the `XS` size of the `dx-dialog` component
-- Fix the `disabled` state for the `dx-header` component
+- Fixed `dx-preview` image zoom functionality to enable scrolling on all sides when zoomed beyond 100%.
+- Fixed the `XS` size of the `dx-dialog` component
+- Fixed the `disabled` state for the `dx-header` component
 - Fixed `dx-dialog` close button positioning.
-- Truncated title text in `dx-dialog` if overflowing.
+- Fixed truncated title text in `dx-dialog` if overflowing.
 
 ### Changed
 - Refactored menu placement logic using a switch statement for clarity and maintainability.
 - Updated `dx-toggle-button` component to support both enchanted-icons via `icons` property and static SVG URLs via `iconUrls` property with fallback logic (`icons[0] || iconUrls[0]`).
 - Updated `dx-input-textfield` component to use `clearIcon` and `actionIcon` properties (TemplateResult) instead of URL-based icons.
 - Updated `dx-input-textfield` storybook to use enchanted-icons (`icon-close`, `icon-search`) from `@hcl-software/enchanted-icons-web-component`.
-- Check and rework all storybook stories
-- Adjust `dx-chip` stylings
-- Adjust `dx-datepicker` stylings
-- Adjust `dx-input-select` stylings
-- Adjust `dx-input-textfield` stylings
-- Adjust `dx-multiple-select-chip` stylings
-- Adjust `dx-snackbar` stylings
+- Checked and reworked all storybook stories
+- Adjusted `dx-chip` stylings
+- Adjusted `dx-datepicker` stylings
+- Adjusted `dx-input-select` stylings
+- Adjusted `dx-input-textfield` stylings
+- Adjusted `dx-multiple-select-chip` stylings
+- Adjusted `dx-snackbar` stylings
 
 ### Breaking changes
 - Removed `clearIconUrl` and `actionIconUrl` properties from `dx-input-textfield` component. Use `clearIcon` and `actionIcon` properties instead, which accept TemplateResult for enchanted-icons rendering.
-- Remove unused `error` property from the `dx-multiple-select-chip` component
-- Remove unused `color` property from the `dx-header` component
-- Change `dx-data-grid-generic` interface propertie types (isLoading, hasMiddlewareError, hasContentSourceAvailable, checkboxSelection)
-- Remove `dx-search-center-layout` component
-- Remove the `ignoreDisable` property from the `dx-input-textfield` component
-- Remove useless `open` property from `dx-menu` component
+- Removed unused `error` property from the `dx-multiple-select-chip` component
+- Removed unused `color` property from the `dx-header` component
+- Changed `dx-data-grid-generic` interface property types (isLoading, hasMiddlewareError, hasContentSourceAvailable, checkboxSelection)
+- Removed `dx-search-center-layout` component
+- Removed the `ignoreDisable` property from the `dx-input-textfield` component
+- Removed useless `open` property from `dx-menu` component
 - Changed `dx-dialog` focus behavior to immediately focus the first focusable element (prioritizing slotted content) instead of focusing the dialog element first.
 
 ## 1.4.0
