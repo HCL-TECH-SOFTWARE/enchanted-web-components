@@ -63,8 +63,8 @@ export interface DxPreviewProps {
 }
 
 const IMAGE_RENDITIONS: AssetRendition[] = [
-  { id: 'original', type: 'Original', source: 'https://via.placeholder.com/600x400', dimension: '600x400' },
-  { id: 'thumb', type: 'Thumbnail', source: 'https://via.placeholder.com/150x100', dimension: '150x100' },
+  { id: 'original', type: 'Original', source: new URL('../_tests_/assets/test-image.jpg', import.meta.url).href, dimension: '600x400' },
+  { id: 'thumb', type: 'Thumbnail', source: new URL('../_tests_/assets/test-image.jpg', import.meta.url).href, dimension: '150x100' },
 ];
 
 const PREVIEW_ITEMS: PreviewItem[] = [

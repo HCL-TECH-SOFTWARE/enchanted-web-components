@@ -174,7 +174,6 @@ describe('DxPreview component testing', () => {
     );
     const component = await $('dx-preview').getElement();
     const mockStyle = [
-      'visibility',
       'height',
       'width',
     ];
@@ -571,14 +570,16 @@ describe('DxPreview component testing', () => {
     await zoomInButton.waitForClickable();
     const zoomPercentageButton = await component.$(`>>>dx-button[data-testid="dx-preview-zoom-percentage-button"]`);
     let style = await img.getAttribute('style');
-    await expect(style.replace(/\s+/g, '')).toContain('--zoom-scale-factor:0.5');
+    await expect(style.replace(/\s+/g, '')).toContain('width:');
+    await expect(style.replace(/\s+/g, '')).toContain('height:');
     await expect(zoomPercentageButton).toHaveText('50%');
 
     await zoomInButton.moveTo();
     zoomInButton = await component.$(`>>>dx-icon-button[data-testid="dx-preview-zoom-in-button"]`);
     await zoomInButton.click();
     style = await img.getAttribute('style');
-    await expect(style.replace(/\s+/g, '')).toContain('--zoom-scale-factor:0.75');
+    await expect(style.replace(/\s+/g, '')).toContain('width:');
+    await expect(style.replace(/\s+/g, '')).toContain('height:');
     await expect(zoomPercentageButton).toHaveText('75%');
   });
 
@@ -596,14 +597,16 @@ describe('DxPreview component testing', () => {
     await zoomOutButton.waitForClickable();
     const zoomPercentageButton = await component.$(`>>>dx-button[data-testid="dx-preview-zoom-percentage-button"]`);
     let style = await img.getAttribute('style');
-    await expect(style.replace(/\s+/g, '')).toContain('--zoom-scale-factor:0.5');
+    await expect(style.replace(/\s+/g, '')).toContain('width:');
+    await expect(style.replace(/\s+/g, '')).toContain('height:');
     await expect(zoomPercentageButton).toHaveText('50%');
 
     await zoomOutButton.moveTo();
     zoomOutButton = await component.$(`>>>dx-icon-button[data-testid="dx-preview-zoom-out-button"]`);
     await zoomOutButton.click();
     style = await img.getAttribute('style');
-    await expect(style.replace(/\s+/g, '')).toContain('--zoom-scale-factor:0.25');
+    await expect(style.replace(/\s+/g, '')).toContain('width:');
+    await expect(style.replace(/\s+/g, '')).toContain('height:');
     await expect(zoomPercentageButton).toHaveText('25%');
   });
 

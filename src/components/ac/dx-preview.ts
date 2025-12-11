@@ -15,7 +15,6 @@
 // External imports
 import { html, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 // Component imports
 import { DxAcBaseElement } from './dx-ac-base-element';
@@ -132,12 +131,62 @@ export class DxPreview extends DxAcBaseElement {
   @state()
   isMediaReady = false;
 
+  @state()
+  isZoomedIn = false;
+
   private _activeRequestToken = 0;
 
   protected willUpdate(changedProperties: Map<string | symbol, unknown>) {
     if (this.open && (changedProperties.has('currentItemIndex') || changedProperties.has('items') || changedProperties.has('selectedRenditionId'))) {
       this._updateCurrentItemAndRendition();
     }
+
+    // Update isZoomedIn state when zoom, items, or currentItemIndex changes
+    if (changedProperties.has('zoomPercentage') || changedProperties.has('items') || changedProperties.has('currentItemIndex')) {
+      const currentItem = this.items[this.currentItemIndex ?? 0];
+      const isImageType = currentItem?.type.split('/')[0] === ItemTypes.DAM_IMAGE;
+      this.isZoomedIn = isImageType && this.zoomPercentage > 100;
+    }
+
+    // Apply zoomed class to host element immediately
+    if (this.isZoomedIn) {
+      this.classList.add('zoomed');
+    } else {
+      this.classList.remove('zoomed');
+    }
+
+    // Update CSS custom properties
+    if (changedProperties.has('zoomPercentage')) {
+      this.style.setProperty('--zoom-scale-factor', `${this.zoomPercentage / 100}`);
+      this._updateImageDimensions();
+    }
+    if (changedProperties.has('isMediaReady')) {
+      this.style.setProperty('--media-visibility', this.isMediaReady ? 'visible' : 'hidden');
+    }
+  }
+
+  private _updateImageDimensions() {
+    requestAnimationFrame(() => {
+      const wrapper = this.renderRoot?.querySelector('#preview-item-image-wrapper') as HTMLElement | null;
+      const img = this.renderRoot?.querySelector('#preview-item-image') as HTMLImageElement | null;
+
+      if (wrapper && img && img.naturalWidth && img.naturalHeight) {
+        const scale = this.zoomPercentage / 100;
+        // Set image dimensions directly to scaled size
+        const scaledWidth = img.naturalWidth * scale;
+        const scaledHeight = img.naturalHeight * scale;
+
+        // Set both image and wrapper to the same scaled dimensions
+        img.style.width = `${scaledWidth}px`;
+        img.style.height = `${scaledHeight}px`;
+        wrapper.style.width = `${scaledWidth}px`;
+        wrapper.style.height = `${scaledHeight}px`;
+
+        // Clear transform as we're using direct dimensions
+        img.style.transform = '';
+        img.style.transformOrigin = '';
+      }
+    });
   }
 
   @state()
@@ -430,20 +479,17 @@ export class DxPreview extends DxAcBaseElement {
     const itemType = currentItem.type.split('/')[0];
     switch (itemType) {
       case ItemTypes.DAM_IMAGE: {
-        const scaleFactor = this.zoomPercentage / 100;
         return html`
-          <img
-            id="preview-item-image"
-            part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}
-            src=${this.currentDisplaySource}
-            alt=${currentItem.title}
-            style=${styleMap({
-          '--zoom-scale-factor': scaleFactor,
-          visibility: this.isMediaReady ? 'visible' : 'hidden',
-        })}
-            @load=${this._handleMediaReady}
-            @error=${this._handlePreviewError}
-          />
+          <div id="preview-item-image-wrapper" part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE_WRAPPER}>
+            <img
+              id="preview-item-image"
+              part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}
+              src=${this.currentDisplaySource}
+              alt=${currentItem.title}
+              @load=${this._handleMediaReady}
+              @error=${this._handlePreviewError}
+            />
+          </div>
         `;
       }
       case ItemTypes.DAM_VIDEO:
@@ -452,7 +498,6 @@ export class DxPreview extends DxAcBaseElement {
             <video 
               controls 
               part=${PREVIEW_PARTS.PREVIEW_ITEM_VIDEO}
-              style=${styleMap({ visibility: this.isMediaReady ? 'visible' : 'hidden' })}
               @loadeddata=${this._handleMediaReady}
               @error=${this._handlePreviewError}
               .src=${this.currentDisplaySource}
@@ -571,7 +616,11 @@ export class DxPreview extends DxAcBaseElement {
 
     const itemType = currentItem.type.split('/')[0];
     if (itemType === ItemTypes.DAM_IMAGE) {
-      requestAnimationFrame(() => {return this.zoomPercentage = this._calculateImagePercentage();});
+      requestAnimationFrame(() => {
+        // Calculate and apply fit-to-screen zoom
+        this.zoomPercentage = this._calculateImagePercentage();
+        this._updateImageDimensions();
+      });
     } else if (itemType === ItemTypes.DAM_VIDEO) {
       requestAnimationFrame(() => {return this._handleResize();});
     }
@@ -662,9 +711,6 @@ export class DxPreview extends DxAcBaseElement {
     const currentItem = this.items[this.currentItemIndex ?? 0];
     const isImageType = currentItem?.type.split('/')[0] === ItemTypes.DAM_IMAGE;
     const currentItemRenditions = currentItem?.renditions;
-    const previewItemContainerStyles = {
-      overflow: isImageType && this.zoomPercentage !== this._ZOOM_DEFAULT ? 'auto' : 'hidden',
-    };
 
     if (!this.open) return nothing;
     const downloadLabel = this.getMessage('preview.tooltip.download.button');
@@ -675,7 +721,7 @@ export class DxPreview extends DxAcBaseElement {
     const percentageLabel = this.getMessage(this.zoomPercentage === 100 ? 'preview.tooltip.zoom.to.fit' : 'preview.tooltip.view.actual.size');
     const titleHeader = this.customHeaderTitle ?? this.items[this.currentItemIndex]?.title ?? this.getMessage('preview.header.title');
     return html`
-    <div part=${PREVIEW_PARTS.PREVIEW_BACKDROP} 
+    <div part=${PREVIEW_PARTS.PREVIEW_BACKDROP}
       ?open=${this.open} 
       tabindex="-1"
       role="presentation"
@@ -756,7 +802,7 @@ export class DxPreview extends DxAcBaseElement {
           </div>
         </div>
         <hr part=${PREVIEW_PARTS.PREVIEW_HEADER_DIVIDER} />
-        <div part=${PREVIEW_PARTS.PREVIEW_ITEM_CONTAINER} style=${styleMap(previewItemContainerStyles)}>
+        <div part=${PREVIEW_PARTS.PREVIEW_ITEM_CONTAINER}>
           ${this.items.length > 0 ? html`
             <div part=${PREVIEW_PARTS.PREVIEW_ITEM_PREVIOUS_BUTTON_CONTAINER}>
               <dx-tooltip 
@@ -783,7 +829,7 @@ export class DxPreview extends DxAcBaseElement {
               </dx-tooltip>
             </div>
           ` : nothing }
-          <div part=${PREVIEW_PARTS.PREVIEW_ITEM_CONTENT_CONTAINER}>
+          <div id="preview-item-content-container" part=${PREVIEW_PARTS.PREVIEW_ITEM_CONTENT_CONTAINER}>
             ${this._renderPreviewItem()}
             ${
               this.isLoading || (this.currentDisplaySource && !this.isMediaReady && !this.hasError)

@@ -13,6 +13,7 @@
 - Added RTL support for `dx-dialog` default title layout.
 
 ### Fixed
+- Fix `dx-preview` image zoom functionality to enable scrolling on all sides when zoomed beyond 100%.
 - Fix the `XS` size of the `dx-dialog` component
 - Fix the `disabled` state for the `dx-header` component
 - Fixed `dx-dialog` close button positioning.

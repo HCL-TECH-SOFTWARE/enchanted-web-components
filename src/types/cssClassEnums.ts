@@ -477,6 +477,7 @@ export enum PREVIEW_PARTS {
   PREVIEW_HEADER_TITLE = 'preview-header-title',
   PREVIEW_ITEM_CONTAINER = 'preview-item-container',
   PREVIEW_ITEM_IMAGE = 'preview-item-image',
+  PREVIEW_ITEM_IMAGE_WRAPPER = 'preview-item-image-wrapper',
   PREVIEW_ITEM_VIDEO_CONTAINER = 'preview-item-video-container',
   PREVIEW_ITEM_VIDEO = 'preview-item-video',
   PREVIEW_ITEM_CONTENT = 'preview-item-content',
