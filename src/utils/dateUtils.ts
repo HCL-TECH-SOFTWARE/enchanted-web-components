@@ -59,7 +59,7 @@ import 'dayjs/locale/tr';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/zh';
 import 'dayjs/locale/zh-tw';
-import { DEFAULT_DATE_FORMAT, DEFAULT_CALENDAR_LOCALE, FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP } from '../types/dx-datepicker';
+import { DEFAULT_DATE_FORMAT, DEFAULT_CALENDAR_LOCALE, FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP } from '../types/enchanted-datepicker';
 import { SUPPORTED_LOCALES } from '../components/constants';
 
 

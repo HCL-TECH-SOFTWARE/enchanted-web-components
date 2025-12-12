@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 
-import { DxDataGridColDef } from "../types/dx-data-grid";
+import { EnchantedDataGridColDef } from "../types/enchanted-data-grid";
 import { SampleDataRow } from "./types";
 import svgIconEdit from './assets/svg-edit.svg';
 import svgIconOverflow from './assets/Overflow-menu--horizontal.svg';
@@ -27,7 +27,7 @@ export const SEARCH_COMMON_FIELDS = [
 
 export const DEFAULT_DOCUMENT_OBJECT_TYPE = 'title';
 
-export const DX_DATA_GRID_COLUMNS: DxDataGridColDef[] = [
+export const ENCHANTED_DATA_GRID_COLUMNS: EnchantedDataGridColDef[] = [
   {
     field: 'title', 
     headerName: 'Title',
@@ -96,7 +96,7 @@ export const DX_DATA_GRID_COLUMNS: DxDataGridColDef[] = [
   { field: 'contentPath', headerName: 'Location', sortEnable: true },
 ];
 
-export const DX_DATA_GRID_PICKER_COLUMNS: DxDataGridColDef[] = [
+export const ENCHANTED_DATA_GRID_PICKER_COLUMNS: EnchantedDataGridColDef[] = [
   {
     field: 'title', 
     headerName: 'Title',

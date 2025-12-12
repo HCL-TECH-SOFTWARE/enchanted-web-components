@@ -1,0 +1,280 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "../../common/palette";
+@use "../../common/typography";
+
+@mixin enchanted-multiple-select-chip-base-styles(
+  $part-clear-all-icon: 'clear-all-icon',
+  $part-clear-all-icon-hidden: 'clear-all-icon-hidden',
+) {
+
+  &::part(input-container) {
+    border: 1px solid palette.clr(light, action, disabled);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 7px;
+    border-radius: 2px;
+  }
+
+  &::part(button),
+  &::part(button-contained-focused) {
+    border: none !important;
+    height: inherit !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  &::part(input-text) {
+    border: none !important;
+  }
+
+  &::part(chip-div) {
+    background-color: palette.clr(light, action, activeOpactiy) !important;
+    margin-top: 1px;
+  }
+
+  &::part(chip-div):hover {
+    background-color: palette.clr(light, action, hover) !important;
+  }
+
+  &::part(chip-name) {
+    font-size: 12px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  &::part(chip-div):active {
+    margin-top: 1px;
+    background-color: palette.clr(light, action, selectedOpacity) !important;
+    outline: palette.clr(light, action, selected) solid 1px;
+    color: palette.clr(light, action, selected) !important;
+  }
+
+  :host(&::part(chip-div):active) &::part(chip-name) {
+    color: palette.clr(light, action, selected) !important;
+  }
+
+  &::part(input-text):focus,
+  &::part(input-text):focus-visible {
+    border: none;
+    outline: none;
+  }
+
+  &::part(chip-and-input-container) {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &::part(clear-and-icon-container) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &::part(top-container-div) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &::part(top-container-div):disabled {
+    cursor: not-allowed;
+  }
+
+  &::part(input-text) {
+    @include typography.body2italic;
+    height: 24px;
+    letter-spacing: 0.35px;
+    background-color: transparent;
+  }
+
+  &::part(clear-icon) svg:hover path {
+    stroke: palette.clr(light, border, inverseSecondary);
+    fill: palette.clr(light, border, inverseSecondary);
+    color: palette.clr(light, border, inverseSecondary);
+  }
+
+  &::part(chip-name) {
+    padding: 0 8px;
+  }
+
+  &::part(unordered-list) {
+    display: block;
+    z-index: 99 !important;
+    width: inherit !important;
+    border: none !important;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    margin-top: 2px !important;
+    // position: relative !important;
+  }
+
+  &::part(list-item-selected) {
+    display: flex;
+    color: palette.clr(light, text, primary) !important;
+    background-color: palette.clr(light, background, paper) !important;
+  }
+
+  &::part(list-item-selected):hover,
+  &::part(list-item):hover {
+    background-color: palette.clr(light, action, hover) !important;
+  }
+
+  &::part(list-items) {
+    flex: 1 1 95%;
+    padding-left: 4px;
+  }
+
+  &::part(checkmark),
+  &::part(checkmark-placeholder) {
+    flex: 0 0 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &::part(clear-all-icon),
+  &::part(clear-all-icon-hidden) {
+    --icon-theme-size: 16px;
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  icon-close-filled {
+    --icon-theme-size: 16px;
+  }
+
+  &::part(list-item-content) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &::part(list-item-no-content),
+  &::part(no-list-item) {
+    @include typography.body1;
+    padding: 8px;
+    color: palette.clr(light, text, disabled);
+    background-color: palette.clr(light, background, paper);
+    font-family: Inter, sans-serif;
+    border-radius: 2px;
+    display: flex;
+  }
+
+  &::part(input-container):focus-within {
+    outline: 2px solid palette.clr(light, action, focus);
+  }
+
+  &::part(clear-all-icon-hidden) {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &::part(clear-all-icon) {
+    opacity: 1;
+    pointer-events: auto;
+    border: none;
+    background-color: palette.clr(light, background, paper);
+    cursor: pointer !important;
+  }
+
+  &::part(button-contained) {
+    background-color: palette.clr(light, background, paper) !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+  }
+
+  &::part(input-container):hover &::label {
+    color: palette.clr(light, primary, main);
+  }
+
+  &::part(clear-icon) {
+    display: flex;
+    cursor: pointer
+  }
+
+  &::part(multiple-select-div-label-and-remove) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+
+  &::part(multiple-select-remove-label) {
+    @include typography.caption;
+    color: palette.clr(light, primary, main);
+    cursor: pointer;
+  }
+
+  &::part(helper-text) {
+    @include typography.caption;
+    color: palette.clr(light, text, secondary);
+    margin-top: 4px;
+  }
+
+  &::part(multiple-select-label-disabled) {
+    color: palette.clr(light, text, disabled) !important;
+  }
+
+  &::part(multiple-select-remove-label-disabled) {
+    color: palette.clr(light, text, disabled) !important;
+    cursor: not-allowed;
+    border: none;
+    outline: none;
+  }
+
+  &::part(button-contained-disabled) {
+    border: none !important;
+    margin-top: 0 !important;
+    height: inherit !important;
+    padding: 0 !important;
+    color: palette.clr(light, text, disabled);
+    background-color: palette.clr(light, action, disabledBackground) !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  &::part(button-contained-disabled):focus,
+  &::part(input-container-disabled):focus,
+  &::part(input-container-disabled):focus-within,
+  &::part(button-contained-disabled):focus-within {
+    border: 1px solid palette.clr(light, action, disabled);
+    outline: none;
+  }
+
+  &::part(input-container-disabled) {
+    color: palette.clr(light, text, disabled);
+    background-color: palette.clr(light, action, disabledBackground) !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &::part(label-focus) {
+    color: palette.clr(light, primary, main) !important;
+  }
+
+  &::part(multiple-select-input-default) {
+    font-style: normal !important;
+  }
+  
+}

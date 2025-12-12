@@ -7,20 +7,20 @@ npm install @hcl-software/enchanted-web-components
 ```
 
 ```typescript
-import '@hcl-software/enchanted-web-components/dist/components/ac/dx-button';
+import '@hcl-software/enchanted-web-components/dist/components/atomic-component/enchanted-button';
 
 ...
 
 render() {
   return html`
-    <dx-button
+    <enchanted-button
       @click=${debounce(this.handleClick, DEFAULT_CLICK_DEBOUNCE_WAIT)}
       ?disabled="${this.disabled || nothing}"
       imgurl="${svgSearchUrl}"
       buttontext="${this.buttontext || getMessage(this.locale, 'header.enduser.search')}"
       exportparts="${Object.values(BUTTON_PARTS).join(',')}"
     >
-    </dx-button>
+    </enchanted-button>
   `;
 }
 

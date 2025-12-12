@@ -15,7 +15,7 @@
 import { expect } from '@wdio/globals';
 import fetchMock from "fetch-mock";
 import { validateSource } from "../../../utils/previewUtils";
-import { ValidationStatus } from "../../../types/dx-preview";
+import { ValidationStatus } from "../../../types/enchanted-preview";
 
 describe('previewUtils', () => {
   describe('validateSource', () => {

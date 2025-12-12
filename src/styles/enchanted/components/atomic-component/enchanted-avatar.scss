@@ -1,0 +1,165 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "sass:map";
+@use "../../common/palette";
+@use "../../common/themeMap.module";
+@use "../../common/typography";
+
+@mixin enchanted-avatar-base-styles {
+  &::part(avatar-div) {
+    height: 24px;
+    width: 24px;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    border-radius: 2px;
+    padding: 3px;
+    border: 1px solid palette.clr(light, border, secondary);
+    overflow: hidden;
+  }
+
+  &::part(avatar-div-circular) {
+    height: 24px;
+    width: 24px;
+    box-sizing: border-box;
+    border: 1px solid palette.clr(light, border, secondary);
+    border-radius: 50%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  &::part(avatar-span-rounded) {
+    @include typography.caption;
+    border-radius: 2px;
+    color: var(--icon-theme-color);
+  }
+
+  &::part(avatar-span-circular) {
+    @include typography.caption;
+    border-radius: 50%;
+    color: var(--icon-theme-color);
+  }
+
+  &::part(avatar-icon-rounded) {
+    height: 16px;
+    width: 16px;
+    border-radius: 2px;
+    --icon-theme-size: 16px;
+  }
+
+  &::part(avatar-icon-circular) {
+    line-height: 0;
+    box-sizing: border-box;
+    --icon-theme-size: 16px;
+  }
+
+  &::part(avatar-icon-template-rounded) {
+    line-height: 0;
+    size: 16px;
+    --icon-theme-size: 16px;
+  }
+
+  &::part(avatar-icon-template-circular) {
+    line-height: 0;
+    box-sizing: border-box;
+    --icon-theme-size: 16px;
+  }
+
+  &::part(avatar-image-rounded) {
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+  }
+
+  &::part(avatar-image-circular) {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+  }
+
+  &::part(result-title) {
+    @include typography.caption;
+    display: flex;
+    color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    font-weight: 700;
+  }
+
+  &::part(avatar-default-color) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, NG800)};
+    background-color: map.get(themeMap.$enchantedPalette, NG100);
+  }
+
+  &::part(avatar-red) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, RED800)};
+    background-color: map.get(themeMap.$enchantedPalette, RED100);
+  }
+
+  &::part(avatar-orange) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, ORANGE800)};
+    background-color: map.get(themeMap.$enchantedPalette, ORANGE100);
+  }
+
+  &::part(avatar-yellow) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, YELLOW800)};
+    background-color: map.get(themeMap.$enchantedPalette, YELLOW100);
+  }
+
+  &::part(avatar-lime) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, LIME800)};
+    background-color: map.get(themeMap.$enchantedPalette, LIME100);
+  }
+
+  &::part(avatar-green) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, GREEN800)};
+    background-color: map.get(themeMap.$enchantedPalette, GREEN100);
+  }
+
+  &::part(avatar-teal) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, TEAL800)};
+    background-color: map.get(themeMap.$enchantedPalette, TEAL100);
+  }
+
+  &::part(avatar-blue) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, BLUE800)};
+    background-color: map.get(themeMap.$enchantedPalette, BLUE100);
+  }
+
+  &::part(avatar-indigo) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, INDIGO800)};
+    background-color: map.get(themeMap.$enchantedPalette, INDIGO100);
+  }
+
+  &::part(avatar-purple) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, PURPLE800)};
+    background-color: map.get(themeMap.$enchantedPalette, PURPLE100);
+  }
+
+  &::part(avatar-pink) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, PINK800)};
+    background-color: map.get(themeMap.$enchantedPalette, PINK100);
+  }
+
+  #avatar-container {
+    display: flex;
+    justify-content: space-around;
+  }
+}

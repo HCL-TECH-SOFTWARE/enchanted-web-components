@@ -1,0 +1,278 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "sass:map";
+@use "../../common";
+@use "../../common/palette";
+@use "../../common/themeMap.module";
+@use "../../common/typography";
+
+@mixin enchanted-dialog-base-styles {
+  &::part(dialog-root) {
+    position: fixed;
+    z-index: 1300;
+    inset: 0px;
+    display: block;
+  }
+
+  &::part(dialog-root-chat) {
+    position: fixed;
+    z-index: 1300;
+    inset: 0px;
+    display: block;
+    right: 24px;
+    bottom: 64px;
+    left: auto;
+    top: auto;
+    margin: 0;
+  }
+
+  &::part(backdrop) {
+    opacity: 1;
+    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);
+    position: fixed;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    inset: 0px;
+    -webkit-tap-highlight-color: transparent;
+    background-color: palette.clr(light, background, overlay);
+  }
+
+  &::part(sentinel-start),
+  &::part(sentinel-end) {
+    display: block;
+  }
+
+  &::part(container-sm) {
+    @include common.container;
+    height: 35%;
+  }
+
+  &::part(container-md) {
+    @include common.container;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  &::part(container-lg) {
+    @include common.container;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  &::part(container-xl) {
+    @include common.container;
+    height: 100%;
+  }
+
+  &::part(container-chat) {
+    @include common.container;
+  }
+
+  &::part(paper-xl) {
+    @include common.paper;
+    max-height: calc(100% - 64px);
+    padding: 0px;
+    width: calc(100% - 64px);
+    max-width: 1920px;
+  }
+
+  &::part(paper-chat) {
+    @include common.paper;
+    width: 320px;
+    height: 60vh;
+    margin: 0 auto;
+  }
+
+  &::part(paper-sm) {
+    @include common.paper;
+    max-width: 600px;
+    align-self: anchor-center;
+    margin-top: 35%;
+    min-height: 200px;
+    max-height: 60%;
+    padding: 0px;
+  }
+
+  &::part(paper-md) {
+    @include common.paper;
+    max-height: calc(100% - 64px);
+    padding: 0px;
+    width: calc(100% - 64px);
+    max-width: 960px;
+  }
+
+  &::part(paper-lg) {
+    @include common.paper;
+    max-height: calc(100% - 64px);
+    padding: 0px;
+    width: calc(100% - 64px);
+    max-width: 1280px;
+  }
+
+  &::part(paper-xl) {
+    @include common.paper;
+    max-height: calc(100% - 64px);
+    padding: 0px;
+    width: calc(100% - 64px);
+    max-width: 1920px;
+  }
+
+  &::part(title) {
+    @include typography.body2;
+    margin: 0px;
+    flex: 0 0 auto;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 12px;
+  }
+
+  &::part(title-text),
+  &::part(title-text-rtl) {
+    @include typography.subtitle1;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &::part(title-root),
+  &::part(title-root-rtl),
+  &::part(icon-root) {
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  &::part(title-root) {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &::part(title-root-rtl) {
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: row-reverse;
+  }
+
+  &::part(icon-close) {
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  &::part(content-md) {
+    @include common.dialog-content;
+    // 224px comes from combined heights of dialog paper margin top + margin bottom + dialog title + dialog pagination + dialog action
+    // 32px + 32px + 52px + 63px + 45px = any change to these values will require a change here
+    height: calc(100vh - 224px);
+  }
+
+  &::part(content-lg) {
+    @include common.dialog-content;
+    // 224px comes from combined heights of dialog paper margin top + margin bottom + dialog title + dialog pagination + dialog action
+    // 32px + 32px + 52px + 63px + 45px = any change to these values will require a change here
+    height: calc(100vh - 224px);
+  }
+
+  &::part(content-xl) {
+    @include common.dialog-content;
+    // 224px comes from combined heights of dialog paper margin top + margin bottom + dialog title + dialog pagination + dialog action
+    // 32px + 32px + 52px + 63px + 45px = any change to these values will require a change here
+    height: calc(100vh - 224px);
+  }
+
+  &::part(content-xl-no-border) {
+    @include common.dialog-content;
+    // 192px comes from combined heights of dialog paper margin top + margin bottom + dialog title + dialog pagination + dialog action
+    // 32px + 32px + 52px + 63px + 13px = any change to these values will require a change here
+    height: calc(100vh - 224px);
+    border: none !important;
+  }
+
+  &::part(content-sm) {
+    @include common.dialog-content;
+    // Fixing padding to 12px for small dialogs as per Figma design - DXQ-44423 
+    padding: 12px;
+    height: 100%;
+  }
+
+  &::part(pagination-xl), &::part(pagination-lg), &::part(pagination-md) {
+    @include common.pagination;
+  }
+
+  &::part(pagination-sm) {
+    @include common.pagination;
+    left: 0px;
+  }
+
+  &::part(action) {
+    padding: 8px 12px;
+    border-top: 1px solid palette.clr(light, border, secondary);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 24px);
+    background-color: palette.clr(light, background, paper);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &::part(action-no-border) {
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 24px);
+    background-color: palette.clr(light, background, paper);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &::part(chat-action) {
+    padding: 12px 12px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 24px);
+    background-color: palette.clr(light, background, paper);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &::part(button) {
+    color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) !important;
+    background-color: palette.clr(light, background, paper) !important;
+    height: 28px !important;
+  }
+}

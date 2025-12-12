@@ -1,0 +1,258 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+@use 'common.scss';
+
+@use 'components/atomic-component/enchanted-link.scss';
+@use 'components/atomic-component/enchanted-avatar.scss';
+@use 'components/atomic-component/enchanted-badge.scss';
+@use 'components/atomic-component/enchanted-button.scss';
+@use 'components/atomic-component/enchanted-data-grid.scss';
+@use 'components/atomic-component/enchanted-data-grid-generic.scss';
+@use 'components/atomic-component/enchanted-datepicker.scss';
+@use 'components/atomic-component/enchanted-dialog.scss';
+@use 'components/atomic-component/enchanted-header-layout.scss';
+@use 'components/atomic-component/enchanted-icon-button.scss';
+@use 'components/atomic-component/enchanted-list.scss';
+@use 'components/atomic-component/enchanted-list-item.scss';
+@use 'components/atomic-component/enchanted-menu.scss';
+@use 'components/atomic-component/enchanted-menu-item.scss';
+@use 'components/atomic-component/enchanted-select.scss';
+@use 'components/atomic-component/enchanted-textfield.scss';
+@use 'components/atomic-component/enchanted-panel.scss';
+@use 'components/atomic-component/enchanted-snackbar.scss';
+@use 'components/atomic-component/enchanted-table-pagination.scss';
+@use 'components/atomic-component/enchanted-toggle-button.scss';
+@use 'components/atomic-component/enchanted-tooltip.scss';
+@use 'components/atomic-component/enchanted-authoring-item-type-avatar.scss';
+@use 'components/atomic-component/enchanted-circular-progress.scss';
+@use 'components/atomic-component/enchanted-breadcrumbs.scss';
+@use 'components/atomic-component/enchanted-preview.scss';
+@use 'components/atomic-component/enchanted-alert.scss';
+@use 'components/atomic-component/enchanted-chip.scss';
+@use 'components/atomic-component/enchanted-header.scss';
+@use 'components/atomic-component/enchanted-switch.scss';
+@use 'components/atomic-component/enchanted-multiple-select-chip.scss';
+@use 'components/atomic-component/enchanted-accordion.scss';
+@use 'components/atomic-component/enchanted-accordion-summary.scss';
+@use 'components/atomic-component/enchanted-popover.scss';
+@use 'common/typography';
+
+enchanted-link {
+  @include enchanted-link.enchanted-link-base-styles;
+}
+
+enchanted-avatar {
+  @include enchanted-avatar.enchanted-avatar-base-styles;
+}
+
+enchanted-badge {
+  @include enchanted-badge.enchanted-badge-base-styles;
+}
+
+enchanted-button {
+  @include enchanted-button.enchanted-button-base-styles;
+}
+
+enchanted-chip {
+  @include enchanted-chip.enchanted-chip-base-styles;
+}
+
+enchanted-circular-progress {
+  @include enchanted-circular-progress.enchanted-circular-progress-base-styles;
+}
+
+enchanted-data-grid {
+  @include enchanted-data-grid.enchanted-data-grid-styles;
+  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+  @include enchanted-menu.enchanted-menu-base-styles;
+  @include enchanted-list.enchanted-list-base-styles;
+  @include enchanted-list-item.enchanted-list-item-base-styles;
+  @include enchanted-menu-item.enchanted-menu-item-base-styles;
+  @include enchanted-avatar.enchanted-avatar-base-styles;
+  @include enchanted-tooltip.enchanted-tooltip-base-styles;
+}
+
+enchanted-data-grid-generic {
+  @include enchanted-data-grid-generic.enchanted-data-grid-generic-styles;
+  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+  @include enchanted-menu.enchanted-menu-base-styles;
+  @include enchanted-list.enchanted-list-base-styles;
+  @include enchanted-list-item.enchanted-list-item-base-styles;
+  @include enchanted-menu-item.enchanted-menu-item-base-styles;
+  @include enchanted-avatar.enchanted-avatar-base-styles;
+  @include enchanted-tooltip.enchanted-tooltip-base-styles;
+}
+
+enchanted-datepicker {
+  @include enchanted-datepicker.enchanted-datepicker-base-styles;
+  @include enchanted-tooltip.enchanted-tooltip-base-styles;
+}
+
+enchanted-dialog {
+  @include typography.body2;
+  display: block;
+  unicode-bidi: isolate;
+  @include enchanted-dialog.enchanted-dialog-base-styles;
+  @include enchanted-button.enchanted-button-base-styles;
+}
+
+enchanted-header {
+  @include enchanted-header.enchanted-header-base-styles;
+  @include enchanted-badge.enchanted-badge-base-styles;
+}
+
+enchanted-textfield {
+  @include enchanted-textfield.enchanted-textfield-base-styles;
+}
+
+enchanted-select {
+  @include enchanted-select.enchanted-select-base-styles;
+}
+
+enchanted-list {
+  @include enchanted-list.enchanted-list-base-styles;
+}
+
+enchanted-list-item {
+  @include enchanted-list-item.enchanted-list-item-base-styles;
+}
+
+enchanted-menu {
+  display: block;
+  unicode-bidi: isolate;
+  @include enchanted-menu.enchanted-menu-base-styles;
+  @include enchanted-list.enchanted-list-base-styles;
+  @include enchanted-list-item.enchanted-list-item-base-styles;
+  @include enchanted-menu-item.enchanted-menu-item-base-styles;
+  @include enchanted-button.enchanted-button-base-styles;
+}
+
+enchanted-menu-item {
+  display: block;
+  unicode-bidi: isolate;
+  @include enchanted-menu-item.enchanted-menu-item-base-styles;
+}
+
+enchanted-icon-button {
+  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+}
+
+enchanted-table-pagination {
+  @include enchanted-table-pagination.enchanted-table-pagination-base-styles;
+  @include enchanted-select.enchanted-select-base-styles(
+    $part-button-contained-focused: 'pagination-select-button-contained-focused',
+    $part-button-text: 'pagination-select-button-text',
+    $part-button: 'pagination-select-button',
+    $part-button-outlined: 'pagination-select-button-outlined',
+    $part-button-outlined-focused: 'pagination-select-button-outlined-focused',
+    $part-div: 'pagination-select-div'
+  );
+
+  /* override for input-select and button */
+  &::part(label),
+  &::part(button),
+  &::part(button-outlined),
+  &::part(button-outlined-focused),
+  &::part(button-contained),
+  &::part(button-contained-focused),
+  &::part(list-item),
+  &::part(list-item-selected) {
+    @include typography.body2;
+  }
+
+  &::part(button-outlined),
+  &::part(button-outlined-focused),
+  &::part(button-contained),
+  &::part(button-contained-focused) {
+    margin-top: unset;
+  }
+
+  &::part(button) {
+    margin-top: unset;
+  }
+
+  &::part(unordered-list) {
+    bottom: 100%;
+    right: 0;
+  }
+}
+
+enchanted-switch {
+  @include enchanted-switch.enchanted-switch-base-styles;
+}
+
+enchanted-header-layout {
+  @include enchanted-header-layout.enchanted-header-layout-base-styles;
+}
+
+enchanted-authoring-item-type-avatar {
+  @include enchanted-authoring-item-type-avatar.enchanted-authoring-item-type-avatar-base-styles;
+  @include enchanted-button.enchanted-button-base-styles;
+}
+
+enchanted-snackbar {
+  @include enchanted-snackbar.enchanted-snackbar-base-styles;
+  @include enchanted-button.enchanted-button-base-styles;
+  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+}
+
+enchanted-panel {
+  @include enchanted-panel.enchanted-panel-base-styles;
+  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+  @include enchanted-button.enchanted-button-base-styles;
+}
+
+enchanted-tooltip {
+  @include enchanted-tooltip.enchanted-tooltip-base-styles;
+}
+
+enchanted-breadcrumbs {
+  @include typography.body2;
+  @include enchanted-breadcrumbs.enchanted-breadcrumbs-base-styles;
+}
+
+enchanted-preview {
+  @include enchanted-button.enchanted-button-base-styles;
+  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+  @include enchanted-avatar.enchanted-avatar-base-styles;
+  @include enchanted-select.enchanted-select-base-styles($part-button-contained-focused: 'preview-rendition-select-button-contained-focused',
+    $part-button-text: 'preview-rendition-select-button-text',
+    $part-button: 'preview-rendition-select-button',
+    $part-button-outlined: 'preview-rendition-select-button-outlined',
+    $part-button-outlined-focused: 'preview-rendition-select-button-outlined-focused',
+  );
+  @include enchanted-preview.enchanted-preview-base-styles;
+  @include enchanted-tooltip.enchanted-tooltip-base-styles;
+}
+
+enchanted-alert {
+  @include enchanted-alert.enchanted-alert-base-styles;
+}
+
+enchanted-multiple-select-chip {
+  @include enchanted-multiple-select-chip.enchanted-multiple-select-chip-base-styles;
+  @include enchanted-chip.enchanted-chip-base-styles;
+  @include enchanted-select.enchanted-select-base-styles;
+
+}
+
+enchanted-toggle-button {
+  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+  @include enchanted-toggle-button.enchanted-toggle-button-base-styles;
+}
+
+enchanted-popover {
+  @include enchanted-popover.enchanted-popover-base-styles;
+}

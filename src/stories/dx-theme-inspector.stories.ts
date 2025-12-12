@@ -15,11 +15,11 @@
 
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../components/ac/dx-theme-inspector';
+import '../components/atomic-component/enchanted-theme-inspector';
 
 const meta: Meta = {
-  title: 'Utilities/dx-theme-inspector',
-  component: 'dx-theme-inspector',
+  title: 'Utilities/enchanted-theme-inspector',
+  component: 'enchanted-theme-inspector',
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -41,7 +41,7 @@ export const ColorInspector: Story = {
   render: () => {
     return html`
       <div style="width: 100%; overflow-x: auto;">
-        <dx-theme-inspector></dx-theme-inspector>
+        <enchanted-theme-inspector></enchanted-theme-inspector>
       </div>
     `;
   },

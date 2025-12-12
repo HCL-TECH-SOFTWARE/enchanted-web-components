@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-export const SHADOW_ROOT_MODE_KEY = 'dx.searchv2.useOpenAcShadowRoot';
+export const SHADOW_ROOT_MODE_KEY = 'enchanted.searchv2.useOpenAcShadowRoot';
 
 export enum LOCALE_DIRECTIONS {
   LTR = 'ltr',

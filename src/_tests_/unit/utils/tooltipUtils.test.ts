@@ -29,7 +29,7 @@ import {
   tryCandidatePlacement
 } from '../../../utils/tooltipUtils';
 import { TOOLTIP_PLACEMENT } from '../../../types/cssClassEnums';
-import { ViewportBox } from '../../../types/dx-tooltip';
+import { ViewportBox } from '../../../types/enchanted-tooltip';
 
 describe('tooltipUtils', () => {
   describe('getFallbackPlacements', () => {

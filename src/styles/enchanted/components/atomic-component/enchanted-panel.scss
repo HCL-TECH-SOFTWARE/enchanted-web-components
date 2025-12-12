@@ -1,0 +1,143 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "sass:map";
+@use "../../common";
+@use "../../common/palette";
+@use "../../common/themeMap.module";
+@use "../../common/typography";
+
+@mixin enchanted-panel-base-styles {
+  --panel-margin-top: -12px;
+  --panel-container-margin-top: 0px;
+  --panel-container-min-height: calc(100vh - 131px);
+  --panel-content-max-height: calc(100vh - 207px);
+  --drawer-height: calc(100vh - 207px);
+
+  margin-top: var(--panel-margin-top);
+
+  // Styles if Position: right
+  &[position="right"][open]::part(panel-container) {
+    transform: translateX(0);
+  }
+
+  &[position="right"]::part(panel-container) {
+    position: absolute;
+    right: 0;
+    left: auto;
+    width: 300px;
+    height: var(--drawer-height);
+    transform: translateX(150%);
+  }
+
+  // Styles if Position: left
+  &[position="left"][open]::part(panel-container) {
+    transform: translateX(0);
+  }
+
+  &[position="left"]::part(panel-container) {
+    position: absolute;
+    left: 0;
+    right: auto;
+    width: 300px;
+    height: var(--drawer-height);
+    transform: translateX(-150%);
+  }
+
+  &::part(panel-container) {
+    position: absolute;
+    flex-grow: 1;
+    background-color: palette.clr(light, background, default);
+    width: 300px;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    z-index: 1400;
+    min-height: var(--panel-container-min-height);
+    margin-top: var(--panel-container-margin-top);
+  }
+
+  &::part(panel-header) {
+    display: flex;
+    padding: 12px;
+    border-bottom: 1px solid map.get(themeMap.$enchantedPalette, BLACK32P);
+    align-items: center;
+    gap: 8px;
+    width: initial;
+  }
+
+  &::part(panel-title) {
+    @include typography.subtitle1;
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
+    flex-grow: 1;
+    text-align: left;
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  div[slot=content] {
+    background-color: palette.clr(light, background, default) !important;
+  }
+
+  &::part(panel-content) {
+    padding: 12px;
+    overflow: auto;
+    flex: 1;
+    max-height: var(--panel-content-max-height);
+    flex-grow: 1;
+    background-color: palette.clr(light, background, default) !important;
+    position: relative;
+  }
+
+  &::part(close-icon) {
+    border: none;
+    border-radius: 2px;
+    padding: 6px;
+  }
+
+  &::part(button-enchanted-text) {
+    @include common.button;
+    border: none !important;
+    padding: 6px 6px !important;
+    background-color: palette.clr(light, background, default) !important;
+    color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+  }
+
+  &::part(button-enchanted-text-focused) {
+    @include common.enchanted-button-focused;
+    @include common.button;
+    border: none;
+    background-color: palette.clr(light, background, default) !important;
+    color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    padding: 6px !important;
+  }
+
+  &::part(button-enchanted-text):hover {
+    border: none !important;
+    background-color: palette.clr(light, action, hover) !important;
+    color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    padding: 6px !important;
+  }
+
+  &::part(button-enchanted-text):active {
+    @include common.enchanted-button-focused;
+    border: none !important;
+    background-color: palette.clr(light, action, hover) !important;
+    color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    padding: 6px !important;
+  }
+}

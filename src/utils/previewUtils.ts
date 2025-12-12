@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-import { ValidationStatus } from "../types/dx-preview";
+import { ValidationStatus } from "../types/enchanted-preview";
 
 /**
  * Checks if a remote resource is accessible by performing a lightweight fetch.

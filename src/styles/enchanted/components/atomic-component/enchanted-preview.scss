@@ -1,0 +1,327 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+ 
+@use "sass:map";
+@use "../../common";
+@use "../../common/palette";
+@use "../../common/themeMap.module";
+@use "../../common/typography";
+
+@mixin enchanted-preview-base-styles {
+  &{
+    --zoom-scale-factor: 1;
+    --media-visibility: hidden;
+    --image-natural-width: 0;
+    --image-natural-height: 0;
+  }
+  
+  &::part(preview-backdrop) {
+    display: none;
+    opacity: 0;
+  }
+
+  &[open]::part(preview-backdrop) {
+    z-index: 999;
+    position: absolute;
+    background-color: map.get(themeMap.$enchantedPalette, CG150);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inset: 0px;
+    opacity: 1;
+    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1)
+  }
+
+  &::part(preview-container) {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    justify-content: flex-start;
+    height: 100%;
+  }
+
+  &::part(preview-header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px;
+    min-height: 54px;
+    background-color: palette.clr(light, background, paper);
+    border-radius: 4px 4px 0 0;
+  }
+
+  &::part(preview-header-start-actions),
+  &::part(preview-header-middle-actions),
+  &::part(preview-header-end-actions)
+  {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  &::part(preview-header-middle-actions) {
+    justify-content: center;
+  }
+
+  &::part(preview-header-end-actions) {
+    justify-content: end;
+  }
+
+  &::part(preview-header-title) {
+    @include typography.h6;
+    font-size: 14px;
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
+  }
+
+  &::part(preview-header-divider) {
+    margin: 0;
+  }
+
+  &::part(preview-item-container) {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    height: calc(100% - 66px);
+    overflow: hidden;
+  }
+
+  &::part(preview-item-image-wrapper) {
+    display: inline-block;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    transition: width 180ms ease, height 180ms ease;
+  }
+
+  #preview-item-image-wrapper {
+    overflow: hidden;
+  }
+
+  &.zoomed::part(preview-item-image-wrapper) {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-shrink: 0;
+  }
+
+  &::part(preview-item-image) {
+    opacity: 1;
+    display: block;
+    visibility: var(--media-visibility);
+    margin: 0;
+    padding: 0;
+    transition: width 180ms ease, height 180ms ease;
+  }
+
+  &::part(preview-item-video-container) {
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  &::part(preview-item-video) {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    visibility: var(--media-visibility);
+  }
+
+  &::part(preview-item-content) {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: scale-down;
+    margin: 0 auto;
+  }
+
+  &::part(preview-item-type-not-supported-message) {
+    @include typography.caption;
+  }
+
+  &::part(preview-item-unsupported-container) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+
+  &::part(preview-item-unsupported-message-container) {
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  &::part(preview-item-unsupported-message-title) {
+    @include typography.body2bold;
+    margin: 0;
+  }
+
+  &::part(preview-item-unsupported-message-description) {
+    @include typography.caption;
+  }
+
+  &::part(preview-item-previous-button-container),
+  &::part(preview-item-next-button-container)
+  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid palette.clr(light, border, inverseSecondary);
+    border-radius: 4px;
+    background-color: palette.clr(light, background, overlay);
+    z-index: 999;
+  }
+
+  &::part(preview-item-previous-button-container) {
+    inset-inline-start: 0;
+    margin-inline-start: 12px;
+  }
+
+  &::part(preview-item-next-button-container) {
+    inset-inline-end: 0;
+    margin-inline-end: 12px;
+  }
+
+  &::part(preview-nav-buttons) {
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, WHITE100P)};
+    --icon-theme-size: 24px;
+
+    &:hover {
+      --icon-theme-size: 24px;
+      padding: 6px;
+      margin: 3px;
+      background-color: palette.clr(light, action, hoverInverse);
+    }
+  }
+  
+  &::part(preview-nav-buttons-focused),
+  &::part(preview-zoom-buttons-focused)
+  {
+    --icon-theme-size: 24px;
+    background-color: palette.clr(light, action, hoverInverse);
+    border: 1px solid palette.clr(light, primary, inverse);
+  }
+
+  &::part(preview-nav-buttons-disabled){
+    color: palette.clr(light, text, disabled) !important;
+    --icon-theme-color: #{palette.clr(light, text, disabled)};
+  }
+
+  &::part(preview-nav-buttons),
+  &::part(preview-nav-buttons-focused),
+  &::part(preview-nav-buttons-disabled) {
+    padding: 6px;
+    margin: 3px;
+  }
+
+  &::part(preview-zoom-container) {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: wrap;
+    width: 100%;
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
+
+  &::part(preview-zoom-controls) {
+    display: flex;
+    margin-bottom: 12px;
+    position: absolute;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: palette.clr(light, background, overlay);
+    padding: 2px 12px;
+    border-radius: 4px;
+    border: 1px solid palette.clr(light, border, inverseSecondary);
+    width: unset;
+    --icon-theme-color: #{map.get(themeMap.$enchantedPalette, WHITE100P)};
+    --icon-theme-size: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &::part(preview-zoom-percent-button),
+  &::part(preview-zoom-percent-focused)
+  {
+    @include common.button;
+    background-color: unset;
+    color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    font-weight: 400;
+    min-width: unset;
+
+    &:hover {
+      @include common.button;
+      background-color: map.get(themeMap.$enchantedPalette, WHITE15P);
+      font-weight: 400;
+    }
+  }
+
+  &::part(preview-zoom-buttons) {
+    &:hover {
+      background-color: palette.clr(light, action, hoverInverse);
+    }
+  }
+
+  &::part(preview-zoom-buttons-disabled) {
+    color: palette.clr(light, action, disabledInverse) !important;
+  }
+
+  &::part(preview-rendition-select-button),
+  &::part(preview-rendition-select-button-contained-focused)
+  {
+    margin-top: 0;
+  }
+
+  &::part(preview-rendition-select-button):hover {
+    background-color: transparent;
+  }
+
+  &::part(preview-header-rendition-label) {
+    @include typography.subtitle2;
+    color: palette.clr(light, text, secondary);
+  }
+
+  &::part(preview-header-rendition-input-select) {
+    min-width: 240px;
+  }
+
+  &::part(preview-item-content-container) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  &.zoomed::part(preview-item-content-container) {
+    overflow: auto;
+    display: block;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &::part(preview-item-spinner-container) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+}

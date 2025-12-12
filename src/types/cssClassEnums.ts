@@ -587,30 +587,30 @@ export enum ADVANCE_SEARCH_PARTS {
   ADVANCE_SEARCH_FILTER_REMOVE_SPAN_DISABLED = 'advance-search-filter-remove-span-disabled'
 }
 export enum ACCORDION_PARTS {
-  DX_ACCORDION_CONTAINER = 'container',
-  DX_ACCORDION_CONTAINER_RTL = 'container-rtl',
-  DX_ACCORDION_HEADER_SCSS = 'header-scss',
-  DX_ACCORDION_HEADER_SCSS_RTL = 'header-scss-rtl',
-  DX_ACCORDION_LABEL_COLUMN = 'label-column',
-  DX_ACCORDION_LABEL_COLUMN_RTL = 'label-column-rtl',
-  DX_ACCORDION_LABEL_TEXT = 'label-text',
-  DX_ACCORDION_LABEL_TEXT_RTL = 'label-text-rtl',
-  DX_ACCORDION_SECONDARY_TEXT = 'secondary-text',
-  DX_ACCORDION_SECONDARY_TEXT_RTL = 'secondary-text-rtl',
-  DX_ACCORDION_ARROW = 'arrow',
-  DX_ACCORDION_ARROW_RTL = 'arrow-rtl',
-  DX_ACCORDION_ARROW_ICON = 'arrow-icon',
-  DX_ACCORDION_ARROW_ICON_RTL = 'arrow-icon-rtl',
-  DX_ACCORDION_CONTENT = 'accordion-content',
-  DX_ACCORDION_CONTENT_RTL = 'accordion-content-rtl'
+  ENCHANTED_ACCORDION_CONTAINER = 'container',
+  ENCHANTED_ACCORDION_CONTAINER_RTL = 'container-rtl',
+  ENCHANTED_ACCORDION_HEADER_SCSS = 'header-scss',
+  ENCHANTED_ACCORDION_HEADER_SCSS_RTL = 'header-scss-rtl',
+  ENCHANTED_ACCORDION_LABEL_COLUMN = 'label-column',
+  ENCHANTED_ACCORDION_LABEL_COLUMN_RTL = 'label-column-rtl',
+  ENCHANTED_ACCORDION_LABEL_TEXT = 'label-text',
+  ENCHANTED_ACCORDION_LABEL_TEXT_RTL = 'label-text-rtl',
+  ENCHANTED_ACCORDION_SECONDARY_TEXT = 'secondary-text',
+  ENCHANTED_ACCORDION_SECONDARY_TEXT_RTL = 'secondary-text-rtl',
+  ENCHANTED_ACCORDION_ARROW = 'arrow',
+  ENCHANTED_ACCORDION_ARROW_RTL = 'arrow-rtl',
+  ENCHANTED_ACCORDION_ARROW_ICON = 'arrow-icon',
+  ENCHANTED_ACCORDION_ARROW_ICON_RTL = 'arrow-icon-rtl',
+  ENCHANTED_ACCORDION_CONTENT = 'accordion-content',
+  ENCHANTED_ACCORDION_CONTENT_RTL = 'accordion-content-rtl'
 }
 export enum ACCORDION_SUMMARY_PARTS {
-  DX_ACCORDION_SUMMARY = 'summary',
-  DX_ACCORDION_SUMMARY_RTL = 'summary-rtl',
-  DX_ACCORDION_LABEL = 'label',
-  DX_ACCORDION_LABEL_RTL = 'label-rtl',
-  DX_ACCORDION_SECONDARY = 'secondary',
-  DX_ACCORDION_SECONDARY_RTL = 'secondary-rtl'
+  ENCHANTED_ACCORDION_SUMMARY = 'summary',
+  ENCHANTED_ACCORDION_SUMMARY_RTL = 'summary-rtl',
+  ENCHANTED_ACCORDION_LABEL = 'label',
+  ENCHANTED_ACCORDION_LABEL_RTL = 'label-rtl',
+  ENCHANTED_ACCORDION_SECONDARY = 'secondary',
+  ENCHANTED_ACCORDION_SECONDARY_RTL = 'secondary-rtl'
 }
 
 export enum POPOVER_PARTS {

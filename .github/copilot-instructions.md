@@ -24,10 +24,10 @@ This is the Enchanted Web Components library - a UI library providing Lit-based 
 ## Code Style & Conventions
 
 ### Component Structure
-- All components extend `DxAcBaseElement` base class
+- All components extend `EnchantedAcBaseElement` base class
 - Use `@customElement` decorator for component registration
-- Component names follow the pattern `dx-[component-name]`
-- File names match component names (e.g., `dx-button.ts`)
+- Component names follow the pattern `enchanted-[component-name]`
+- File names match component names (e.g., `enchanted-button.ts`)
 - Components are located in `src/components/ac/` directory
 
 ### TypeScript Guidelines
@@ -73,7 +73,7 @@ Organize imports in this order:
 ### Naming Conventions
 - Use camelCase for properties and methods
 - Use SCREAMING_SNAKE_CASE for constants
-- Component names use kebab-case with `dx-` prefix
+- Component names use kebab-case with `enchanted-` prefix
 - CSS classes follow BEM-like patterns defined in types
 
 ### Localization
@@ -113,16 +113,16 @@ Follow the [Conventional Commits](https://www.conventionalcommits.org/) specific
 
 ### Scope
 Use component names or affected areas:
-- Component names: `dx-button`, `dx-input`, `dx-datepicker`
+- Component names: `enchanted-button`, `enchanted-input`, `enchanted-datepicker`
 - Areas: `storybook`, `tests`, `build`, `styles`, `types`
 
 ### Examples
-- `feat(dx-button): add ripple effect on click`
-- `fix(dx-datepicker): correct timezone handling in Safari`
+- `feat(enchanted-button): add ripple effect on click`
+- `fix(enchanted-datepicker): correct timezone handling in Safari`
 - `docs(readme): update installation instructions`
-- `test(dx-input): add unit tests for validation`
-- `refactor(dx-menu): simplify event handling logic`
-- `style(dx-chip): format code according to ESLint rules`
+- `test(enchanted-input): add unit tests for validation`
+- `refactor(enchanted-menu): simplify event handling logic`
+- `style(enchanted-chip): format code according to ESLint rules`
 
 ### Best Practices
 - Use present tense ("add feature" not "added feature")
@@ -134,7 +134,7 @@ Use component names or affected areas:
 
 ## Storybook
 - Story files are in `src/stories/`
-- File naming: `dx-[component-name].stories.ts`
+- File naming: `enchanted-[component-name].stories.ts`
 - Use Storybook for component development and documentation
 - Run with `npm run storybook`
 
@@ -145,14 +145,14 @@ Use component names or affected areas:
 
 ## Available Components
 The library includes 30+ web components:
-- **Layout**: `dx-header`, `dx-header-layout`, `dx-search-center-layout`, `dx-panel`
-- **Navigation**: `dx-breadcrumbs`, `dx-breadcrumbs-item`, `dx-menu`, `dx-menu-item`
-- **Input**: `dx-button`, `dx-icon-button`, `dx-toggle-button`, `dx-switch`, `dx-input-textfield`, `dx-input-select`, `dx-multiple-select-chip`, `dx-datepicker`
-- **Display**: `dx-avatar`, `dx-badge`, `dx-chip`, `dx-tooltip`, `dx-preview`, `dx-svg-icon`, `dx-item-type-avatar`
-- **Feedback**: `dx-alert`, `dx-snackbar`, `dx-dialog`, `dx-circular-progress`, `dx-popover`
-- **Data**: `dx-list`, `dx-list-item`, `dx-data-grid`, `dx-data-grid-generic`, `dx-table-pagination`
-- **Container**: `dx-accordion`, `dx-accordion-summary`
-- **Utilities**: `dx-anchor`, `dx-theme-inspector`
+- **Layout**: `enchanted-header`, `enchanted-header-layout`, `enchanted-search-center-layout`, `enchanted-panel`
+- **Navigation**: `enchanted-breadcrumbs`, `enchanted-breadcrumbs-item`, `enchanted-menu`, `enchanted-menu-item`
+- **Input**: `enchanted-button`, `enchanted-icon-button`, `enchanted-toggle-button`, `enchanted-switch`, `enchanted-textfield`, `enchanted-select`, `enchanted-multiple-select-chip`, `enchanted-datepicker`
+- **Display**: `enchanted-avatar`, `enchanted-badge`, `enchanted-chip`, `enchanted-tooltip`, `enchanted-preview`, `enchanted-svg-icon`, `enchanted-item-type-avatar`
+- **Feedback**: `enchanted-alert`, `enchanted-snackbar`, `enchanted-dialog`, `enchanted-circular-progress`, `enchanted-popover`
+- **Data**: `enchanted-list`, `enchanted-list-item`, `enchanted-data-grid`, `enchanted-data-grid-generic`, `enchanted-table-pagination`
+- **Container**: `enchanted-accordion`, `enchanted-accordion-summary`
+- **Utilities**: `enchanted-anchor`, `enchanted-theme-inspector`
 
 ## Development Workflow
 1. **Initial Setup**: `npm ci` to install dependencies
@@ -268,16 +268,16 @@ render() {
 
 ## Storybook Development
 - **Stories Location**: `src/stories/*.stories.ts`
-- **File Naming**: `dx-[component-name].stories.ts`
+- **File Naming**: `enchanted-[component-name].stories.ts`
 - **Story Structure**:
   ```typescript
   import type { Meta, StoryObj } from '@storybook/web-components-vite';
   import { html } from 'lit';
-  import '../components/ac/dx-[component-name]';
+  import '../components/ac/enchanted-[component-name]';
   
   const meta: Meta = {
-    title: 'Category/dx-[component-name]',
-    component: 'dx-[component-name]',
+    title: 'Category/enchanted-[component-name]',
+    component: 'enchanted-[component-name]',
     tags: ['autodocs'],
     argTypes: { /* ... */ }
   };
@@ -326,19 +326,19 @@ When using the published package in your application:
 npm install @hcl-software/enchanted-web-components
 
 // Import component from the published package
-import '@hcl-software/enchanted-web-components/dist/components/ac/dx-button';
+import '@hcl-software/enchanted-web-components/dist/components/ac/enchanted-button';
 
 // Use in Lit template
 render() {
   return html`
-    <dx-button
+    <enchanted-button
       @click=${debounce(this.handleClick, 300)}
       ?disabled="${this.disabled || nothing}"
       imgurl="${svgSearchUrl}"
       buttontext="${this.buttontext}"
       exportparts="${Object.values(BUTTON_PARTS).join(',')}"
     >
-    </dx-button>
+    </enchanted-button>
   `;
 }
 ```
@@ -348,9 +348,9 @@ When working on the library source code:
 
 ```typescript
 // Import from local source files
-import './src/components/ac/dx-button';
+import './src/components/ac/enchanted-button';
 // or
-import '../components/ac/dx-button';
+import '../components/ac/enchanted-button';
 
 // Import types and utilities from source
 import { BUTTON_PARTS } from './src/types/cssClassEnums';
@@ -412,7 +412,7 @@ Open source contributions welcome in multiple areas:
 - **Module resolution errors**: Verify import paths are correct and use absolute paths from `src/`
 
 ### Storybook Issues
-- **Components not loading**: Ensure component is imported in story file: `import '../components/ac/dx-[component-name]'`
+- **Components not loading**: Ensure component is imported in story file: `import '../components/ac/enchanted-[component-name]'`
 - **Storybook won't start**: Check port 6006 is not in use, or specify different port: `storybook dev -p 6007`
 - **Stories not updating**: Clear Storybook cache: `rm -rf node_modules/.cache/storybook`
 
