@@ -5,6 +5,7 @@
 ### Added
 
 ### Fixed
+- Fixed `enchanted-circular-progress` indeterminant variant style and story.
 
 ### Changed
 
