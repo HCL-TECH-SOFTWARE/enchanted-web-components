@@ -202,4 +202,221 @@ describe('EnchantedDialog - Snapshot testing', () => {
 
     document.head.removeChild(link);
   });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with xs size', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open size="xs" .localization=${localization}></enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-xs-size', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with xl size', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open size="xl" .localization=${localization}></enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-xl-size', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with chat size', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open size="chat" .localization=${localization}></enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-chat-size', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with removeBorder attribute', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open removeBorder .localization=${localization}>
+            <div slot="content">
+              <label>Content without border</label>
+            </div>
+            <div slot="footer">
+              <enchanted-authoring-dialog-footer />
+            </div>
+          </enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-removeBorder', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with pagination slot', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open title="Dialog with Pagination" .localization=${localization}>
+            <div slot="content">
+              <label>Content with pagination</label>
+            </div>
+            <div slot="pagination">
+              <enchanted-table-pagination />
+            </div>
+          </enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-pagination', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with all slots', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open title="Complete Dialog" .localization=${localization}>
+            <div slot="content">
+              <label>This is the main content area</label>
+            </div>
+            <div slot="pagination">
+              <enchanted-table-pagination />
+            </div>
+            <div slot="footer">
+              <enchanted-authoring-dialog-footer />
+            </div>
+          </enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-all-slots', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with overrideTitle and content', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open overrideTitle .localization=${localization}>
+            <div slot="title">
+              <label style="color: #0066B0; margin: 5px;">Custom Title with Close</label>
+              <icon-close color="rgba(0, 0, 0, 0.60)" size="20"></icon-close>
+            </div>
+            <div slot="content">
+              <label>Custom content area</label>
+            </div>
+          </enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-overrideTitle-and-content', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with chat size and content', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open size="chat" title="Chat Dialog" .localization=${localization}>
+            <div slot="content">
+              <label>Chat mode content</label>
+            </div>
+            <div slot="footer">
+              <enchanted-authoring-dialog-footer />
+            </div>
+          </enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-with-chat-size-and-content', 100);
+
+    document.head.removeChild(link);
+  });
+
+  it('EnchantedDialog - should capture EnchantedDialog component with multiple sizes and removeBorder', async () => {
+    const link = appendEnchantedStylingLink();
+
+    render(
+      html`
+        <div>
+          <enchanted-dialog open size="lg" removeBorder title="Large Dialog No Border" .localization=${localization}>
+            <div slot="content">
+              <label>Large dialog without borders</label>
+            </div>
+            <div slot="footer">
+              <enchanted-authoring-dialog-footer />
+            </div>
+          </enchanted-dialog>
+        </div>
+      `,
+      document.body,
+    );
+
+    // The `toMatchFullPageSnapshot` method will let fail the whole test for a mismatch. 
+    // Therefore the 100% mismatch threshold was added, but the mismatch image will be generated anyway.
+    await expect(browser).toMatchFullPageSnapshot('enchanted-dialog-snapshot-baseline-lg-size-removeBorder', 100);
+
+    document.head.removeChild(link);
+  });
 });
