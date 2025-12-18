@@ -6,6 +6,9 @@
 
 ### Fixed
 - Fixed `enchanted-circular-progress` indeterminant variant style and story.
+- Fixed `enchanted-preview` image zoom to properly scale down large images on first load using zoom-to-fit calculation.
+- Fixed `enchanted-preview` image centering and scrolling behavior when zoomed - images now remain centered while allowing full scrollability to all edges when larger than container.
+- Fixed `enchanted-preview` zoom state detection to check actual image dimensions vs container size instead of just zoom percentage, ensuring scrollbars appear when needed.
 
 ### Changed
 

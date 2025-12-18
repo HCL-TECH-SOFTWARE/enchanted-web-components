@@ -113,9 +113,7 @@
 
   &.zoomed::part(preview-item-image-wrapper) {
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
+    margin: 0;
     flex-shrink: 0;
   }
 
@@ -312,9 +310,10 @@
 
   &.zoomed::part(preview-item-content-container) {
     overflow: auto;
-    display: block;
-    justify-content: flex-start;
-    align-items: flex-start;
+    display: grid;
+    place-items: center;
+    align-content: safe center;
+    justify-content: safe center;
   }
 
   &::part(preview-item-spinner-container) {

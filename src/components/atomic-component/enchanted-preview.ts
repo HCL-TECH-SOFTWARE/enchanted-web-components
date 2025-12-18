@@ -145,7 +145,27 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
     if (changedProperties.has('zoomPercentage') || changedProperties.has('items') || changedProperties.has('currentItemIndex')) {
       const currentItem = this.items[this.currentItemIndex ?? 0];
       const isImageType = currentItem?.type.split('/')[0] === ItemTypes.DAM_IMAGE;
-      this.isZoomedIn = isImageType && this.zoomPercentage > 100;
+      
+      // Check if image dimensions exceed container (need scrolling)
+      if (isImageType) {
+        requestAnimationFrame(() => {
+          const img = this.renderRoot?.querySelector('#preview-item-image') as HTMLImageElement;
+          const container = this.renderRoot?.querySelector('#preview-item-content-container') as HTMLElement;
+          
+          if (img && container && img.naturalWidth && img.naturalHeight) {
+            const scaledWidth = (img.naturalWidth * this.zoomPercentage) / 100;
+            const scaledHeight = (img.naturalHeight * this.zoomPercentage) / 100;
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            
+            this.isZoomedIn = scaledWidth > containerWidth || scaledHeight > containerHeight;
+          } else {
+            this.isZoomedIn = false;
+          }
+        });
+      } else {
+        this.isZoomedIn = false;
+      }
     }
 
     // Apply zoomed class to host element immediately
@@ -374,36 +394,37 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
 
   private _calculateImagePercentage() {
     const imgElement = this.renderRoot?.querySelector('#preview-item-image') as HTMLImageElement;
-    const imgHeight = imgElement?.height ?? 0;
-    const imgContainerHeight = imgElement.clientHeight ?? 0;
-
-    if (imgHeight === imgContainerHeight) {
-      const calculatedPercentage = Math.round(
-        ((imgContainerHeight - this._ZOOM_BUTTON_MARGIN * 2) / imgContainerHeight) * 100
-      );
-      this.zoomToFitPercentage = calculatedPercentage;
-      return calculatedPercentage;
+    const container = this.renderRoot?.querySelector('#preview-item-content-container') as HTMLElement;
+    
+    if (!imgElement || !container || !imgElement.naturalWidth || !imgElement.naturalHeight) {
+      return this._ZOOM_DEFAULT;
     }
 
-    const calculatedImageHeight = Math.round(
-      ((imgContainerHeight - this._ZOOM_BUTTON_MARGIN * 2) / imgHeight) * 100
-    );
-    const imageContainerWidth = imgElement.clientWidth ?? 0;
-    const imageWidth = imgElement.width ?? 0;
-    const calculatedImageWidth = Math.round(
-      ((imageContainerWidth - this._ZOOM_BUTTON_MARGIN * 2) / imageWidth) * 100
-    );
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight - this._ZOOM_BUTTON_MARGIN * 2;
+    const naturalWidth = imgElement.naturalWidth;
+    const naturalHeight = imgElement.naturalHeight;
 
-    this.zoomToFitPercentage = Math.min(calculatedImageHeight, calculatedImageWidth);
+    // Calculate scale to fit width and height
+    const scaleForWidth = (containerWidth / naturalWidth) * 100;
+    const scaleForHeight = (containerHeight / naturalHeight) * 100;
 
-    return this._ZOOM_DEFAULT;
+    // Use the smaller scale to ensure the image fits in both dimensions
+    const fitPercentage = Math.min(scaleForWidth, scaleForHeight, 100);
+    
+    this.zoomToFitPercentage = Math.round(fitPercentage);
+
+    return this.zoomToFitPercentage;
   }
 
   private _handleZoomPercentageFitClick() {
     if (this.zoomPercentage !== this._ZOOM_DEFAULT) {
+      // Currently not at 100%, so go to 100%
       this.zoomPercentage = this._ZOOM_DEFAULT;
     } else {
-      this.zoomPercentage = this.zoomToFitPercentage;
+      // Currently at 100%, recalculate and go to fit-to-screen
+      const fitPercentage = this._calculateImagePercentage();
+      this.zoomPercentage = fitPercentage;
     }
 
     this.zoomInDisable = false;

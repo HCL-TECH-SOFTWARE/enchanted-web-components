@@ -65,6 +65,7 @@ export interface EnchantedPreviewProps {
 const IMAGE_RENDITIONS: AssetRendition[] = [
   { id: 'original', type: 'Original', source: new URL('../_tests_/assets/test-image.jpg', import.meta.url).href, dimension: '600x400' },
   { id: 'thumb', type: 'Thumbnail', source: new URL('../_tests_/assets/test-image.jpg', import.meta.url).href, dimension: '150x100' },
+  { id: 'desktop', type: 'Desktop', source: new URL('../_tests_/assets/test-image-large.jpg', import.meta.url).href, dimension: '5760x3840' },
 ];
 
 const PREVIEW_ITEMS: PreviewItem[] = [
