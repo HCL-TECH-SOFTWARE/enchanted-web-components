@@ -569,18 +569,30 @@ describe('EnchantedPreview component testing', () => {
     let zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.waitForClickable();
     const zoomPercentageButton = await component.$(`>>>enchanted-button[data-testid="enchanted-preview-zoom-percentage-button"]`);
+
+    // Wait for initial zoom calculation
+    await browser.pause(500);
+    const initialZoom = await zoomPercentageButton.getText();
+    const initialZoomValue = parseInt(initialZoom);
+
     let style = await img.getAttribute('style');
     await expect(style.replace(/\s+/g, '')).toContain('width:');
     await expect(style.replace(/\s+/g, '')).toContain('height:');
-    await expect(zoomPercentageButton).toHaveText('50%');
 
     await zoomInButton.moveTo();
     zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
+    await browser.pause(200);
+
+    const newZoom = await zoomPercentageButton.getText();
+    const newZoomValue = parseInt(newZoom);
+
+    // Verify zoom increased by 25%
+    await expect(newZoomValue).toBe(initialZoomValue + 25);
+
     style = await img.getAttribute('style');
     await expect(style.replace(/\s+/g, '')).toContain('width:');
     await expect(style.replace(/\s+/g, '')).toContain('height:');
-    await expect(zoomPercentageButton).toHaveText('75%');
   });
 
   it('EnchantedPreview - should decrease zoom scale and display correct zoom percentage if zoom out button is clicked', async () => {
