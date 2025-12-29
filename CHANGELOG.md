@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Added `enchanted-popover-closed` custom event to `enchanted-popover` for tracking close-icon clicks vs. other dismissals.
 
 ### Fixed
 - Fixed `enchanted-circular-progress` indeterminant variant style and story.

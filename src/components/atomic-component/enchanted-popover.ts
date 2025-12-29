@@ -64,6 +64,13 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
   private _onCloseClick = (e: Event) => {
     e.stopPropagation();
     this.open = false;
+    this.dispatchEvent(new CustomEvent('enchanted-popover-closed', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        reason: 'click-icon-close'
+      }
+    }));
   };
 
   render() {
