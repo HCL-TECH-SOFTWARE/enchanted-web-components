@@ -77,9 +77,6 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   override ariaLabel: string | null = null;
 
   @state()
-  private tempValueHolder: string = '';
-
-  @state()
   private isRTL = getCurrentDirection() === LOCALE_DIRECTIONS.RTL;
 
   private get hasClear(): boolean {
@@ -97,13 +94,6 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   private handleInput(event: KeyboardEvent) {
     event.stopPropagation();
     debug('Input event in %s: %s', this.tagName, (event.target as HTMLInputElement).value);
-    // this condition used to copy the current working search value to tempValueHolder
-    // used to save value when user starts to edit queryString but later leaves it empty (handleBlur event)
-    if (this.value !== this.tempValueHolder && this.tempValueHolder === '' && this.hassearchedbefore) {
-      // string interpolation used to prevent flicker on the input
-      this.tempValueHolder = `${this.value}`;
-    }
-
     this.value = (event.target as HTMLInputElement).value;
 
     const stateChange = new CustomEvent('change', { 
@@ -128,7 +118,6 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
         }
       });
       this.dispatchEvent(stateChange);
-      this.tempValueHolder = this.value;
       this.hassearchedbefore = true;
     }
   }
@@ -137,11 +126,6 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
     event.stopPropagation();
     event.preventDefault();
     debug('Clear event in %s: %s', this.tagName, this.value);
-    // this condition used to copy the current search value to tempValueHolder
-    if (this.value !== this.tempValueHolder && this.tempValueHolder === '' && this.hassearchedbefore) {
-      // string interpolation used to prevent flicker on the input
-      this.tempValueHolder = `${this.value}`;
-    }
     this.value = '';
     const input = this.renderRoot.querySelector(`#${`input-${this.field}`}`) as HTMLInputElement;
     if (input) {
@@ -167,17 +151,14 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
     event.stopPropagation();
     event.preventDefault();
     debug('Blur event in %s: %s', this.tagName, this.value);
-    // if the input is empty or the clear icon is clicked, but user blurred away, then the value will be set back to tempValueHolder
     if (this.value === '') {
-      this.value = this.tempValueHolder;
       const stateChange = new CustomEvent('change', {
         detail: {
-          value: this.tempValueHolder,
+          value: this.value,
           type: this.field,
         }
       });
       this.dispatchEvent(stateChange);
-      this.tempValueHolder = '';
     }
   }
 
@@ -202,19 +183,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
       }
     });
     this.dispatchEvent(stateChange);
-    this.tempValueHolder = this.value;
     this.hassearchedbefore = true;
-  }
-
-  private handleFocus(event: FocusEvent) {
-    event.stopPropagation();
-    event.preventDefault();
-    debug('Focus event in %s: %s', this.tagName, this.value);
-    // this condition used to copy the current search value to tempValueHolder
-    if (this.value !== this.tempValueHolder && this.tempValueHolder === '' && this.hassearchedbefore) {
-      // string interpolation used to prevent flicker on the input
-      this.tempValueHolder = `${this.value}`;
-    }
   }
 
   private getInputParts(type: string) {
@@ -250,10 +219,6 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
     return part;
   }
 
-  setTempValueHolder(value: string) {
-    this.tempValueHolder = value;
-  }
-
   render() {
     debug('Rendering %s: value - %s, disabled - %s, has searched before - %s', this.tagName, this.value, this.disabled, this.hassearchedbefore);
     return html`
@@ -271,7 +236,6 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
           @input=${this.handleInput}
           @keydown=${debounce(this.handleEnter, 500)}
           @blur=${this.handleBlur}
-          @focus=${this.handleFocus}
           id=${`input-${this.field}`}
           .value=${this.value}
           ?disabled=${this.disabled}

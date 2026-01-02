@@ -10,6 +10,7 @@
 ### Changed
 
 ### Breaking changes
+- Removing the `tempValueHolder` logic from the `enchanted-textfield`
 
 ## 3.0.0
 
