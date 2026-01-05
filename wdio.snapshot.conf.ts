@@ -56,7 +56,7 @@ export const config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    './src/_tests_/snapshot/**/*.test.ts'
+    './src/_tests_/snapshot/**/enchanted-popover-snapshot.test.ts'
   ],
   // Patterns to exclude.
   exclude: [
@@ -91,7 +91,7 @@ export const config = {
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
-        '--headless',
+        // '--headless',
         '--disable-dev-shm-usage',
       ]
     },

@@ -43,7 +43,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open>
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -62,7 +62,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover>
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -81,7 +81,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel label="Popover Title">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -100,7 +100,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showText text="This is popover text content">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -119,7 +119,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText label="Popover Title" text="This is popover content">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -138,7 +138,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText showCloseIcon label="Title" text="Content with close button">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -157,7 +157,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText inverse label="Dark Theme" text="Popover with dark styling">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -176,7 +176,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.TOP} label="Top Arrow" text="Arrow at top">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -195,7 +195,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.BOTTOM} label="Bottom Arrow" text="Arrow at bottom">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -214,7 +214,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.LEFT} label="Left Arrow" text="Arrow at left">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -233,7 +233,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.RIGHT} label="Right Arrow" text="Arrow at right">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -252,7 +252,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.TOP_LEFT} label="Top Left" text="Arrow at top-left">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -271,7 +271,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.TOP_RIGHT} label="Top Right" text="Arrow at top-right">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -290,7 +290,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.BOTTOM_LEFT} label="Bottom Left" text="Arrow at bottom-left">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -309,7 +309,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.BOTTOM_RIGHT} label="Bottom Right" text="Arrow at bottom-right">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -328,7 +328,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.LEFT_TOP} label="Left Top" text="Arrow at left-top">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -347,7 +347,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.LEFT_BOTTOM} label="Left Bottom" text="Arrow at left-bottom">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -366,7 +366,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.RIGHT_TOP} label="Right Top" text="Arrow at right-top">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -385,7 +385,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.RIGHT_BOTTOM} label="Right Bottom" text="Arrow at right-bottom">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -404,7 +404,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText .arrow=${EnchantedPopoverArrowPosition.NONE} label="No Arrow" text="Popover without arrow">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -423,7 +423,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText withpadding label="With Padding" text="Popover content has internal padding">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -442,7 +442,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText label="No Padding" text="Popover without internal padding">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -461,7 +461,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText disableHover label="Hover Disabled" text="Hover interactions disabled">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -480,7 +480,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showLabel showText>
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
             <span slot="label" style="color: #0066B0; font-weight: bold;">Custom Label Slot</span>
@@ -501,7 +501,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover 
             open 
             showLabel 
@@ -530,7 +530,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover open showText text="Minimal popover">
             <enchanted-button slot="target" buttontext="Target"></enchanted-button>
           </enchanted-popover>
@@ -549,7 +549,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style=" position: absolute; margin: 100px;">
           <enchanted-popover 
             open 
             showLabel 
@@ -577,7 +577,7 @@ describe('EnchantedPopover - Snapshot testing', () => {
 
     render(
       html`
-        <div style="padding: 100px;">
+        <div style="position: absolute; margin: 100px;">
           <enchanted-popover 
             open 
             showLabel 
