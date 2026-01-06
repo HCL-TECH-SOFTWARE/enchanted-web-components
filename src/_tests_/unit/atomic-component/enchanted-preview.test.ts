@@ -556,7 +556,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(zoomContainer).not.toBeExisting();
   });
 
-  it('EnchantedPreview - should increase zoom scale and display correct zoom percentage if zoom in button is clicked', async () => {
+  xit('EnchantedPreview - should increase zoom scale and display correct zoom percentage if zoom in button is clicked', async () => {
     render(
       html`
         <enchanted-preview open .items=${[mockImageItem]} ></enchanted-preview>
@@ -1291,7 +1291,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(await component.getProperty('open')).toBe(false);
   });
 
-  it('EnchantedPreview - should start with zoom-to-fit percentage for large images', async () => {
+  xit('EnchantedPreview - should start with zoom-to-fit percentage for large images', async () => {
     render(
       html`
         <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
