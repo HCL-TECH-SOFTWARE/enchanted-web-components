@@ -1,0 +1,155 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+enchanted-fab{
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+}
+
+enchanted-fab::part(fab){
+    position:relative;
+    display: inline-flex;
+    gap:8px;
+    width: 40px;
+    height: 40px;
+    outline: none;
+    padding:8px;
+    border-radius:4px;
+    border: none;
+    box-shadow: 
+    0 8px 10px -5px rgba(0,0,0,0.20),
+    0 16px 24px 2px rgba(0,0,0,0.14),
+    0 6px 30px 5px rgba(0,0,0,0.12);
+    transition: 
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+enchanted-fab[extended]::part(fab){
+    width: auto;
+    padding-inline: 12px;
+}  
+
+enchanted-fab::part(label){
+    white-space: nowrap;
+    padding: 4px;   
+}
+
+//badge
+
+enchanted-fab::part(badge){
+    position: absolute;
+    top: -6px;
+    right: -6px;
+}
+// Contained FAB styles
+
+enchanted-fab[type="contained"]::part(fab){
+    background: var(--enchanted-primary-color, #0550dc);
+    color: var(--enchanted-on-primary-color, #ffffff);
+}
+
+enchanted-fab[type="contained"]::part(fab):hover{
+    background: var(--enchanted-primary-color, #0029A9);
+    color: var(--enchanted-on-primary-color, #ffffff);
+}
+
+enchanted-fab[type="contained"]::part(fab):focus{
+    border-radius: 7px;
+    outline: 2px solid var(--enchanted-primary-color, #0550dc);
+    outline-offset: 1px;
+}
+
+enchanted-fab[type="contained"]::part(fab):hover:focus{
+    outline: 2px solid var(--enchanted-primary-color, #0029A9);
+    outline-offset: 1px;
+    border-radius: 7px;
+    color: #ffffff;
+}
+
+// Outlined FAB styles
+
+enchanted-fab[type="outlined"]::part(fab){
+    background: #ffffff;
+    border: 2px solid var(--enchanted-primary-color, #0550dc);
+    color: var(--enchanted-primary-color, #0550dc);
+}
+
+enchanted-fab[type="outlined"]::part(fab):hover{
+    background: rgba(0,0,0,0.04);
+    border-color: var(--enchanted-primary-color, #0029a9);
+    color: var(--enchanted-on-primary-color, #0029a9);
+}
+enchanted-fab[type="outlined"]::part(fab):focus{
+    outline: 2px solid var(--enchanted-primary-color, #0550dc);
+    outline-offset: 1px;
+    border-radius: 7px;
+}
+enchanted-fab[type="outlined"]::part(fab):hover:focus{
+    background: rgba(0,0,0,0.04);
+    outline: 2px solid var(--enchanted-primary-color, #0029a9);
+    outline-offset: 1px;
+    border-radius: 7px;
+    color: #0029A9;
+
+}
+
+// AI FAB styles
+enchanted-fab[type="AI"]::part(fab){
+    background: #a7ffff;
+    color:  #0550dc;
+
+}
+
+enchanted-fab[type="AI"]::part(fab):hover{
+    background: var(--enchanted-ai-fab-bg, #71d9f3);
+    color: #0029A9;
+
+}
+enchanted-fab[type="AI"]::part(fab):focus{
+    outline: 2px solid var(--enchanted-ai-fab-focus-outline, #0550dc);
+    outline-offset: 1px;
+    border-radius: 7px;
+}
+enchanted-fab[type="AI"]::part(fab):hover:focus{
+    background: var(--enchanted-ai-fab-bg, #71d9f3);
+    outline: 2px solid var(--enchanted-ai-fab-focus-outline, #0029a9);
+    outline-offset: 1px;
+    border-radius: 7px;
+    color: #0029A9;
+}
+
+
+// Disabled FAB styles
+
+enchanted-fab::part(fab):disabled{
+    background: var(--enchanted-disabled-bg, #e5e5e5);
+    color: rgba(0,0,0,0.38);
+    border-color: transparent;
+    box-shadow: 
+        0 8px 10px -5px rgba(0,0,0,0.20),
+        0 16px 24px 2px rgba(0,0,0,0.14),
+        0 6px 30px 5px rgba(0,0,0,0.12);
+    cursor: not-allowed;
+}
+enchanted-fab::part(fab):disabled:hover,
+enchanted-fab::part(fab):disabled:focus{
+    background: var(--enchanted-disabled-bg, #e5e5e5);
+    box-shadow: 
+        0 8px 10px -5px rgba(0,0,0,0.20),
+        0 16px 24px 2px rgba(0,0,0,0.14),
+        0 6px 30px 5px rgba(0,0,0,0.12);
+}
