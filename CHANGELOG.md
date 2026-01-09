@@ -14,6 +14,7 @@
 
 ### Added
 - Added `enchanted-popover-closed` custom event to `enchanted-popover` for tracking close-icon clicks vs. other dismissals.
+- Resolved the issue with the positioning of the action and clear icons inside the `enchanted-textfield`.
 
 ### Fixed
 - Fixed `enchanted-circular-progress` indeterminant variant style and story.

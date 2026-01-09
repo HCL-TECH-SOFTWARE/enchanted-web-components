@@ -32,6 +32,7 @@ export interface EnchantedInputTextfieldProps {
   hassearchedbefore?: boolean;
   autocomplete?: string;
   ariaLabel?: string;
+  showClearIcon?: boolean;
 }
 
 const meta: Meta<EnchantedInputTextfieldProps> = {
@@ -102,6 +103,11 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
       description: 'ARIA label for accessibility. Provides descriptive text for screen readers when the visible label is insufficient or needs clarification.',
       table: { category: 'Accessibility', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
+    showClearIcon: {
+      control: { type: 'boolean' },
+      description: 'Toggle to show or hide the clear icon.',
+      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+    },
   },
   args: {
     value: '',
@@ -115,6 +121,7 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
     hassearchedbefore: false,
     autocomplete: 'on',
     ariaLabel: '',
+    showClearIcon: true,
   },
   
   render: (args) => {
@@ -125,7 +132,7 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
         label="${args.label}"
         placeholder="${args.placeholder}"
         ?disabled=${args.disabled}
-        .clearIcon=${args.clearIcon}
+        .clearIcon=${args.showClearIcon ? args.clearIcon : null}
         .actionIcon=${args.actionIcon}
         field="${args.field}"
         ?hassearchedbefore=${args.hassearchedbefore}

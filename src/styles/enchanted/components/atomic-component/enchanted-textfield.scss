@@ -46,8 +46,8 @@
     width: 100%;
     border: 1px solid palette.clr(light, action, disabled);
     border-radius: 2px;
-    padding: 7px 8px;
-    height: 18px;
+    padding: 6px 8px;
+    height: 16px;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -86,18 +86,16 @@
     position: absolute;
     height: 16px;
     width: 16px;
-    top: 29px;
+    top: 27px;
     cursor: pointer;
   }
 
   &::part(icon-clear) {
-    right: 8px;
-    margin-right: 36px;
+    right: 28px;
   }
 
   &::part(icon-clear-rtl) {
-    left: 8px;
-    margin-left: 36px;
+    left: 28px;
   }
 
   &::part(icon-action),
@@ -105,16 +103,16 @@
     position: absolute;
     height: 16px;
     width: 16px;
-    top: 29px;
+    top: 27px;
     cursor: pointer;
   }
 
   &::part(icon-action) {
-    right: 24px;
+    right: 8px;
   }
 
   &::part(icon-action-rtl) {
-    left: 24px;
+    left: 8px;
   }
 
   &::part(icon-action-disabled) {
@@ -123,22 +121,22 @@
   }
 
   &::part(input-icon-clear) {
-    padding-right: 30px;
-    width: calc(100% - 56px);
+    width: calc(100% - 38px);
+    padding-right: 28px;
   }
 
   &::part(input-icon-clear-rtl) {
-    padding-left: 30px;
-    width: calc(100% - 56px);
+    width: calc(100% - 38px);
+    padding-left: 28px;
   }
 
   &::part(input-icon-both) {
-    padding-right: 54px;
-    width: calc(100% - 80px);
+    width: calc(100% - 62px);
+    padding-right: 52px;
   }
 
   &::part(input-icon-both-rtl) {
-    padding-left: 54px;
-    width: calc(100% - 80px);
+    width: calc(100% - 62px);
+    padding-left: 52px;
   }
 }
