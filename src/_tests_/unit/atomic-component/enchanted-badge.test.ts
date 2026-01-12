@@ -52,7 +52,7 @@ describe('EnchantedBadge component testing', () => {
     component.remove();
   });
 
-  it('EnchantedBadge - should render default badge ●', async () => {
+  it('EnchantedBadge - should render default badge ● when badge=""', async () => {
     render(
       html`
         <enchanted-badge />
@@ -61,13 +61,13 @@ describe('EnchantedBadge component testing', () => {
     );
     let component = await $('enchanted-badge').getElement();
     await expect(component).toBeDisplayed();
-    expect(component).toHaveText('●');
+    expect(component).toHaveText('');
   });
 
   it('EnchantedBadge - should render property badge', async () => {
     render(
       html`
-        <enchanted-badge badge="20" />
+        <enchanted-badge badge="text" text="20" />
       `,
       document.body
     );
@@ -75,5 +75,48 @@ describe('EnchantedBadge component testing', () => {
     await expect(component).toBeDisplayed();
 
     expect(component).toHaveText('20');
+  });
+
+  it('EnchantedBadge - should render with default properties', async () => {
+    render(
+      html`<enchanted-badge></enchanted-badge>`,
+      document.body
+    );
+    const component = await $('enchanted-badge');
+    await expect(component).toBeDisplayed();
+    await expect(component).toHaveAttribute('badge', 'text');
+    await expect(component).toHaveAttribute('color', 'primary');
+    await expect(component).toHaveAttribute('border', 'default');
+  });
+
+  it('EnchantedBadge - should render with custom text', async () => {
+    render(
+      html`<enchanted-badge badge="text" text="99"></enchanted-badge>`,
+      document.body
+    );
+    const component = await $('enchanted-badge');
+    await expect(component).toBeDisplayed();
+    await expect(component).toHaveText('99');
+  });
+
+  it('EnchantedBadge - should render dot badge', async () => {
+    render(
+      html`<enchanted-badge badge="dot"></enchanted-badge>`,
+      document.body
+    );
+    const component = await $('enchanted-badge');
+    await expect(component).toBeDisplayed();
+    await expect(component).not.toHaveText();
+  });
+
+  it('EnchantedBadge - should apply color and border styles', async () => {
+    render(
+      html`<enchanted-badge color="error" border="dark"></enchanted-badge>`,
+      document.body
+    );
+    const component = await $('enchanted-badge');
+    await expect(component).toBeDisplayed();
+    await expect(component).toHaveAttribute('color', 'error');
+    await expect(component).toHaveAttribute('border', 'dark');
   });
 });
