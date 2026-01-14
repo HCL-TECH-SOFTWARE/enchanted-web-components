@@ -13,15 +13,16 @@
  * limitations under the License.                                           *
  * ======================================================================== */	
 // External imports
-import { html, css } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
-import { isLTR } from '../localization';
-import { EnchantedBadgeColor, EnchantedBadgeBorder, EnchantedBadgeType } from '../../types/cssClassEnums';
+import { getCurrentDirection } from "../localization";
+import { LOCALE_DIRECTIONS } from "../constants";
+import { EnchantedBadgeColor, EnchantedBadgeBorder, EnchantedBadgeType, EnchantedBadgeParts } from '../../types/cssClassEnums';
  
 @customElement('enchanted-badge')
 export class EnchantedBadge extends EnchantedAcBaseElement {
@@ -35,96 +36,21 @@ export class EnchantedBadge extends EnchantedAcBaseElement {
 
   @property() text: string = ''; // Added property to allow user to pass any string for badge:text
 
-  static styles = css`
-  
-    :host {
-      position: absolute;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      top: -6px;
-      inset-inline-end: -6px;
-      font-family: Inter;
-      font-size: 10px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 14px; 
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-    }
-
-    :host([badge="text"]) {
-      min-width: 15px;
-      height: 15px;
-    }
-
-    :host([badge="dot"]) {
-      min-width: 8px;
-      height: 8px;
-      top:-4px;
-      inset-inline-end: -4px;
-      }
-
-    :host([color="primary"]) {
-      background-color: #0550DC;
-      color: #FFFFFF;
-    }
-    
-    :host([color="error"]) {
-      background-color: #C10C0D;
-      color: #FFFFFF;
-    }
-
-    :host([color="error-inverse"]) {
-      background-color: #FFADAD;
-      color: rgba(0, 0, 0, .87);
-    }
-
-    :host([color="primary-inverse"]) {
-      background-color: #B3D9F8;
-      color: rgba(0, 0, 0, .87);
-    }
-
-    :host([border="paper"]) {
-      border: 2px solid  #FFFFFF;
-    }
-
-    :host([border="default"]) {
-      border: 2px solid  #F6F6F6;
-    }
-    
-    :host([border="secondary"]) {
-      border: 2px solid  #E5E5E5;
-    }
-    
-    :host([border="tertiary"]) {
-      border: 2px solid  #D6D6D6;
-    }
-    
-    :host([border="dark"]) {
-      border: 2px solid  #383838;
-    }
-    :host([border="darker"]) {
-      border: 2px solid  #1E1E1E;
-    }
-    .badge.ltr {
-      text-align: left;
-    }
-
-    .badge.rtl {
-      text-align: right;
-    }
-  `;
 
   render() {
-    const localization = isLTR() ? 'ltr' : 'rtl'; // Use localization as a variable
+    const isDirectionLTR = getCurrentDirection() === LOCALE_DIRECTIONS.LTR;
+    const partName = this.badge === EnchantedBadgeType.DOT
+      ? EnchantedBadgeParts.BADGE_DOT
+      : isDirectionLTR
+        ? EnchantedBadgeParts.BADGE_TEXT
+        : EnchantedBadgeParts.BADGE_TEXT_RTL;
+
     return html`
       <div
-        class="badge ${localization}"
-        color="${this.color}"
+        part="${partName}"
         data-testid="enchanted-badge"
       >
-        ${this.badge === EnchantedBadgeType.TEXT ? this.text : ''} <!-- Render user-provided text -->
+        ${this.badge === EnchantedBadgeType.TEXT ? this.text : ''}
       </div>
     `;
   }

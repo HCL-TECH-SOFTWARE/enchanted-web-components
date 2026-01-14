@@ -26,7 +26,9 @@ enchanted-fab {
 
 enchanted-fab::part(fab){
     position:relative;
-    display: inline-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap:8px;
     width: 40px;
     height: 40px;
@@ -53,6 +55,18 @@ enchanted-fab::part(label) {
     white-space: nowrap;
     padding: 4px;
 }
+// Icon styles
+enchanted-fab::part(icon) {
+   --_icon-instance-size: 24px;
+}
+enchanted-fab[type="contained"]::part(icon) {
+    --_icon-instance-color: map.get(themeMap.$enchantedPalette, "WHITE100P");
+}
+enchanted-fab[type="outlined"]::part(icon) {
+    --_icon-instance-color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
+}
+
+// Contained FAB styles
 
 enchanted-fab[type="contained"]::part(fab){
     background: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
@@ -81,12 +95,8 @@ enchanted-fab[type="contained"]::part(fab):hover:focus{
 
 enchanted-fab[type="outlined"]::part(fab){
     background: map.get(themeMap.$enchantedPalette, "WHITE100P");
-    border: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
+    outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
     color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
 }
 
 enchanted-fab[type="outlined"]::part(fab):hover{
@@ -108,38 +118,14 @@ enchanted-fab[type="outlined"]::part(fab):hover:focus{
 
 }
 
-// AI FAB styles
-enchanted-fab[type="AI"]::part(fab){
-    background: map.get(themeMap.$enchantedPalette, "BLUE300_DARK");
-    color:  map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
-
-}
-
-enchanted-fab[type="AI"]::part(fab):hover{
-    background: map.get(themeMap.$enchantedPalette, "BLUE300");
-    color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
-
-}
-enchanted-fab[type="AI"]::part(fab):focus{
-    outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
-    outline-offset: 1px;
-    border-radius: 7px;
-}
-enchanted-fab[type="AI"]::part(fab):hover:focus{
-    background: map.get(themeMap.$enchantedPalette, "BLUE300");
-    outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
-    outline-offset: 1px;
-    border-radius: 7px;
-    color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
-}
-
 
 // Disabled FAB styles
 
 enchanted-fab::part(fab):disabled{
     background: map.get(themeMap.$enchantedPalette, "NG150");
     color: map.get(themeMap.$enchantedPalette, "BLACK38P");
-    border-color: transparent;
+    // border-color: transparent;
+    outline: none;
     box-shadow: 
         0 8px 10px -5px rgba(0,0,0,0.20),
         0 16px 24px 2px rgba(0,0,0,0.14),
@@ -153,6 +139,7 @@ enchanted-fab::part(fab):disabled:focus{
         0 8px 10px -5px rgba(0,0,0,0.20),
         0 16px 24px 2px rgba(0,0,0,0.14),
         0 6px 30px 5px rgba(0,0,0,0.12);
+    color: map.get(themeMap.$enchantedPalette, "BLACK38P");
 }
 
 // Updated styles to use part attribute for LTR and RTL
@@ -177,17 +164,12 @@ enchanted-fab[type="contained"]::part(fab-rtl) {
 
 enchanted-fab[type="outlined"]::part(fab-rtl) {
     background: map.get(themeMap.$enchantedPalette, "WHITE100P");
-    border: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
-    color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
-}
-
-enchanted-fab[type="AI"]::part(fab-rtl) {
-    background: map.get(themeMap.$enchantedPalette, "BLUE300_DARK");
+    outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
     color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
 }
 
 enchanted-fab::part(fab-rtl):disabled {
     background: map.get(themeMap.$enchantedPalette, "NG150");
     color: map.get(themeMap.$enchantedPalette, "BLACK38P");
-    border-color: transparent;
+    outline: none;
 }

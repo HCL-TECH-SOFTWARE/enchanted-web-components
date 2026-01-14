@@ -18,7 +18,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/apps/es/images';
  * Props for the enchanted-fab web component.
  *
  * @property badge - Whether to show the badge.
- * @property type - The type of the FAB (contained, outlined, AI).
+ * @property type - The type of the FAB (contained, outlined).
  * @property extended - Whether the FAB is extended.
  * @property disabled - Whether the FAB is disabled.
  * @property label - The label for the FAB.
@@ -189,7 +189,7 @@ export const AllStates: Story = {
       <enchanted-fab
         style="position: absolute; top: 120px; left: 20px;"
         .type=${EnchantedFabType.OUTLINED}
-        .icon=${html`<icon-arrows></icon-arrows>`}
+        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 90px; left: 150px;">[Extended]</div>
@@ -198,7 +198,7 @@ export const AllStates: Story = {
         .type=${EnchantedFabType.OUTLINED}
         .extended=${true}
         .label=${'Extended'}
-        .icon=${html`<icon-arrows></icon-arrows>`}
+        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 90px; left: 350px;">[Badge]</div>
@@ -206,7 +206,7 @@ export const AllStates: Story = {
         style="position: absolute; top: 120px; left: 350px;"
         .type=${EnchantedFabType.OUTLINED}
         .badge=${true}
-        .icon=${html`<icon-arrows></icon-arrows>`}
+        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 90px; left: 450px;">[Extended + Badge]</div>
@@ -216,7 +216,7 @@ export const AllStates: Story = {
         .extended=${true}
         .badge=${true}
         .label=${'Extended Badge'}
-        .icon=${html`<icon-arrows></icon-arrows>`}
+        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 90px; left: 680px;">[Disabled]</div>
@@ -224,7 +224,7 @@ export const AllStates: Story = {
         style="position: absolute; top: 120px; left: 680px;"
         .type=${EnchantedFabType.OUTLINED}
         .disabled=${true}
-        .icon=${html`<icon-arrows></icon-arrows>`}
+        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 90px; left: 800px;">[Extended + Disabled]</div>
@@ -234,61 +234,10 @@ export const AllStates: Story = {
         .extended=${true}
         .disabled=${true}
         .label=${'Disabled'}
-        .icon=${html`<icon-arrows></icon-arrows>`}
-      ></enchanted-fab>
-      
-      <!-- AI Type -->
-      <div style="font-weight: bold; font-size: 14px; position: absolute; top: 200px; left: 0px;">AI Type</div>
-      <enchanted-fab
-        style="position: absolute; top: 230px; left: 20px;"
-        .type=${EnchantedFabType.AI}
         .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab>
       
-      <div style="font-weight: bold; font-size: 14px; position: absolute; top: 200px; left: 150px;">[Extended]</div>
-      <enchanted-fab
-        style="position: absolute; top: 230px; left: 150px;"
-        .type=${EnchantedFabType.AI}
-        .extended=${true}
-        .label=${'Extended'}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab>
-      
-      <div style="font-weight: bold; font-size: 14px; position: absolute; top: 200px; left: 350px;">[Badge]</div>
-      <enchanted-fab
-        style="position: absolute; top: 230px; left: 350px;"
-        .type=${EnchantedFabType.AI}
-        .badge=${true}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab>
-      
-      <div style="font-weight: bold; font-size: 14px; position: absolute; top: 200px; left: 450px;">[Extended + Badge]</div>
-      <enchanted-fab
-        style="position: absolute; top: 230px; left: 450px;"
-        .type=${EnchantedFabType.AI}
-        .extended=${true}
-        .badge=${true}
-        .label=${'Extended Badge'}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab>
-      
-      <div style="font-weight: bold; font-size: 14px; position: absolute; top: 200px; left: 680px;">[Disabled]</div>
-      <enchanted-fab
-        style="position: absolute; top: 230px; left: 680px;"
-        .type=${EnchantedFabType.AI}
-        .disabled=${true}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab>
-      
-      <div style="font-weight: bold; font-size: 14px; position: absolute; top: 200px; left: 800px;">[Extended + Disabled]</div>
-        <enchanted-fab
-          style="position: absolute; top: 230px; left: 800px;"
-          .type=${EnchantedFabType.AI}
-          .extended=${true}
-          .disabled=${true}
-          .label=${'Disabled'}
-          .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-        ></enchanted-fab>
+      <!-- Removed AI Type examples -->
       </div>
     </div>
   `;

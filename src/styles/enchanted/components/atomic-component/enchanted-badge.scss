@@ -1,0 +1,143 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "sass:map";
+@use "../../common/themeMap.module";
+
+@mixin enchanted-badge-base-styles {
+  // Host positioning relative to parent (e.g., FAB button)
+  & {
+    position: absolute;
+    display: inline-flex;
+  }
+
+  // Offsets by variant
+  &[badge="text"] {
+    top: -6px;
+    inset-inline-end: -6px;
+  }
+
+  &[badge="dot"] {
+    top: -4px;
+    inset-inline-end: -4px;
+  }
+
+  // Base layout + sizing
+  &::part(badge-text),
+  &::part(badge-text-rtl) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 14px;
+    min-width: 15px;
+    height: 15px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    text-align: start;
+  }
+
+  // RTL offset
+  &::part(badge-text-rtl) {
+    right: auto;
+    left: -6px;
+    text-align: right;
+  }
+
+  // Dot variant
+  &::part(badge-dot) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 8px;
+    width: 8px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  }
+
+  // Color variants using palette tokens (no hardcoded values)
+  &[color="primary"]::part(badge-text),
+  &[color="primary"]::part(badge-text-rtl),
+  &[color="primary"]::part(badge-dot) {
+    background-color: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, WHITE100P);
+  }
+
+  &[color="error"]::part(badge-text),
+  &[color="error"]::part(badge-text-rtl),
+  &[color="error"]::part(badge-dot) {
+    background-color: map.get(themeMap.$enchantedPalette, RED800);
+    color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, WHITE100P);
+  }
+
+  // Inverse variants
+  &[color="primary-inverse"]::part(badge-text),
+  &[color="primary-inverse"]::part(badge-text-rtl),
+  &[color="primary-inverse"]::part(badge-dot) {
+    background-color: map.get(themeMap.$enchantedPalette, BLUE300);
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK20P);
+  }
+
+  &[color="error-inverse"]::part(badge-text),
+  &[color="error-inverse"]::part(badge-text-rtl),
+  &[color="error-inverse"]::part(badge-dot) {
+    background-color: map.get(themeMap.$enchantedPalette, RED300);
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK20P);
+  }
+
+  // Border variants
+  &[border="paper"]::part(badge-text),
+  &[border="paper"]::part(badge-text-rtl),
+  &[border="paper"]::part(badge-dot) {
+    border: 2px solid map.get(themeMap.$enchantedPalette, WHITE100P);
+  }
+
+  &[border="default"]::part(badge-text),
+  &[border="default"]::part(badge-text-rtl),
+  &[border="default"]::part(badge-dot) {
+    border: 2px solid map.get(themeMap.$enchantedPalette, NG150);
+  }
+
+  &[border="secondary"]::part(badge-text),
+  &[border="secondary"]::part(badge-text-rtl),
+  &[border="secondary"]::part(badge-dot) {
+    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK20P);
+  }
+
+  &[border="tertiary"]::part(badge-text),
+  &[border="tertiary"]::part(badge-text-rtl),
+  &[border="tertiary"]::part(badge-dot) {
+    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK43P);
+  }
+
+  &[border="dark"]::part(badge-text),
+  &[border="dark"]::part(badge-text-rtl),
+  &[border="dark"]::part(badge-dot) {
+    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK32P);
+  }
+
+  &[border="darker"]::part(badge-text),
+  &[border="darker"]::part(badge-text-rtl),
+  &[border="darker"]::part(badge-dot) {
+    border: 2px solid map.get(themeMap.$enchantedPalette, WHITE40P);
+  }
+}

@@ -8,7 +8,7 @@ import '../components/atomic-component/enchanted-badge';
 import { EnchantedBadgeColor, EnchantedBadgeBorder, EnchantedBadgeType } from '../types/cssClassEnums';
 
 const meta: Meta = {
-  title: 'Components/EnchantedBadge',
+  title: 'Components/Enchanted-badge',
   component: 'enchanted-badge',
   tags: ['autodocs'],
   argTypes: {
@@ -51,7 +51,7 @@ export const Default: Story = {
   },
   render: ({ badge, text, color, border }) => {
     return html`
-      <div style=" position: absolute;display: flex; justify-content: center; align-items: center; width: 20px; height: 20px; top: 50px; left: 50px;">
+      <div style=" position: absolute;display: flex; justify-content: center; align-items: center; width: 20px; height: 20px; top: 50px; left: 50px; border: 2px solid gray; border-radius: 4px;">
         <enchanted-badge badge="${badge}" text="${text}" color="${color}" border="${border}">
         </enchanted-badge>
       </div>

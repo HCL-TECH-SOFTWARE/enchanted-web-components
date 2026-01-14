@@ -55,12 +55,6 @@ describe("enchanted-fab - snapshot tests", () => {
     await browser.checkElement(fab, "enchanted-fab-snapshot-outlined");
   });
 
-  it("should match snapshot for AI type", async () => {
-    renderComponent(html`<enchanted-fab type="AI" label="AI FAB" .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
-    await browser.checkElement(fab, "enchanted-fab-snapshot-AI");
-  });
-
   it("should match snapshot for extended FAB", async () => {
     renderComponent(html`<enchanted-fab type="contained" label="Extended FAB" extended .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}></enchanted-fab>`);
     const fab = await $("enchanted-fab");
@@ -88,13 +82,4 @@ describe("enchanted-fab - snapshot tests", () => {
     await browser.checkElement(fab, "enchanted-fab-snapshot-badge-enabled");
   });
 
-  it("should match snapshot for FAB with ai-sparkle icon", async () => {
-    renderComponent(html`<enchanted-fab
-      type="AI"
-      .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      label="AI FAB"
-    ></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
-    await browser.checkElement(fab, "enchanted-fab-snapshot-ai-sparkle-icon");
-  });
 });

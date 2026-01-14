@@ -104,22 +104,4 @@ describe("enchanted-fab - component test", () => {
     const label = await fab.shadow$("span[part='label']");
     await expect(label).not.toBeExisting();
   });
-
-  it("enchanted-fab - icon size should always be 24px", async () => {
-    renderComponent(html`<enchanted-fab
-      .icon=${html`<div></div>`}
-    ></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
-
-    // Verify the component exists
-    await expect(fab).toBeExisting();
-
-    // Verify the icon size
-    const iconSlot = await fab.shadow$("slot[name='icon']");
-    const iconElement = await iconSlot.$("div");
-    const width = await iconElement.getCSSProperty("width");
-    const height = await iconElement.getCSSProperty("height");
-    await expect(width.value).toBe("24px");
-    await expect(height.value).toBe("24px");
-  });
 });

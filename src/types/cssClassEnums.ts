@@ -646,7 +646,6 @@ export enum FAB_PARTS {
 export enum EnchantedFabType {
   CONTAINED = 'contained',
   OUTLINED = 'outlined',
-  AI = 'AI',
 }
 
 export enum EnchantedBadgeColor {
@@ -664,6 +663,12 @@ export enum EnchantedBadgeBorder {
   DARK = 'dark',
   DARKER = 'darker',
   NONE = 'none',
+}
+
+export enum EnchantedBadgeParts{
+  BADGE_TEXT = 'badge-text',
+  BADGE_DOT = 'badge-dot',
+  BADGE_TEXT_RTL = 'badge-text-rtl'
 }
 
 export enum EnchantedBadgeType {

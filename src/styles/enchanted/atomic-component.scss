@@ -46,10 +46,15 @@
 @use 'components/atomic-component/enchanted-accordion-summary.scss';
 @use 'components/atomic-component/enchanted-popover.scss';
 @use 'components/atomic-component/enchanted-fab.scss';
+@use 'components/atomic-component/enchanted-badge.scss';
 @use 'common/typography';
 
 enchanted-link {
   @include enchanted-link.enchanted-link-base-styles;
+}
+
+enchanted-fab {
+  @include enchanted-badge.enchanted-badge-base-styles;
 }
 
 enchanted-avatar {
@@ -245,4 +250,8 @@ enchanted-toggle-button {
 
 enchanted-popover {
   @include enchanted-popover.enchanted-popover-base-styles;
+}
+
+enchanted-badge {
+  @include enchanted-badge.enchanted-badge-base-styles;
 }

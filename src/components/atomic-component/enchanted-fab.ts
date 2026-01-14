@@ -33,64 +33,20 @@ export class EnchantedFab extends LitElement {
   @property({ type: Boolean, reflect: true }) badge = false;
 
   @state()
-  private isLTR: boolean = getCurrentDirection() === 'ltr';
-
-  private get iconColor(): string {
-    if (this.disabled) {
-      return 'rgba(0, 0, 0, 0.38)'; // Disabled color
-    }
-    switch (this.type) {
-      case EnchantedFabType.CONTAINED:
-        return '#FFFFFF'; // White for contained
-      case EnchantedFabType.OUTLINED:
-        return '#0550dc'; // Primary color for outlined
-      case EnchantedFabType.AI:
-        return '#0550dc'; // Accent color for AI
-      default:
-        return '#0550dc'; // Fallback to primary color
-    }
-  }
-
-  private normalizeIcon(element: HTMLElement) {
-    element.style.width = '24px';
-    element.style.height = '24px';
-    element.style.color = this.iconColor;
-  }
-
-  private handleSlotChange(event: Event) {
-    const slot = event.target as HTMLSlotElement;
-    const assignedElements = slot.assignedElements({ flatten: true });
-    assignedElements.forEach((el) => {
-      this.normalizeIcon(el as HTMLElement);
-    });
-  }
-
-  protected updated(changed: Map<string, unknown>) {
-    super.updated(changed);
-
-    // Adjust layout for localization (LTR/RTL)
-    this.isLTR = getCurrentDirection() === LOCALE_DIRECTIONS.LTR;
-
-    if (changed.has('type') || changed.has('disabled')) {
-      const slot = this.renderRoot.querySelector('slot[name="icon"]') as HTMLSlotElement | null;
-      slot?.assignedElements({ flatten: true }).forEach((el) => {
-        this.normalizeIcon(el as HTMLElement);
-      });
-    }
-  }
+  private isLTR: boolean = getCurrentDirection() === LOCALE_DIRECTIONS.LTR;
 
   render() {
-    const localizationPart = this.isLTR ? '' : FAB_PARTS.FAB_RTL;
+    // const localizationPart = this.isLTR ? FAB_PARTS.FAB : FAB_PARTS.FAB_RTL;
 
     return html`
       <button
-        part="${FAB_PARTS.FAB} ${localizationPart}"
+        part="${this.isLTR ? FAB_PARTS.FAB : FAB_PARTS.FAB_RTL}"
         ?disabled=${this.disabled}
-        exportparts="icon, ${FAB_PARTS.LABEL}, ${FAB_PARTS.BADGE}"
+        exportparts="${FAB_PARTS.ICON}, ${FAB_PARTS.LABEL}, ${FAB_PARTS.BADGE}"
         aria-label=${this.label || ''}
       >
         <span part="${FAB_PARTS.ICON}">
-          <slot name="icon" @slotchange=${this.handleSlotChange}>
+          <slot name="icon">
             ${this.icon ? this.icon : nothing}
           </slot>
         </span>
