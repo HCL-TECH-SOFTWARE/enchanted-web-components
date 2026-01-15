@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Added a new property alertTitle to `enchanted-alert`.
 
 ### Fixed
 - Fixed `enchanted-circular-progress` indeterminant variant style and story.

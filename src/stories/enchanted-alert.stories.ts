@@ -127,3 +127,48 @@ export const AllStates: Story = {
     },
   },
 };
+
+export const WithTitle: Story = {
+  render: () => {return html`
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div><strong>Alerts with Titles</strong></div>
+      <enchanted-alert 
+        alertTitle="Information" 
+        message="This alert includes a title to provide additional context" 
+        severity="${ALERT_SEVERITY.ALERT_INFO}" 
+        variant="${ALERT_VARIANTS.ALERT_CONTAINED}"
+        width="400">
+      </enchanted-alert>
+      <enchanted-alert 
+        alertTitle="Success" 
+        message="Your changes have been saved successfully" 
+        severity="${ALERT_SEVERITY.ALERT_SUCCESS}" 
+        variant="${ALERT_VARIANTS.ALERT_CONTAINED}"
+        width="400">
+      </enchanted-alert>
+      <enchanted-alert 
+        alertTitle="Warning" 
+        message="Please review your input before proceeding" 
+        severity="${ALERT_SEVERITY.ALERT_WARNING}" 
+        variant="${ALERT_VARIANTS.ALERT_OUTLINED}"
+        width="400">
+      </enchanted-alert>
+      <enchanted-alert 
+        alertTitle="Error" 
+        message="An error occurred while processing your request" 
+        severity="${ALERT_SEVERITY.ALERT_ERROR}" 
+        variant="${ALERT_VARIANTS.ALERT_OUTLINED}"
+        width="400">
+      </enchanted-alert>
+    </div>
+  `;},
+  parameters: {
+    docs: {
+      description: {
+        story: 'Alerts with optional title text displayed above the message. '
+          + 'The title uses a bold font weight to distinguish it from the message content, '
+          + 'providing better visual hierarchy for important notifications.',
+      },
+    },
+  },
+};
