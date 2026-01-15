@@ -6,11 +6,31 @@
 - Added a new property alertTitle to `enchanted-alert`.
 
 ### Fixed
-- Fixed `enchanted-circular-progress` indeterminant variant style and story.
 
 ### Changed
 
 ### Breaking changes
+
+## 4.0.1
+
+### Fixed
+- Fixed the alignment issue of the action and clear icons in the enchanted-textfield component.
+
+## 4.0.0
+
+### Added
+- Added `enchanted-popover-closed` custom event to `enchanted-popover` for tracking close-icon clicks vs. other dismissals.
+
+### Fixed
+- Fixed `enchanted-circular-progress` indeterminant variant style and story.
+- Fixed `enchanted-preview` image zoom to properly scale down large images on first load using zoom-to-fit calculation.
+- Fixed `enchanted-preview` image centering and scrolling behavior when zoomed - images now remain centered while allowing full scrollability to all edges when larger than container.
+- Fixed `enchanted-preview` zoom state detection to check actual image dimensions vs container size instead of just zoom percentage, ensuring scrollbars appear when needed.
+
+### Changed
+
+### Breaking changes
+- Removing the `tempValueHolder` logic from the `enchanted-textfield`
 
 ## 3.0.0
 
