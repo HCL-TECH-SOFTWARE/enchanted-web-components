@@ -42,6 +42,14 @@ const meta: Meta = {
         defaultValue: { summary: '' },
       },
     },
+    alertTitle: {
+      control: { type: 'text' },
+      description: 'Optional title text to display above the message',
+      table: {
+        type: { summary: 'string | undefined' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
     width: {
       control: { type: 'number', min: 100, max: 1000, step: 10 },
       description: 'Width of the alert in pixels',
@@ -70,7 +78,7 @@ const meta: Meta = {
 
 export default meta;
 
-type Story = StoryObj<{ message: string; severity: string; variant: string; width: number }>;
+type Story = StoryObj<{ message: string; severity: string; variant: string; width: number; alertTitle?: string }>;
 
 export const EnchantedAlert: Story = {
   render: (args) => {
@@ -80,6 +88,7 @@ export const EnchantedAlert: Story = {
         .severity=${args.severity} 
         .variant=${args.variant}
         .width=${args.width}
+        .alertTitle=${args.alertTitle}
       ></enchanted-alert>
     `;
   },
@@ -114,6 +123,51 @@ export const AllStates: Story = {
       description: {
         story: 'Showcase of all severity levels (info, success, warning, error) in both contained and outlined variants. '
           + 'This demonstrates the complete range of alert styles available.',
+      },
+    },
+  },
+};
+
+export const WithTitle: Story = {
+  render: () => {return html`
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div><strong>Alerts with Titles</strong></div>
+      <enchanted-alert 
+        alertTitle="Information" 
+        message="This alert includes a title to provide additional context" 
+        severity="${ALERT_SEVERITY.ALERT_INFO}" 
+        variant="${ALERT_VARIANTS.ALERT_CONTAINED}"
+        width="400">
+      </enchanted-alert>
+      <enchanted-alert 
+        alertTitle="Success" 
+        message="Your changes have been saved successfully" 
+        severity="${ALERT_SEVERITY.ALERT_SUCCESS}" 
+        variant="${ALERT_VARIANTS.ALERT_CONTAINED}"
+        width="400">
+      </enchanted-alert>
+      <enchanted-alert 
+        alertTitle="Warning" 
+        message="Please review your input before proceeding" 
+        severity="${ALERT_SEVERITY.ALERT_WARNING}" 
+        variant="${ALERT_VARIANTS.ALERT_OUTLINED}"
+        width="400">
+      </enchanted-alert>
+      <enchanted-alert 
+        alertTitle="Error" 
+        message="An error occurred while processing your request" 
+        severity="${ALERT_SEVERITY.ALERT_ERROR}" 
+        variant="${ALERT_VARIANTS.ALERT_OUTLINED}"
+        width="400">
+      </enchanted-alert>
+    </div>
+  `;},
+  parameters: {
+    docs: {
+      description: {
+        story: 'Alerts with optional title text displayed above the message. '
+          + 'The title uses a bold font weight to distinguish it from the message content, '
+          + 'providing better visual hierarchy for important notifications.',
       },
     },
   },

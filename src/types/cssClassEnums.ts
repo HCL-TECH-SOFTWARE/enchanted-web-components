@@ -530,6 +530,8 @@ export enum ALERT {
   ALERT_SVG_WARNING = 'alert-svg-warning',
   ALERT_SVG_INFO = 'alert-svg-info',
   ALERT_SVG_ERROR = 'alert-svg-error',
+  ALERT_CONTENT = 'alert-content',
+  ALERT_TITLE = 'alert-title',
 }
 
 export enum DATEPICKER_PARTS {

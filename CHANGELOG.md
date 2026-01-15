@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Added a new property alertTitle to `enchanted-alert`.
 
 ### Fixed
 

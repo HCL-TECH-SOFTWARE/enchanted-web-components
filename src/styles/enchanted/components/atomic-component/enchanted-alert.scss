@@ -100,4 +100,14 @@
     color: map.get(themeMap.$enchantedPalette, BLUE800);
     margin-right: 8px;
   }
+
+  &::part(alert-content) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &::part(alert-title) {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
 }
