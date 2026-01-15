@@ -36,13 +36,11 @@ export class EnchantedFab extends LitElement {
   private isLTR: boolean = getCurrentDirection() === LOCALE_DIRECTIONS.LTR;
 
   render() {
-    // const localizationPart = this.isLTR ? FAB_PARTS.FAB : FAB_PARTS.FAB_RTL;
-
     return html`
       <button
         part="${this.isLTR ? FAB_PARTS.FAB : FAB_PARTS.FAB_RTL}"
         ?disabled=${this.disabled}
-        exportparts="${FAB_PARTS.ICON}, ${FAB_PARTS.LABEL}, ${FAB_PARTS.BADGE}"
+        exportparts="${FAB_PARTS.ICON}, ${FAB_PARTS.LABEL}"
         aria-label=${this.label || ''}
       >
         <span part="${FAB_PARTS.ICON}">
@@ -50,18 +48,14 @@ export class EnchantedFab extends LitElement {
             ${this.icon ? this.icon : nothing}
           </slot>
         </span>
-        ${this.badge
-          ? html`<enchanted-badge
-              badge="text"
-              text="1"
-              border="none"
-              color="primary"
-            ></enchanted-badge>`
-          : nothing}
         ${this.extended && this.label
           ? html`<span part="${FAB_PARTS.LABEL}">${this.label}</span>`
           : nothing}
       </button>
+      ${this.badge
+        ? html`<slot name="badge">
+          </slot>`
+        : nothing}
     `;
   }
 }

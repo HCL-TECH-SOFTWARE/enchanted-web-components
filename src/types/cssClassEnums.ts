@@ -639,7 +639,6 @@ export enum FAB_PARTS {
   FAB_RTL = 'fab-rtl',
   LABEL = 'label',
   LABEL_RTL = 'label-rtl',
-  BADGE = 'badge',
   ICON= 'icon',
 }
 
