@@ -3,10 +3,14 @@
 ## Unreleased
 
 ### Added
+- Added new `enchanted-fab` component with support for badges and AI icons, accompanied by comprehensive unit tests, snapshots, and Storybook documentation.
+- Added story for `enchanted-badge`
 
 ### Fixed
 
 ### Changed
+- Enhanced `enchanted-badge` to improve accessibility and styling consistency.
+- Added new property `color, border, badge, text` for `enchanted-badge`
 
 ### Breaking changes
 
