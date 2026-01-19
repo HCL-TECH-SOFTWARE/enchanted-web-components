@@ -116,22 +116,7 @@ export const AllStates: Story = {
       <enchanted-alert message="Success alert (outlined)" severity="${ALERT_SEVERITY.ALERT_SUCCESS}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></enchanted-alert>
       <enchanted-alert message="Warning alert (outlined)" severity="${ALERT_SEVERITY.ALERT_WARNING}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></enchanted-alert>
       <enchanted-alert message="Error alert (outlined)" severity="${ALERT_SEVERITY.ALERT_ERROR}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></enchanted-alert>
-    </div>
-  `;},
-  parameters: {
-    docs: {
-      description: {
-        story: 'Showcase of all severity levels (info, success, warning, error) in both contained and outlined variants. '
-          + 'This demonstrates the complete range of alert styles available.',
-      },
-    },
-  },
-};
-
-export const WithTitle: Story = {
-  render: () => {return html`
-    <div style="display: flex; flex-direction: column; gap: 16px;">
-      <div><strong>Alerts with Titles</strong></div>
+      <div style="margin-top: 24px;"><strong>Alerts with Titles</strong></div>
       <enchanted-alert 
         alertTitle="Information" 
         message="This alert includes a title to provide additional context" 
@@ -165,9 +150,8 @@ export const WithTitle: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Alerts with optional title text displayed above the message. '
-          + 'The title uses a bold font weight to distinguish it from the message content, '
-          + 'providing better visual hierarchy for important notifications.',
+        story: 'Showcase of all severity levels (info, success, warning, error) in both contained and outlined variants. '
+          + 'This demonstrates the complete range of alert styles available.',
       },
     },
   },
