@@ -81,6 +81,7 @@
   &::part(avatar-icon-template-circular) {
     line-height: 0;
     box-sizing: border-box;
+    border-radius: 2px;
     --icon-theme-size: 16px;
   }
 
