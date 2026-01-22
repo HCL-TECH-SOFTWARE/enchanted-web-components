@@ -16,7 +16,6 @@
 
 @use 'components/atomic-component/enchanted-link.scss';
 @use 'components/atomic-component/enchanted-avatar.scss';
-@use 'components/atomic-component/enchanted-badge.scss';
 @use 'components/atomic-component/enchanted-button.scss';
 @use 'components/atomic-component/enchanted-data-grid.scss';
 @use 'components/atomic-component/enchanted-data-grid-generic.scss';
@@ -46,6 +45,8 @@
 @use 'components/atomic-component/enchanted-accordion.scss';
 @use 'components/atomic-component/enchanted-accordion-summary.scss';
 @use 'components/atomic-component/enchanted-popover.scss';
+@use 'components/atomic-component/enchanted-fab.scss';
+@use 'components/atomic-component/enchanted-badge.scss';
 @use 'common/typography';
 
 enchanted-link {
@@ -56,7 +57,7 @@ enchanted-avatar {
   @include enchanted-avatar.enchanted-avatar-base-styles;
 }
 
-enchanted-badge {
+enchanted-fab {
   @include enchanted-badge.enchanted-badge-base-styles;
 }
 
@@ -105,7 +106,6 @@ enchanted-dialog {
 
 enchanted-header {
   @include enchanted-header.enchanted-header-base-styles;
-  @include enchanted-badge.enchanted-badge-base-styles;
 }
 
 enchanted-textfield {
@@ -250,4 +250,8 @@ enchanted-toggle-button {
 
 enchanted-popover {
   @include enchanted-popover.enchanted-popover-base-styles;
+}
+
+enchanted-badge {
+  @include enchanted-badge.enchanted-badge-base-styles;
 }

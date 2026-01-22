@@ -16,6 +16,7 @@
 @use "sass:map";
 @use "../../common/palette";
 @use "../../common/themeMap.module";
+@use "../../common/typography";
 
 @mixin enchanted-alert-base-styles {
   &::part(alert-div-root) {
@@ -30,55 +31,63 @@
     border-radius: 4px;
     outline: 0px;
     padding: 4px 8px;
-    align-items: center;
+    align-items: flex-start;
   }
 
   &::part(alert-contained-success) {
     border: 1px solid map.get(themeMap.$enchantedPalette, GREEN800);
     color: map.get(themeMap.$enchantedPalette, GREEN800);
     background-color: palette.clr(light, background, success);
+    @include typography.body2;
   }
 
   &::part(alert-outlined-success) {
     border: 1px solid map.get(themeMap.$enchantedPalette, GREEN800);
     color: map.get(themeMap.$enchantedPalette, GREEN800);
     background-color: palette.clr(light, background, paper);
+    @include typography.body2;
   }
 
   &::part(alert-contained-warning) {
     border: 1px solid map.get(themeMap.$enchantedPalette, ORANGE800);
     color: map.get(themeMap.$enchantedPalette, ORANGE800);
     background-color: palette.clr(light, background, warning);
+    @include typography.body2;
   }
 
   &::part(alert-outlined-warning) {
     border: 1px solid map.get(themeMap.$enchantedPalette, ORANGE800);
     color: map.get(themeMap.$enchantedPalette, ORANGE800);
     background-color: palette.clr(light, background, paper);
+    @include typography.body2;
   }
 
   &::part(alert-contained-info) {
     border: 1px solid map.get(themeMap.$enchantedPalette, BLUE800);
     color: map.get(themeMap.$enchantedPalette, BLUE800);
     background-color: palette.clr(light, background, info);
+    @include typography.body2;
   }
 
   &::part(alert-outlined-info) {
     border: 1px solid map.get(themeMap.$enchantedPalette, BLUE800);
     color: map.get(themeMap.$enchantedPalette, BLUE800);
     background-color: palette.clr(light, background, paper);
+    @include typography.body2;
   }
 
   &::part(alert-contained-error) {
     border: 1px solid map.get(themeMap.$enchantedPalette, RED800);
     color: map.get(themeMap.$enchantedPalette, RED800);
     background-color: palette.clr(light, background, error);
+    @include typography.body2;
   }
 
   &::part(alert-outlined-error) {
     border: 1px solid map.get(themeMap.$enchantedPalette, RED800);
     color: map.get(themeMap.$enchantedPalette, RED800);
     background-color: palette.clr(light, background, paper);
+    @include typography.body2;
   }
 
   &::part(alert-svg-success) {
@@ -99,5 +108,15 @@
   &::part(alert-svg-info) {
     color: map.get(themeMap.$enchantedPalette, BLUE800);
     margin-right: 8px;
+  }
+
+  &::part(alert-content) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &::part(alert-title) {
+    font-weight: 700;
+    margin-bottom: 4px;
   }
 }

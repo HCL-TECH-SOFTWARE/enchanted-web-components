@@ -3,12 +3,20 @@
 ## Unreleased
 
 ### Added
+- Added new `enchanted-fab` component with support for badges and AI icons, accompanied by comprehensive unit tests, snapshots, and Storybook documentation.
+- Added story for `enchanted-badge`
+- Added a new property alertTitle to `enchanted-alert`.
 
 ### Fixed
 
 ### Changed
 
 ### Breaking changes
+
+## 4.0.1
+
+### Fixed
+- Fixed the alignment issue of the action and clear icons in the enchanted-textfield component.
 
 ## 4.0.0
 
@@ -22,6 +30,8 @@
 - Fixed `enchanted-preview` zoom state detection to check actual image dimensions vs container size instead of just zoom percentage, ensuring scrollbars appear when needed.
 
 ### Changed
+- Enhanced `enchanted-badge` to improve accessibility and styling consistency.
+- Added new property `color, border, badge, text` for `enchanted-badge`
 
 ### Breaking changes
 - Removing the `tempValueHolder` logic from the `enchanted-textfield`

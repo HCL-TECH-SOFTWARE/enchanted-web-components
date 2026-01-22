@@ -39,6 +39,9 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
   @property({ type: String })
   message = '';
 
+  @property({ type: String })
+  alertTitle?: string;
+
   @property({ type: Number })
   width = 240;
 
@@ -113,7 +116,10 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
     return html`
       <div part="${ALERT.ALERT_DIV_ROOT} ${this.getAlertPart()}" style="width:${this.width}px">
           ${this.getAlertIcon()}
-          <span>${this.message}</span>
+          <div part="${ALERT.ALERT_CONTENT}">
+            ${this.alertTitle ? html`<div part="${ALERT.ALERT_TITLE}">${this.alertTitle}</div>` : nothing}
+            <span>${this.message}</span>
+          </div>
       </div>`;
   }
 }

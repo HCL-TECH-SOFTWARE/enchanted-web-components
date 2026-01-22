@@ -530,6 +530,8 @@ export enum ALERT {
   ALERT_SVG_WARNING = 'alert-svg-warning',
   ALERT_SVG_INFO = 'alert-svg-info',
   ALERT_SVG_ERROR = 'alert-svg-error',
+  ALERT_CONTENT = 'alert-content',
+  ALERT_TITLE = 'alert-title',
 }
 
 export enum DATEPICKER_PARTS {
@@ -632,4 +634,45 @@ export enum POPOVER_PARTS {
   POPOVER_CLOSE_ICON = 'close-icon',
   POPOVER_CLOSE_ICON_RTL = 'close-icon-rtl',
   POPOVER_TARGET = 'target'
+}
+
+export enum FAB_PARTS {
+  FAB = 'fab',
+  FAB_RTL = 'fab-rtl',
+  LABEL = 'label',
+  LABEL_RTL = 'label-rtl',
+  ICON= 'icon',
+}
+
+export enum EnchantedFabType {
+  CONTAINED = 'contained',
+  OUTLINED = 'outlined',
+}
+
+export enum EnchantedBadgeColor {
+  PRIMARY = 'primary',
+  ERROR = 'error',
+  ERROR_INVERSE = 'error-inverse',
+  PRIMARY_INVERSE = 'primary-inverse',
+}
+
+export enum EnchantedBadgeBorder {
+  PAPER = 'paper',
+  DEFAULT = 'default',
+  SECONDARY = 'secondary',
+  TERTIARY = 'tertiary',
+  DARK = 'dark',
+  DARKER = 'darker',
+  NONE = 'none',
+}
+
+export enum EnchantedBadgeParts{
+  BADGE_TEXT = 'badge-text',
+  BADGE_DOT = 'badge-dot',
+  BADGE_TEXT_RTL = 'badge-text-rtl'
+}
+
+export enum EnchantedBadgeType {
+  TEXT = 'text',
+  DOT = 'dot',
 }
