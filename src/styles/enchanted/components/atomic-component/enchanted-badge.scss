@@ -114,30 +114,38 @@
   &[border="default"]::part(badge-text),
   &[border="default"]::part(badge-text-rtl),
   &[border="default"]::part(badge-dot) {
-    border: 2px solid map.get(themeMap.$enchantedPalette, NG150);
+    border: 2px solid map.get(themeMap.$enchantedPalette, NG100);
   }
 
   &[border="secondary"]::part(badge-text),
   &[border="secondary"]::part(badge-text-rtl),
   &[border="secondary"]::part(badge-dot) {
-    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK20P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, NG150);
   }
 
   &[border="tertiary"]::part(badge-text),
   &[border="tertiary"]::part(badge-text-rtl),
   &[border="tertiary"]::part(badge-dot) {
-    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK43P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, NG200);
   }
 
   &[border="dark"]::part(badge-text),
   &[border="dark"]::part(badge-text-rtl),
   &[border="dark"]::part(badge-dot) {
-    border: 2px solid map.get(themeMap.$enchantedPalette, BLACK32P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, NG900);
   }
 
   &[border="darker"]::part(badge-text),
   &[border="darker"]::part(badge-text-rtl),
   &[border="darker"]::part(badge-dot) {
-    border: 2px solid map.get(themeMap.$enchantedPalette, WHITE40P);
+    border: 2px solid map.get(themeMap.$enchantedPalette, NG1000);
   }
+  
+
+  &[border="none"]::part(badge-text),
+  &[border="none"]::part(badge-text-rtl),
+  &[border="none"]::part(badge-dot) {
+    border: none;
+  }
+
 }
