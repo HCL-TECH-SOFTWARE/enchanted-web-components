@@ -8,6 +8,7 @@
 - Added a new property alertTitle to `enchanted-alert`.
 
 ### Fixed
+- Enhanced accessibility for `enchanted-button` and `enchanted-icon-button` components by adding default aria-labels, roles, and keyboard event handling.
 
 ### Changed
 
