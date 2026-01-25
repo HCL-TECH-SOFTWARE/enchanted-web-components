@@ -9,6 +9,7 @@
 
 ### Fixed
 - Enhanced accessibility for `enchanted-button` and `enchanted-icon-button` components by adding default aria-labels, roles, and keyboard event handling.
+- Trigger date-change event of the `enchanted-datepicker` component during a year switch
 
 ### Changed
 
