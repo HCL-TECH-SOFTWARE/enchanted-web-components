@@ -596,6 +596,14 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
     const mm = String(month + 1).padStart(2, '0'); // Maintain the same month in the new year selected
     const dd = String(date).padStart(2, '0'); // Maintain the same selected date in the new year selected
     this._value = getUnixTimestampMilliseconds(`${year}-${mm}-${dd}`);
+    this.dispatchEvent(new CustomEvent('date-change', {
+      detail: {
+        value: this._value,
+        type: this.field
+      },
+      bubbles: true,
+      composed: true,
+    }));
   }
 
   _selectDate(date: number, isToday: boolean = false) {
