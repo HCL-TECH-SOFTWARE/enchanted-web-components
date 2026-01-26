@@ -1,1 +1,0 @@
-import{L as t}from"./enchanted-ac-base-element-CBHL5x_U.js";const e=()=>{const r=document.documentElement.dir;return r||t.LTR},i=()=>e()===t.LTR,o=r=>r===void 0?"":r.replace(/([A-Z])/g," $1").trim();export{o as a,e as g,i};
