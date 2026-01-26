@@ -3,6 +3,16 @@
 ## Unreleased
 
 ### Added
+
+### Fixed
+
+### Changed
+
+### Breaking changes
+
+## 5.0.0
+
+### Added
 - Added new `enchanted-fab` component with support for badges and AI icons, accompanied by comprehensive unit tests, snapshots, and Storybook documentation.
 - Added story for `enchanted-badge`
 - Added a new property alertTitle to `enchanted-alert`.
@@ -10,8 +20,6 @@
 ### Fixed
 - Enhanced accessibility for `enchanted-button` and `enchanted-icon-button` components by adding default aria-labels, roles, and keyboard event handling.
 - Trigger date-change event of the `enchanted-datepicker` component during a year switch
-
-### Changed
 
 ### Breaking changes
 - Adjust `enchanted-badge` interface, the `badge` property was renamed to `text`.
