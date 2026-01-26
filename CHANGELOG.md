@@ -14,6 +14,7 @@
 ### Changed
 
 ### Breaking changes
+- Adjust `enchanted-badge` interface, the `badge` property was renamed to `text`.
 
 ## 4.0.1
 
