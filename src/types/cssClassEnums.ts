@@ -109,9 +109,6 @@ export enum HEADER_VARIANT {
 }
 
 export enum HEADER_PARTS {
-  BADGE_TEXT = 'badge_text',
-  BADGE_TEXT_RTL = 'badge_text-rtl',
-  BADGE_DOT = 'badge_dot',
   H6 = 'h6',
   INPUT = 'input',
   HEADER = 'header',
@@ -134,12 +131,6 @@ export enum HEADER_LAYOUT_PARTS {
   HEADER_MIDDLE = 'header-middle',
   HEADER_END_CONTAINER = 'header-end-container',
   HEADER_END = 'header-end',
-}
-
-export enum BADGE_PARTS {
-  BADGE_DOT = 'badge_dot',
-  BADGE_TEXT = 'badge_text',
-  BADGE_TEXT_RTL = 'badge_text-rtl',
 }
 
 export enum AVATAR_VARIANT {

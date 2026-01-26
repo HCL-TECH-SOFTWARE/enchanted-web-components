@@ -24,7 +24,7 @@ import './enchanted-button';
 import './enchanted-badge';
 
 // Helper imports
-import { BUTTON_PARTS, HEADER_VARIANT, HEADER_PARTS } from '../../types/cssClassEnums';
+import { BUTTON_PARTS, HEADER_VARIANT, HEADER_PARTS, EnchantedBadgeParts } from '../../types/cssClassEnums';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
@@ -80,7 +80,7 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
               .icon="${html`<icon-filter size="16" color="currentColor"></icon-filter>`}"
             >
             </enchanted-button>
-            <enchanted-badge part=${HEADER_PARTS.BADGE_DOT}/>
+            <enchanted-badge part=${EnchantedBadgeParts.BADGE_DOT}/>
           </div>`;
       case HEADER_VARIANT.HEADER_AUTHORING_MODAL_CLOSE:
         return html`
