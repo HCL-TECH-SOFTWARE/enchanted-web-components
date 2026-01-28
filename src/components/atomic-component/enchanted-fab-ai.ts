@@ -19,10 +19,11 @@ import { EnchantedFab } from "./enchanted-fab";
  * AI-themed floating action button component that extends EnchantedFab.
  * 
  * This component inherits all properties from EnchantedFab (extended, disabled, icon, label, badge)
- * but applies AI-specific styling only to the "contained" type variant.
+ * and applies AI-specific styling with a fixed blue gradient theme.
  * 
- * Note: The `type` property is inherited but only "contained" has custom AI styling.
- * The "outlined" variant will use the default FAB styles.
+ * Note: The `type` property is inherited but should not be used with this component.
+ * The main purpose of enchanted-fab-ai is to provide a consistent AI-themed appearance.
+ * If you need different button types, use the base EnchantedFab component instead.
  * 
  * @element enchanted-fab-ai
  * @extends EnchantedFab
