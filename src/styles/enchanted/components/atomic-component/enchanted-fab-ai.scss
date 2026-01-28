@@ -1,0 +1,69 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "sass:map";
+@use "../../common/palette";
+@use "../../common/themeMap.module";
+
+@mixin enchanted-fab-ai-base-styles {
+    // Override contained type with AI-specific colors
+    &[type="contained"]::part(fab),
+    &[type="contained"]::part(fab-rtl){
+        background: map.get(themeMap.$enchantedPalette, "BLUE300_DARK");
+        color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
+        border: none;
+    }
+
+    &[type="contained"]::part(icon) {
+        --_icon-instance-color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
+    }
+
+    &[type="contained"]::part(fab):hover,
+    &[type="contained"]::part(fab-rtl):hover{
+        background: map.get(themeMap.$enchantedPalette, "BLUE300");
+        color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
+    }
+
+    &[type="contained"]::part(fab):focus,
+    &[type="contained"]::part(fab-rtl):focus{
+        outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
+        outline-offset: 1px;
+        border-radius: 7px;
+    }
+
+    &[type="contained"]::part(fab):hover:focus,
+    &[type="contained"]::part(fab-rtl):hover:focus{
+        background: map.get(themeMap.$enchantedPalette, "BLUE300");
+        outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
+        outline-offset: 1px;
+        border-radius: 7px;
+        color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
+    }
+
+    &[type="contained"]::part(fab):disabled,
+    &[type="contained"]::part(fab-rtl):disabled{
+        background: map.get(themeMap.$enchantedPalette, "NG150");
+        color: map.get(themeMap.$enchantedPalette, "BLACK38P");
+    }
+
+    &[type="contained"]::part(fab):disabled:hover,
+    &[type="contained"]::part(fab):disabled:focus,
+    &[type="contained"]::part(fab-rtl):disabled:hover,
+    &[type="contained"]::part(fab-rtl):disabled:focus{
+        outline: none;
+        background: map.get(themeMap.$enchantedPalette, "NG150");
+        color: map.get(themeMap.$enchantedPalette, "BLACK38P");
+    }
+}

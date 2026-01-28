@@ -46,6 +46,7 @@
 @use 'components/atomic-component/enchanted-accordion-summary.scss';
 @use 'components/atomic-component/enchanted-popover.scss';
 @use 'components/atomic-component/enchanted-fab.scss';
+@use 'components/atomic-component/enchanted-fab-ai.scss';
 @use 'components/atomic-component/enchanted-badge.scss';
 @use 'common/typography';
 
@@ -58,7 +59,13 @@ enchanted-avatar {
 }
 
 enchanted-fab {
+  @include enchanted-fab.enchanted-fab-base-styles;
   @include enchanted-badge.enchanted-badge-base-styles;
+}
+
+enchanted-fab-ai {
+  @include enchanted-fab.enchanted-fab-base-styles;
+  @include enchanted-fab-ai.enchanted-fab-ai-base-styles;
 }
 
 enchanted-button {
