@@ -12,8 +12,10 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-import { LitElement, TemplateResult, html, nothing } from "lit";
+import { TemplateResult, html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
+
 
 // Helper imports
 import { getCurrentDirection } from "../localization";
@@ -24,7 +26,7 @@ import { FAB_PARTS, EnchantedFabType } from '../../types/cssClassEnums';
 import  "./enchanted-badge";
 
 @customElement('enchanted-fab')
-export class EnchantedFab extends LitElement {
+export class EnchantedFab extends EnchantedAcBaseElement {
   @property({ reflect: true }) type: EnchantedFabType = EnchantedFabType.CONTAINED;
   @property({ type: Boolean, reflect: true }) extended = false;
   @property({ type: Boolean, reflect: true }) disabled = false;
