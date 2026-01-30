@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Added a new property for Thinking text after the circular progress in `enchanted-circular-progress`.
 
 ### Fixed
 
