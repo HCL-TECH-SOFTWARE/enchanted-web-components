@@ -58,13 +58,32 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
     }
 
     .enchanted-circular-progress-root {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       line-height: 1;
+    }
+
+    .enchanted-circular-progress-spinner {
+      display: inline-block;
+      flex-shrink: 0;
     }
 
     .enchanted-circular-progress-svg {
       display: block;
       animation: enchanted-circular-rotate 1.4s linear infinite;
+    }
+
+    .enchanted-circular-progress-label {
+      color: rgba(0, 0, 0, 0.60);
+      font-feature-settings: 'liga' off, 'clig' off;
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 16px;
+      white-space: nowrap;
+      animation: enchanted-label-pulse 1.5s ease-in-out infinite;
     }
 
     .enchanted-circular-progress-track {
@@ -105,6 +124,15 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
         stroke-dashoffset: var(--stroke-dashoffset-end);
       }
     }
+
+    @keyframes enchanted-label-pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
   `;
 
   /**
@@ -138,6 +166,18 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
    * @default false
    */
   @property({ type: Boolean, attribute: 'disable-shrink' }) disableShrink = false;
+
+  /**
+   * Label text to display next to the progress indicator
+   * @default 'Thinking'
+   */
+  @property({ type: String }) label = 'Thinking';
+
+  /**
+   * Show or hide the label text
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'show-label' }) showLabel = false;
 
   /**
    * Get the radius of the circle
@@ -188,35 +228,38 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
     const circleClasses = `enchanted-circular-progress-circle${this.disableShrink ? ' disable-shrink' : ''}`;
     
     return html`
-      <div class="enchanted-circular-progress-root" style="width: ${this.size}px; height: ${this.size}px; ${this.animationStyles}">
-        <svg
-          class="enchanted-circular-progress-svg"
-          viewBox="${this.viewBox}"
-          role="progressbar"
-          aria-label="Loading"
-        >
-          <!-- Track circle (background) -->
-          <circle
-            class="enchanted-circular-progress-track"
-            cx="${this.center}"
-            cy="${this.center}"
-            r="${this.radius}"
-            fill="none"
-            stroke="${this.trackcolor}"
-            stroke-width="${this.strokewidth}"
-          />
-          <!-- Progress circle (animated) -->
-          <circle
-            class="${circleClasses}"
-            cx="${this.center}"
-            cy="${this.center}"
-            r="${this.radius}"
-            fill="none"
-            stroke="${this.progresscolor}"
-            stroke-width="${this.strokewidth}"
-            stroke-linecap="round"
-          />
-        </svg>
+      <div class="enchanted-circular-progress-root" style="${this.animationStyles}">
+        <div class="enchanted-circular-progress-spinner" style="width: ${this.size}px; height: ${this.size}px;">
+          <svg
+            class="enchanted-circular-progress-svg"
+            viewBox="${this.viewBox}"
+            role="progressbar"
+            aria-label="${this.showLabel ? this.label : 'Loading'}"
+          >
+            <!-- Track circle (background) -->
+            <circle
+              class="enchanted-circular-progress-track"
+              cx="${this.center}"
+              cy="${this.center}"
+              r="${this.radius}"
+              fill="none"
+              stroke="${this.trackcolor}"
+              stroke-width="${this.strokewidth}"
+            />
+            <!-- Progress circle (animated) -->
+            <circle
+              class="${circleClasses}"
+              cx="${this.center}"
+              cy="${this.center}"
+              r="${this.radius}"
+              fill="none"
+              stroke="${this.progresscolor}"
+              stroke-width="${this.strokewidth}"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        ${this.showLabel ? html`<span class="enchanted-circular-progress-label">${this.label}</span>` : ''}
       </div>
     `;
   }
