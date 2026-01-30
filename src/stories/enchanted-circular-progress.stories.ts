@@ -32,6 +32,16 @@ const meta: Meta = {
       description: 'Disables the shrink animation for high CPU scenarios',
       defaultValue: false,
     },
+    label: {
+      control: { type: 'text' },
+      description: 'Label text to display next to the progress indicator',
+      defaultValue: 'Thinking...',
+    },
+    showLabel: {
+      control: { type: 'boolean' },
+      description: 'Show or hide the label text',
+      defaultValue: false,
+    },
   },
   args: {
     size: 40,
@@ -39,6 +49,8 @@ const meta: Meta = {
     trackcolor: '#D6D6D6',
     progresscolor: '#0550DC',
     disableShrink: false,
+    label: 'Thinking...',
+    showLabel: false,
   },
   parameters: {
     docs: {
@@ -123,6 +135,25 @@ export const AllStates: Story = {
 
     return html`
       <div style="${gridStyle}">
+        <!-- Thinking State with Label -->
+        <h3 style="${sectionHeaderStyle}">Thinking State with Label</h3>
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Thinking...(24px)</span>
+          <enchanted-circular-progress size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Thinking..." show-label="true"></enchanted-circular-progress>
+        </div>
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Thinking...(40px)</span>
+          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Thinking..." show-label="true"></enchanted-circular-progress>
+        </div>
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Custom: Processing...</span>
+          <enchanted-circular-progress size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Processing..." show-label="true"></enchanted-circular-progress>
+        </div>
+        <div style="${itemContainerStyle}">
+          <span style="${labelStyle}">Custom: Loading...</span>
+          <enchanted-circular-progress size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Loading..." show-label="true"></enchanted-circular-progress>
+        </div>
+
         <!-- Size Variations -->
         <h3 style="${sectionHeaderStyle}">Size Variations</h3>
         <div style="${itemContainerStyle}">

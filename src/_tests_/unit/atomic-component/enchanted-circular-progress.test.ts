@@ -107,8 +107,8 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 60);
 
-    let rootDiv = await component.$('>>>div.enchanted-circular-progress-root').getElement();
-    let style = await rootDiv.getAttribute('style');
+    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 60px');
     await expect(style).toContain('height: 60px');
 
@@ -222,8 +222,8 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toHaveElementProperty('progresscolor', '#FF6600');
     await expect(component).toHaveElementProperty('disableShrink', true);
 
-    let rootDiv = await component.$('>>>div.enchanted-circular-progress-root').getElement();
-    let style = await rootDiv.getAttribute('style');
+    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 80px');
     await expect(style).toContain('height: 80px');
 
@@ -322,8 +322,8 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 20);
 
-    let rootDiv = await component.$('>>>div.enchanted-circular-progress-root').getElement();
-    let style = await rootDiv.getAttribute('style');
+    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 20px');
     await expect(style).toContain('height: 20px');
   });
@@ -339,8 +339,8 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 100);
 
-    let rootDiv = await component.$('>>>div.enchanted-circular-progress-root').getElement();
-    let style = await rootDiv.getAttribute('style');
+    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 100px');
     await expect(style).toContain('height: 100px');
   });
