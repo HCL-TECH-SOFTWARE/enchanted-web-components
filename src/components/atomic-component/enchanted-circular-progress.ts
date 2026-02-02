@@ -171,7 +171,7 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
    * Label text to display next to the progress indicator
    * @default 'Thinking'
    */
-  @property({ type: String }) label = 'Thinking';
+  @property({ type: String }) label = 'Thinking...';
 
   /**
    * Show or hide the label text

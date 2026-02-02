@@ -71,6 +71,8 @@ type Story = StoryObj<{
   trackcolor: string;
   progresscolor: string;
   disableShrink: boolean;
+  label: string;
+  showLabel: boolean;
 }>;
 
 /**
@@ -82,6 +84,7 @@ type Story = StoryObj<{
  * - Change the progress color
  * - Customize the track (background) color
  * - Toggle the shrink animation for performance optimization
+ * - Show/hide and customize the label text
  */
 export const Default: Story = {
   render: (args) => {
@@ -92,6 +95,8 @@ export const Default: Story = {
         .trackcolor=${args.trackcolor}
         .progresscolor=${args.progresscolor}
         ?disable-shrink=${args.disableShrink}
+        .label=${args.label}
+        ?show-label=${args.showLabel}
       ></enchanted-circular-progress>
     `;
   },
