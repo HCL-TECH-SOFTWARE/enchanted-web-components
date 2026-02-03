@@ -15,7 +15,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/apps/es/images';
 
 /**
  * @typedef EnchantedFabAiProps
- * Props for the enchanted-fab-ai web component (extends EnchantedFab).
+ * Props for the enchanted-fab-ai web component ( extends EnchantedAcBaseElement).
  *
  * @property badge - Whether to show the badge.
  * @property badgeType - The type of badge (text or dot).
@@ -120,10 +120,10 @@ const meta: Meta<EnchantedFabAiProps> = {
   parameters: {
     docs: {
       description: {
-        component: 'AI Button component that extends EnchantedFab using inheritance. ' +
-          'Demonstrates code reuse through class inheritance while maintaining AI-specific styling. ' +
-          'Inherits all properties and methods from enchanted-fab (type, extended, disabled, icon, label, badge) ' +
-          'but uses AI-specific CSS parts for custom theming.'
+        component: 'AI Button component using composition pattern. ' +
+          'Wraps enchanted-fab internally with type locked to "contained" for consistent AI-specific styling. ' +
+          'Exposes only the properties needed for AI variants (extended, disabled, icon, label, badge). ' +
+          'The type property is not exposed to users, ensuring the AI theme is always applied.'
       }
     }
   },

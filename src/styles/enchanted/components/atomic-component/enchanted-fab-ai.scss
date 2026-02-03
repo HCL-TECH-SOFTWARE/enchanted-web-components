@@ -18,33 +18,33 @@
 @use "../../common/themeMap.module";
 
 @mixin enchanted-fab-ai-base-styles {
-    // Override contained type with AI-specific colors
-    &[type="contained"]::part(fab),
-    &[type="contained"]::part(fab-rtl){
+    // Style the exported parts directly on enchanted-fab-ai
+    &::part(fab),
+    &::part(fab-rtl) {
         background: map.get(themeMap.$enchantedPalette, "BLUE300_DARK");
         color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
         border: none;
     }
 
-    &[type="contained"]::part(icon) {
+    &::part(icon) {
         --_icon-instance-color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
     }
 
-    &[type="contained"]::part(fab):hover,
-    &[type="contained"]::part(fab-rtl):hover{
+    &::part(fab):hover,
+    &::part(fab-rtl):hover {
         background: map.get(themeMap.$enchantedPalette, "BLUE300");
         color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
     }
 
-    &[type="contained"]::part(fab):focus,
-    &[type="contained"]::part(fab-rtl):focus{
+    &::part(fab):focus,
+    &::part(fab-rtl):focus {
         outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
         outline-offset: 1px;
         border-radius: 7px;
     }
 
-    &[type="contained"]::part(fab):hover:focus,
-    &[type="contained"]::part(fab-rtl):hover:focus{
+    &::part(fab):hover:focus,
+    &::part(fab-rtl):hover:focus {
         background: map.get(themeMap.$enchantedPalette, "BLUE300");
         outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
         outline-offset: 1px;
@@ -52,16 +52,16 @@
         color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
     }
 
-    &[type="contained"]::part(fab):disabled,
-    &[type="contained"]::part(fab-rtl):disabled{
+    &::part(fab):disabled,
+    &::part(fab-rtl):disabled {
         background: map.get(themeMap.$enchantedPalette, "NG150");
         color: map.get(themeMap.$enchantedPalette, "BLACK38P");
     }
 
-    &[type="contained"]::part(fab):disabled:hover,
-    &[type="contained"]::part(fab):disabled:focus,
-    &[type="contained"]::part(fab-rtl):disabled:hover,
-    &[type="contained"]::part(fab-rtl):disabled:focus{
+    &::part(fab):disabled:hover,
+    &::part(fab):disabled:focus,
+    &::part(fab-rtl):disabled:hover,
+    &::part(fab-rtl):disabled:focus {
         outline: none;
         background: map.get(themeMap.$enchantedPalette, "NG150");
         color: map.get(themeMap.$enchantedPalette, "BLACK38P");

@@ -22,7 +22,7 @@ import { renderComponent } from "../../utils";
 // Component import
 import "../../../components/atomic-component/enchanted-fab-ai";
 import { EnchantedFabAi } from "../../../components/atomic-component/enchanted-fab-ai";
-import { EnchantedFab } from "../../../components/atomic-component/enchanted-fab";
+import { EnchantedAcBaseElement } from "../../../components/atomic-component/enchanted-ac-base-element";
 
 afterEach(() => {
   document.body.innerHTML = "";
@@ -46,15 +46,15 @@ describe("enchanted-fab-ai - component test", () => {
     await expect(await fabAi.getTagName()).toBe("enchanted-fab-ai");
   });
 
-  it("enchanted-fab-ai - should be instance of EnchantedFabAi and extend EnchantedFab", async () => {
+  it("enchanted-fab-ai - should be instance of EnchantedFabAi and extend EnchantedAcBaseElement", async () => {
     const fabAi = document.createElement("enchanted-fab-ai") as EnchantedFabAi;
     document.body.appendChild(fabAi);
     
     // Verify it's an instance of EnchantedFabAi
     await expect(fabAi instanceof EnchantedFabAi).toBe(true);
     
-    // Verify it extends EnchantedFab
-    await expect(fabAi instanceof EnchantedFab).toBe(true);
+    // Verify it extends EnchantedAcBaseElement (composition pattern)
+    await expect(fabAi instanceof EnchantedAcBaseElement).toBe(true);
   });
 
   it("enchanted-fab-ai - should support extended property for showing label", async () => {
@@ -64,8 +64,10 @@ describe("enchanted-fab-ai - component test", () => {
     // Check extended attribute is present
     await expect(fabAi).toHaveAttribute("extended");
     
-    // Check if the label is rendered correctly
-    const label = await fabAi.shadow$("span[part='label']");
+    // Check if the label is rendered in the inner enchanted-fab
+    const innerFab = await fabAi.shadow$("enchanted-fab");
+    await expect(innerFab).toBeExisting();
+    const label = await innerFab.shadow$("span[part='label']");
     await expect(label).toBeExisting();
     await expect(label).toHaveText("Extended FAB");
   });
@@ -77,8 +79,9 @@ describe("enchanted-fab-ai - component test", () => {
     // Check extended attribute is not present
     await expect(fabAi).not.toHaveAttribute("extended");
     
-    // Label should not be rendered
-    const label = await fabAi.shadow$("span[part='label']");
+    // Label should not be rendered in the inner enchanted-fab
+    const innerFab = await fabAi.shadow$("enchanted-fab");
+    const label = await innerFab.shadow$("span[part='label']");
     await expect(label).not.toBeExisting();
   });
 
@@ -112,7 +115,9 @@ describe("enchanted-fab-ai - component test", () => {
     
     await expect(fabAi.icon).toBeDefined();
     
-    const iconSlot = await $("enchanted-fab-ai").shadow$("span[part='icon']");
+    // Icon is rendered in the inner enchanted-fab
+    const innerFab = await $("enchanted-fab-ai").shadow$("enchanted-fab");
+    const iconSlot = await innerFab.shadow$("span[part='icon']");
     await expect(iconSlot).toBeExisting();
   });
 
@@ -122,14 +127,15 @@ describe("enchanted-fab-ai - component test", () => {
     fabAi.extended = true;
     document.body.appendChild(fabAi);
     
-    let label = await $("enchanted-fab-ai").shadow$("span[part='label']");
+    const innerFab = await $("enchanted-fab-ai").shadow$("enchanted-fab");
+    let label = await innerFab.shadow$("span[part='label']");
     await expect(label).toHaveText("Initial Label");
     
     // Update label
     fabAi.label = "Updated Label";
     await fabAi.updateComplete;
     
-    label = await $("enchanted-fab-ai").shadow$("span[part='label']");
+    label = await innerFab.shadow$("span[part='label']");
     await expect(label).toHaveText("Updated Label");
   });
 
@@ -137,11 +143,12 @@ describe("enchanted-fab-ai - component test", () => {
     renderComponent(html`<enchanted-fab-ai label="FAB with Badge" badge></enchanted-fab-ai>`);
     const fabAi = await $("enchanted-fab-ai");
     
-    // Check badge attribute is present
+    // Check badge attribute is present on host
     await expect(fabAi).toHaveAttribute("badge");
     
-    // Badge slot should be rendered
-    const badgeSlot = await fabAi.shadow$("slot[name='badge']");
+    // Badge slot should be rendered in inner enchanted-fab
+    const innerFab = await fabAi.shadow$("enchanted-fab");
+    const badgeSlot = await innerFab.shadow$("slot[name='badge']");
     await expect(badgeSlot).toBeExisting();
   });
 
@@ -152,15 +159,17 @@ describe("enchanted-fab-ai - component test", () => {
     // Check badge attribute is not present
     await expect(fabAi).not.toHaveAttribute("badge");
     
-    // Badge slot should not be rendered
-    const badgeSlot = await fabAi.shadow$("slot[name='badge']");
+    // Badge slot should not be rendered in inner enchanted-fab
+    const innerFab = await fabAi.shadow$("enchanted-fab");
+    const badgeSlot = await innerFab.shadow$("slot[name='badge']");
     await expect(badgeSlot).not.toBeExisting();
   });
 
   it("enchanted-fab-ai - should have correct aria-label attribute", async () => {
     renderComponent(html`<enchanted-fab-ai label="Accessible FAB"></enchanted-fab-ai>`);
     const fabAi = await $("enchanted-fab-ai");
-    const button = await fabAi.shadow$("button");
+    const innerFab = await fabAi.shadow$("enchanted-fab");
+    const button = await innerFab.shadow$("button");
     
     await expect(button).toHaveAttribute("aria-label", "Accessible FAB");
   });
@@ -181,21 +190,22 @@ describe("enchanted-fab-ai - component test", () => {
     
     const fabAi = await $("enchanted-fab-ai");
     
-    // Check all attributes
+    // Check all attributes on host
     await expect(fabAi).toHaveAttribute("extended");
     await expect(fabAi).toHaveAttribute("badge");
     
-    // Check label is rendered
-    const label = await fabAi.shadow$("span[part='label']");
+    // Check label is rendered in inner enchanted-fab
+    const innerFab = await fabAi.shadow$("enchanted-fab");
+    const label = await innerFab.shadow$("span[part='label']");
     await expect(label).toBeExisting();
     await expect(label).toHaveText("Complete FAB");
     
     // Check icon slot
-    const iconSlot = await fabAi.shadow$("span[part='icon']");
+    const iconSlot = await innerFab.shadow$("span[part='icon']");
     await expect(iconSlot).toBeExisting();
     
     // Check badge slot
-    const badgeSlot = await fabAi.shadow$("slot[name='badge']");
+    const badgeSlot = await innerFab.shadow$("slot[name='badge']");
     await expect(badgeSlot).toBeExisting();
   });
 });

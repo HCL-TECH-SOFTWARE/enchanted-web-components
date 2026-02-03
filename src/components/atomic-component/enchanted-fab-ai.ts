@@ -12,40 +12,50 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-import { customElement } from "lit/decorators.js";
-import { PropertyValues } from "lit";
-import { EnchantedFab } from "./enchanted-fab";
-import { EnchantedFabType } from "../../types/cssClassEnums";
+import { html, TemplateResult } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
+import { FAB_PARTS } from "../../types/cssClassEnums";
+import "./enchanted-fab";
 
 /**
- * AI-themed floating action button component that extends EnchantedFab.
- * 
- * This component inherits all properties from EnchantedFab (extended, disabled, icon, label, badge)
- * and applies AI-specific styling with a fixed blue gradient theme.
- * 
- * Note: The `type` property is locked to 'contained' and cannot be changed.
- * The main purpose of enchanted-fab-ai is to provide a consistent AI-themed appearance.
- * If you need different button types, use the base EnchantedFab component instead.
+ * AI-themed floating action button component using composition.
+ * This component wraps EnchantedFab with a fixed AI-specific styling theme.
+ * It exposes only the properties relevant for AI variants, ensuring consistent theming and type property is not exposed.
  * 
  * @element enchanted-fab-ai
- * @extends EnchantedFab
+ * @extends EnchantedAcBaseElement
  */
 @customElement('enchanted-fab-ai')
-export class EnchantedFabAi extends EnchantedFab {
-  constructor() {
-    super();
-    // Force type to CONTAINED immediately
-    this.type = EnchantedFabType.CONTAINED;
-  }
+export class EnchantedFabAi extends EnchantedAcBaseElement {
+  @property({ type: Boolean, reflect: true }) 
+  extended = false;
 
-  // Intercept property changes BEFORE rendering
-  protected override willUpdate(changedProperties: PropertyValues): void {
-    // If type was changed, force it back to CONTAINED before rendering
-    if (changedProperties.has('type') && this.type !== EnchantedFabType.CONTAINED) {
-      this.type = EnchantedFabType.CONTAINED;
-    }
-    
-    super.willUpdate(changedProperties);
+  @property({ type: Boolean, reflect: true }) 
+  disabled = false;
+
+  @property() 
+  label = '';
+
+  @property() 
+  icon?: TemplateResult;
+
+  @property({ type: Boolean }) 
+  badge = false;
+
+  render() {
+    return html`
+      <enchanted-fab
+        exportparts="${FAB_PARTS.FAB}, ${FAB_PARTS.FAB_RTL}, ${FAB_PARTS.ICON}, ${FAB_PARTS.LABEL}"
+        ?extended=${this.extended}
+        ?disabled=${this.disabled}
+        .label=${this.label}
+        .icon=${this.icon}
+        ?badge=${this.badge}
+      >
+        <slot name="badge" slot="badge"></slot>
+      </enchanted-fab>
+    `;
   }
 }
 
