@@ -8,6 +8,7 @@
 ### Fixed
 
 ### Changed
+- Removing unused CSS badge parts
 
 ### Breaking changes
 

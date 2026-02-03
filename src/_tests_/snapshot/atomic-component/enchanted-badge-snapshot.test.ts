@@ -20,8 +20,8 @@ import { html, render } from 'lit';
 import '../../../components/atomic-component/enchanted-badge';
 
 // Helper imports
-import { HEADER_PARTS } from '../../../types/cssClassEnums';
 import { appendEnchantedStylingLink, SNAPSHOT_WINDOW_HEIGHT, SNAPSHOT_WINDOW_WIDTH } from '../utils';
+import { EnchantedBadgeParts } from '../../../types/cssClassEnums';
 
 function renderHtml() {
   return html`
@@ -33,7 +33,7 @@ function renderHtml() {
 
       <label style="font-size: 14px;">Dot</label>
       <div>
-        <enchanted-badge part=${HEADER_PARTS.BADGE_DOT} />
+        <enchanted-badge part=${EnchantedBadgeParts.BADGE_DOT} />
       </div>
     </div>
   `;
