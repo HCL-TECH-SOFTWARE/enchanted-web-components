@@ -13,7 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import { customElement } from "lit/decorators.js";
+import { PropertyValues } from "lit";
 import { EnchantedFab } from "./enchanted-fab";
+import { EnchantedFabType } from "../../types/cssClassEnums";
 
 /**
  * AI-themed floating action button component that extends EnchantedFab.
@@ -21,7 +23,7 @@ import { EnchantedFab } from "./enchanted-fab";
  * This component inherits all properties from EnchantedFab (extended, disabled, icon, label, badge)
  * and applies AI-specific styling with a fixed blue gradient theme.
  * 
- * Note: The `type` property is inherited but should not be used with this component.
+ * Note: The `type` property is locked to 'contained' and cannot be changed.
  * The main purpose of enchanted-fab-ai is to provide a consistent AI-themed appearance.
  * If you need different button types, use the base EnchantedFab component instead.
  * 
@@ -30,6 +32,21 @@ import { EnchantedFab } from "./enchanted-fab";
  */
 @customElement('enchanted-fab-ai')
 export class EnchantedFabAi extends EnchantedFab {
+  constructor() {
+    super();
+    // Force type to CONTAINED immediately
+    this.type = EnchantedFabType.CONTAINED;
+  }
+
+  // Intercept property changes BEFORE rendering
+  protected override willUpdate(changedProperties: PropertyValues): void {
+    // If type was changed, force it back to CONTAINED before rendering
+    if (changedProperties.has('type') && this.type !== EnchantedFabType.CONTAINED) {
+      this.type = EnchantedFabType.CONTAINED;
+    }
+    
+    super.willUpdate(changedProperties);
+  }
 }
 
 declare global {
