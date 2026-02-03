@@ -36,11 +36,17 @@
   --enchanted-circular-progress-pulse-timing: ease-in-out;
   --enchanted-circular-progress-pulse-opacity-min: 0.5;
 
+  display: inline-block;
+
   &::part(label) {
     @include typography.body2;
     color: map.get(themeMap.$enchantedPalette, BLACK60P);
     font-style: italic;
     white-space: nowrap;
+    animation: enchanted-label-pulse 
+      var(--enchanted-circular-progress-pulse-duration, 1.5s) 
+      var(--enchanted-circular-progress-pulse-timing, ease-in-out) 
+      infinite;
   }
 
   &::part(root) {
@@ -57,9 +63,27 @@
 
   &::part(svg) {
     display: block;
+    animation: enchanted-circular-rotate 
+      var(--enchanted-circular-progress-rotate-duration, 1.4s) 
+      var(--enchanted-circular-progress-rotate-timing, linear) 
+      infinite;
   }
 
   &::part(track) {
     opacity: 1;
+  }
+
+  &::part(animated) {
+    stroke-dasharray: var(--stroke-dasharray-start);
+    stroke-dashoffset: 0;
+    animation: enchanted-circular-dash 
+      var(--enchanted-circular-progress-dash-duration, 1.4s) 
+      var(--enchanted-circular-progress-dash-timing, ease-in-out) 
+      infinite;
+  }
+
+  &::part(disable-shrink) { 
+    stroke-dasharray: var(--stroke-dasharray-shrink);
+    animation: none;
   }
 }

@@ -47,38 +47,6 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
    * @see https://lit.dev/docs/components/styles/#static-styles
    */
   static styles = css`
-    :host {
-      display: inline-block;
-    }
-
-    .enchanted-circular-progress-svg {
-      animation: enchanted-circular-rotate 
-        var(--enchanted-circular-progress-rotate-duration, 1.4s) 
-        var(--enchanted-circular-progress-rotate-timing, linear) 
-        infinite;
-    }
-
-    .enchanted-circular-progress-label {
-      animation: enchanted-label-pulse 
-        var(--enchanted-circular-progress-pulse-duration, 1.5s) 
-        var(--enchanted-circular-progress-pulse-timing, ease-in-out) 
-        infinite;
-    }
-
-    .enchanted-circular-progress-circle {
-      stroke-dasharray: var(--stroke-dasharray-start);
-      stroke-dashoffset: 0;
-      animation: enchanted-circular-dash 
-        var(--enchanted-circular-progress-dash-duration, 1.4s) 
-        var(--enchanted-circular-progress-dash-timing, ease-in-out) 
-        infinite;
-    }
-
-    .enchanted-circular-progress-circle.disable-shrink {
-      stroke-dasharray: var(--stroke-dasharray-shrink);
-      animation: none;
-    }
-
     @keyframes enchanted-circular-rotate {
       0% {
         transform: rotate(0deg);
@@ -203,7 +171,7 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
   }
 
   render() {
-    const circleClasses = `enchanted-circular-progress-circle${this.disableShrink ? ' disable-shrink' : ''}`;
+    const part = `circle${this.disableShrink ? ' disable-shrink' : ''}`;
     
     return html`
       <div class="enchanted-circular-progress-root" part="root" style="${this.animationStyles}">
@@ -228,7 +196,7 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
             />
             <!-- Progress circle (animated) -->
             <circle
-              class="${circleClasses}"
+              part="${part}"
               cx="${this.center}"
               cy="${this.center}"
               r="${this.radius}"
