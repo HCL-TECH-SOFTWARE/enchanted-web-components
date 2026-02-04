@@ -85,12 +85,12 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(svgElement).toHaveAttribute('aria-label', 'Loading');
 
     // Validate track circle exists
-    let trackCircle = await svgElement.$('>>>circle.enchanted-circular-progress-track').getElement();
+    let trackCircle = await svgElement.$('>>>[part="circular-progress-track"]').getElement();
     await expect(trackCircle).toBeDisplayed();
     await expect(trackCircle).toHaveAttribute('stroke', '#D6D6D6');
 
     // Validate progress circle exists
-    let progressCircle = await svgElement.$('>>>circle.enchanted-circular-progress-circle').getElement();
+    let progressCircle = await svgElement.$('>>>[part="circle"]').getElement();
     await expect(progressCircle).toBeDisplayed();
     await expect(progressCircle).toHaveAttribute('stroke', '#0550DC');
     await expect(progressCircle).toHaveAttribute('stroke-linecap', 'round');
@@ -107,7 +107,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 60);
 
-    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let spinnerDiv = await component.$('>>>[part="circular-progress-spinner"]').getElement();
     let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 60px');
     await expect(style).toContain('height: 60px');
@@ -128,10 +128,10 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toHaveElementProperty('strokewidth', 5);
 
     let svgElement = await component.$('>>>svg').getElement();
-    let trackCircle = await svgElement.$('>>>circle.enchanted-circular-progress-track').getElement();
+    let trackCircle = await svgElement.$('>>>[part="circular-progress-track"]').getElement();
     await expect(trackCircle).toHaveAttribute('stroke-width', '5');
 
-    let progressCircle = await svgElement.$('>>>circle.enchanted-circular-progress-circle').getElement();
+    let progressCircle = await svgElement.$('>>>[part="circle"]').getElement();
     await expect(progressCircle).toHaveAttribute('stroke-width', '5');
   });
 
@@ -147,7 +147,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toHaveElementProperty('trackcolor', '#FF0000');
 
     let svgElement = await component.$('>>>svg').getElement();
-    let trackCircle = await svgElement.$('>>>circle.enchanted-circular-progress-track').getElement();
+    let trackCircle = await svgElement.$('>>>[part="circular-progress-track"]').getElement();
     await expect(trackCircle).toHaveAttribute('stroke', '#FF0000');
   });
 
@@ -163,7 +163,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toHaveElementProperty('progresscolor', '#00FF00');
 
     let svgElement = await component.$('>>>svg').getElement();
-    let progressCircle = await svgElement.$('>>>circle.enchanted-circular-progress-circle').getElement();
+    let progressCircle = await svgElement.$('>>>[part="circle"]').getElement();
     await expect(progressCircle).toHaveAttribute('stroke', '#00FF00');
   });
 
@@ -179,7 +179,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toHaveElementProperty('disableShrink', true);
 
     let svgElement = await component.$('>>>svg').getElement();
-    let progressCircle = await svgElement.$('>>>circle.enchanted-circular-progress-circle').getElement();
+    let progressCircle = await svgElement.$('>>>circle[part*="circle"]').getElement();
     let partValue = await progressCircle.getAttribute('part');
     await expect(partValue).toContain('disable-shrink');
   });
@@ -195,7 +195,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
 
     let svgElement = await component.$('>>>svg').getElement();
-    let progressCircle = await svgElement.$('>>>circle.enchanted-circular-progress-circle').getElement();
+    let progressCircle = await svgElement.$('>>>circle[part*="circle"]').getElement();
     let partValue = await progressCircle.getAttribute('part');
     await expect(partValue).not.toContain('disable-shrink');
     await expect(partValue).toBe('circle');
@@ -222,7 +222,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toHaveElementProperty('progresscolor', '#FF6600');
     await expect(component).toHaveElementProperty('disableShrink', true);
 
-    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let spinnerDiv = await component.$('>>>[part="circular-progress-spinner"]').getElement();
     let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 80px');
     await expect(style).toContain('height: 80px');
@@ -230,11 +230,11 @@ describe('EnchantedCircularProgress component testing', () => {
     let svgElement = await component.$('>>>svg').getElement();
     await expect(svgElement).toHaveAttribute('viewBox', '0 0 80 80');
 
-    let trackCircle = await svgElement.$('>>>circle.enchanted-circular-progress-track').getElement();
+    let trackCircle = await svgElement.$('>>>[part="circular-progress-track"]').getElement();
     await expect(trackCircle).toHaveAttribute('stroke', '#CCCCCC');
     await expect(trackCircle).toHaveAttribute('stroke-width', '6');
 
-    let progressCircle = await svgElement.$('>>>circle.enchanted-circular-progress-circle').getElement();
+    let progressCircle = await svgElement.$('>>>circle[part*="circle"]').getElement();
     await expect(progressCircle).toHaveAttribute('stroke', '#FF6600');
     await expect(progressCircle).toHaveAttribute('stroke-width', '6');
     let partValue = await progressCircle.getAttribute('part');
@@ -295,20 +295,20 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
 
     let rootDiv = await component.$('>>>div').getElement();
-    let rootClass = await rootDiv.getAttribute('class');
-    await expect(rootClass).toBe('enchanted-circular-progress-root');
+    let rootPart = await rootDiv.getAttribute('part');
+    await expect(rootPart).toBe('circular-progress-root');
 
     let svgElement = await component.$('>>>svg').getElement();
-    let svgClass = await svgElement.getAttribute('class');
-    await expect(svgClass).toBe('enchanted-circular-progress-svg');
+    let svgPart = await svgElement.getAttribute('part');
+    await expect(svgPart).toBe('circular-progress-svg');
 
-    let trackCircle = await svgElement.$('>>>circle.enchanted-circular-progress-track').getElement();
-    let trackClass = await trackCircle.getAttribute('class');
-    await expect(trackClass).toBe('enchanted-circular-progress-track');
+    let trackCircle = await svgElement.$('>>>[part="circular-progress-track"]').getElement();
+    let trackPart = await trackCircle.getAttribute('part');
+    await expect(trackPart).toBe('circular-progress-track');
 
-    let progressCircle = await svgElement.$('>>>circle.enchanted-circular-progress-circle').getElement();
-    let progressClass = await progressCircle.getAttribute('class');
-    await expect(progressClass).toBe('enchanted-circular-progress-circle');
+    let progressCircle = await svgElement.$('>>>[part="circle"]').getElement();
+    let progressPart = await progressCircle.getAttribute('part');
+    await expect(progressPart).toBe('circle');
   });
 
   it('EnchantedCircularProgress - should render with small size', async () => {
@@ -322,7 +322,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 20);
 
-    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let spinnerDiv = await component.$('>>>[part="circular-progress-spinner"]').getElement();
     let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 20px');
     await expect(style).toContain('height: 20px');
@@ -339,7 +339,7 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 100);
 
-    let spinnerDiv = await component.$('>>>div.enchanted-circular-progress-spinner').getElement();
+    let spinnerDiv = await component.$('>>>[part="circular-progress-spinner"]').getElement();
     let style = await spinnerDiv.getAttribute('style');
     await expect(style).toContain('width: 100px');
     await expect(style).toContain('height: 100px');
@@ -355,7 +355,7 @@ describe('EnchantedCircularProgress component testing', () => {
     let component = await $('enchanted-circular-progress').getElement();
     await expect(component).toBeDisplayed();
 
-    let rootDiv = await component.$('>>>div.enchanted-circular-progress-root').getElement();
+    let rootDiv = await component.$('>>>[part="circular-progress-root"]').getElement();
     let style = await rootDiv.getAttribute('style');
 
     // Check for CSS custom properties

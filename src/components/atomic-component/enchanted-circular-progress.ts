@@ -165,10 +165,9 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
     const part = `circle${this.disableShrink ? ' disable-shrink' : ''}`;
     
     return html`
-      <div class="enchanted-circular-progress-root" part=${CIRCULAR_PROGRESS_PARTS.ROOT} style="${this.animationStyles}">
-        <div class="enchanted-circular-progress-spinner" part=${CIRCULAR_PROGRESS_PARTS.SPINNER} style="width: ${this.size}px; height: ${this.size}px;">
+      <div part=${CIRCULAR_PROGRESS_PARTS.ROOT} style="${this.animationStyles}">
+        <div part=${CIRCULAR_PROGRESS_PARTS.SPINNER} style="width: ${this.size}px; height: ${this.size}px;">
           <svg
-            class="enchanted-circular-progress-svg"
             part=${CIRCULAR_PROGRESS_PARTS.SVG}
             viewBox="${this.viewBox}"
             role="progressbar"
@@ -176,7 +175,6 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
           >
             <!-- Track circle (background) -->
             <circle
-              class="enchanted-circular-progress-track"
               part=${CIRCULAR_PROGRESS_PARTS.TRACK}
               cx="${this.center}"
               cy="${this.center}"
@@ -187,7 +185,6 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
             />
             <!-- Progress circle (animated) -->
             <circle
-              class="enchanted-circular-progress-circle"
               part="${part}"
               cx="${this.center}"
               cy="${this.center}"
@@ -199,7 +196,7 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
             />
           </svg>
         </div>
-        ${this.showLabel ? html`<span class="enchanted-circular-progress-label" part=${CIRCULAR_PROGRESS_PARTS.LABEL}>${this.label}</span>` : ''}
+        ${this.showLabel ? html`<span part=${CIRCULAR_PROGRESS_PARTS.LABEL}>${this.label}</span>` : ''}
       </div>
     `;
   }
