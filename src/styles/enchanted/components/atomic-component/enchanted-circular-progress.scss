@@ -1,0 +1,97 @@
+/* ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+@use "sass:map";
+@use '../../common/palette.scss';
+@use '../../common/themeMap.module';
+@use '../../common/typography';
+
+/**
+ * Enchanted Circular Progress - Design Tokens
+ * 
+ * These CSS custom properties centralize non-animated tokens (colors, spacing, typography).
+ * Note: @keyframes animations must remain in the component's inline styles due to Shadow DOM.
+ */
+@mixin enchanted-circular-progress-base-styles {
+  // Color tokens
+  --enchanted-circular-progress-track-color: #{map.get(themeMap.$enchantedPalette, NG200)};
+  --enchanted-circular-progress-progress-color: #{map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06)};
+  
+  // Animation tokens
+  --enchanted-circular-progress-rotate-duration: 1.4s;
+  --enchanted-circular-progress-rotate-timing: linear;
+  --enchanted-circular-progress-dash-duration: 1.4s;
+  --enchanted-circular-progress-dash-timing: ease-in-out;
+  --enchanted-circular-progress-pulse-duration: 1.5s;
+  --enchanted-circular-progress-pulse-timing: ease-in-out;
+  --enchanted-circular-progress-pulse-opacity-min: 0.5;
+
+  display: inline-block;
+
+  // Root container styles
+  &::part(circular-progress-root) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1;
+  }
+
+  // Spinner container styles
+  &::part(circular-progress-spinner) {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  // SVG element styles with animation
+  &::part(circular-progress-svg) {
+    display: block;
+    animation: enchanted-circular-rotate 
+      var(--enchanted-circular-progress-rotate-duration) 
+      var(--enchanted-circular-progress-rotate-timing) 
+      infinite;
+  }
+
+  // Track circle styles
+  &::part(circular-progress-track) {
+    opacity: 1;
+  }
+
+  // Progress circle with animation
+  &::part(circle) {
+    stroke-dasharray: var(--stroke-dasharray-start);
+    stroke-dashoffset: 0;
+    animation: enchanted-circular-dash 
+      var(--enchanted-circular-progress-dash-duration) 
+      var(--enchanted-circular-progress-dash-timing) 
+      infinite;
+  }
+
+  // Progress circle with disabled shrink animation
+  &::part(circle-disable-shrink) {
+    stroke-dasharray: var(--stroke-dasharray-shrink);
+    animation: none;
+  }
+
+  // Label styles with animation
+  &::part(circular-progress-label) {
+    @include typography.body2;
+    color: map.get(themeMap.$enchantedPalette, BLACK60P);
+    font-style: italic;
+    white-space: nowrap;
+    animation: enchanted-label-pulse 
+      var(--enchanted-circular-progress-pulse-duration) 
+      var(--enchanted-circular-progress-pulse-timing) 
+      infinite;
+  }
+}

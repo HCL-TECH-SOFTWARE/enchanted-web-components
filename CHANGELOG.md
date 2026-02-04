@@ -4,12 +4,15 @@
 
 ### Added
 - Added new `enchanted-fab-ai` component with unit-test and story-book.
+- Added a new property to enable adding a label, such as the text 'Thinking,' after the circular progress in `enchanted-circular-progress`.
 
 ### Fixed
 - Fixed `enchanted-fab` extended mode layout to properly center label text when no icon is selected, resolving spacing issue caused by flexbox gap.
 
 ### Changed
 - Updated `enchanted-fab` component to support optional icon - icon property can now be undefined, allowing extended FAB with label only.
+- Removing unused CSS badge parts
+
 
 ### Breaking changes
 
