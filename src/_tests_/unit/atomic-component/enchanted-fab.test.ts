@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -18,7 +18,7 @@ import { expect, $ } from "@wdio/globals";
 
 // Helper import
 import { renderComponent } from "../../utils";
-import { EnchantedFabType } from '../../../types/cssClassEnums';
+import { EnchantedFabType, FAB_PARTS } from '../../../types/cssClassEnums';
 
 // Component import
 import "../../../components/atomic-component/enchanted-fab";
@@ -44,7 +44,7 @@ describe("enchanted-fab - component test", () => {
     await expect(fab).toHaveAttribute("type", "contained");
 
     // Check if the label is rendered correctly
-    const label = await fab.shadow$("span[part='label']");
+    const label = await fab.shadow$(`span[part='${FAB_PARTS.LABEL}']`);
     await expect(label).toBeExisting();
     await expect(label).toHaveText("Test FAB");
   });
@@ -62,7 +62,7 @@ describe("enchanted-fab - component test", () => {
     await expect(fab).toHaveAttribute("type", EnchantedFabType.CONTAINED);
     await expect(fab).not.toHaveAttribute("extended");
     await expect(fab).not.toHaveAttribute("disabled");
-    const label = await fab.shadow$("span[part='label']");
+    const label = await fab.shadow$(`span[part='${FAB_PARTS.LABEL}']`);
     await expect(label).not.toBeExisting();
   });
 
@@ -76,7 +76,7 @@ describe("enchanted-fab - component test", () => {
   it("enchanted-fab - should render extended state with label", async () => {
     renderComponent(html`<enchanted-fab type="${EnchantedFabType.CONTAINED}" label="Extended FAB" extended></enchanted-fab>`);
     const fab = await $("enchanted-fab");
-    const label = await fab.shadow$("span[part='label']");
+    const label = await fab.shadow$(`span[part='${FAB_PARTS.LABEL}']`);
     await expect(label).toBeExisting();
     await expect(label).toHaveText("Extended FAB");
   });
@@ -101,7 +101,7 @@ describe("enchanted-fab - component test", () => {
     await expect(fab).toBeExisting();
 
     // Verify the label is not visible
-    const label = await fab.shadow$("span[part='label']");
+    const label = await fab.shadow$(`span[part='${FAB_PARTS.LABEL}']`);
     await expect(label).not.toBeExisting();
   });
 
@@ -110,7 +110,7 @@ describe("enchanted-fab - component test", () => {
     const fab = await $("enchanted-fab");
     const button = await fab.shadow$("button");
     await expect(button).toBeExisting();
-    await expect(button).toHaveAttribute("part", "fab");
+    await expect(button).toHaveAttribute("part", FAB_PARTS.FAB);
   });
 
   it("enchanted-fab - should render contained type FAB by default", async () => {
@@ -136,14 +136,14 @@ describe("enchanted-fab - component test", () => {
   it("enchanted-fab - should render icon slot with correct part", async () => {
     renderComponent(html`<enchanted-fab .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}></enchanted-fab>`);
     const fab = await $("enchanted-fab");
-    const iconSpan = await fab.shadow$("span[part='icon']");
+    const iconSpan = await fab.shadow$(`span[part='${FAB_PARTS.ICON}']`);
     await expect(iconSpan).toBeExisting();
   });
 
   it("enchanted-fab - should render provided icon template", async () => {
     renderComponent(html`<enchanted-fab .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}></enchanted-fab>`);
     const fab = await $("enchanted-fab");
-    const iconSpan = await fab.shadow$("span[part='icon']");
+    const iconSpan = await fab.shadow$(`span[part='${FAB_PARTS.ICON}']`);
     await expect(iconSpan).toBeExisting();
     const svg = await iconSpan.$("icon-ai-sparkle");
     await expect(svg).toBeExisting();
@@ -152,7 +152,7 @@ describe("enchanted-fab - component test", () => {
   it("enchanted-fab - should not render icon span when no icon is provided", async () => {
     renderComponent(html`<enchanted-fab></enchanted-fab>`);
     const fab = await $("enchanted-fab");
-    const iconSpan = await fab.shadow$("span[part='icon']");
+    const iconSpan = await fab.shadow$(`span[part='${FAB_PARTS.ICON}']`);
     await expect(iconSpan).not.toBeExisting();
   });
 
