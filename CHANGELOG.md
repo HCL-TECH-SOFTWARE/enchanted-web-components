@@ -13,7 +13,7 @@
 ## 5.1.0
 
 ### Added
-- Added new `enchanted-fab-ai` component with unit-test and story-book.
+- Added new `enchanted-fab-ai` component with unit-test and storybook.
 - Added a new property to enable adding a label, such as the text 'Thinking,' after the circular progress in `enchanted-circular-progress`.
 
 ### Fixed
