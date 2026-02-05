@@ -11,7 +11,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
- * ======================================================================== */import type { Meta, StoryObj } from '@storybook/web-components-vite';
+ * ======================================================================== */
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../components/atomic-component/enchanted-chip';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark';
