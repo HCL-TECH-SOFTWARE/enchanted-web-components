@@ -16,6 +16,7 @@
 @use "sass:map";
 @use "../../common/palette";
 @use "../../common/themeMap.module";
+@use "../../common/typography";
 
 @mixin enchanted-fab-base-styles {
     // Position fixed
@@ -50,18 +51,20 @@
     &[extended]::part(fab-rtl) {
         width: auto;
         gap: 8px;
-        padding-inline: 12px;
     }
 
     &::part(label),
     &::part(label-rtl) {
         text-align: start;
         white-space: nowrap;
+        @include typography.subtitle2;
+        padding: 5px 4px 5px 0;
     }
 
     // Icon styles
     &::part(icon) {
         --_icon-instance-size: 24px;
+        line-height: 0;
     }
     &[type="contained"]::part(icon) {
         --_icon-instance-color: map.get(themeMap.$enchantedPalette, "WHITE93P");

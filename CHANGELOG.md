@@ -5,6 +5,8 @@
 ### Added
 
 ### Fixed
+- Fixed `enchanted-fab` label font styles and padding.
+- Fixed `enchanted-fab-ai` label color styles.
 
 ### Changed
 

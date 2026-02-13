@@ -123,12 +123,12 @@ const meta: Meta<EnchantedFabAiProps> = {
   args: {
     badge: true,
     badgeType: EnchantedBadgeType.TEXT,
-    badgeText: '5',
-    badgeColor: EnchantedBadgeColor.ERROR,
+    badgeText: '1',
+    badgeColor: EnchantedBadgeColor.PRIMARY,
     badgeBorder: EnchantedBadgeBorder.NONE,
     extended: false,
     disabled: false,
-    label: 'Text',
+    label: 'Label',
     icon: html`<icon-ai-sparkle></icon-ai-sparkle>`,
   },
   parameters: {
@@ -194,7 +194,7 @@ export const AllStates: Story = {
       <enchanted-fab-ai
         style="position: relative; top: 10px; left: 70px;"
         .extended=${true}
-        .label=${'Text'}
+        label="Label"
         .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab-ai>
       
@@ -218,7 +218,7 @@ export const AllStates: Story = {
         style="position: relative; top: 10px; left: 230px;"
         .extended=${true}
         .badge=${true}
-        .label=${'Text'}
+        label="Label"
         .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       >
         <enchanted-badge
@@ -242,7 +242,7 @@ export const AllStates: Story = {
         style="position: relative; top: 10px; left: 400px;"
         .extended=${true}
         .disabled=${true}
-        .label=${'Text'}
+        label="Label"
         .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab-ai>
     </div>
