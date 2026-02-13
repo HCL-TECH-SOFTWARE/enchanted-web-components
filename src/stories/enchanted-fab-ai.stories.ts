@@ -194,7 +194,7 @@ export const AllStates: Story = {
       <enchanted-fab-ai
         style="position: relative; top: 10px; left: 70px;"
         .extended=${true}
-        .label=${'Label'}
+        label="Label"
         .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab-ai>
       
@@ -218,7 +218,7 @@ export const AllStates: Story = {
         style="position: relative; top: 10px; left: 230px;"
         .extended=${true}
         .badge=${true}
-        .label=${'Label'}
+        label="Label"
         .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       >
         <enchanted-badge
@@ -242,7 +242,7 @@ export const AllStates: Story = {
         style="position: relative; top: 10px; left: 400px;"
         .extended=${true}
         .disabled=${true}
-        .label=${'Label'}
+        label="Label"
         .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
       ></enchanted-fab-ai>
     </div>
