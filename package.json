@@ -38,7 +38,8 @@
     "compile-enchanted-css": "rm -f ./enchanted.css && sass --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
     "watch-enchanted-css": "rm -f ./enchanted.css && sass --watch --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_b91762b136f3f72"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -58,6 +59,7 @@
     "@wdio/mocha-framework": "^9.20.0",
     "@wdio/spec-reporter": "^9.20.0",
     "@wdio/visual-service": "^9.0.0",
+    "chromatic": "^15.1.1",
     "eslint": "^9.18.0",
     "eslint-plugin-lit": "^1.14.0",
     "eslint-plugin-storybook": "^9.1.16",
