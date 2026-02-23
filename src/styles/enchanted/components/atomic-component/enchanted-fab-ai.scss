@@ -30,6 +30,11 @@
         --_icon-instance-color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
     }
 
+    &[extended]::part(label),
+    &[extended]::part(label-rtl) {
+        color: map.get(themeMap.$enchantedPalette, "BLACK87P");
+    }
+
     &::part(fab):hover,
     &::part(fab-rtl):hover {
         background: map.get(themeMap.$enchantedPalette, "BLUE300");
@@ -38,7 +43,7 @@
 
     &::part(fab):focus,
     &::part(fab-rtl):focus {
-        outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
+        outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07");
         outline-offset: 1px;
         border-radius: 7px;
     }
@@ -46,7 +51,7 @@
     &::part(fab):hover:focus,
     &::part(fab-rtl):hover:focus {
         background: map.get(themeMap.$enchantedPalette, "BLUE300");
-        outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
+        outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07");
         outline-offset: 1px;
         border-radius: 7px;
         color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
