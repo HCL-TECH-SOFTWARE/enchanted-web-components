@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 
 // Component imports
@@ -30,8 +30,8 @@ import { BUTTON_PARTS, HEADER_VARIANT, HEADER_PARTS, EnchantedBadgeParts } from 
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/filter';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-header')
 @localized()
 export class EnchantedHeader extends EnchantedAcBaseElement {
   @property({ type: String }) headerTitle = '';
@@ -132,9 +132,4 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
   }
 }
 
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-header': EnchantedHeader
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-header`, EnchantedHeader);

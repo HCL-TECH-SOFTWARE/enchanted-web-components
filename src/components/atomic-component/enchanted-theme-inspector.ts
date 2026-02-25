@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 import { css, html, TemplateResult } from 'lit';
 import createDebug from 'debug';
 
@@ -23,10 +23,10 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 // Helper imports
 import  * as theme from '../../utils/themeUtils';
 import { ThemeType } from '../../utils/themeUtils';
+import { COMPONENT_PREFIX } from '../constants';
 
 const debug = createDebug('enchanted-web-components:components:ac:enchanted-theme-inspector.ts');
 
-@customElement('enchanted-theme-inspector')
 export class EnchantedThemeInspector extends EnchantedAcBaseElement {
   static styles = css`
     table,
@@ -252,8 +252,4 @@ export class EnchantedThemeInspector extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-theme-inspector': EnchantedThemeInspector;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-theme-inspector`, EnchantedThemeInspector);

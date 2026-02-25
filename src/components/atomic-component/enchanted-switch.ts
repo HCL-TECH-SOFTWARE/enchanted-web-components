@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, nothing } from 'lit';
 import { debounce } from 'lodash';
 
@@ -23,8 +23,8 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 // Helper imports
 import { SWITCH_PARTS } from '../../types/cssClassEnums';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-switch')
 export class EnchantedSwitch extends EnchantedAcBaseElement {
 
   @property({ type: Boolean })
@@ -102,8 +102,4 @@ export class EnchantedSwitch extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-switch': EnchantedSwitch;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-switch`, EnchantedSwitch);

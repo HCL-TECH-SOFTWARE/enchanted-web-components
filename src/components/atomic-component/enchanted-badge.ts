@@ -14,17 +14,16 @@
  * ======================================================================== */	
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
 import { getCurrentDirection } from "../localization";
-import { LOCALE_DIRECTIONS } from "../constants";
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from "../constants";
 import { EnchantedBadgeColor, EnchantedBadgeBorder, EnchantedBadgeType, EnchantedBadgeParts } from '../../types/cssClassEnums';
  
-@customElement('enchanted-badge')
 export class EnchantedBadge extends EnchantedAcBaseElement {
 
 
@@ -55,9 +54,5 @@ export class EnchantedBadge extends EnchantedAcBaseElement {
     `;
   }
 }
- 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-badge': EnchantedBadge
-  }
-}
+
+customElements.define(`${COMPONENT_PREFIX}enchanted-badge`, EnchantedBadge);

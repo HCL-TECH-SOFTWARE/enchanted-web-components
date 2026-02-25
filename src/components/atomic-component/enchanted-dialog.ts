@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
 
@@ -31,8 +31,8 @@ import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-dialog')
 @localized()
 export class EnchantedDialog extends EnchantedAcBaseElement {
   private static readonly FOCUSABLE_SELECTOR = 'enchanted-textfield, enchanted-button, enchanted-icon-button, button, input, [tabindex]:not([tabindex="-1"])';
@@ -329,9 +329,4 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
   }
 }
 
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-dialog': EnchantedDialog
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-dialog`, EnchantedDialog);

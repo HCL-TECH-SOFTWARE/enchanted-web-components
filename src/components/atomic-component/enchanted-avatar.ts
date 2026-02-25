@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
 
 // Component imports
@@ -21,8 +21,8 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
 import { AVATAR_PARTS, AVATAR_VARIANT, AVATAR_TYPE, AVATAR_COLOR } from '../../types/cssClassEnums';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-avatar')
 export class EnchantedAvatar extends EnchantedAcBaseElement {
   @property()
   variant: string | undefined;
@@ -112,8 +112,4 @@ export class EnchantedAvatar extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-avatar': EnchantedAvatar
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-avatar`, EnchantedAvatar);

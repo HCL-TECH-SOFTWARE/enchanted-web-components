@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
@@ -27,8 +27,8 @@ import './enchanted-list';
 import { BUTTON_PARTS, LIST_PARTS, MENU_PARTS } from '../../types/cssClassEnums';
 import { isLTR } from '../localization';
 import { EnchantedMenuPlacement, EnchantedMenuSize } from '../../types/enchanted-menu';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-menu')
 @localized()
 export class EnchantedMenu extends EnchantedAcBaseElement {
   @property({ type: Number })
@@ -201,9 +201,4 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
   }
 }
 
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-menu': EnchantedMenu
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-menu`, EnchantedMenu);

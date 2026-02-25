@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -27,11 +27,11 @@ import { isLTR } from '../localization';
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
+import { COMPONENT_PREFIX } from '../constants';
 
 /**
  * Breadcrumb component.
  */
-@customElement('enchanted-breadcrumbs')
 export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
     ...EnchantedAcBaseElement.shadowRootOptions,
@@ -104,8 +104,4 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-breadcrumbs': EnchantedBreadcrumbs
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-breadcrumbss`, EnchantedBreadcrumbs);

@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -28,8 +28,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--ou
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-snackbar')
 export class EnchantedSnackbar extends EnchantedAcBaseElement {
 
     @property({ type: String }) message = '';
@@ -78,8 +78,4 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
     }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-snackbar': EnchantedSnackbar;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-snackbar`, EnchantedSnackbar);

@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { html, nothing, TemplateResult } from 'lit';
 
@@ -23,9 +23,8 @@ import './enchanted-avatar';
 // Helper imports
 import { AVATAR_TYPE, AVATAR_VARIANT, CHIP_PARTS } from '../../types/cssClassEnums';
 import { getCurrentDirection } from '../localization';
-import { LOCALE_DIRECTIONS } from '../constants';
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from '../constants';
 
-@customElement('enchanted-chip')
 export class EnchantedChip extends EnchantedAcBaseElement {
   @property({ type: String }) name = '';
   @property({ type: Number }) count = 0;
@@ -61,8 +60,5 @@ export class EnchantedChip extends EnchantedAcBaseElement {
     `;
   }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-chip': EnchantedChip
-  }
-}
+
+customElements.define(`${COMPONENT_PREFIX}enchanted-chip`, EnchantedChip);

@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
 
 // Component imports
@@ -22,10 +22,9 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 // Helper imports
 import { BUTTON_PARTS, BUTTON_VARIANT, ICON_BUTTON_SIZES, ARIA_ROLES } from '../../types/cssClassEnums';
 import { getCurrentDirection } from '../localization';
-import { LOCALE_DIRECTIONS } from '../constants';
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from '../constants';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 
-@customElement('enchanted-button')
 export class EnchantedButton extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
     ...EnchantedAcBaseElement.shadowRootOptions,
@@ -222,8 +221,4 @@ export class EnchantedButton extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-button': EnchantedButton;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-button`, EnchantedButton);

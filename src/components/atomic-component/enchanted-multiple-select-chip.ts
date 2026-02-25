@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { localized } from '@lit/localize';
@@ -36,8 +36,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/caret--up';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close--filled';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-multiple-select-chip')
 @localized()
 export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
   @state()
@@ -502,9 +502,9 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
 				@mouseleave=${this.handleOnMouseOut} 
         @click=${(event: Event) => {
           // Close other open enchanted-multiple-select-chip dropdowns when this one is clicked.
-          document.querySelectorAll('enchanted-multiple-select-chip').forEach((el) => {
-            if (el !== this && el.toggleDropDown) {
-              el.toggleDropDown = false;
+          document.querySelectorAll(`${COMPONENT_PREFIX}enchanted-multiple-select-chip`).forEach((el) => {
+            if (el !== this && (el as EnchantedMultipleSelectChip).toggleDropDown) {
+              (el as EnchantedMultipleSelectChip).toggleDropDown = false;
             }
           });
           this.handleInputContainerClick(event); 
@@ -591,9 +591,9 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
           <enchanted-button
             @click=${(event: Event) => {
               // Close other open enchanted-multiple-select-chip dropdowns when this one is clicked.
-              document.querySelectorAll('enchanted-multiple-select-chip').forEach((el) => {
-                if (el !== this && el.toggleDropDown) {
-                  el.toggleDropDown = false;
+              document.querySelectorAll(`${COMPONENT_PREFIX}enchanted-multiple-select-chip`).forEach((el) => {
+                if (el !== this && (el as EnchantedMultipleSelectChip).toggleDropDown) {
+                  (el as EnchantedMultipleSelectChip).toggleDropDown = false;
                 }
               });
               this.handleButtonClick(event);
@@ -662,8 +662,4 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-multiple-select-chip': EnchantedMultipleSelectChip;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-multiple-select-chip`, EnchantedMultipleSelectChip);

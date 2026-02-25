@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -25,8 +25,8 @@ import { BUTTON_PARTS, BUTTON_VARIANT, PANEL_PARTS, PANEL_POSITION } from '../..
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-panel')
 export class EnchantedPanel extends EnchantedAcBaseElement {
 
   @property({ type: Boolean, reflect: true }) open = false;
@@ -85,8 +85,4 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-panel': EnchantedPanel;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-panel`, EnchantedPanel);

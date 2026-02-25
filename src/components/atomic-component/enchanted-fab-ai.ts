@@ -13,10 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import { html, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { property } from "lit/decorators.js";
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
 import { FAB_PARTS } from "../../types/cssClassEnums";
 import "./enchanted-fab";
+import { COMPONENT_PREFIX } from "../constants";
 
 /**
  * AI-themed floating action button component using composition.
@@ -26,7 +27,6 @@ import "./enchanted-fab";
  * @element enchanted-fab-ai
  * @extends EnchantedAcBaseElement
  */
-@customElement('enchanted-fab-ai')
 export class EnchantedFabAi extends EnchantedAcBaseElement {
   @property({ type: Boolean, reflect: true }) 
   extended = false;
@@ -59,8 +59,4 @@ export class EnchantedFabAi extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-fab-ai': EnchantedFabAi;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-fab-ai`, EnchantedFabAi);

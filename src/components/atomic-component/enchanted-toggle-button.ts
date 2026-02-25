@@ -14,7 +14,7 @@
  * ======================================================================== */
 
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
 import { isLTR } from '../localization';
 
@@ -26,8 +26,8 @@ import './enchanted-icon-button';
 // Helper imports
 import { ICON_BUTTON_SIZES, TOGGLE_BUTTON_PARTS } from '../../types/cssClassEnums';
 import { ICON_BUTTON_EXPORT_PARTS } from '../exportParts';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-toggle-button')
 export class EnchantedToggleButton extends EnchantedAcBaseElement {
   @property({ type: Boolean })
   singleButton = false;
@@ -189,8 +189,4 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-toggle-button': EnchantedToggleButton;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-toggle-button`, EnchantedToggleButton);

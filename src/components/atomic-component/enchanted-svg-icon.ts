@@ -42,12 +42,12 @@
 
 // External imports
 import { html, nothing, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-svg-icon')
 export class EnchantedSvgIcon extends EnchantedAcBaseElement {
 
   @property({ type: String }) icon?: TemplateResult;
@@ -79,8 +79,5 @@ export class EnchantedSvgIcon extends EnchantedAcBaseElement {
     `;
   }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-svg-icon': EnchantedSvgIcon
-  }
-}
+
+customElements.define(`${COMPONENT_PREFIX}enchanted-svg-icon`, EnchantedSvgIcon);

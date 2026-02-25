@@ -14,15 +14,14 @@
  * ======================================================================== */
 // External imports
 import { html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
 
 //Helper imports
 import { getCurrentDirection } from "../localization";
-import { LOCALE_DIRECTIONS } from "../constants";
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from "../constants";
 import { ACCORDION_SUMMARY_PARTS } from "../../types/cssClassEnums";
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
 
-@customElement("enchanted-accordion-summary")
 export class EnchantedAccordionSummary extends EnchantedAcBaseElement {
   @property({ type: String }) label = "";
   @property({ type: String }) secondaryText = "";
@@ -72,8 +71,5 @@ export class EnchantedAccordionSummary extends EnchantedAcBaseElement {
     `;
    }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    "enchanted-accordion-summary": EnchantedAccordionSummary;
-  }
-}
+
+customElements.define(`${COMPONENT_PREFIX}enchanted-accordion-summary`, EnchantedAccordionSummary);

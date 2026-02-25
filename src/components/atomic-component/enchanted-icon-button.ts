@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, TemplateResult } from 'lit';
 
 // Component imports
@@ -24,8 +24,9 @@ import './enchanted-button';
 import { ARIA_ROLES, ICON_BUTTON_SIZES } from '../../types/cssClassEnums';
 import { ICON_BUTTON_EXPORT_PARTS } from '../exportParts';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { COMPONENT_PREFIX } from '../constants';
+import { EnchantedButton } from './enchanted-button';
 
-@customElement('enchanted-icon-button')
 export class EnchantedIconButton extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
     ...EnchantedAcBaseElement.shadowRootOptions,
@@ -61,7 +62,7 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
   ariaLabel: string = 'Icon button'; // Provide a default accessible name
 
   public _focusButton() {
-    const button = this.renderRoot.querySelector('enchanted-button');
+    const button: EnchantedButton | null = this.renderRoot.querySelector(`${COMPONENT_PREFIX}enchanted-button`);
     button?._focusButton();
   }
 
@@ -95,8 +96,4 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-icon-button': EnchantedIconButton;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-icon-button`, EnchantedIconButton);

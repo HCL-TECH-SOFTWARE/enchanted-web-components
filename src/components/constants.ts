@@ -14,6 +14,8 @@
  * ======================================================================== */
 export const SHADOW_ROOT_MODE_KEY = 'enchanted.searchv2.useOpenAcShadowRoot';
 
+export const COMPONENT_PREFIX = process.env.COMPONENT_PREFIX ? `${process.env.COMPONENT_PREFIX}-` : '';
+
 export enum LOCALE_DIRECTIONS {
   LTR = 'ltr',
   RTL = 'rtl',

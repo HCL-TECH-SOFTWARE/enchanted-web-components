@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -27,6 +27,7 @@ import { BREADCRUMBS_ICON_TYPE } from '../../types/enchanted-breadcrumbs';
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/home';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
+import { COMPONENT_PREFIX } from '../constants';
 
 export interface PathType {
   title?: string,
@@ -39,7 +40,6 @@ export interface PathType {
 /**
  * Breadcrumb item component.
  */
-@customElement('enchanted-breadcrumbs-item')
 export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
   @property({ type: Object }) path?: PathType;
   @property({ type: String }) partProp?: String;
@@ -111,8 +111,4 @@ export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-breadcrumbs-item': EnchantedBreadcrumbsItem
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-breadcrumbs-item`, EnchantedBreadcrumbsItem);

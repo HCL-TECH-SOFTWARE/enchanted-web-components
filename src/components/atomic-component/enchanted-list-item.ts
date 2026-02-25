@@ -14,18 +14,18 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Icon imports
 import { LIST_ITEM_PARTS } from '../../types/cssClassEnums';
+import { COMPONENT_PREFIX } from '../constants';
 
 /**
  * List item component.
  */
-@customElement('enchanted-list-item')
 export class EnchantedListItem extends EnchantedAcBaseElement {
   @property({ type: String })
   key = '';
@@ -57,8 +57,4 @@ export class EnchantedListItem extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-list-item': EnchantedListItem
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-list-item`, EnchantedListItem);

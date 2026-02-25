@@ -15,7 +15,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import { html, LitElement, nothing } from 'lit';
-import { customElement, state, property } from 'lit/decorators.js';
+import { state, property } from 'lit/decorators.js';
 import { consume } from '@lit/context';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import createDebug from 'debug';
@@ -51,10 +51,10 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/edit';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/overflow-menu--horizontal';
 
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { COMPONENT_PREFIX } from '../constants';
 
 const debug = createDebug('enchanted-web-components:components:ac:enchanted-data-grid.ts');
 
-@customElement('enchanted-data-grid')
 export class EnchantedDataGrid extends EnchantedAcBaseElement {
 
 	@property()
@@ -1080,9 +1080,4 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 	}
 }
 
-declare global {
-	interface HTMLElementTagNameMap {
-		'enchanted-data-grid': EnchantedDataGrid
-	}
-}
-
+customElements.define(`${COMPONENT_PREFIX}enchanted-data-grid`, EnchantedDataGrid);

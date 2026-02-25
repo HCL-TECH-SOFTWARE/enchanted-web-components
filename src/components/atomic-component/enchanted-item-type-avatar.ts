@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -77,8 +77,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user--profile
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user-profile--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/video';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/XLS';
+import { COMPONENT_PREFIX } from '../constants';
 
- @customElement('enchanted-item-type-avatar')
 export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
  
    @property({ type: String }) itemType = '';
@@ -224,9 +224,5 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
       `;
    }
 }
-  
- declare global {
-   interface HTMLElementTagNameMap {
-     'enchanted-item-type-avatar': EnchantedItemTypeAvatar
-   }
- }
+
+customElements.define(`${COMPONENT_PREFIX}enchanted-item-type-avatar`, EnchantedItemTypeAvatar);

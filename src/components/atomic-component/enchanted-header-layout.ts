@@ -14,14 +14,14 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { HEADER_LAYOUT_PARTS } from '../../types/cssClassEnums';
+import { COMPONENT_PREFIX } from '../constants';
  
 /**
  * Search Header template.
  */
-@customElement('enchanted-header-layout')
 export class EnchantedHeaderLayout extends EnchantedAcBaseElement {
 
   @property({ type: Boolean }) isTagsAvailable = false;
@@ -47,9 +47,5 @@ export class EnchantedHeaderLayout extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-header-layout': EnchantedHeaderLayout
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-header-layout`, EnchantedHeaderLayout);
   

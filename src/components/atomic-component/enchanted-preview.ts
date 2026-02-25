@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -50,6 +50,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--right'
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { EnchantedButton } from './enchanted-button';
 import { EnchantedIconButton } from './enchanted-icon-button';
+import { COMPONENT_PREFIX } from '../constants';
 
 export interface AssetRendition {
   id: string;
@@ -65,7 +66,6 @@ export interface PreviewItem {
   fileExtension?: string;
 }
 
-@customElement('enchanted-preview')
 export class EnchantedPreview extends EnchantedAcBaseElement {
   private _ZOOM_OPTIONS = ENCHANTED_PREVIEW_DEFAULT_ZOOM_OPTIONS;
   private _ZOOM_BUTTON_MARGIN = 12;
@@ -955,8 +955,4 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-preview': EnchantedPreview;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-preview`, EnchantedPreview);

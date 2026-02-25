@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 
 // Component imports
@@ -23,8 +23,8 @@ import './enchanted-list-item';
 
 // Helper imports
 import { LIST_ITEM_PARTS, MENU_ITEM_PARTS } from '../../types/cssClassEnums';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-menu-item')
 @localized()
 export class EnchantedMenuItem extends EnchantedAcBaseElement {
   @property({ type: String })
@@ -85,9 +85,4 @@ export class EnchantedMenuItem extends EnchantedAcBaseElement {
   }
 }
 
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-menu-item': EnchantedMenuItem
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-menu-item`, EnchantedMenuItem);

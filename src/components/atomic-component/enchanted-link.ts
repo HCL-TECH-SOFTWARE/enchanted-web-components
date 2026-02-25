@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, nothing } from 'lit';
 
 // Component imports
@@ -21,8 +21,8 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
 import { PAGINATION_PARTS } from '../../types/cssClassEnums';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-link')
 export class EnchantedAnchorTag extends EnchantedAcBaseElement {
   @property({ type: String }) url = '';
   @property({ type: Number }) weight = 0;
@@ -86,8 +86,5 @@ export class EnchantedAnchorTag extends EnchantedAcBaseElement {
     `;
   }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-link': EnchantedAnchorTag;
-  }
-}
+
+customElements.define(`${COMPONENT_PREFIX}enchanted-link`, EnchantedAnchorTag);

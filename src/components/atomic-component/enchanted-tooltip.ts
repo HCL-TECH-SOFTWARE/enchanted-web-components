@@ -14,7 +14,7 @@
  * ======================================================================== */
 
 // External imports
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { v4 as uuid } from 'uuid';
 import { html, nothing } from 'lit';
 
@@ -25,8 +25,8 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { TOOLTIP_PARTS, TOOLTIP_PLACEMENT, TOOLTIP_TYPE, TOOLTIP_VARIANT } from '../../types/cssClassEnums';
 import { ViewportBox } from '../../types/enchanted-tooltip';
 import { getAncestorWithTransform, getTransformDetails, runPlacement } from '../../utils/tooltipUtils';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement("enchanted-tooltip")
 export class EnchantedTooltip extends EnchantedAcBaseElement {
   @property({ type: Boolean, reflect: true })
   show = false;
@@ -578,8 +578,4 @@ export class EnchantedTooltip extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    "enchanted-tooltip": EnchantedTooltip;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-tooltip`, EnchantedTooltip);

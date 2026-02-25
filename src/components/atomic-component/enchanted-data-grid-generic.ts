@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, state, property } from 'lit/decorators.js';
+import { state, property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import createDebug from 'debug';
 
@@ -46,10 +46,10 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--up';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--down';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/items--search--empty';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/items--search--initial';
+import { COMPONENT_PREFIX } from '../constants';
 
 const debug = createDebug('enchanted-web-components:components:ac:enchanted-data-grid-generic.ts');
 
-@customElement('enchanted-data-grid-generic')
 export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
   @property()
   private isLoading: boolean = false;
@@ -355,14 +355,14 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
 
     if (isMenu) {
       const moreMenuIcon = evt.target as HTMLElement;
-      const isOpen = this.renderRoot.querySelector('enchanted-menu')?.openMenu;
+      const isOpen = (this.renderRoot.querySelector(`${COMPONENT_PREFIX}enchanted-menu`) as EnchantedMenu)?.openMenu;
 
       const closeMenu = (targetIndex: number) => {
         if (isOpen) {
           this.programmaticClick = true;
           moreMenuIcon.click();
         }
-        const item = this.renderRoot.querySelector(`#enchanted-data-grid-action-item-button-${index}-${this.actions[targetIndex]}`) as HTMLElement;
+        const item = this.renderRoot.querySelector(`#${COMPONENT_PREFIX}enchanted-data-grid-action-item-button-${index}-${this.actions[targetIndex]}`) as HTMLElement;
         return item?.focus();
       };
 
@@ -382,7 +382,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
         evt.preventDefault();
         this.programmaticClick = true;
         moreMenuIcon.click();
-        const menuList = this.renderRoot.querySelector(`#enchanted-data-grid-menu-item-${index}-${headerIndex}-${itemIndex}-${0}`) as HTMLElement;
+        const menuList = this.renderRoot.querySelector(`#${COMPONENT_PREFIX}enchanted-data-grid-menu-item-${index}-${headerIndex}-${itemIndex}-${0}`) as HTMLElement;
         setTimeout(() => {
           menuList?.focus();
         }, 350);
@@ -391,7 +391,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
       if (evt.key === KeyboardInputKeys.ARROW_DOWN || (evt.key === KeyboardInputKeys.TAB && !evt.shiftKey)) {
         if (isOpen) {
           evt.preventDefault();
-          const menuList = this.renderRoot.querySelector(`#enchanted-data-grid-menu-item-${index}-${headerIndex}-${itemIndex}-${0}`) as HTMLElement;
+          const menuList = this.renderRoot.querySelector(`#${COMPONENT_PREFIX}enchanted-data-grid-menu-item-${index}-${headerIndex}-${itemIndex}-${0}`) as HTMLElement;
           menuList?.focus();
         } else if (isItemEnd) {
           if (index + 1 === itemsLength) {
@@ -1258,8 +1258,4 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-data-grid-generic': EnchantedDataGridGeneric
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-data-grid-generic`, EnchantedDataGridGeneric);

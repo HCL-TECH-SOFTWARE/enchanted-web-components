@@ -12,18 +12,16 @@
 
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 
 //helper import
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
-import { LOCALE_DIRECTIONS } from '../constants.js';
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from '../constants.js';
 import { getCurrentDirection } from '../localization.js';
 import  { EnchantedPopoverArrowPosition } from '../../types/enchanted-popover.js';
 import { POPOVER_PARTS } from "../../types/cssClassEnums";
 
-
-@customElement('enchanted-popover')
 export class EnchantedPopover extends EnchantedAcBaseElement {
   
   @property({ type: Boolean, reflect: true }) open = false;
@@ -102,8 +100,4 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-popover': EnchantedPopover;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-popover`, EnchantedPopover);

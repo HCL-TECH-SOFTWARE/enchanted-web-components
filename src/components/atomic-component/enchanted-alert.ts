@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 
 // Component imports
@@ -22,6 +22,7 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
 import { ALERT, ALERT_SEVERITY, ALERT_VARIANTS } from '../../types/cssClassEnums';
+import { COMPONENT_PREFIX } from '../constants';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--outline';
@@ -32,7 +33,6 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
 /**
  * Alert component.
  */
-@customElement('enchanted-alert')
 @localized()
 export class EnchantedAlert extends EnchantedAcBaseElement {
 
@@ -124,8 +124,4 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-alert': EnchantedAlert
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-alert`, EnchantedAlert);

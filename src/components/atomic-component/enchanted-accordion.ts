@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
 import { debounce } from "lodash";
 
 
@@ -23,14 +23,13 @@ import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
 
 // Helper imports
 import { getCurrentDirection } from "../localization";
-import { LOCALE_DIRECTIONS } from "../constants";
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from "../constants";
 import { ACCORDION_PARTS } from "../../types/cssClassEnums";
 
 //Icon import
 import "@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--down";
 import { KeyboardInputKeys } from "../../utils/keyboardEventKeys";
 
-@customElement("enchanted-accordion")
 export class EnchantedAccordion extends EnchantedAcBaseElement {
   @property({ type: Boolean, reflect: true }) showCheckbox = false;
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -145,8 +144,5 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
     this.requestUpdate();
   }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    "enchanted-accordion": EnchantedAccordion;
-  }
-}
+
+customElements.define(`${COMPONENT_PREFIX}enchanted-accordion`, EnchantedAccordion);

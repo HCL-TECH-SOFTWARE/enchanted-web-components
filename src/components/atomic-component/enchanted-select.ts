@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { localized } from '@lit/localize';
@@ -32,11 +32,11 @@ import { EnchantedInputFieldType, OptionData } from '../../types/enchanted-selec
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/caret--down';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { COMPONENT_PREFIX } from '../constants';
 
 /**
  * Select component.
  */
-@customElement('enchanted-select')
 @localized()
 export class EnchantedInputSelect extends EnchantedAcBaseElement {
 
@@ -355,8 +355,4 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-select': EnchantedInputSelect
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-select`, EnchantedInputSelect);

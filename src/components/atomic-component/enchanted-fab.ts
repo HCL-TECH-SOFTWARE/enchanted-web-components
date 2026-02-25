@@ -13,19 +13,18 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import { TemplateResult, html, nothing } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 
 // Helper imports
 import { getCurrentDirection } from "../localization";
-import { LOCALE_DIRECTIONS } from "../constants";
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from "../constants";
 import { FAB_PARTS, EnchantedFabType } from '../../types/cssClassEnums';
 
 // Component imports
 import  "./enchanted-badge";
 
-@customElement('enchanted-fab')
 export class EnchantedFab extends EnchantedAcBaseElement {
   @property({ reflect: true }) type: EnchantedFabType = EnchantedFabType.CONTAINED;
   @property({ type: Boolean, reflect: true }) extended = false;
@@ -64,8 +63,4 @@ export class EnchantedFab extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-fab': EnchantedFab;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-fab`, EnchantedFab);

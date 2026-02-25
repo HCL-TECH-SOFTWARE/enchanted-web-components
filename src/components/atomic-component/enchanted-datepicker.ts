@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
@@ -41,8 +41,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/help';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/circle--solid';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { COMPONENT_PREFIX } from '../constants';
 
-@customElement('enchanted-datepicker')
 export class EnchantedDatePicker extends EnchantedAcBaseElement {
   @property({ type: String }) name = 'datepicker'; // Name of the datepicker, can be used for form submission
   @property({ type: String }) label = 'Label'; // Label for the datepicker, displayed above the input
@@ -1015,8 +1015,4 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-datepicker': EnchantedDatePicker
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-datepicker`, EnchantedDatePicker);

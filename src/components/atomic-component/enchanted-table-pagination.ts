@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { html, nothing } from 'lit';
 import { debounce } from 'lodash';
 
@@ -35,9 +35,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/page--last';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 
-import { LOCALE_DIRECTIONS } from '../constants';
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from '../constants';
 
-@customElement('enchanted-table-pagination')
 export class EnchantedTablePagination extends EnchantedAcBaseElement {
   @property({ type: Boolean })
   disabled = false;
@@ -331,8 +330,4 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-table-pagination': EnchantedTablePagination;
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-table-pagination`, EnchantedTablePagination);

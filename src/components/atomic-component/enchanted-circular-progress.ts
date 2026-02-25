@@ -13,19 +13,19 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { css, html } from 'lit';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { CIRCULAR_PROGRESS_PARTS } from '../../types/cssClassEnums';
+import { COMPONENT_PREFIX } from '../constants';
 
 /**
  * EnchantedCircularProgress component - Indeterminate variant
  * Displays an animated circular progress indicator with track and progress colors
  * Based on Material UI's CircularProgress component
  */
-@customElement('enchanted-circular-progress')
 export class EnchantedCircularProgress extends EnchantedAcBaseElement {
   /**
    * Inline styles for @keyframes only.
@@ -202,8 +202,4 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-circular-progress': EnchantedCircularProgress
-  }
-}
+customElements.define(`${COMPONENT_PREFIX}enchanted-circular-progress`, EnchantedCircularProgress);

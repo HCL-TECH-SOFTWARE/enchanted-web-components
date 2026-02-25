@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { html, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
 import createDebug from 'debug';
@@ -24,7 +24,7 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
 import { getCurrentDirection } from '../localization';
-import { LOCALE_DIRECTIONS } from '../constants';
+import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from '../constants';
 import { EnchantedInputFieldType } from '../../types/enchanted-select';
 import { INPUT_TEXTFIELD_PARTS } from '../../types/cssClassEnums';
 import { AutoCompleteTextfieldEnum } from '../../types/enchanted-textfield';
@@ -35,7 +35,6 @@ const debug = createDebug('enchanted-web-components:components:ac:enchanted-text
 /**
  * Textfield component.
  */
-@customElement('enchanted-textfield')
 @localized()
 export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
@@ -276,8 +275,4 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-textfield': EnchantedInputTextfield
-  }
-} 
+customElements.define(`${COMPONENT_PREFIX}enchanted-textfield`, EnchantedInputTextfield);
