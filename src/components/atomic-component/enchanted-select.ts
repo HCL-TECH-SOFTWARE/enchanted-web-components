@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
+import { nothing } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
@@ -33,6 +34,11 @@ import { EnchantedInputFieldType, OptionData } from '../../types/enchanted-selec
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/caret--down';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_LIST_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-list`);
+const ENCHANTED_LIST_ITEM_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-list-item`);
+const ENCHANTED_BUTTON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-button`);
+const ENCHANTED_LIST_ITEM_SELECTOR = `${COMPONENT_PREFIX}enchanted-list-item`;
 
 /**
  * Select component.
@@ -152,7 +158,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
   
   private getSelectedOption(option: string | OptionData) {
     return html`
-      <${COMPONENT_PREFIX}enchanted-list-item
+      <${ENCHANTED_LIST_ITEM_TAG}
         @pointerdown=${this.handleListItemClick}
         exportparts="${Object.values(LIST_ITEM_PARTS).join(',')}" 
         tabindex=0
@@ -163,7 +169,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
         aria-selected="${(typeof option === 'string' ? this.selectedValue === option : this.selectedId === (option as OptionData)?.id) ? 'true' : 'false'}"
         id="${typeof option === 'string' ? uuid() : (option as OptionData).id || option}">
         ${typeof option === 'string' ? option : (option as OptionData).name || option}
-      </${COMPONENT_PREFIX}enchanted-list-item>
+      </${ENCHANTED_LIST_ITEM_TAG}>
     `;
   }
 
@@ -171,7 +177,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
     event.stopPropagation();
     this.toggleDropDown = !this.toggleDropDown;
     if (await this.updateComplete && this.toggleDropDown) {
-      this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+      this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_SELECTOR));
     }
   }
 
@@ -240,7 +246,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
       case 'Enter':
         event.preventDefault(); 
         if (await this.updateComplete) {
-          this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+          this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_SELECTOR));
         }
         if (this.currentFocusedItem) {
           this.currentFocusedItem.click();
@@ -329,7 +335,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
             </label>
           ` : nothing}
         </div>
-        <${COMPONENT_PREFIX}enchanted-button 
+        <${ENCHANTED_BUTTON_TAG} 
           buttontext=${buttonText}
           @click=${debounce(this.handleButtonClick, 300)}
           exportparts="${Object.values(BUTTON_PARTS).join(',')}"
@@ -343,12 +349,12 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
           ariaExpanded="${this.toggleDropDown ? 'true' : 'false'}"
           ariaLabel="${this.ariaLabel}"
         >
-        </${COMPONENT_PREFIX}enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
         ${!this.disabled && this.toggleDropDown ? html `
-          <${COMPONENT_PREFIX}enchanted-list exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="enchanted-select-list" id="list-${this.field}" role="listbox"
+          <${ENCHANTED_LIST_TAG} exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="enchanted-select-list" id="list-${this.field}" role="listbox"
             @mousedown=${() => { this.ignoreNextFocusOut = true; }}>
             ${options.map((option: string | OptionData) => {return this.getSelectedOption(option);})}
-          </${COMPONENT_PREFIX}enchanted-list>
+          </${ENCHANTED_LIST_TAG}>
         ` : nothing}
       </div>
     `;

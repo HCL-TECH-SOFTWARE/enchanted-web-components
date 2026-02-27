@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, TemplateResult } from 'lit';
+import { TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 
 // Component imports
@@ -28,6 +29,8 @@ import { BREADCRUMBS_ICON_TYPE } from '../../types/enchanted-breadcrumbs';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/home';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_SVG_ICON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-svg-icon`);
 
 export interface PathType {
   title?: string,
@@ -66,7 +69,7 @@ export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
   renderIcon() {
     // Check if icon is provided, then render it
     if (this.path?.icon) {
-      return html`<${COMPONENT_PREFIX}enchanted-svg-icon .icon=${this.path.icon} part=${BREADCRUMBS_PART.BREADCRUMBS_ICON} color="#00000099" data-testid="breadcrumbs-item-icon"/>`;
+      return html`<${ENCHANTED_SVG_ICON_TAG} .icon=${this.path.icon} part=${BREADCRUMBS_PART.BREADCRUMBS_ICON} color="#00000099" data-testid="breadcrumbs-item-icon"></${ENCHANTED_SVG_ICON_TAG}>`;
     }
 
     // If iconName is provided, render the corresponding icon

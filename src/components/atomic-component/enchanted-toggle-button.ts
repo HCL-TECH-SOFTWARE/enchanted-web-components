@@ -15,7 +15,8 @@
 
 // External imports
 import { property } from 'lit/decorators.js';
-import { html, nothing, TemplateResult } from 'lit';
+import { nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { isLTR } from '../localization';
 
 // Component imports
@@ -27,6 +28,9 @@ import './enchanted-icon-button';
 import { ICON_BUTTON_SIZES, TOGGLE_BUTTON_PARTS } from '../../types/cssClassEnums';
 import { ICON_BUTTON_EXPORT_PARTS } from '../exportParts';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_BADGE_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-badge`);
+const ENCHANTED_ICON_BUTTON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-icon-button`);
 
 export class EnchantedToggleButton extends EnchantedAcBaseElement {
   @property({ type: Boolean })
@@ -142,14 +146,14 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
         ${this.singleButton === true ? html`
           ${this.showBadge === true
           ? html`
-            <${COMPONENT_PREFIX}enchanted-badge 
+            <${ENCHANTED_BADGE_TAG} 
               data-testid="enchanted-badge" 
               part='${isLTR()
                 ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE
                 :`${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE} ${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE_RTL}`}'
-            ></${COMPONENT_PREFIX}enchanted-badge>`
+            ></${ENCHANTED_BADGE_TAG}>`
           : ''}
-          <${COMPONENT_PREFIX}enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             title=${this.singleButtonTitle}
             aria-label=${this.singleButtonAria}
             role='button'
@@ -162,7 +166,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
             data-testid="enchanted-toggle-single-button"
             exportparts="${ICON_BUTTON_EXPORT_PARTS}"
           >
-          </${COMPONENT_PREFIX}enchanted-icon-button>
+          </${ENCHANTED_ICON_BUTTON_TAG}>
         `
         : html`
           <button

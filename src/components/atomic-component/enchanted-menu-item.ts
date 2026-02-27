@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 
@@ -24,6 +24,8 @@ import './enchanted-list-item';
 // Helper imports
 import { LIST_ITEM_PARTS, MENU_ITEM_PARTS } from '../../types/cssClassEnums';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_LIST_ITEM_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-list-item`);
 
 @localized()
 export class EnchantedMenuItem extends EnchantedAcBaseElement {
@@ -69,7 +71,7 @@ export class EnchantedMenuItem extends EnchantedAcBaseElement {
   
   render() {
     return html`
-      <${COMPONENT_PREFIX}enchanted-list-item
+      <${ENCHANTED_LIST_ITEM_TAG}
         role="menuitem"
         cascading="0"
         exportparts="${Object.values(LIST_ITEM_PARTS).join(',')}"
@@ -80,7 +82,7 @@ export class EnchantedMenuItem extends EnchantedAcBaseElement {
         <div @mouseenter=${(evt: MouseEvent) => {return this.handleMenuItemTooltip(evt);}} part=${MENU_ITEM_PARTS.TEXT_ROOT}>
           <span part=${MENU_ITEM_PARTS.TEXT}>${this.text}</span>
         </div>
-      </${COMPONENT_PREFIX}enchanted-list-item>
+      </${ENCHANTED_LIST_ITEM_TAG}>
     `;
   }
 }

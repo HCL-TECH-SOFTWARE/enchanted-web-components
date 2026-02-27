@@ -12,12 +12,15 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-import { html, TemplateResult } from "lit";
+import { TemplateResult } from "lit";
+import { html, unsafeStatic } from "lit/static-html.js";
 import { property } from "lit/decorators.js";
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
 import { FAB_PARTS } from "../../types/cssClassEnums";
 import "./enchanted-fab";
 import { COMPONENT_PREFIX } from "../constants";
+
+const ENCHANTED_FAB_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-fab`);
 
 /**
  * AI-themed floating action button component using composition.
@@ -45,7 +48,7 @@ export class EnchantedFabAi extends EnchantedAcBaseElement {
 
   render() {
     return html`
-      <${COMPONENT_PREFIX}enchanted-fab
+      <${ENCHANTED_FAB_TAG}
         exportparts="${FAB_PARTS.FAB}, ${FAB_PARTS.FAB_RTL}, ${FAB_PARTS.ICON}, ${FAB_PARTS.LABEL}"
         ?extended=${this.extended}
         ?disabled=${this.disabled}
@@ -54,7 +57,7 @@ export class EnchantedFabAi extends EnchantedAcBaseElement {
         ?badge=${this.badge}
       >
         <slot name="badge" slot="badge"></slot>
-      </${COMPONENT_PREFIX}enchanted-fab>
+      </${ENCHANTED_FAB_TAG}>
     `;
   }
 }

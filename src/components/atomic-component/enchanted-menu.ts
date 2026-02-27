@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
+import { nothing } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property, state } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
@@ -28,6 +29,9 @@ import { BUTTON_PARTS, LIST_PARTS, MENU_PARTS } from '../../types/cssClassEnums'
 import { isLTR } from '../localization';
 import { EnchantedMenuPlacement, EnchantedMenuSize } from '../../types/enchanted-menu';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_LIST_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-list`);
+const ENCHANTED_MENU_ITEM_SELECTOR = `${COMPONENT_PREFIX}enchanted-menu-item`;
 
 @localized()
 export class EnchantedMenu extends EnchantedAcBaseElement {
@@ -139,7 +143,7 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
     event.preventDefault();
     event.stopPropagation();
     const target = event.target as HTMLElement;
-    const menuItem = target.closest('enchanted-menu-item');
+    const menuItem = target.closest(ENCHANTED_MENU_ITEM_SELECTOR);
     if (evt.detail && menuItem) {
       this.dispatchEvent(new CustomEvent('change', {
         bubbles: true, composed: true, detail: { 
@@ -170,13 +174,13 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
         >
           <div data-testid="menu-backdrop" aria-hidden="true" part=${MENU_PARTS.BACKDROP} @click=${debounce(this.toggleMenuOpen, 300)}></div>
           <div part=${MENU_PARTS.PAPER_ROOT} id="menu${this.componentId}" style="visibility: hidden;">
-            <${COMPONENT_PREFIX}enchanted-list
+            <${ENCHANTED_LIST_TAG}
               role="menu"
               exportparts="${Object.values(LIST_PARTS).join(',')}"
               @menuItemClick=${this.handleMenuItemClick}
             >
               <slot name="menu-items"></slot>
-            </${COMPONENT_PREFIX}enchanted-list>
+            </${ENCHANTED_LIST_TAG}>
           </div>
         </div>
       `;

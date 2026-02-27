@@ -15,7 +15,8 @@
 // External imports
 import { property } from 'lit/decorators.js';
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
-import { html, nothing, TemplateResult } from 'lit';
+import { nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 // Component imports
 import './enchanted-avatar';
@@ -24,6 +25,8 @@ import './enchanted-avatar';
 import { AVATAR_TYPE, AVATAR_VARIANT, CHIP_PARTS } from '../../types/cssClassEnums';
 import { getCurrentDirection } from '../localization';
 import { COMPONENT_PREFIX, LOCALE_DIRECTIONS } from '../constants';
+
+const ENCHANTED_AVATAR_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-avatar`);
 
 export class EnchantedChip extends EnchantedAcBaseElement {
   @property({ type: String }) name = '';
@@ -47,8 +50,8 @@ export class EnchantedChip extends EnchantedAcBaseElement {
     return html`
       <div part=${this.disabled ? `${CHIP_PARTS.CHIP_DIV} ${CHIP_PARTS.CHIP_DIV_DISABLED}` : CHIP_PARTS.CHIP_DIV} tabindex=${this.disabled ? '-1' : '0'}>
         ${this.showAvatar
-          ? html`<${COMPONENT_PREFIX}enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${this.icon} ?disabled=${this.disabled}>
-            </${COMPONENT_PREFIX}enchanted-avatar>`
+          ? html`<${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${this.icon} ?disabled=${this.disabled}>
+            </${ENCHANTED_AVATAR_TAG}>`
           : nothing}
         <span part=${CHIP_PARTS.CHIP_NAME}>${this.name}</span>
         ${this.showChipCount

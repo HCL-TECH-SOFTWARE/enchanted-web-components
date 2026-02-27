@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, TemplateResult } from 'lit';
+import { TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 
 // Component imports
@@ -78,6 +79,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user-profile-
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/video';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/XLS';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_AVATAR_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-avatar`);
 
 export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
  
@@ -212,7 +215,7 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
 
    render() {
      return html`
-        <${COMPONENT_PREFIX}enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           data-testId="enchanted-item-type-avatar"
           variant=${this.imageUrl && this.itemType === ICON_ITEM_TYPE.IMAGE ? AVATAR_VARIANT.AVATAR_IMG : AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
           type=${AVATAR_TYPE.AVATAR_ROUNDED}
@@ -220,7 +223,7 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
           imgUrl="${this.imageUrl}"
           color="${this.getSvgIcon(this.itemType).color}"
           exportparts="${ITEM_TYPE_AVATAR_EXPORT_PARTS}"
-        />
+        ></${ENCHANTED_AVATAR_TAG}>
       `;
    }
 }

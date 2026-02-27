@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
+import { nothing } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 
@@ -31,6 +32,10 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/filter';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_TEXTFIELD_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-textfield`);
+const ENCHANTED_BUTTON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-button`);
+const ENCHANTED_BADGE_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-badge`);
 
 @localized()
 export class EnchantedHeader extends EnchantedAcBaseElement {
@@ -65,34 +70,34 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
     switch (variant) {
       case HEADER_VARIANT.HEADER_AUTHORING:
         return html`
-          <${COMPONENT_PREFIX}enchanted-textfield label=""
+          <${ENCHANTED_TEXTFIELD_TAG} label=""
             ?disabled="${this.disabled}"
             exportparts=${HEADER_PARTS.INPUT} 
             placeholder="${this.getMessage('header.enduser.search.placeholder')}"
           >
-          </${COMPONENT_PREFIX}enchanted-textfield>
+          </${ENCHANTED_TEXTFIELD_TAG}>
           <div part=${HEADER_PARTS.HEADER_SPACING_END}>
-            <${COMPONENT_PREFIX}enchanted-button
+            <${ENCHANTED_BUTTON_TAG}
               ?disabled="${this.disabled}"
               buttontext=''
               ?outlined="${false}"
               data-testid="enchanted-filter-button"
               .icon="${html`<icon-filter size="16" color="currentColor"></icon-filter>`}"
             >
-            </${COMPONENT_PREFIX}enchanted-button>
-            <${COMPONENT_PREFIX}enchanted-badge part=${EnchantedBadgeParts.BADGE_DOT}/>
+            </${ENCHANTED_BUTTON_TAG}>
+            <${ENCHANTED_BADGE_TAG} part=${EnchantedBadgeParts.BADGE_DOT}/>
           </div>`;
       case HEADER_VARIANT.HEADER_AUTHORING_MODAL_CLOSE:
         return html`
           <div part=${HEADER_PARTS.HEADER_SPACING_END}>
-            <${COMPONENT_PREFIX}enchanted-button
+            <${ENCHANTED_BUTTON_TAG}
               ?disabled="${this.disabled}"
               .icon="${html`<icon-search size="16" color="currentColor"></icon-search>`}"
               buttontext="${this.getMessage('header.enduser.search')}"
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
               ?outlined="${true}"
             >
-            </${COMPONENT_PREFIX}enchanted-button>
+            </${ENCHANTED_BUTTON_TAG}>
           </div>`;
       case HEADER_VARIANT.HEADER_ENDUSER:
         return html`
@@ -108,14 +113,14 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
           <div part=${this.isSideNavOpen ? HEADER_PARTS.HEADER_SPACING_START_HAMBURGER : HEADER_PARTS.HEADER_SPACING_START} >
             ${this.showBackIcon
               ? html`
-              <${COMPONENT_PREFIX}enchanted-button
+              <${ENCHANTED_BUTTON_TAG}
               ?disabled="${this.disabled}"
               buttontext=''
               ?outlined="${false}"
               data-testid="enchanted-back-button"
               .icon="${html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-left>`}"
             >
-            </${COMPONENT_PREFIX}enchanted-button>`
+            </${ENCHANTED_BUTTON_TAG}>`
               : nothing
             }
           </div>

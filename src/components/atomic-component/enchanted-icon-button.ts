@@ -14,7 +14,8 @@
  * ======================================================================== */
 // External imports
 import { property } from 'lit/decorators.js';
-import { html, TemplateResult } from 'lit';
+import { TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -26,6 +27,9 @@ import { ICON_BUTTON_EXPORT_PARTS } from '../exportParts';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { COMPONENT_PREFIX } from '../constants';
 import { EnchantedButton } from './enchanted-button';
+
+const ENCHANTED_BUTTON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-button`);
+const ENCHANTED_BUTTON_SELECTOR = `${COMPONENT_PREFIX}enchanted-button`;
 
 export class EnchantedIconButton extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
@@ -62,13 +66,13 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
   ariaLabel: string = 'Icon button'; // Provide a default accessible name
 
   public _focusButton() {
-    const button: EnchantedButton | null = this.renderRoot.querySelector(`${COMPONENT_PREFIX}enchanted-button`);
+    const button: EnchantedButton | null = this.renderRoot.querySelector(ENCHANTED_BUTTON_SELECTOR);
     button?._focusButton();
   }
 
   render() {
     return html`
-      <${COMPONENT_PREFIX}enchanted-button
+      <${ENCHANTED_BUTTON_TAG}
         outlined="false"
         data-testid="enchanted-icon-button"
         ?inverseColor=${this.inverseColor}
@@ -84,7 +88,7 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
         @click=${this._handleClick}
         @keydown=${this._handleKeyDown} // Add keyboard event listener
         >
-        </${COMPONENT_PREFIX}enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `;
   }
 

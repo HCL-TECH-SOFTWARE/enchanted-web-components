@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 
 // Component imports
@@ -30,6 +30,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt'
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
 import { COMPONENT_PREFIX } from '../constants';
 
+const ENCHANTED_CIRCULAR_PROGRESS_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-circular-progress`);
+
 export class EnchantedSnackbar extends EnchantedAcBaseElement {
 
     @property({ type: String }) message = '';
@@ -40,7 +42,7 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
         // progresscolor is HCLSOFTWAREBLUE09, trackcolor is the hex equivalent of Enchanted Palette WHITE15P
         return html`
           <div part="${SNACKBAR_PARTS.SNACKBAR_PROGRESS}">
-            <${COMPONENT_PREFIX}enchanted-circular-progress
+            <${ENCHANTED_CIRCULAR_PROGRESS_TAG}
               size="36" strokewidth="2"
               progresscolor="#B3D9F8"
               trackcolor="#ffffff26"

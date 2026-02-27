@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 
 // Component imports
@@ -26,6 +26,8 @@ import { BUTTON_PARTS, BUTTON_VARIANT, PANEL_PARTS, PANEL_POSITION } from '../..
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_BUTTON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-button`);
 
 export class EnchantedPanel extends EnchantedAcBaseElement {
 
@@ -66,7 +68,7 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
           <div>
             <slot name="center-title-content"></slot>
           </div>
-          <${COMPONENT_PREFIX}enchanted-button
+          <${ENCHANTED_BUTTON_TAG}
             part=${PANEL_PARTS.PANEL_CLOSE_BUTTON}
             exportparts="${Object.values(BUTTON_PARTS).join(",")}"
             buttontext=""
@@ -75,7 +77,7 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
             @click=${this._handleCloseClick}
             variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
           >
-          </${COMPONENT_PREFIX}enchanted-button>
+          </${ENCHANTED_BUTTON_TAG}>
         </div>
         <div part=${PANEL_PARTS.PANEL_CONTENT} tabindex="-1">
           <slot name="content"></slot>

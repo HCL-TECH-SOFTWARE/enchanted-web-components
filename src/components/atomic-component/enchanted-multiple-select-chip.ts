@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
+import { nothing } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
@@ -37,6 +38,13 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close--filled';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_LIST_ITEM_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-list-item`);
+const ENCHANTED_CHIP_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-chip`);
+const ENCHANTED_ICON_BUTTON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-icon-button`);
+const ENCHANTED_BUTTON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-button`);
+const ENCHANTED_LIST_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-list`);
+const ENCHANTED_LIST_ITEM_SELECTOR = `${COMPONENT_PREFIX}enchanted-list-item`;
 
 @localized()
 export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
@@ -210,7 +218,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
         } else {
           this.toggleDropDown = !this.toggleDropDown;
           if (this.toggleDropDown) {
-            this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+            this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_SELECTOR));
             if (this.listItems.length > 0) {
               this.currentFocusedItem = this.listItems[0];
               this.currentFocusedItem.focus();
@@ -225,7 +233,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
       this.requestUpdate();
     } else if (event.key === KeyboardInputKeys.ARROW_DOWN && this.toggleDropDown) {
       event.preventDefault();
-      this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+      this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_SELECTOR));
       if (this.listItems.length > 0) {
         this.currentFocusedItem = this.listItems[0];
         this.currentFocusedItem.focus();
@@ -261,7 +269,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
     if (this.disabled) return;
     this.toggleDropDown = !this.toggleDropDown;
     if (await this.updateComplete && this.toggleDropDown) {
-      this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+      this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_SELECTOR));
       if (this.listItems.length > 0) {
         this.currentFocusedItem = this.listItems[0];
         this.currentFocusedItem.focus();
@@ -294,7 +302,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
     switch (event.key) {
       case KeyboardInputKeys.ARROW_DOWN: {
         event.preventDefault();
-        this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+        this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_SELECTOR));
         const currentIndex = this.currentFocusedItem
           ? this.listItems.indexOf(this.currentFocusedItem)
           : -1;
@@ -320,7 +328,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
       case KeyboardInputKeys.ENTER: {
         event.preventDefault();
         if (await this.updateComplete) {
-          this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+          this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_SELECTOR));
         }
         if (this.currentFocusedItem) {
           this.currentFocusedItem.click();
@@ -368,7 +376,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
   private getSelectedOption(option: string | OptionData) {
     const id = typeof option === 'string' ? option : option.id || option.name;
     return html`
-    <${COMPONENT_PREFIX}enchanted-list-item
+    <${ENCHANTED_LIST_ITEM_TAG}
       @pointerdown=${this.handleListItemClick}
       @keydown=${(e: KeyboardEvent) => {
         if (e.key === KeyboardInputKeys.ENTER || e.key === KeyboardInputKeys.SPACE) {
@@ -402,7 +410,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
           ${this.getOptionName(option)}
         </div>
       </div>
-    </${COMPONENT_PREFIX}enchanted-list-item>
+    </${ENCHANTED_LIST_ITEM_TAG}>
   `;
   }
 
@@ -411,7 +419,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
     ${this.selectedValues.map((value) => {
       const { id, name  = '' } = value;
       return html`
-        <${COMPONENT_PREFIX}enchanted-chip
+        <${ENCHANTED_CHIP_TAG}
           name="${name}"
           ?clearIcon=${this.clearIcon}
           data-testid="enchanted-multiple-select-chip"
@@ -440,7 +448,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
                 </span>
               `
           : nothing}
-        </${COMPONENT_PREFIX}enchanted-chip>
+        </${ENCHANTED_CHIP_TAG}>
       `;
     })}
   `;
@@ -554,7 +562,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
         <div part="${INPUT_MULTI_SELECT_PARTS.CLEAR_AND_ICON_CONTAINER}">
           ${this.selectedValues.length > 0
         ? html`
-              <${COMPONENT_PREFIX}enchanted-icon-button
+              <${ENCHANTED_ICON_BUTTON_TAG}
                 part="${this.getPartClearAllIcon()}"
                 .icon="${html`<icon-close-filled size="16" color="rgba(0, 0, 0, 0.60)"></icon-close-filled>`}"
                 title="${INPUT_MULTI_SELECT_PARTS.CLEAR}"
@@ -585,10 +593,10 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
                 }}
                 exportparts="${Object.values(ICON_BUTTON_EXPORT_PARTS).join(',')}"
               >
-              </${COMPONENT_PREFIX}enchanted-icon-button>
+              </${ENCHANTED_ICON_BUTTON_TAG}>
             `
         : nothing}
-          <${COMPONENT_PREFIX}enchanted-button
+          <${ENCHANTED_BUTTON_TAG}
             @click=${(event: Event) => {
               // Close other open enchanted-multiple-select-chip dropdowns when this one is clicked.
               document.querySelectorAll(`${COMPONENT_PREFIX}enchanted-multiple-select-chip`).forEach((el) => {
@@ -620,12 +628,12 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
             ?disabled="${this.disabled}"
             aria-label=${this.getMessage('authoring.multi.select.toggle.dropdown')}
             role="button"
-          ></${COMPONENT_PREFIX}enchanted-button>
+          ></${ENCHANTED_BUTTON_TAG}>
         </div>
       </div>
       ${this.toggleDropDown
         ? html`
-            <${COMPONENT_PREFIX}enchanted-list
+            <${ENCHANTED_LIST_TAG}
               exportparts="${LIST_PARTS.UNORDERED_LIST}"
               style=${this.customWidth ? `width: ${this.customWidth}px;` : nothing}
               id="enchanted-multi-select-list"
@@ -642,7 +650,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
                 return this.getSelectedOption(option);
               })
               : html`
-                <${COMPONENT_PREFIX}enchanted-list-item
+                <${ENCHANTED_LIST_ITEM_TAG}
                   part="${INPUT_MULTI_SELECT_PARTS.NO_LIST_ITEM}"
                   data-testid="enchanted-multi-select-listitem-no-options"
                   role="option"
@@ -651,9 +659,9 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
                   <div part="${INPUT_MULTI_SELECT_PARTS.LIST_ITEM_NO_CONTENT}">
                     No options
                   </div>
-                </${COMPONENT_PREFIX}enchanted-list-item>
+                </${ENCHANTED_LIST_ITEM_TAG}>
               `}
-            </${COMPONENT_PREFIX}enchanted-list>
+            </${ENCHANTED_LIST_TAG}>
           `
         : nothing}
         ${this.showHelperText ? html`<div part="${INPUT_MULTI_SELECT_PARTS.HELPER_TEXT}" aria-label="${this.helperText}">${this.helperText}</div>` : nothing}

@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { property, state } from 'lit/decorators.js';
 
 // Component imports
@@ -28,6 +28,9 @@ import { isLTR } from '../localization';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
 import { COMPONENT_PREFIX } from '../constants';
+
+const ENCHANTED_BREADCRUMBS_ITEM_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-breadcrumbs-item`);
+const ENCHANTED_SVG_ICON_TAG = unsafeStatic(`${COMPONENT_PREFIX}enchanted-svg-icon`);
 
 /**
  * Breadcrumb component.
@@ -65,7 +68,7 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
                   index < this.paths.length-1 ? 
                     html`
                       <li part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LIST}" key="breadcrumb-${index}">
-                        <${COMPONENT_PREFIX}enchanted-breadcrumbs-item
+                        <${ENCHANTED_BREADCRUMBS_ITEM_TAG}
                           @click="${(event: Event) => {
                             if (this.handleBreadcrumbClick && !path.disabled) this.handleBreadcrumbClick(event, path);
                           }}"
@@ -74,24 +77,24 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
                           exportparts="${this.exportParts}"
                           data-testid="breadcrumbs-item"
                         >
-                        </${COMPONENT_PREFIX}enchanted-breadcrumbs-item>
+                        </${ENCHANTED_BREADCRUMBS_ITEM_TAG}>
                       </li>
                         <li part="${BREADCRUMBS_PART.BREADCRUMBS_SEPARATOR}" aria-hidden="true">
-                          <${COMPONENT_PREFIX}enchanted-svg-icon .icon=${ this.isLtr
+                          <${ENCHANTED_SVG_ICON_TAG} .icon=${ this.isLtr
                             ? html`<icon-chevron-right size="16"></icon-chevron-right>`
                             : html`<icon-chevron-left size="16"></icon-chevron-left>`
-                          } ?useCurrentColor=${true}></${COMPONENT_PREFIX}enchanted-svg-icon>
+                          } ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
                         </li>` :
                     html`
                       <li part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LIST}" key="breadcrumb-${index}">
-                        <${COMPONENT_PREFIX}enchanted-breadcrumbs-item
+                        <${ENCHANTED_BREADCRUMBS_ITEM_TAG}
                           .path="${path}"
                           key="breadcrumb-${index}"
                           exportparts="${this.exportParts}"
                           partProp="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LAST}"
                           data-testid="breadcrumbs-item"
                           aria-current="page"
-                        />
+                        ></${ENCHANTED_BREADCRUMBS_ITEM_TAG}>
                       </li>`
                 }
               `;
@@ -104,4 +107,4 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(`${COMPONENT_PREFIX}enchanted-breadcrumbss`, EnchantedBreadcrumbs);
+customElements.define(`${COMPONENT_PREFIX}enchanted-breadcrumbs`, EnchantedBreadcrumbs);
