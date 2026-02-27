@@ -163,7 +163,6 @@ The library includes 30+ web components:
    - Run `npm run lint` to check for issues
    - Use `npm run lint-fix` to auto-fix linting issues
    - Run `npm run test-unit` to ensure unit tests pass
-   - Run `npm run test-snapshot` for visual regression tests
 4. **Building**:
    - Run `npm run build` (compiles SCSS + TypeScript)
    - Run `npm run prepare-for-publish` to prepare distribution package
@@ -201,7 +200,6 @@ Before committing code, ensure:
 - [ ] Code builds without errors: `npm run build`
 - [ ] Linting passes: `npm run lint` (auto-fix with `npm run lint-fix`)
 - [ ] Unit tests pass: `npm run test-unit`
-- [ ] Snapshot tests pass (if UI changes): `npm run test-snapshot`
 - [ ] SCSS compiles: `npm run compile-enchanted-css`
 - [ ] Storybook stories updated for new features
 - [ ] CHANGELOG.md updated with changes
@@ -256,10 +254,6 @@ render() {
   - Use WebdriverIO with @testing-library/webdriverio
   - Run with `npm run test-unit`
   - Tests use Mocha framework
-- **Snapshot Tests**: Located in `src/_tests_/snapshot/`
-  - Visual regression tests using @wdio/visual-service
-  - Run with `npm run test-snapshot`
-  - Generates visual diffs for component changes
 - **Test Structure**:
   - Test helpers in `src/_tests_/helpers.ts`
   - Constants in `src/_tests_/constants.ts`
@@ -418,7 +412,6 @@ Open source contributions welcome in multiple areas:
 
 ### Test Failures
 - **WebdriverIO tests timing out**: Increase timeout in `wdio.*.conf.ts` files
-- **Snapshot tests failing**: Review visual diffs, update baselines if changes are intentional
 - **Unit tests failing after changes**: Ensure component properties and events are correctly mocked
 
 ### CSS/Styling Issues

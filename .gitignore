@@ -12,8 +12,6 @@ dist
 dist-ssr
 coverage
 *.local
-src/_tests_/snapshot/baseline
-src/_tests_/snapshot/output
 
 # Editor directories and files
 .vscode/*

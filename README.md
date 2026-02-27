@@ -41,4 +41,4 @@ We provide the following utility development commands:
 | `styling` | `npm run compile-enchanted-css` and `npm run watch-enchanted-css` | Runs the styling tasks |
 | `build storybook` | `npm run build-storybook` | Builds a storybook |
 | `storybook` | `npm run storybook` | Runs a storybook instance |
-| `testing` | `npm run test-unit` and `npm run test-snapshot` | Run unit and snapshot tests |
+| `testing` | `npm run test-unit` | Run unit tests |
