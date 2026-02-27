@@ -87,8 +87,7 @@ export default meta;
 
 type Story = StoryObj<EnchantedTablePaginationProps>;
 
-export const EnchantedTablePaginationStory: Story = {
-  name: 'enchanted-table-pagination',
+export const Default: Story = {
   render: (args) => {
     return html`
       <enchanted-table-pagination

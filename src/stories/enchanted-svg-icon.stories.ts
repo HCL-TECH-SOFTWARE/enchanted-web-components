@@ -78,8 +78,7 @@ export default meta;
 
 type Story = StoryObj<EnchantedSvgIconProps>;
 
-export const EnchantedSvgIconStory: Story = {
-  name: 'enchanted-svg-icon',
+export const Default: Story = {
   render: (args) => {
     return html`
       <enchanted-svg-icon
