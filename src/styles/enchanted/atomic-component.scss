@@ -51,6 +51,14 @@
 @use 'components/atomic-component/enchanted-badge.scss';
 @use 'common/typography';
 
+enchanted-accordion {
+  @include enchanted-accordion.enchanted-accordion-base-styles;
+}
+
+enchanted-accordion-summary {
+  @include enchanted-accordion-summary.enchanted-accordion-summary-base-styles;
+}
+
 enchanted-link {
   @include enchanted-link.enchanted-link-base-styles;
 }

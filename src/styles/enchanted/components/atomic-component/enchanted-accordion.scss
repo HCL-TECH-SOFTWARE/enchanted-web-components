@@ -21,7 +21,9 @@
 $transition-fast: 0.3s ease;
 $icon-gap: 8px;
 
-@mixin accordion-base-styles {
+@mixin enchanted-accordion-base-styles {
+  display: block;
+
   &::part(container),
   &::part(container-rtl) {
     display: flex;
@@ -157,10 +159,6 @@ $icon-gap: 8px;
       background-color: transparent;
     }
   }
-}
-
-enchanted-accordion {
-  display: block;
 
   &[type="outlined"] {
     border: 1px solid map.get(themeMap.$enchantedPalette, NG300);
@@ -178,9 +176,9 @@ enchanted-accordion {
   &[type="no-outline"] {
     border: none;
   }
-  @include accordion-base-styles;
-}
-enchanted-accordion:hover::part(container),
-enchanted-accordion:hover::part(container-rtl) {
-  background-color: palette.clr("light", "action", "hover");
+
+  &:hover::part(container),
+  &:hover::part(container-rtl) {
+    background-color: palette.clr("light", "action", "hover");
+  }
 }

@@ -20,43 +20,39 @@
 
 $label-horizontal-padding: 10px;
 
-@mixin accordion-summary-base-styles {
-  enchanted-accordion-summary {
-    &::part(summary),
-    &::part(summary-rtl) {
-      display: flex;
-      flex-direction: column;
-      padding: 4px;
-      transition: background-color 0.3s ease;
-      border-radius: 0;
-      cursor: pointer;
-    }
+@mixin enchanted-accordion-summary-base-styles {
+  &::part(summary),
+  &::part(summary-rtl) {
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    transition: background-color 0.3s ease;
+    border-radius: 0;
+    cursor: pointer;
+  }
 
+  &::part(label),
+  &::part(label-rtl) {
+    color: palette.clr('light', 'text', 'primary');
+    padding: 0px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+  }
+
+  &::part(secondary),
+  &::part(secondary-rtl) {
+    @include typography.caption;
+    color: map.get(themeMap.$enchantedPalette, BLACK55P);
+    padding-left: 0px;
+  }
+
+  &[disabled] {
     &::part(label),
-    &::part(label-rtl) {
-      color: palette.clr('light', 'text', 'primary');
-      padding: 0px 0px;
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 14px;
-    }
-
+    &::part(label-rtl),
     &::part(secondary),
     &::part(secondary-rtl) {
-      @include typography.caption;
-      color: map.get(themeMap.$enchantedPalette, BLACK55P);
-      padding-left: 0px;
-    }
-
-    &[disabled] {
-      &::part(label),
-      &::part(label-rtl),
-      &::part(secondary),
-      &::part(secondary-rtl) {
-        color: palette.clr("light", "text", "disabled");
-      }
+      color: palette.clr("light", "text", "disabled");
     }
   }
 }
-
-@include accordion-summary-base-styles;
