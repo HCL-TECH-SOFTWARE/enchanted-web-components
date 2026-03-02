@@ -12,6 +12,20 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-@use 'atomic-component.scss' with (
-  $component-prefix: '',
-);
+import { defineConfig, loadEnv } from 'vite';
+
+// ...existing code...
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const componentPrefix = env.VITE_COMPONENT_PREFIX ? `${env.VITE_COMPONENT_PREFIX}-` : '';
+
+  return {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `$component-prefix: "${componentPrefix}";`,
+        },
+      },
+    },
+  };
+});
