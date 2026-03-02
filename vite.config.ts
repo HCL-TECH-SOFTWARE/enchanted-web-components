@@ -17,7 +17,7 @@ import { defineConfig, loadEnv } from 'vite';
 // ...existing code...
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const componentPrefix = env.VITE_COMPONENT_PREFIX ? `${env.VITE_COMPONENT_PREFIX}-` : '';
+  const componentPrefix = env.VITE_COMPONENT_PREFIX ? env.VITE_COMPONENT_PREFIX : '';
 
   return {
     css: {
