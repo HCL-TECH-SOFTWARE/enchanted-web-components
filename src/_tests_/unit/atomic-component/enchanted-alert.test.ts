@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, expect } from '@wdio/globals';
 
 // Component imports
@@ -21,8 +22,9 @@ import '../../../components/atomic-component/enchanted-alert';
 
 // Helpers imports
 import { ALERT_SEVERITY, ALERT_VARIANTS } from '../../../types/cssClassEnums';
+import { ENCHANTED_ALERT_TAG, ENCHANTED_ALERT_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedAlert component testing', () => {
+describe(`${ENCHANTED_ALERT_TAG_NAME} component testing`, () => {
   before(() => {
     if (document.body.firstElementChild) {
       document.body.removeChild(document.body.firstElementChild);
@@ -35,120 +37,120 @@ describe('EnchantedAlert component testing', () => {
     }
   });
 
-  it('EnchantedAlert - should render without crashing', async () => {
-    let component = document.createElement('enchanted-alert');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_ALERT_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedAlert - should render severity="info" variant="contained"', async () => {
+  it('should render severity="info" variant="contained"', async () => {
     render(
       html`
-        <enchanted-alert message="contained-info" severity="info" variant="contained"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="contained-info" severity="info" variant="contained"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_CONTAINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_INFO);
     await expect(component).toHaveAttribute('message', 'contained-info');
   });
 
-  it('EnchantedAlert - should render severity="info" variant="outlined"', async () => {
+  it('should render severity="info" variant="outlined"', async () => {
     render(
       html`
-        <enchanted-alert message="outlined-info" severity="info" variant="outlined"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="outlined-info" severity="info" variant="outlined"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_OUTLINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_INFO);
     await expect(component).toHaveAttribute('message', 'outlined-info');
   });
 
-  it('EnchantedAlert - should render severity="warning" variant="contained"', async () => {
+  it('should render severity="warning" variant="contained"', async () => {
     render(
       html`
-        <enchanted-alert message="contained-warning" severity="warning" variant="contained"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="contained-warning" severity="warning" variant="contained"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_CONTAINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_WARNING);
     await expect(component).toHaveAttribute('message', 'contained-warning');
   });
 
-  it('EnchantedAlert - should render severity="warning" variant="outlined"', async () => {
+  it('should render severity="warning" variant="outlined"', async () => {
     render(
       html`
-        <enchanted-alert message="outlined-warning" severity="warning" variant="outlined"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="outlined-warning" severity="warning" variant="outlined"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_OUTLINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_WARNING);
     await expect(component).toHaveAttribute('message', 'outlined-warning');
   });
 
-  it('EnchantedAlert - should render severity="success" variant="contained"', async () => {
+  it('should render severity="success" variant="contained"', async () => {
     render(
       html`
-        <enchanted-alert message="contained-success" severity="success" variant="contained"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="contained-success" severity="success" variant="contained"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_CONTAINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_SUCCESS);
     await expect(component).toHaveAttribute('message', 'contained-success');
   });
 
-  it('EnchantedAlert - should render severity="success" variant="outlined"', async () => {
+  it('should render severity="success" variant="outlined"', async () => {
     render(
       html`
-        <enchanted-alert message="outlined-success" severity="success" variant="outlined"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="outlined-success" severity="success" variant="outlined"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_OUTLINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_SUCCESS);
     await expect(component).toHaveAttribute('message', 'outlined-success');
   });
   
-  it('EnchantedAlert - should render severity="error" variant="contained"', async () => {
+  it('should render severity="error" variant="contained"', async () => {
     render(
       html`
-        <enchanted-alert message="contained-error" severity="error" variant="contained"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="contained-error" severity="error" variant="contained"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_CONTAINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_ERROR);
     await expect(component).toHaveAttribute('message', 'contained-error');
   });
 
-  it('EnchantedAlert - should render severity="error" variant="outlined"', async () => {
+  it('should render severity="error" variant="outlined"', async () => {
     render(
       html`
-        <enchanted-alert message="outlined-error" severity="error" variant="outlined"></enchanted-alert>
+        <${ENCHANTED_ALERT_TAG} message="outlined-error" severity="error" variant="outlined"></${ENCHANTED_ALERT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-alert').getElement();
+    let component = await $(ENCHANTED_ALERT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_OUTLINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_ERROR);

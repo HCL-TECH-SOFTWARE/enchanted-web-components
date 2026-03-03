@@ -14,7 +14,8 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { render } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-avatar';
@@ -22,8 +23,9 @@ import '../../../components/atomic-component/enchanted-avatar';
 // Helper imports
 import { AVATAR_COLOR, AVATAR_PARTS, AVATAR_TYPE, AVATAR_VARIANT } from '../../../types/cssClassEnums';
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_AVATAR_TAG, ENCHANTED_AVATAR_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedAvatar component testing', () => {
+describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
     if (document.body.firstElementChild) {
@@ -37,23 +39,23 @@ describe('EnchantedAvatar component testing', () => {
     }
   });
 
-  it('EnchantedAvatar - should render without crashing', async () => {
-    let component = document.createElement('enchanted-avatar');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_AVATAR_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedAvatar - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-avatar');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_AVATAR_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedAvatar - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-avatar');
+  it('validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_AVATAR_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).not.toHaveAttribute('variant');
     await expect(component).not.toHaveAttribute('imgUrl');
@@ -62,8 +64,8 @@ describe('EnchantedAvatar component testing', () => {
     component.remove();
   });
 
-  it('EnchantedAvatar - set and remove attributes and validate', async () => {
-    let component = document.createElement('enchanted-avatar');
+  it('set and remove attributes and validate', async () => {
+    let component = document.createElement(ENCHANTED_AVATAR_TAG_NAME);
     component.setAttribute('variant', AVATAR_VARIANT.AVATAR_ICON);
     document.body.appendChild(component);
     await expect($(component).getAttribute('variant')).not.toBeNull();
@@ -71,26 +73,26 @@ describe('EnchantedAvatar component testing', () => {
     component.remove();
   });
 
-  it('EnchantedAvatar - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-avatar');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_AVATAR_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedAvatar - should render component with letter variant and validate', async () => {
+  it('should render component with letter variant and validate', async () => {
     render(
       html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_LETTER}
           type=${AVATAR_TYPE.AVATAR_ROUNDED}
           avatarText="Abc"
           imgUrl="testImageURL"
           iconUrl="testIconURL">
-        ></enchanted-avatar>
+        ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-avatar').getElement();
+    let component = await $(ENCHANTED_AVATAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', AVATAR_VARIANT.AVATAR_LETTER);
     await expect(component).toHaveAttribute('avatarText', 'Abc');
@@ -101,20 +103,20 @@ describe('EnchantedAvatar component testing', () => {
     await expect(letterElement).toHaveText('Ab');
   });
 
-  it('EnchantedAvatar - should render component with icon rounded variant and validate', async () => {
+  it('should render component with icon rounded variant and validate', async () => {
     render(
       html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_ICON}
           type=${AVATAR_TYPE.AVATAR_ROUNDED}
           avatarText="Abc"
           imgUrl="testImageURL"
-          iconUrl="testIconURL">
-        ></enchanted-avatar>
+          iconUrl="testIconURL"
+        ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-avatar').getElement();
+    let component = await $(ENCHANTED_AVATAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', AVATAR_VARIANT.AVATAR_ICON);
     await expect(component).toHaveAttribute('avatarText', 'Abc');
@@ -127,18 +129,18 @@ describe('EnchantedAvatar component testing', () => {
     await expect(iconElement).toHaveElementProperty('alt', AVATAR_PARTS.AVATAR_ICON_ROUNDED);
   });
 
-  it('EnchantedAvatar - should render component with icon circular variant and validate', async () => {
+  it('should render component with icon circular variant and validate', async () => {
     render(
       html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_ICON}
           type=${AVATAR_TYPE.AVATAR_CIRCULAR}
           iconUrl="testIconURL">
-        ></enchanted-avatar>
+        ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-avatar').getElement();
+    let component = await $(ENCHANTED_AVATAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', AVATAR_VARIANT.AVATAR_ICON);
     await expect(component).toHaveAttribute('iconUrl', 'testIconURL');
@@ -149,19 +151,19 @@ describe('EnchantedAvatar component testing', () => {
     await expect(iconElement).toHaveElementProperty('alt', AVATAR_PARTS.AVATAR_ICON_CIRCULAR);
   });
 
-  it('EnchantedAvatar - should render component with icon template, rounded, color and validate', async () => {
+  it('should render component with icon template, rounded, color and validate', async () => {
     render(
       html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
           type=${AVATAR_TYPE.AVATAR_ROUNDED}
           .iconTemplate=${html`<icon-content-item></icon-content-item>`}
           color="${AVATAR_COLOR.AVATAR_BLUE}">
-        ></enchanted-avatar>
+        ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-avatar').getElement();
+    let component = await $(ENCHANTED_AVATAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', AVATAR_VARIANT.AVATAR_ICON_TEMPLATE);
     await expect(component).toHaveAttribute('type', AVATAR_TYPE.AVATAR_ROUNDED);
@@ -171,18 +173,18 @@ describe('EnchantedAvatar component testing', () => {
     await expect(iconElement).toBeExisting();
   });
 
-  it('EnchantedAvatar - should render component with icon template, circular and validate', async () => {
+  it('should render component with icon template, circular and validate', async () => {
     render(
       html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
           type=${AVATAR_TYPE.AVATAR_CIRCULAR}
-          .iconTemplate=${html`<icon-content-item></icon-content-item>`}>
-        ></enchanted-avatar>
+          .iconTemplate=${html`<icon-content-item></icon-content-item>`}
+        ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-avatar').getElement();
+    let component = await $(ENCHANTED_AVATAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', AVATAR_VARIANT.AVATAR_ICON_TEMPLATE);
     await expect(component).toHaveAttribute('type', AVATAR_TYPE.AVATAR_CIRCULAR);
@@ -191,20 +193,20 @@ describe('EnchantedAvatar component testing', () => {
     await expect(iconElement).toBeExisting();
   });
 
-  it('EnchantedAvatar - should render component with selected css as per setting mode in circular variant', async () => {
+  it('should render component with selected css as per setting mode in circular variant', async () => {
     render(
       html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_IMG}
           type=${AVATAR_TYPE.AVATAR_CIRCULAR}
           avatarText="Abc"
           imgUrl="testImageURL"
           iconUrl="testIconURL">
-        ></enchanted-avatar>
+        ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-avatar').getElement();
+    let component = await $(ENCHANTED_AVATAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', AVATAR_VARIANT.AVATAR_IMG);
     await expect(component).toHaveAttribute('avatarText', 'Abc');
@@ -217,18 +219,18 @@ describe('EnchantedAvatar component testing', () => {
     await expect(imageElement).toHaveElementProperty('alt', AVATAR_PARTS.AVATAR_IMAGE_CIRCULAR);
   });
 
-  it('EnchantedAvatar - should render component with selected css as per setting mode in rounded variant', async () => {
+  it('should render component with selected css as per setting mode in rounded variant', async () => {
     render(
       html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_IMG}
           type=${AVATAR_TYPE.AVATAR_ROUNDED}
           imgUrl="testImageURL"
-        ></enchanted-avatar>
+        ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-avatar').getElement();
+    let component = await $(ENCHANTED_AVATAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('variant', AVATAR_VARIANT.AVATAR_IMG);
     await expect(component).toHaveAttribute('imgUrl', 'testImageURL');
