@@ -14,7 +14,8 @@
  * ======================================================================== */
 // External imports
 import { $, browser, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { render } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-circular-progress';
@@ -23,8 +24,9 @@ import { CIRCULAR_PROGRESS_PARTS } from '../../../types/cssClassEnums';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedCircularProgress component testing', () => {
+describe(`${ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
     if (document.body.firstElementChild) {
@@ -38,23 +40,23 @@ describe('EnchantedCircularProgress component testing', () => {
     }
   });
 
-  it('EnchantedCircularProgress - should render without crashing', async () => {
-    let component = document.createElement('enchanted-circular-progress');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedCircularProgress - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-circular-progress');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedCircularProgress - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-circular-progress') as EnchantedCircularProgress;
+  it('should validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME) as EnchantedCircularProgress;
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('size', 40);
     await expect(component).toHaveElementProperty('strokewidth', 3.6);
@@ -64,20 +66,20 @@ describe('EnchantedCircularProgress component testing', () => {
     component.remove();
   });
 
-  it('EnchantedCircularProgress - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-circular-progress');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedCircularProgress - should render component with default properties', async () => {
+  it('should render component with default properties', async () => {
     render(
       html`
-        <enchanted-circular-progress></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG}></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     // Validate SVG exists with progressbar role
@@ -97,14 +99,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(progressCircle).toHaveAttribute('stroke-linecap', 'round');
   });
 
-  it('EnchantedCircularProgress - should render component with custom size', async () => {
+  it('should render component with custom size', async () => {
     render(
       html`
-        <enchanted-circular-progress size="60"></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="60"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 60);
 
@@ -117,14 +119,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(svgElement).toHaveAttribute('viewBox', '0 0 60 60');
   });
 
-  it('EnchantedCircularProgress - should render component with custom stroke width', async () => {
+  it('should render component with custom stroke width', async () => {
     render(
       html`
-        <enchanted-circular-progress strokewidth="5"></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} strokewidth="5"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('strokewidth', 5);
 
@@ -136,14 +138,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(progressCircle).toHaveAttribute('stroke-width', '5');
   });
 
-  it('EnchantedCircularProgress - should render component with custom track color', async () => {
+  it('should render component with custom track color', async () => {
     render(
       html`
-        <enchanted-circular-progress trackcolor="#FF0000"></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} trackcolor="#FF0000"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('trackcolor', '#FF0000');
 
@@ -152,14 +154,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(trackCircle).toHaveAttribute('stroke', '#FF0000');
   });
 
-  it('EnchantedCircularProgress - should render component with custom progress color', async () => {
+  it('should render component with custom progress color', async () => {
     render(
       html`
-        <enchanted-circular-progress progresscolor="#00FF00"></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} progresscolor="#00FF00"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('progresscolor', '#00FF00');
 
@@ -168,14 +170,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(progressCircle).toHaveAttribute('stroke', '#00FF00');
   });
 
-  it('EnchantedCircularProgress - should render component with disable-shrink attribute', async () => {
+  it('should render component with disable-shrink attribute', async () => {
     render(
       html`
-        <enchanted-circular-progress disable-shrink></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} disable-shrink></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('disableShrink', true);
 
@@ -185,14 +187,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(partValue).toBe(CIRCULAR_PROGRESS_PARTS.CIRCLE_DISABLE_SHRINK);
   });
 
-  it('EnchantedCircularProgress - should render component without disable-shrink part by default', async () => {
+  it('should render component without disable-shrink part by default', async () => {
     render(
       html`
-        <enchanted-circular-progress></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG}></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     let svgElement = await component.$('>>>svg').getElement();
@@ -201,20 +203,20 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(partValue).toBe(CIRCULAR_PROGRESS_PARTS.CIRCLE);
   });
 
-  it('EnchantedCircularProgress - should render component with all custom properties', async () => {
+  it('should render component with all custom properties', async () => {
     render(
       html`
-        <enchanted-circular-progress
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG}
           size="80"
           strokewidth="6"
           trackcolor="#CCCCCC"
           progresscolor="#FF6600"
           disable-shrink>
-        </enchanted-circular-progress>
+        </${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 80);
     await expect(component).toHaveElementProperty('strokewidth', 6);
@@ -241,8 +243,8 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(partValue).toBe(CIRCULAR_PROGRESS_PARTS.CIRCLE_DISABLE_SHRINK);
   });
 
-  it('EnchantedCircularProgress - should update properties dynamically', async () => {
-    let component = document.createElement('enchanted-circular-progress') as EnchantedCircularProgress;
+  it('should update properties dynamically', async () => {
+    let component = document.createElement(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME) as EnchantedCircularProgress;
     document.body.appendChild(component);
 
     // Initial values
@@ -260,14 +262,14 @@ describe('EnchantedCircularProgress component testing', () => {
     component.remove();
   });
 
-  it('EnchantedCircularProgress - should calculate correct circle dimensions', async () => {
+  it('should calculate correct circle dimensions', async () => {
     render(
       html`
-        <enchanted-circular-progress size="40" strokewidth="3.6"></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     let svgElement = await component.$('>>>svg').getElement();
@@ -284,14 +286,14 @@ describe('EnchantedCircularProgress component testing', () => {
     }
   });
 
-  it('EnchantedCircularProgress - should have correct CSS classes', async () => {
+  it('should have correct CSS classes', async () => {
     render(
       html`
-        <enchanted-circular-progress></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG}></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     let rootDiv = await component.$('>>>div').getElement();
@@ -311,14 +313,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(progressPart).toBe(CIRCULAR_PROGRESS_PARTS.CIRCLE);
   });
 
-  it('EnchantedCircularProgress - should render with small size', async () => {
+  it('should render with small size', async () => {
     render(
       html`
-        <enchanted-circular-progress size="20" strokewidth="2"></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="20" strokewidth="2"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 20);
 
@@ -328,14 +330,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(style).toContain('height: 20px');
   });
 
-  it('EnchantedCircularProgress - should render with large size', async () => {
+  it('should render with large size', async () => {
     render(
       html`
-        <enchanted-circular-progress size="100" strokewidth="8"></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="100" strokewidth="8"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', 100);
 
@@ -345,14 +347,14 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(style).toContain('height: 100px');
   });
 
-  it('EnchantedCircularProgress - should have animation styles in root div', async () => {
+  it('should have animation styles in root div', async () => {
     render(
       html`
-        <enchanted-circular-progress></enchanted-circular-progress>
+        <${ENCHANTED_CIRCULAR_PROGRESS_TAG}></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-circular-progress').getElement();
+    let component = await $(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     let rootDiv = await component.$(`>>>[part="${CIRCULAR_PROGRESS_PARTS.ROOT}"]`).getElement();
@@ -367,8 +369,8 @@ describe('EnchantedCircularProgress component testing', () => {
     await expect(style).toContain('--stroke-dasharray-shrink:');
   });
 
-  it('EnchantedCircularProgress - should toggle disable-shrink attribute', async () => {
-    let component = document.createElement('enchanted-circular-progress') as EnchantedCircularProgress;
+  it('should toggle disable-shrink attribute', async () => {
+    let component = document.createElement(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME) as EnchantedCircularProgress;
     document.body.appendChild(component);
 
     // Initially false
