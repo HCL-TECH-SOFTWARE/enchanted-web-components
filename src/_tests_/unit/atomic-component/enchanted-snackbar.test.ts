@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { render, nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 import { expect, $ } from '@wdio/globals';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
@@ -23,50 +24,47 @@ import '../../../components/atomic-component/enchanted-snackbar';
 // Helper imports
 import { BUTTON_PARTS, BUTTON_VARIANT, SNACKBAR_TYPE } from '../../../types/cssClassEnums';
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_SNACKBAR_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedSnackbar component testing', () => {
+describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedSnackbar - should render without crashing', async () => {
-    let component = document.createElement('enchanted-snackbar');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_SNACKBAR_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedSnackbar - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-snackbar');
+  it('removes component from document body and validates removal', async () => {
+    let component = document.createElement(ENCHANTED_SNACKBAR_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedSnackbar - should render component with icon and message', async () => {
+  it('should render component with icon and message', async () => {
     let snackbarMessage = "Sample snackbar message";
     render(
       html`
-        <enchanted-snackbar
+        <${ENCHANTED_SNACKBAR_TAG}
           message=${snackbarMessage}
           open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
-        ></enchanted-snackbar>
+        ></${ENCHANTED_SNACKBAR_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-snackbar').getElement();
+    let component = await $(ENCHANTED_SNACKBAR_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     let messageElement = await component.$('>>>span[data-testid="enchanted-snackbar-message"]').getElement();
     await expect(messageElement).toBeExisting();
@@ -74,87 +72,87 @@ describe('EnchantedSnackbar component testing', () => {
     await expect(svgInfoIcon).toBeExisting();
   });
 
-  it('EnchantedSnackbar - should render with buttons in the slot', async () => {
+  it('should render with buttons in the slot', async () => {
     let snackbarMessage = "Sample snackbar message";
     render(
       html`
-        <enchanted-snackbar
+        <${ENCHANTED_SNACKBAR_TAG}
           message=${snackbarMessage}
           open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         >
           <div slot="snackbar-buttons">
-            <enchanted-button
+            <${ENCHANTED_BUTTON_TAG}
               buttontext="Button"
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
               disabled="false"
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
             >
-            </enchanted-button>
+            </${ENCHANTED_BUTTON_TAG}>
           </div>
-        </enchanted-snackbar>
+        </${ENCHANTED_SNACKBAR_TAG}>
       `,
       document.body
     );
 
-    let buttonElement = await $('enchanted-button').getElement();
+    let buttonElement = await $(ENCHANTED_BUTTON_TAG_NAME).getElement();
     await expect(buttonElement).toBeExisting();
   });
 
-  it('EnchantedSnackbar - should render with complex HTML message', async () => {
+  it('should render with complex HTML message', async () => {
     const message = 'This is a <strong>bold</strong> message.<br>With a line break.';
     const expectedHTML = unsafeHTML(message);
     render(
       html`
-        <enchanted-snackbar
+        <${ENCHANTED_SNACKBAR_TAG}
           message=${message}
           open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         >
-        </enchanted-snackbar>
+        </${ENCHANTED_SNACKBAR_TAG}>
       `,
       document.body
     );
 
-    const snackbar = await $('enchanted-snackbar');
+    const snackbar = await $(ENCHANTED_SNACKBAR_TAG_NAME);
     const messageSpan = await snackbar.shadow$('[data-testid="enchanted-snackbar-message"]');
     expect(messageSpan.getHTML()).toHaveText(expectedHTML);
   });
 
-  it('EnchantedSnackbar - should handle special characters correctly', async () => {
+  it('should handle special characters correctly', async () => {
     const message = 'Special characters: & < > " \' /';
     const expectedText = 'Special characters: & < > " \' /';
     render(
       html`
-        <enchanted-snackbar
+        <${ENCHANTED_SNACKBAR_TAG}
           message=${message}
           open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         >
-        </enchanted-snackbar>
+        </${ENCHANTED_SNACKBAR_TAG}>
       `,
       document.body
     );
 
-    const snackbar = await $('enchanted-snackbar');
+    const snackbar = await $(ENCHANTED_SNACKBAR_TAG_NAME);
     const messageSpan = await snackbar.shadow$('[data-testid="enchanted-snackbar-message"]');
     expect(await messageSpan.getText()).toEqual(expectedText);
   });
 
-  it('EnchantedSnackbar - should not be visible is open is false', async () => {
+  it('should not be visible if open is false', async () => {
     render(
       html`
-        <enchanted-snackbar
+        <${ENCHANTED_SNACKBAR_TAG}
           message=""
           open={false}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         >
-        </enchanted-snackbar>
+        </${ENCHANTED_SNACKBAR_TAG}>
       `,
       document.body
     );
 
-    const snackbar = await $('enchanted-snackbar');
+    const snackbar = await $(ENCHANTED_SNACKBAR_TAG_NAME);
     expect(snackbar).not.toBeDisplayed();
   });
 });

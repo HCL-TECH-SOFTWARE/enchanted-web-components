@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { expect, browser, $ } from '@wdio/globals';
 
 // Component imports
@@ -26,43 +27,43 @@ import '../../../components/atomic-component/enchanted-list-item';
 // Helper imports
 import { initSessionStorage } from '../../utils';
 import { EnchantedMultiSelectInputFieldType, MultiSelectChangeDetail } from '../../../types/enchanted-multiple-select-chip';
+import {
+  ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_CHIP_TAG_NAME, ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG_NAME,
+  ENCHANTED_MULTIPLE_SELECT_CHIP_TAG, ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME
+} from '../../../components/tags';
 
 
 const localization: Map<string, string> = new Map<string, string>();
 localization.set('multi.select.placeholder', 'Pagination');
 localization.set('input.select.placeholder.select.attribute', 'Select an attribute');
 
-describe('EnchantedMultiSelectChip component testing', () => {
+describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedMultiSelectChip - should render without crashing', async () => {
-    let component = document.createElement('enchanted-multiple-select-chip');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedMultiSelectChip - removes component and validates removal', async () => {
-    let component = document.createElement('enchanted-multiple-select-chip');
+  it('should remove component and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedMultiSelectChip - validate default attributes', async () => {
-    let component = document.createElement('enchanted-multiple-select-chip');
+  it('should validate default attributes', async () => {
+    let component = document.createElement(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('toggleDropDown', false);
     await expect(component).toHaveElementProperty('disabled', false);
@@ -79,16 +80,16 @@ describe('EnchantedMultiSelectChip component testing', () => {
     component.remove();
   });
 
-  it('EnchantedMultiSelectChip - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-multiple-select-chip');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedMultiSelectChip - should render with label and options', async () => {
+  it('should render with label and options', async () => {
     render(
       html`
-        <enchanted-multiple-select-chip
+        <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
           .localization=${localization}
           label="Test Label" 
           .options=${[
@@ -99,21 +100,21 @@ describe('EnchantedMultiSelectChip component testing', () => {
           .selectedValues=${[
             { id: '1', name: 'Option 1', value: 'Option 1' }
           ]}
-        ></enchanted-multiple-select-chip>
+        ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
     await browser.pause(1000);
     const labelElement = await component.shadow$('label[data-testid="enchanted-multi-select-label"]').getElement();
     await expect(labelElement).toHaveText('Test Label');
   });
 
-  it('EnchantedMultiSelectChip - should render and validate label and initial chip with constants', async () => {
+  it('should render and validate label and initial chip with constants', async () => {
     render(
       html`
-        <enchanted-multiple-select-chip
+        <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
           .localization=${localization}
           field=${EnchantedMultiSelectInputFieldType.DOCUMENT_OBJECT_TYPE}
           .options=${[
@@ -123,22 +124,22 @@ describe('EnchantedMultiSelectChip component testing', () => {
           ]}
           label="Select input"
           .selectedValues=${['type']}
-        ></enchanted-multiple-select-chip>
+        ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
     await browser.pause(1000);
     await expect(component).toBeDisplayed();
     const labelElement = await component.shadow$('label[data-testid="enchanted-multi-select-label"]').getElement();
     await expect(labelElement).toHaveText('Select input');
   });
 
-  it('EnchantedMultiSelectChip - should toggle dropdown on button click', async () => {
+  it('should toggle dropdown on button click', async () => {
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         .options=${[
@@ -146,14 +147,14 @@ describe('EnchantedMultiSelectChip component testing', () => {
           { id: '2', name: 'Option 2', value: 'Option 2' },
           { id: '3', name: 'Option 3', value: 'Option 3' }
         ]}
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
 
-    const button = await component.shadow$('enchanted-button[data-testid="enchanted-multi-select-button"]').getElement();
+    const button = await component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`).getElement();
     await browser.waitUntil(
       async () => {
         return await button.isClickable();
@@ -163,7 +164,7 @@ describe('EnchantedMultiSelectChip component testing', () => {
     await button.click();
     await browser.pause(500); // Wait for dropdown animation
 
-    const list = await component.shadow$('enchanted-list[data-testid="enchanted-multi-select-list"]').getElement();
+    const list = await component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`).getElement();
     await expect(list).toBeDisplayed();
 
     // Click again to close dropdown
@@ -172,10 +173,10 @@ describe('EnchantedMultiSelectChip component testing', () => {
     await expect(list).not.toBeDisplayed();
   });
 
-  it('EnchantedMultiSelectChip - should filter options based on input', async () => {
+  it('should filter options based on input', async () => {
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         .options=${[
@@ -186,22 +187,22 @@ describe('EnchantedMultiSelectChip component testing', () => {
         .selectedValues=${[
           { id: '2', name: 'Option 2', value: 'Option 2' }
         ]}
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
     const input = await component.shadow$('input#input-field').getElement();
     await input.click();
     await input.setValue('Option 2');
     await browser.pause(500);
   });
 
-  it('EnchantedMultiSelectChip - should apply custom width', async () => {
+  it('should apply custom width', async () => {
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         .options=${[
@@ -210,26 +211,26 @@ describe('EnchantedMultiSelectChip component testing', () => {
           { id: '3', name: 'Option 3', value: 'Option 3' }
         ]}
         customWidth="500"
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
     const container = await component.shadow$('div[part="top-container-div"]').getElement();
     await expect(container).toHaveStyle({ width: '500px' });
 
-    const button = await component.shadow$('enchanted-button[data-testid="enchanted-multi-select-button"]').getElement();
+    const button = await component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`).getElement();
     await button.click();
     await browser.pause(500);
-    const list = await component.shadow$('enchanted-list[data-testid="enchanted-multi-select-list"]').getElement();
+    const list = await component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`).getElement();
     await expect(list).toHaveStyle({ width: '500px' });
   });
 
-  it('EnchantedMultiSelectChip - should render and remove chips', async () => {
+  it('should render and remove chips', async () => {
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         .options=${[
@@ -242,16 +243,16 @@ describe('EnchantedMultiSelectChip component testing', () => {
           { id: '2', name: 'Option 2', value: 'Option 2' }
         ]}
         ?clearIcon=${true}
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
     await browser.pause(500);
 
     // Verify chips are rendered
-    const chips = await component.shadow$$('enchanted-chip[data-testid="enchanted-multiple-select-chip"]');
+    const chips = await component.shadow$$(`${ENCHANTED_CHIP_TAG_NAME}[data-testid="enchanted-multiple-select-chip"]`);
     await expect(chips).toHaveLength(2);
     await expect(chips[0]).toHaveText('Option 1');
     await expect(chips[1]).toHaveText('Option 2');
@@ -262,7 +263,7 @@ describe('EnchantedMultiSelectChip component testing', () => {
     await clearIcons[0].click();
 
     // // Verify chip is removed
-    const updatedChips = await component.shadow$$('enchanted-chip[data-testid="enchanted-multiple-select-chip"]');
+    const updatedChips = await component.shadow$$(`${ENCHANTED_CHIP_TAG_NAME}[data-testid="enchanted-multiple-select-chip"]`);
     await expect(updatedChips).toHaveLength(1);
     await expect(updatedChips[0]).toHaveText('Option 2');
 
@@ -272,10 +273,10 @@ describe('EnchantedMultiSelectChip component testing', () => {
 
   });
 
-  it('EnchantedMultiSelectChip - should be non-interactive when disabled', async () => {
+  it('should be non-interactive when disabled', async () => {
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         .options=${[
@@ -284,14 +285,14 @@ describe('EnchantedMultiSelectChip component testing', () => {
           { id: '3', name: 'Option 3', value: 'Option 3' }
         ]}
         ?disabled=${true}
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
     const input = await component.shadow$('input#input-field').getElement();
-    const button = await component.shadow$('enchanted-button[data-testid="enchanted-multi-select-button"]').getElement();
+    const button = await component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`).getElement();
 
     await expect(input).toBeDisabled();
 
@@ -299,11 +300,11 @@ describe('EnchantedMultiSelectChip component testing', () => {
 
     await button.click();
     await browser.pause(500);
-    const list = await component.shadow$('enchanted-list[data-testid="enchanted-multi-select-list"]');
+    const list = await component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`);
     await expect(list).not.toBeDisplayed();
   });
 
-  it('EnchantedMultiSelectChip - should handle OptionData objects', async () => {
+  it('should handle OptionData objects', async () => {
     const options = [
       { id: '1', name: 'Option One', value: 'Option One' },
       { id: '2', name: 'Option Two', value: 'Option Two' },
@@ -311,30 +312,30 @@ describe('EnchantedMultiSelectChip component testing', () => {
     ];
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         .options=${options}
         .selectedValues=${[
           { id: '1', name: 'Option One', value: 'Option One' }
         ]}
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
     await browser.pause(500);
 
-    const chips = await component.shadow$$('enchanted-chip[data-testid="enchanted-multiple-select-chip"]');
+    const chips = await component.shadow$$(`${ENCHANTED_CHIP_TAG_NAME}[data-testid="enchanted-multiple-select-chip"]`);
     await expect(chips).toHaveLength(1);
     await expect(chips[0]).toHaveText('Option One');
 
-    const button = await component.shadow$('enchanted-button[data-testid="enchanted-multi-select-button"]').getElement();
+    const button = await component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`).getElement();
     await button.click();
     await browser.pause(500);
 
-    const listItems = await component.shadow$$('enchanted-list-item[data-testid="enchanted-multi-select-listitem"]');
+    const listItems = await component.shadow$$(`${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-multi-select-listitem"]`);
     await expect(listItems).toHaveLength(3);
 
     const text0 = await listItems[0].getText();
@@ -347,10 +348,10 @@ describe('EnchantedMultiSelectChip component testing', () => {
 
   });
 
-  it('EnchantedMultiSelectChip - should close dropdown on outside click', async () => {
+  it('should close dropdown on outside click', async () => {
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         .options=${[
@@ -358,18 +359,18 @@ describe('EnchantedMultiSelectChip component testing', () => {
           { id: '2', name: 'Option 2', value: 'Option 2' },
           { id: '3', name: 'Option 3', value: 'Option 3' }
         ]}
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
       <div id="outside">Outside Element</div>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
-    const button = await component.shadow$('enchanted-button[data-testid="enchanted-multi-select-button"]').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
+    const button = await component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`).getElement();
     await button.click();
     await browser.pause(500);
 
-    const list = await component.shadow$('enchanted-list[data-testid="enchanted-multi-select-list"]').getElement();
+    const list = await component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`).getElement();
     await expect(list).toBeDisplayed();
 
     const outsideElement = await $('#outside').getElement();
@@ -379,13 +380,13 @@ describe('EnchantedMultiSelectChip component testing', () => {
     await expect(list).not.toBeDisplayed();
   });
 
-  it('EnchantedMultiSelectChip - should dispatch change event with correct details', async () => {
+  it('should dispatch change event with correct details', async () => {
 
     let changeEventDetail: MultiSelectChangeDetail | null = null;
 
     render(
       html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .localization=${localization}
         label="Test Label"
         field="test"
@@ -397,17 +398,17 @@ describe('EnchantedMultiSelectChip component testing', () => {
         @change=${(e: CustomEvent) => {
           changeEventDetail = e.detail;
         }}
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `,
       document.body
     );
 
-    const component = await $('enchanted-multiple-select-chip').getElement();
-    const button = await component.shadow$('enchanted-button[data-testid="enchanted-multi-select-button"]').getElement();
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
+    const button = await component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`).getElement();
     await button.click();
     await browser.pause(500);
 
-    const listItems = await component.shadow$$('enchanted-list-item[data-testid="enchanted-multi-select-listitem"]');
+    const listItems = await component.shadow$$(`${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-multi-select-listitem"]`);
     await listItems[0].click();
     await browser.pause(500);
 

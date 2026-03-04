@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { expect, $ } from '@wdio/globals';
 
 // Component imports
@@ -21,38 +22,35 @@ import '../../../components/atomic-component/enchanted-panel';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_PANEL_TAG, ENCHANTED_PANEL_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedPanel component testing', () => {
+describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedPanel - should render without crashing', async () => {
-    let component = document.createElement('enchanted-panel');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_PANEL_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedPanel - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-panel');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_PANEL_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedPanel - should render component with title and content', async () => {
+  it('should render component with title and content', async () => {
     let panelContent = html`
       <div data-testid="content-slot-wrapper">
         <h2>Sample content</h2>
@@ -61,7 +59,7 @@ describe('EnchantedPanel component testing', () => {
     `;
     render(
       html`
-        <enchanted-panel
+        <${ENCHANTED_PANEL_TAG}
           class="drawer1"
           position="right"
           title="Sample Content"
@@ -70,32 +68,32 @@ describe('EnchantedPanel component testing', () => {
           <div slot="content">
             ${panelContent}
           </div>
-        </enchanted-panel>
+        </${ENCHANTED_PANEL_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-panel').getElement();
+    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     expect(component).toHaveText('Sample Content');
     const contentWrapper = await $('[data-testid="content-slot-wrapper"]');
     await expect(contentWrapper).toBeDisplayed();
   });
 
-  it('EnchantedPanel - should hide the panel when close button is clicked', async () => {
+  it('should hide the panel when close button is clicked', async () => {
     render(
       html`
-        <enchanted-panel
+        <${ENCHANTED_PANEL_TAG}
           class="drawer1"
           position="right"
           title="Sample Content"
           open
         >
-        </enchanted-panel>
+        </${ENCHANTED_PANEL_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-panel').getElement();
+    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     let panelContainer = await component.shadow$('[part="panel-container"]').getElement();
 
@@ -108,27 +106,27 @@ describe('EnchantedPanel component testing', () => {
     expect(ariaHiddenValue).toBe('true');
   });
 
-  it('EnchantedPanel - should hide panel if open attribute is not present', async () => {
+  it('should hide panel if open attribute is not present', async () => {
     render(
       html`
-        <enchanted-panel />
+        <${ENCHANTED_PANEL_TAG} />
       `,
       document.body
     );
-    let component = await $('enchanted-panel').getElement();
+    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
     let panelContainer = await component.shadow$('[part="panel-container"]').getElement();
     const ariaHiddenValue = await panelContainer.getAttribute('aria-hidden');
     expect(ariaHiddenValue).toBe('true');
   });
 
-  it('EnchantedPanel - should focus on the panel when opened', async () => {
+  it('should focus on the panel when opened', async () => {
     render(
       html`
-        <enchanted-panel open ?focusPanel=${true} />
+        <${ENCHANTED_PANEL_TAG} open ?focusPanel=${true} />
       `,
       document.body
     );
-    let component = await $('enchanted-panel').getElement();
+    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
     let panelContainer = await component.shadow$('[part="panel-container"]').getElement();
     const ariaHiddenValue = await panelContainer.getAttribute('tabindex');
     expect(ariaHiddenValue).toBe('0');

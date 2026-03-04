@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, expect, browser } from '@wdio/globals';
 import { fn } from '@wdio/browser-runner';
 import { waitFor } from '@testing-library/dom';
@@ -27,69 +28,69 @@ import '../../../components/atomic-component/enchanted-list-item';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import {
+  ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_LIST_TAG_NAME, ENCHANTED_MENU_ITEM_TAG,
+  ENCHANTED_MENU_ITEM_TAG_NAME, ENCHANTED_MENU_TAG, ENCHANTED_MENU_TAG_NAME
+} from '../../../components/tags';
 
-describe('EnchantedMenu component testing', () => {
+describe(`${ENCHANTED_MENU_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedMenu - should render without crashing', async () => {
-    let component = document.createElement('enchanted-menu');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_MENU_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedMenu - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-menu');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_MENU_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedMenu - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-menu');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_MENU_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedMenu - should render component and validate attributes', async () => {
+  it('should render component and validate attributes', async () => {
     const menuMockFunction = fn();
 
     render(
       html`
-        <enchanted-menu onchange="${menuMockFunction()}">
+        <${ENCHANTED_MENU_TAG} onchange="${menuMockFunction()}">
           <div slot="target-anchor">
-            <enchanted-button buttonText="Open Menu"></enchanted-button>
+            <${ENCHANTED_BUTTON_TAG} buttonText="Open Menu"></${ENCHANTED_BUTTON_TAG}>
           </div>
           <div slot="menu-items">
-            <enchanted-menu-item text="One"></enchanted-menu-item>
-            <enchanted-menu-item text="Two"></enchanted-menu-item>
-            <enchanted-menu-item text="ThreeThreeThreeThreeThreeThreeThreeThree"></enchanted-menu-item>
+            <${ENCHANTED_MENU_ITEM_TAG} text="One"></${ENCHANTED_MENU_ITEM_TAG}>
+            <${ENCHANTED_MENU_ITEM_TAG} text="Two"></${ENCHANTED_MENU_ITEM_TAG}>
+            <${ENCHANTED_MENU_ITEM_TAG} text="ThreeThreeThreeThreeThreeThreeThreeThree"></${ENCHANTED_MENU_ITEM_TAG}>
           </div>
-        </enchanted-menu>
+        </${ENCHANTED_MENU_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-menu').getElement();
+    let component = await $(ENCHANTED_MENU_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
-    let listElement = await component.$('>>>enchanted-list').getElement();
+    let listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}`).getElement();
     await expect(listElement).not.toBeDisplayed();
 
     await waitFor(async() => {
-      const buttonElement = await component.$('>>>enchanted-button').getElement();
+      const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}`).getElement();
       await expect(buttonElement).toBeDisplayed();
       expect(await buttonElement.isClickable()).toEqual(true);
       await buttonElement.click();
@@ -97,11 +98,11 @@ describe('EnchantedMenu component testing', () => {
       await browser.pause(500);
     });
 
-    listElement = await component.$('>>>enchanted-list').getElement();
+    listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}`).getElement();
     await expect(listElement).toBeDisplayed();
 
     await waitFor(async() => {
-      const menuItems = await component.$$('>>>enchanted-menu-item').getElements();
+      const menuItems = await component.$$(`>>>${ENCHANTED_MENU_ITEM_TAG_NAME}`).getElements();
       expect(menuItems.length).toEqual(3);      
       await expect(menuItems[0]).toBeClickable();
       await menuItems[0].click();
