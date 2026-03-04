@@ -29,3 +29,4 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run test
+      - run: VITE_COMPONENT_PREFIX=iq- npm run test

@@ -32,7 +32,10 @@ import { sampleData as sampleSearchResultResponse } from '../fixture/sampleData'
 import { initDataGridLocalizedStrings, pressKeyAndWait } from '../../helpers';
 import { ENCHANTED_DATA_GRID_COLUMNS, LONG_PAUSE, SHORT_PAUSE } from '../../constants';
 import { EnchantedDataGridGeneric } from '../../../components/atomic-component/enchanted-data-grid-generic';
-import { ENCHANTED_DATA_GRID_GENERIC_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME, ENCHANTED_MENU_ITEM_TAG_NAME, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG_NAME } from '../../../components/tags';
+import {
+  ENCHANTED_DATA_GRID_GENERIC_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME,
+  ENCHANTED_MENU_ITEM_TAG_NAME, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG_NAME
+} from '../../../components/tags';
 
 describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
   const localization: Map<string, string> = initDataGridLocalizedStrings();
