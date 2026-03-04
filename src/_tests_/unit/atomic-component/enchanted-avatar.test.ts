@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { render } from 'lit';
+import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
 
 // Component imports
@@ -28,15 +28,11 @@ import { ENCHANTED_AVATAR_TAG, ENCHANTED_AVATAR_TAG_NAME } from '../../../compon
 describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   it('should render without crashing', async () => {

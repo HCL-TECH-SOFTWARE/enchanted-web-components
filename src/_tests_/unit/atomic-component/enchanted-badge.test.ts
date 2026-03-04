@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { render } from 'lit';
+import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
 import { $, expect } from '@wdio/globals';
 
@@ -28,15 +28,11 @@ import { ENCHANTED_BADGE_TAG, ENCHANTED_BADGE_TAG_NAME } from '../../../componen
 describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   it('should render without crashing', async () => {

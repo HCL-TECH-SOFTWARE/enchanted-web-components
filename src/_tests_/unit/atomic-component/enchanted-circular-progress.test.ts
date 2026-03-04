@@ -14,7 +14,7 @@
  * ======================================================================== */
 // External imports
 import { $, browser, expect } from '@wdio/globals';
-import { render } from 'lit';
+import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
 
 // Component imports
@@ -29,15 +29,11 @@ import { ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME }
 describe(`${ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   it('should render without crashing', async () => {
