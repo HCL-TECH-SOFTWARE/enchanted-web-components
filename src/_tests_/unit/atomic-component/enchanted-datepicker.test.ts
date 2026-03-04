@@ -56,9 +56,7 @@ describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   after(async () => {

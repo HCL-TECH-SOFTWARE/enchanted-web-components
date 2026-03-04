@@ -14,7 +14,8 @@
  * ======================================================================== */
 // External imports
 import { $, browser, expect } from '@wdio/globals';
-import { render, html } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { waitFor } from '@testing-library/dom';
 import { fn, spyOn } from '@wdio/browser-runner';
 import { Key } from 'webdriverio';
@@ -31,8 +32,9 @@ import { sampleData as sampleSearchResultResponse } from '../fixture/sampleData'
 import { initDataGridLocalizedStrings, pressKeyAndWait } from '../../helpers';
 import { ENCHANTED_DATA_GRID_COLUMNS, LONG_PAUSE, SHORT_PAUSE } from '../../constants';
 import { EnchantedDataGridGeneric } from '../../../components/atomic-component/enchanted-data-grid-generic';
+import { ENCHANTED_DATA_GRID_GENERIC_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME, ENCHANTED_MENU_ITEM_TAG_NAME, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG_NAME } from '../../../components/tags';
 
-describe('Data Grid Generic testing', () => {
+describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
   const localization: Map<string, string> = initDataGridLocalizedStrings();
 
   const columns: EnchantedDataGridColDef[] = ENCHANTED_DATA_GRID_COLUMNS;
@@ -113,79 +115,75 @@ describe('Data Grid Generic testing', () => {
 
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedDataGridGeneric - should render component with initial state', async () => {
+  it('should render component with initial state', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
   });
 
-  it('EnchantedDataGridGeneric - should render component with loading state', async () => {
+  it('should render component with loading state', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .isLoading=${true}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .isLoading=${true}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-loading-text"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
   });
 
-  it('EnchantedDataGridGeneric - should render component with has middleaware error state', async () => {
+  it('should render component with has middleaware error state', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .hasMiddlewareError=${true}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .hasMiddlewareError=${true}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
   });
 
-  it('EnchantedDataGridGeneric - should render component with has no content source state', async () => {
+  it('should render component with has no content source state', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .hasContentSourceAvailable=${true}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .hasContentSourceAvailable=${true}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
   
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
 
   });
 
-  it('EnchantedDataGridGeneric - should render component with invalid columns', async () => {
+  it('should render component with invalid columns', async () => {
 
     const invalidColumn = [
       { headerName: 'Title' },
@@ -194,29 +192,29 @@ describe('Data Grid Generic testing', () => {
     ];
     render(
       html`
-        <enchanted-data-grid-generic .columns=${invalidColumn} .hasContentSourceAvailable=${true}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${invalidColumn} .hasContentSourceAvailable=${true}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
   
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="enchanted-invalid-columns-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
 
   });
 
-  it('EnchantedDataGridGeneric - should not display table content when loading', async () => {
+  it('should not display table content when loading', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .isLoading=${true}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .isLoading=${true}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let loadingText = await table.$('>>>p[data-testid="table-loading-text"]').getElement();
       await expect(loadingText).toBeDisplayed();
 
@@ -225,58 +223,58 @@ describe('Data Grid Generic testing', () => {
     });
   });
 
-  it('EnchantedDataGridGeneric - should render correctly with null colDef', async () => {
+  it('should render correctly with null colDef', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${null}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${null}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let invalidColDefLabel = await table.$('>>>p[data-testid="enchanted-invalid-columns-label"]').getElement();
       await expect(invalidColDefLabel).toBeDisplayed();
     });
   });
   
-  it('EnchantedDataGridGeneric - should render correctly with undefined columns', async () => {
+  it('should render correctly with undefined columns', async () => {
     render(
       html`
-        <enchanted-data-grid-generic></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let invalidColDefLabel = await table.$('>>>p[data-testid="enchanted-invalid-columns-label"]').getElement();
       await expect(invalidColDefLabel).toBeDisplayed();
     });
   });
 
-  it('EnchantedDataGridGeneric - should render correctly with empty data', async () => {
+  it('should render correctly with empty data', async () => {
     render(
       html`
-        <enchanted-data-grid-generic
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG}
           .columns=${testColDef}
           .data=${{ total:0 }}
-        ></enchanted-data-grid-generic>
+        ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid-generic').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let invalidColDefLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(invalidColDefLabel).toHaveText('output.message.no.results.found');
     });
   });
 
-  it('EnchantedDataGridGeneric - should return proper rowPart', async () => {
+  it('should return proper rowPart', async () => {
     render(
       html`
-        <enchanted-data-grid-generic
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG}
           .columns=${testColDef}
           .data=${sampleData}
           .isRowDisabled=${
@@ -284,19 +282,19 @@ describe('Data Grid Generic testing', () => {
               return row.title === 'Test Title';
             }
           }
-        ></enchanted-data-grid-generic>
+        ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
     
-    const grid = document.querySelector('enchanted-data-grid-generic') as EnchantedDataGridGeneric;
+    const grid = document.querySelector(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
     const rowPart = grid?.getRowPart(0);
     await expect(rowPart).toBeDefined();
     await expect(rowPart).toBe(DATA_GRID_PARTS.TABLE_ROW_BODY_CONTAINER);
   });
 
-  it('EnchantedDataGridGeneric - should return correct sort button class based on direction', async () => {
-    const grid = document.createElement('enchanted-data-grid-generic') as EnchantedDataGridGeneric;
+  it('should return correct sort button class based on direction', async () => {
+    const grid = document.createElement(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
 
     grid.data.sortDirection = SortOrder.DESC;
     grid.data.sortAttribute = '_source.title';
@@ -335,61 +333,61 @@ describe('Data Grid Generic testing', () => {
   });
 
 
-  it('EnchantedDataGridGeneric - should render action buttons based on visibility', async () => {
+  it('should render action buttons based on visibility', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .data=${sampleData}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .data=${sampleData}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
-    const grid = await $('enchanted-data-grid-generic');
+    const grid = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME);
 
     // Preview action item for row 0 is not visible since it's type collection and not image (based on isVisible)
-    const previewActionButton = await grid.$('>>>enchanted-icon-button[data-testid="enchanted-data-grid-action-item-button-0-0-0"]');
+    const previewActionButton = await grid.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-data-grid-action-item-button-0-0-0"]`);
     await expect(previewActionButton).not.toBeDisplayed();
 
     // Read action item is visible
-    const readActionButton = await grid.$('>>>enchanted-icon-button[data-testid="enchanted-data-grid-action-item-button-0-0-1"]');
+    const readActionButton = await grid.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-data-grid-action-item-button-0-0-1"]`);
     await expect(readActionButton).toBeDisplayed();
 
     const readTooltip = await readActionButton.parentElement();
-    await expect(await readTooltip.getTagName()).toBe('enchanted-tooltip');
+    await expect(await readTooltip.getTagName()).toBe(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(await readTooltip.getProperty('tooltiptext')).toBe('Read');
   });
 
-  it('EnchantedDataGridGeneric - should render icon button for menu if only one item is visible', async () => {
+  it('should render icon button for menu if only one item is visible', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .data=${sampleData}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .data=${sampleData}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
-    const grid = await $('enchanted-data-grid-generic');
+    const grid = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME);
 
     // First row data should show only an icon button for the only visible menu item, Delete.
-    const deleteActionButton = await grid.$('>>>enchanted-icon-button[data-testid="enchanted-data-grid-action-item-button-0-0-2"]');
+    const deleteActionButton = await grid.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-data-grid-action-item-button-0-0-2"]`);
     await expect(deleteActionButton).toBeDisplayed();
     
     const deleteTooltip = await deleteActionButton.parentElement();
-    await expect(await deleteTooltip.getTagName()).toBe('enchanted-tooltip');
+    await expect(await deleteTooltip.getTagName()).toBe(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(await deleteTooltip.getProperty('tooltiptext')).toBe('Delete');
 
     // Menu should not be shown
-    const menu = await grid.$('>>>enchanted-menu[data-testid="enchanted-data-grid-menu-0-0-2"]');
+    const menu = await grid.$(`>>>${ENCHANTED_MENU_TAG_NAME}[data-testid="enchanted-data-grid-menu-0-0-2"]`);
     await expect(menu).not.toBeDisplayed();
   });
 
-  it('EnchantedDataGridGeneric - should render menu if menu is given and more than one menu item is visible', async () => {
+  it('should render menu if menu is given and more than one menu item is visible', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .data=${sampleData}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .data=${sampleData}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
-    const grid = await $('enchanted-data-grid-generic');
+    const grid = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME);
 
     // Second row data should show the menu since it has the two menu items visible
     const secondRow = await grid.$('>>>tr[data-testid="enchanted-table-row-1"]');
@@ -398,16 +396,16 @@ describe('Data Grid Generic testing', () => {
     await expect(moreActionButton).toBeDisplayed();
     
     const moreTooltip = await moreActionButton.parentElement();
-    await expect(await moreTooltip.getTagName()).toBe('enchanted-tooltip');
+    await expect(await moreTooltip.getTagName()).toBe(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(await moreTooltip.getProperty('tooltiptext')).toBe('More');
 
     await moreActionButton.moveTo();
     await moreActionButton.click();
 
-    const menu = await secondRow.$('>>>enchanted-menu[data-testid*="enchanted-data-grid-menu"]');
+    const menu = await secondRow.$(`>>>${ENCHANTED_MENU_TAG_NAME}[data-testid*="enchanted-data-grid-menu"]`);
     await expect(menu).toBeDisplayed();
 
-    const allMenuItems = await secondRow.$$('>>>enchanted-menu-item');
+    const allMenuItems = await secondRow.$$(`>>>${ENCHANTED_MENU_ITEM_TAG_NAME}`);
     const menuItemEdit = await allMenuItems[0];
     await expect(menuItemEdit).toBeDisplayed();
     await expect(menuItemEdit).toHaveAttribute('text', 'Edit');
@@ -417,7 +415,7 @@ describe('Data Grid Generic testing', () => {
     await expect(menuItemDelete).toHaveAttribute('text', 'Delete');
   });
 
-  it('EnchantedDataGridGeneric - should dispatch `data-grid-focus-next` if pressing Tab or ArrowDown from last action button in last row', async() => {
+  it('should dispatch `data-grid-focus-next` if pressing Tab or ArrowDown from last action button in last row', async() => {
     // Workaround for test environment: deduplicate rapid events within 600ms window
     // (keyboard events in tests are spaced by LONG_PAUSE = 500ms)
     let lastEventTime = 0;
@@ -432,7 +430,7 @@ describe('Data Grid Generic testing', () => {
 
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .data=${sampleData} @data-grid-focus-next=${focusNext}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .data=${sampleData} @data-grid-focus-next=${focusNext}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
@@ -466,18 +464,18 @@ describe('Data Grid Generic testing', () => {
     await expect(debouncedFocusNext).toHaveBeenCalledTimes(2);
   });
 
-  it('EnchantedDataGridGeneric - should render Data Grid component with content', async () => {
+  it('should render Data Grid component with content', async () => {
     render(
       html`
         <div style="width: 2000px;">
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             .columns=${columns}
             .isLoading=${false}
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             .data=${data}
             .localization=${localization}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
       `,
       document.body,
@@ -485,7 +483,7 @@ describe('Data Grid Generic testing', () => {
 
     // Need to pause to allow rendering to complete
     await browser.pause(LONG_PAUSE);
-    const element = document.querySelector('enchanted-data-grid-generic') as EnchantedDataGridGeneric;
+    const element = document.querySelector(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
 
     if (element) {
       const mouseoverHeaderSpy = spyOn(element, 'handleHeaderOnMouseOver');
@@ -542,8 +540,8 @@ describe('Data Grid Generic testing', () => {
 
       await expect(sortClickEventSpy).toHaveBeenCalledTimes(1);
       const menuTarget = element.shadowRoot ?
-        await element.shadowRoot.querySelector(`enchanted-menu`) :
-        await element.querySelector(`enchanted-menu`);
+        await element.shadowRoot.querySelector(ENCHANTED_MENU_TAG_NAME) :
+        await element.querySelector(ENCHANTED_MENU_TAG_NAME);
       const menuChangeEventSpy = spyOn(element, 'handleOverFlowMenu');
       if (menuTarget) {
         menuTarget.dispatchEvent(new CustomEvent('change', { detail: { text: "Read" } }));
@@ -640,19 +638,19 @@ describe('Data Grid Generic testing', () => {
     }
   });
 
-  it('EnchantedDataGridGeneric - should support RTL Keyboard Navigation', async () => {
+  it('should support RTL Keyboard Navigation', async () => {
 
     render(
       html`
         <div style="width: 2000px;">
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             .columns=${columns}
             .isLoading=${false}
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             .data=${data}
             .localization=${localization}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
       `,
       document.body,
@@ -660,7 +658,7 @@ describe('Data Grid Generic testing', () => {
     await browser.execute("document.documentElement.setAttribute('dir', 'rtl')");
     // Need to pause to allow rendering to complete
     await browser.pause(SHORT_PAUSE);
-    const element = document.querySelector('enchanted-data-grid-generic') as EnchantedDataGridGeneric;
+    const element = document.querySelector(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
     if (element) {
       const tableRow = element.shadowRoot ?
       await element.shadowRoot.querySelector(`#table-row-0`) as HTMLElement:
@@ -684,18 +682,18 @@ describe('Data Grid Generic testing', () => {
     }
   });
 
-  it('EnchantedDataGridGeneric - should render Data Grid component with content and handleSorts', async () => {
+  it('should render Data Grid component with content and handleSorts', async () => {
     render(
       html`
         <div style="width: 2000px;">
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             .columns=${columns}
             .isLoading=${false}
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             .data=${data}
             .localization=${localization}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
       `,
       document.body,
@@ -705,7 +703,7 @@ describe('Data Grid Generic testing', () => {
     // Need to pause to allow rendering to complete
     await browser.pause(SHORT_PAUSE);
 
-    const element = await document.querySelector('enchanted-data-grid-generic') as EnchantedDataGridGeneric;
+    const element = await document.querySelector(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
 
     if (element) {
       const sortButton = element.shadowRoot ?
@@ -784,18 +782,18 @@ describe('Data Grid Generic testing', () => {
     }
   });
 
-  it('EnchantedDataGridGeneric - should focus on row when focusOnRow is called', async () => {
+  it('should focus on row when focusOnRow is called', async () => {
     render(
       html`
         <div style="width: 2000px;">
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             .columns=${columns}
             .isLoading=${false}
             customTableHeaderPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             customTableCellPart=${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING}
             .data=${data}
             .localization=${localization}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
       `,
       document.body,
@@ -803,7 +801,7 @@ describe('Data Grid Generic testing', () => {
 
     // Need to pause to allow rendering to complete
     await browser.pause(SHORT_PAUSE);
-    const element = document.querySelector('enchanted-data-grid-generic') as EnchantedDataGridGeneric;
+    const element = document.querySelector(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
 
     if (!element) {
       throw new Error('EnchantedDataGridGeneric element not found');
@@ -817,15 +815,15 @@ describe('Data Grid Generic testing', () => {
     await expect(focusedElement).toBe(`enchanted-table-row-${rowIndexToFocus}`);
   });
 
-  it('EnchantedDataGridGeneric - should focus on the loading container when focusOnLoadingContainer is called', async () => {
+  it('should focus on the loading container when focusOnLoadingContainer is called', async () => {
     render(
       html`
-        <enchanted-data-grid-generic .columns=${testColDef} .isLoading=${true}></enchanted-data-grid-generic>
+        <${ENCHANTED_DATA_GRID_GENERIC_TAG} .columns=${testColDef} .isLoading=${true}></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
       `,
       document.body
     );
 
-    const grid = document.querySelector('enchanted-data-grid-generic') as EnchantedDataGridGeneric;
+    const grid = document.querySelector(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
 
     await waitFor(() => {
       expect(grid).not.toBeNull();

@@ -14,7 +14,8 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { render, html } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { waitFor } from '@testing-library/dom';
 
 // Component imports
@@ -24,6 +25,7 @@ import '../../../components/atomic-component/enchanted-data-grid';
 import { EnchantedDataGridColDef } from '../../../types/enchanted-data-grid';
 import { DATA_GRID_PARTS } from '../../../types/cssClassEnums';
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_DATA_GRID_TAG, ENCHANTED_DATA_GRID_TAG_NAME } from '../../../components/tags';
 
 const localization: Map<string, string> = new Map<string, string>();
 localization.set('authoring.datagrid.overflow.list.read', 'Read');
@@ -45,7 +47,7 @@ localization.set('output.message.looking.for.something', 'Looking for something?
 localization.set('authoring.data.grid.message.looking.for.something', 'Looking for something? Type in the search bar above.');
 localization.set('data.grid.invalid.column.definition', 'Invalid column definition.');
 
-describe('Data Grid testing', () => {
+describe(`${ENCHANTED_DATA_GRID_TAG_NAME} component testing`, () => {
 
   interface EnchantedDataGridElement extends HTMLElement {
     enchantedDataGridContext?: { sortDirection: string; sortAttribute: string };
@@ -60,27 +62,23 @@ describe('Data Grid testing', () => {
 
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   it('EnchantedDataGrid - should render component with initial state', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization} colDef='${JSON.stringify(testColDef)}'></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization} colDef='${JSON.stringify(testColDef)}'></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
@@ -89,43 +87,43 @@ describe('Data Grid testing', () => {
   it('EnchantedDataGrid - should render component with loading state', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization} colDef='${JSON.stringify(testColDef)}' isLoading=${true}></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization} colDef='${JSON.stringify(testColDef)}' isLoading=${true}></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-loading-text"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
   });
 
-  it('EnchantedDataGrid - should render component with has middleaware error state', async () => {
+  it('should render component with has middleaware error state', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization} colDef='${JSON.stringify(testColDef)}' hasMiddlewareError=${true}></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization} colDef='${JSON.stringify(testColDef)}' hasMiddlewareError=${true}></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
   });
 
-  it('EnchantedDataGrid - should render component with has no content source state', async () => {
+  it('should render component with has no content source state', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization} colDef='${JSON.stringify(testColDef)}' hasContentSourceAvailable=${true}></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization} colDef='${JSON.stringify(testColDef)}' hasContentSourceAvailable=${true}></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
   
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
@@ -133,31 +131,31 @@ describe('Data Grid testing', () => {
   });
 
 
-  it('EnchantedDataGrid - should render component with invalid coldef', async () => {
+  it('should render component with invalid coldef', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization} colDef='${JSON.stringify(testColDef)}test' hasContentSourceAvailable=${true}></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization} colDef='${JSON.stringify(testColDef)}test' hasContentSourceAvailable=${true}></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
   
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="enchanted-invalid-coldef-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
 
   });
-  it('EnchantedDataGrid - should not display table content when loading', async () => {
+  it('should not display table content when loading', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization} colDef='${JSON.stringify(testColDef)}' isLoading=${true}></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization} colDef='${JSON.stringify(testColDef)}' isLoading=${true}></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let loadingText = await table.$('>>>p[data-testid="table-loading-text"]').getElement();
       await expect(loadingText).toBeDisplayed();
 
@@ -165,57 +163,57 @@ describe('Data Grid testing', () => {
       await expect(tableContent).toBe(true);
     });
   });
-  it('EnchantedDataGrid - should render correctly with null colDef', async () => {
+  it('should render correctly with null colDef', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization} colDef=${null}></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization} colDef=${null}></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let invalidColDefLabel = await table.$('>>>p[data-testid="enchanted-invalid-coldef-label"]').getElement();
       await expect(invalidColDefLabel).toBeDisplayed();
     });
   });
-  it('EnchantedDataGrid - should render correctly with undefined colDef', async () => {
+  it('should render correctly with undefined colDef', async () => {
     render(
       html`
-        <enchanted-data-grid .localization=${localization}></enchanted-data-grid>
+        <${ENCHANTED_DATA_GRID_TAG} .localization=${localization}></${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let invalidColDefLabel = await table.$('>>>p[data-testid="enchanted-invalid-coldef-label"]').getElement();
       await expect(invalidColDefLabel).toBeDisplayed();
     });
   });
 
-  it('EnchantedDataGrid - should render correctly with custom row navigation', async () => {
+  it('should render correctly with custom row navigation', async () => {
     render(
       html`
-        <enchanted-data-grid 
+        <${ENCHANTED_DATA_GRID_TAG} 
           .localization=${localization} 
           colDef='${JSON.stringify(testColDef)}' 
           ?hasContentSourceAvailable=${true} 
           ?customRowNavigation=${true}>
-        </enchanted-data-grid>
+        </${ENCHANTED_DATA_GRID_TAG}>
       `,
       document.body
     );
 
     await waitFor(async () => {
-      const table = await $('enchanted-data-grid').getElement();
+      const table = await $(ENCHANTED_DATA_GRID_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-result-label"]').getElement();
       await expect(resultLabel).toBeDisplayed();
     });
   });
   
   it('should return correct sort button class based on direction', async () => {
-    const grid = document.createElement('enchanted-data-grid') as EnchantedDataGridElement;
+    const grid = document.createElement(ENCHANTED_DATA_GRID_TAG_NAME) as EnchantedDataGridElement;
       
     grid.enchantedDataGridContext = { sortDirection: 'asc', sortAttribute: '_source.title' };
   
