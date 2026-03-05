@@ -119,8 +119,18 @@ export const AllStates: StoryObj = {
         <div>
           <h3>Chips with Avatar</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <${ENCHANTED_CHIP_TAG} .name=${'Avatar Chip'} .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`} ?showAvatar=${true}></${ENCHANTED_CHIP_TAG}>
-            <${ENCHANTED_CHIP_TAG} .name=${'Avatar + Count'} .count=${12} .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`} ?showAvatar=${true} ?showChipCount=${true}></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Avatar Chip'}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}>
+            </${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Avatar + Count'}
+              .count=${12}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}
+              ?showChipCount=${true}>
+            </${ENCHANTED_CHIP_TAG}>
           </div>
         </div>
 
@@ -133,7 +143,11 @@ export const AllStates: StoryObj = {
             <${ENCHANTED_CHIP_TAG} .name=${'Clear + Count'} .count=${8} ?clearIcon=${true} ?showChipCount=${true}>
               <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
             </${ENCHANTED_CHIP_TAG}>
-            <${ENCHANTED_CHIP_TAG} .name=${'Clear + Avatar'} ?clearIcon=${true} .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`} ?showAvatar=${true}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Clear + Avatar'}
+              ?clearIcon=${true}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}>
               <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
             </${ENCHANTED_CHIP_TAG}>
           </div>
@@ -142,7 +156,14 @@ export const AllStates: StoryObj = {
         <div>
           <h3>All Features Combined</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <${ENCHANTED_CHIP_TAG} .name=${'Full Featured'} .count=${25} .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`} ?showAvatar=${true} ?showChipCount=${true} ?clearIcon=${true}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Full Featured'}
+              .count=${25}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}
+              ?showChipCount=${true}
+              ?clearIcon=${true}
+            >
               <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
             </${ENCHANTED_CHIP_TAG}>
           </div>
@@ -153,7 +174,12 @@ export const AllStates: StoryObj = {
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
             <${ENCHANTED_CHIP_TAG} .name=${'Disabled Basic'} ?disabled=${true}></${ENCHANTED_CHIP_TAG}>
             <${ENCHANTED_CHIP_TAG} .name=${'Disabled + Count'} .count=${7} ?disabled=${true} ?showChipCount=${true}></${ENCHANTED_CHIP_TAG}>
-            <${ENCHANTED_CHIP_TAG} .name=${'Disabled + Avatar'} .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`} ?disabled=${true} ?showAvatar=${true}></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Disabled + Avatar'}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?disabled=${true}
+              ?showAvatar=${true}
+            ></${ENCHANTED_CHIP_TAG}>
             <${ENCHANTED_CHIP_TAG} .name=${'Disabled + Clear'} ?disabled=${true} ?clearIcon=${true}>
               <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
             </${ENCHANTED_CHIP_TAG}>

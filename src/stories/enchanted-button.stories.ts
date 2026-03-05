@@ -193,7 +193,12 @@ export const AllStates: Story = {
               return sizes.map((size) => {
                 return html`
                   <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                    <${ENCHANTED_BUTTON_TAG} .variant=${variant} .size=${size} .buttontext=${'Button'} .icon=${html`<${generateIconTagName('icon-search')} size='16'></${generateIconTagName('icon-search')}>`}></${ENCHANTED_BUTTON_TAG}>
+                    <${ENCHANTED_BUTTON_TAG}
+                      .variant=${variant}
+                      .size=${size}
+                      .buttontext=${'Button'}
+                      .icon=${html`<${generateIconTagName('icon-search')} size='16'></${generateIconTagName('icon-search')}>`}>
+                    </${ENCHANTED_BUTTON_TAG}>
                     <span style="font-size: 11px; color: #666;">${variant} / ${size}</span>
                   </div>
                 `;
@@ -238,7 +243,12 @@ export const AllStates: Story = {
           <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
             ${variants.map((variant) => {
               return html`
-                <${ENCHANTED_BUTTON_TAG} .variant=${variant} .size=${ICON_BUTTON_SIZES.MEDIUM} .icon=${html`<${generateIconTagName('icon-search')} size='16'></${generateIconTagName('icon-search')}>`} .ariaLabel=${'Search'}></${ENCHANTED_BUTTON_TAG}>
+                <${ENCHANTED_BUTTON_TAG} 
+                  .variant=${variant}
+                  .size=${ICON_BUTTON_SIZES.MEDIUM}
+                  .icon=${html`<${generateIconTagName('icon-search')} size='16'></${generateIconTagName('icon-search')}>`}
+                  .ariaLabel=${'Search'}>
+                </${ENCHANTED_BUTTON_TAG}>
               `;
             })}
           </div>
