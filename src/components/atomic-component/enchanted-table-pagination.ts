@@ -37,7 +37,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 
 import { LOCALE_DIRECTIONS } from '../constants';
-import { createIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_SELECT_TAG, ENCHANTED_TABLE_PAGINATION_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_SELECT_TAG, ENCHANTED_TABLE_PAGINATION_TAG_NAME } from '../tags';
 
 export class EnchantedTablePagination extends EnchantedAcBaseElement {
   @property({ type: Boolean })
@@ -222,12 +222,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasPreviousPage 
-                    ? html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-first')}>`
-                    : html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-first')}>`
+                    ? html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-first')}>`
+                    : html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-first')}>`
                 ) : (
                   this.hasPreviousPage 
-                    ? html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-last')}>`
-                    : html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-last')}>`
+                    ? html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-last')}>`
+                    : html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-last')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.FIRST_PAGE}"
@@ -245,12 +245,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasPreviousPage 
-                    ? html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-left')}>`
-                    : html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-left')}>`
+                    ? html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-left')}>`
+                    : html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-left')}>`
                 ) : (
                   this.hasPreviousPage
-                    ? html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-right')}>`
-                    : html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-right')}>`
+                    ? html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-right')}>`
+                    : html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-right')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.PREVIOUS_PAGE}"
@@ -286,12 +286,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasNextPage
-                    ? html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-right')}>`
-                    : html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-right')}>`
+                    ? html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-right')}>`
+                    : html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-right')}>`
                 ) : (
                   this.hasNextPage
-                    ? html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-left')}>`
-                    : html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-left')}>`
+                    ? html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-left')}>`
+                    : html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-left')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.NEXT_PAGE}"
@@ -309,12 +309,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasNextPage
-                    ? html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-last')}>`
-                    : html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-last')}>`
+                    ? html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-last')}>`
+                    : html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-last')}>`
                 ) : (
                   this.hasNextPage
-                    ? html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-first')}>`
-                    : html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-first')}>`
+                    ? html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-first')}>`
+                    : html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-first')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.LAST_PAGE}"

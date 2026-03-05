@@ -20,7 +20,7 @@ import { AVATAR_VARIANT, AVATAR_TYPE, AVATAR_COLOR } from '../types/cssClassEnum
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/link';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/template';
 import testAvatarImageUrl from '../_tests_/assets/test-avatar-image.jpg';
-import { createIconTagName, ENCHANTED_AVATAR_TAG } from '../components/tags';
+import { generateIconTagName, ENCHANTED_AVATAR_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Data display/enchanted-avatar',
@@ -104,9 +104,9 @@ const meta: Meta = {
     type: AVATAR_TYPE.AVATAR_ROUNDED,
     color: AVATAR_COLOR.AVATAR_DEFAULT_COLOR,
     imgUrl: testAvatarImageUrl,
-    iconUrl: html`<${createIconTagName('icon-link')}></${createIconTagName('icon-link')}>`,
+    iconUrl: html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`,
     avatarText: 'AB',
-    iconTemplate: html`<${createIconTagName('icon-template')}></${createIconTagName('icon-template')}>`,
+    iconTemplate: html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`,
   },
   parameters: {
     docs: {
@@ -198,11 +198,11 @@ export const AllStates: Story = {
         <div>
           <h3>Icon Avatars</h3>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${html`<${createIconTagName('icon-link')}></${createIconTagName('icon-link')}>`}></${ENCHANTED_AVATAR_TAG}>
-            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconUrl=${html`<${createIconTagName('icon-link')}></${createIconTagName('icon-link')}>`}></${ENCHANTED_AVATAR_TAG}>
-            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${html`<${createIconTagName('icon-link')}></${createIconTagName('icon-link')}>`} .color=${AVATAR_COLOR.AVATAR_BLUE}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`} .color=${AVATAR_COLOR.AVATAR_BLUE}>
             </${ENCHANTED_AVATAR_TAG}>
-            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconUrl=${html`<${createIconTagName('icon-link')}></${createIconTagName('icon-link')}>`} .color=${AVATAR_COLOR.AVATAR_BLUE}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`} .color=${AVATAR_COLOR.AVATAR_BLUE}>
             </${ENCHANTED_AVATAR_TAG}>
           </div>
         </div>
@@ -210,20 +210,20 @@ export const AllStates: Story = {
         <div>
           <h3>Icon Template Avatars</h3>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconTemplate=${html`<${createIconTagName('icon-template')}></${createIconTagName('icon-template')}>`}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}>
             </${ENCHANTED_AVATAR_TAG}>
-            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconTemplate=${html`<${createIconTagName('icon-template')}></${createIconTagName('icon-template')}>`}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}>
             </${ENCHANTED_AVATAR_TAG}>
             <${ENCHANTED_AVATAR_TAG}
               .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
               .type=${AVATAR_TYPE.AVATAR_ROUNDED}
-              .iconTemplate=${html`<${createIconTagName('icon-template')}></${createIconTagName('icon-template')}>`}
+              .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}
               .color=${AVATAR_COLOR.AVATAR_GREEN}
             ></${ENCHANTED_AVATAR_TAG}>
             <${ENCHANTED_AVATAR_TAG}
               .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
               .type=${AVATAR_TYPE.AVATAR_CIRCULAR}
-              .iconTemplate=${html`<${createIconTagName('icon-template')}></${createIconTagName('icon-template')}>`}
+              .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}
               .color=${AVATAR_COLOR.AVATAR_GREEN}
             ></${ENCHANTED_AVATAR_TAG}>
           </div>

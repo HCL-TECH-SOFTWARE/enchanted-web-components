@@ -25,7 +25,7 @@ import { BUTTON_PARTS, BUTTON_VARIANT, PANEL_PARTS, PANEL_POSITION } from '../..
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
-import { createIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_PANEL_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_PANEL_TAG_NAME } from '../tags';
 
 export class EnchantedPanel extends EnchantedAcBaseElement {
 
@@ -71,7 +71,7 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
             exportparts="${Object.values(BUTTON_PARTS).join(",")}"
             buttontext=""
             ?outlined="${false}"
-            .icon="${html`<${createIconTagName('icon-close')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-close')}>`}"
+            .icon="${html`<${generateIconTagName('icon-close')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-close')}>`}"
             @click=${this._handleCloseClick}
             variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
           >

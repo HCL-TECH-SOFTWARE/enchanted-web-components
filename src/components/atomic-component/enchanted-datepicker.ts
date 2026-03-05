@@ -42,7 +42,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/help';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/circle--solid';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
-import { createIconTagName, ENCHANTED_DATEPICKER_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_DATEPICKER_TAG_NAME } from '../tags';
 
 export class EnchantedDatePicker extends EnchantedAcBaseElement {
   @property({ type: String }) name = 'datepicker'; // Name of the datepicker, can be used for form submission
@@ -238,7 +238,7 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                 }"
                 ?disabled=${this.disabled}
               >
-                <${createIconTagName('icon-calendar')} color="currentColor"></${createIconTagName('icon-calendar')}>
+                <${generateIconTagName('icon-calendar')} color="currentColor"></${generateIconTagName('icon-calendar')}>
               </button>
             </div>
           </div>
@@ -308,8 +308,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
             >
               ${
                 !this._showYearSelection
-                ? html`<${createIconTagName('icon-caret-down')} color="currentColor"></${createIconTagName('icon-caret-down')}>`
-                : html`<${createIconTagName('icon-caret-up')} color="currentColor"></${createIconTagName('icon-caret-up')}>`
+                ? html`<${generateIconTagName('icon-caret-down')} color="currentColor"></${generateIconTagName('icon-caret-down')}>`
+                : html`<${generateIconTagName('icon-caret-up')} color="currentColor"></${generateIconTagName('icon-caret-up')}>`
               }
             </button>
           </div>
@@ -336,8 +336,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                   }}
                 >
                   ${isLTR()
-                    ? html`<${createIconTagName('icon-chevron-left')} color="currentColor"></${createIconTagName('icon-chevron-left')}>`
-                    : html`<${createIconTagName('icon-chevron-right')} color="currentColor"></${createIconTagName('icon-chevron-right')}>`
+                    ? html`<${generateIconTagName('icon-chevron-left')} color="currentColor"></${generateIconTagName('icon-chevron-left')}>`
+                    : html`<${generateIconTagName('icon-chevron-right')} color="currentColor"></${generateIconTagName('icon-chevron-right')}>`
                   }
                 </button>
                 <button
@@ -359,8 +359,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                   }"
                 >
                   ${isLTR()
-                    ? html`<${createIconTagName('icon-chevron-right')} color="currentColor"></${createIconTagName('icon-chevron-right')}>`
-                    : html`<${createIconTagName('icon-chevron-left')} color="currentColor"></${createIconTagName('icon-chevron-left')}>`
+                    ? html`<${generateIconTagName('icon-chevron-right')} color="currentColor"></${generateIconTagName('icon-chevron-right')}>`
+                    : html`<${generateIconTagName('icon-chevron-left')} color="currentColor"></${generateIconTagName('icon-chevron-left')}>`
                   }
                 </button>
               </div>
@@ -459,7 +459,7 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                         : `${DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_TODAY_SPAN} ${DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_TODAY_SPAN_RTL}`
                       }"
                     >
-                      <${createIconTagName('icon-circle-solid')} 
+                      <${generateIconTagName('icon-circle-solid')} 
                         color="currentColor"
                         ?useCurrentColor=${false}
                         color="none"

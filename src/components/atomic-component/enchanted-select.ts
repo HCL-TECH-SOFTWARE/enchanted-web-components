@@ -33,7 +33,7 @@ import { EnchantedInputFieldType, OptionData } from '../../types/enchanted-selec
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/caret--down';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
-import { createIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_LIST_ITEM_TAG, ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG, ENCHANTED_SELECT_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_LIST_ITEM_TAG, ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG, ENCHANTED_SELECT_TAG_NAME } from '../tags';
 
 /**
  * Select component.
@@ -336,7 +336,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
           exportparts="${Object.values(BUTTON_PARTS).join(',')}"
           data-testid="enchanted-select-button"
           variant="button"
-          .icon="${!this.hiddenIcon ? html`<${createIconTagName('icon-caret-down')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-caret-down')}>` : nothing}"
+          .icon="${!this.hiddenIcon ? html`<${generateIconTagName('icon-caret-down')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-caret-down')}>` : nothing}"
           ?endicon="${true}"
           ?disabled=${this.disabled}
           id="button-${this.field}"

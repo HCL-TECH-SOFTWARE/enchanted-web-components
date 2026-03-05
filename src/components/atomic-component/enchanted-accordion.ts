@@ -30,7 +30,7 @@ import { ACCORDION_PARTS } from "../../types/cssClassEnums";
 //Icon import
 import "@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--down";
 import { KeyboardInputKeys } from "../../utils/keyboardEventKeys";
-import { createIconTagName, ENCHANTED_ACCORDION_TAG_NAME } from "../tags";
+import { generateIconTagName, ENCHANTED_ACCORDION_TAG_NAME } from "../tags";
 
 export class EnchantedAccordion extends EnchantedAcBaseElement {
   @property({ type: Boolean, reflect: true }) showCheckbox = false;
@@ -118,12 +118,12 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
           @click=${debounce(this.handleArrowClick, 300)}
           @keydown=${this.handleKeyToggle}
         >
-          <${createIconTagName('icon-chevron-down')}
+          <${generateIconTagName('icon-chevron-down')}
             part=${this.isLTR
               ? `${ACCORDION_PARTS.ENCHANTED_ACCORDION_ARROW_ICON}`
               : `${ACCORDION_PARTS.ENCHANTED_ACCORDION_ARROW_ICON_RTL}`}
             size="16"
-          ></${createIconTagName('icon-chevron-down')}>
+          ></${generateIconTagName('icon-chevron-down')}>
         </span>
       </div>
       ${this.open

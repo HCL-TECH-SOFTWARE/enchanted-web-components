@@ -48,7 +48,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--down';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/items--search--empty';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/items--search--initial';
 import { 
-  createIconTagName,
+  generateIconTagName,
   ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG,
   ENCHANTED_ICON_BUTTON_TAG_NAME, ENCHANTED_ITEM_TYPE_AVATAR_TAG, ENCHANTED_MENU_ITEM_TAG,
   ENCHANTED_MENU_TAG, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG
@@ -788,7 +788,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                     <div part="${DATA_GRID_PARTS.TABLE_SORT_BUTTON_CONTAINER}">
                       <${ENCHANTED_ICON_BUTTON_TAG}
                         data-testid="enchanted-data-grid-sort-button-${SortOrder.ASC}-${index}"
-                        .icon=${html`<${createIconTagName('icon-arrow-up')}></${createIconTagName('icon-arrow-up')}>`}
+                        .icon=${html`<${generateIconTagName('icon-arrow-up')}></${generateIconTagName('icon-arrow-up')}>`}
                         id="enchanted-data-grid-sort-button-${SortOrder.ASC}-${index}"
                         tabindex=0
                         part="${this.getPartHeaderSort(sortHeaderField, SortOrder.ASC)} ${DATA_GRID_PARTS.TABLE_HEADER_ICON_BUTTON}"
@@ -801,7 +801,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                       </${ENCHANTED_ICON_BUTTON_TAG}>
                       <${ENCHANTED_ICON_BUTTON_TAG}
                         data-testid="enchanted-data-grid-sort-button-${SortOrder.DESC}-${index}"
-                        .icon=${html`<${createIconTagName('icon-arrow-down')}></${createIconTagName('icon-arrow-down')}>`}
+                        .icon=${html`<${generateIconTagName('icon-arrow-down')}></${generateIconTagName('icon-arrow-down')}>`}
                         tabindex=0
                         id="enchanted-data-grid-sort-button-${SortOrder.DESC}-${index}"
                         part="${this.getPartHeaderSort(sortHeaderField, SortOrder.DESC)} ${DATA_GRID_PARTS.TABLE_HEADER_ICON_BUTTON}"
@@ -1194,7 +1194,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
       else if (this.data?.total === 0) {
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">         
-            <${createIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-empty')}>
+            <${generateIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-empty')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.results.found')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
             ${unsafeHTML(this.getMessage('output.message.no.match.found', [{ '{search_term}': String(this.data?.searchValue) }]))}
@@ -1205,7 +1205,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
         debug('%s, %s', this.getMessage('output.message.no.engine.found'), this.getMessage('output.message.contact.admin'));
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-            <${createIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-empty')}>
+            <${generateIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-empty')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.engine.found')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
             ${this.getMessage('output.message.contact.admin')}
@@ -1216,7 +1216,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
         debug('%s, %s', this.getMessage('output.message.no.content.sources.found'), this.getMessage('output.message.contact.admin'));
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}"> 
-            <${createIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-empty')}>
+            <${generateIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-empty')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.content.sources.found')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
             ${this.getMessage('output.message.contact.admin')}
@@ -1226,7 +1226,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
       } else {
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-            <${createIconTagName('icon-items-search-initial')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-initial')}>
+            <${generateIconTagName('icon-items-search-initial')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-initial')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('authoring.data.grid.initial.message')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
                 ${this.isFeatureTagCloudEnabled

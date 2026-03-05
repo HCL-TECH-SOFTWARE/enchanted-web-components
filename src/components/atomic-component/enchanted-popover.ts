@@ -22,7 +22,7 @@ import { LOCALE_DIRECTIONS } from '../constants.js';
 import { getCurrentDirection } from '../localization.js';
 import  { EnchantedPopoverArrowPosition } from '../../types/enchanted-popover.js';
 import { POPOVER_PARTS } from "../../types/cssClassEnums";
-import { createIconTagName, ENCHANTED_POPOVER_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_POPOVER_TAG_NAME } from '../tags';
 
 export class EnchantedPopover extends EnchantedAcBaseElement {
   
@@ -93,7 +93,7 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
           </div>
           ${this.showCloseIcon ? html`<button part=${this.isLTR ? POPOVER_PARTS.POPOVER_CLOSE_ICON : POPOVER_PARTS.POPOVER_CLOSE_ICON_RTL} 
             @click="${this._onCloseClick}" aria-label="Close popover">
-            <${createIconTagName('icon-close')} size="16" color="currentColor"></${createIconTagName('icon-close')}>
+            <${generateIconTagName('icon-close')} size="16" color="currentColor"></${generateIconTagName('icon-close')}>
           </button>` : nothing}
         </div>
       </div>

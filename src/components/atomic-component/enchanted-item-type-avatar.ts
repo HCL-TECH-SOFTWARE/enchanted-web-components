@@ -78,7 +78,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user--profile
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user-profile--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/video';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/XLS';
-import { createIconTagName, ENCHANTED_AVATAR_TAG, ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_AVATAR_TAG, ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME } from '../tags';
 
 export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
  
@@ -89,123 +89,123 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
    private getSvgIcon(path: string): {icon: TemplateResult | String, color: AVATAR_COLOR} {
      switch (path) {
        case ICON_ITEM_TYPE.APPLICATION:
-         return { icon: html`<${createIconTagName('icon-application')}></${createIconTagName('icon-application')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-application')}></${generateIconTagName('icon-application')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.BLOG:
-         return { icon: html`<${createIconTagName('icon-blog')}></${createIconTagName('icon-blog')}>`, color: AVATAR_COLOR.AVATAR_PURPLE };
+         return { icon: html`<${generateIconTagName('icon-blog')}></${generateIconTagName('icon-blog')}>`, color: AVATAR_COLOR.AVATAR_PURPLE };
        case ICON_ITEM_TYPE.CATALOG:
-         return { icon: html`<${createIconTagName('icon-catalog')}></${createIconTagName('icon-catalog')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-catalog')}></${generateIconTagName('icon-catalog')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.CHARACTER_WHOLE_NUMBER:
-         return { icon: html`<${createIconTagName('icon-character-whole-number')}></${createIconTagName('icon-character-whole-number')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-character-whole-number')}></${generateIconTagName('icon-character-whole-number')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.COLLABORATE:
-         return { icon: html`<${createIconTagName('icon-collaborate')}></${createIconTagName('icon-collaborate')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-collaborate')}></${generateIconTagName('icon-collaborate')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.CONTENT_ITEM:
-         return { icon: html`<${createIconTagName('icon-content-item')}></${createIconTagName('icon-content-item')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-content-item')}></${generateIconTagName('icon-content-item')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.COPY_FILE:
-         return { icon: html`<${createIconTagName('icon-copy-file')}></${createIconTagName('icon-copy-file')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-copy-file')}></${generateIconTagName('icon-copy-file')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.DATA_ANALYTICS:
-         return { icon: html`<${createIconTagName('icon-data-analytics')}></${createIconTagName('icon-data-analytics')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-data-analytics')}></${generateIconTagName('icon-data-analytics')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.DATA_BASE:
-         return { icon: html`<${createIconTagName('icon-data-base')}></${createIconTagName('icon-data-base')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-data-base')}></${generateIconTagName('icon-data-base')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.DECISION_TREE:
-         return { icon: html`<${createIconTagName('icon-decision-tree')}></${createIconTagName('icon-decision-tree')}>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-decision-tree')}></${generateIconTagName('icon-decision-tree')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        case ICON_ITEM_TYPE.DIAGRAM:
-         return { icon: html`<${createIconTagName('icon-diagram')}></${createIconTagName('icon-diagram')}>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-diagram')}></${generateIconTagName('icon-diagram')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.DOC:
-         return { icon: html`<${createIconTagName('icon-doc')}></${createIconTagName('icon-doc')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-doc')}></${generateIconTagName('icon-doc')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.DOCUMENT_BLANK:
-         return { icon: html`<${createIconTagName('icon-document-blank')}></${createIconTagName('icon-document-blank')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-document-blank')}></${generateIconTagName('icon-document-blank')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.DOCUMENT_EXPORT:
-         return { icon: html`<${createIconTagName('icon-document-export')}></${createIconTagName('icon-document-export')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-document-export')}></${generateIconTagName('icon-document-export')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.EVENT_SCHEDULE:
-         return { icon: html`<${createIconTagName('icon-event-schedule')}></${createIconTagName('icon-event-schedule')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-event-schedule')}></${generateIconTagName('icon-event-schedule')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.EVENT_WARNING:
-         return { icon: html`<${createIconTagName('icon-event-warning')}></${createIconTagName('icon-event-warning')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-event-warning')}></${generateIconTagName('icon-event-warning')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.FLOW_DATA:
-         return { icon: html`<${createIconTagName('icon-flow-data')}></${createIconTagName('icon-flow-data')}>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-flow-data')}></${generateIconTagName('icon-flow-data')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        case ICON_ITEM_TYPE.FOLDER:
-         return { icon: html`<${createIconTagName('icon-folder')}></${createIconTagName('icon-folder')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-folder')}></${generateIconTagName('icon-folder')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.FOLDER_DETAILS:
-         return { icon: html`<${createIconTagName('icon-folder-details')}></${createIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.FOLDER_DETAILS_1:
-         return { icon: html`<${createIconTagName('icon-folder-details')}></${createIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.FOLDER_DETAILS_2:
-         return { icon: html`<${createIconTagName('icon-folder-details')}></${createIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.FOLDER_DETAILS_3:
-         return { icon: html`<${createIconTagName('icon-folder-details')}></${createIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.GIF:
-         return { icon: html`<${createIconTagName('icon-gif')}></${createIconTagName('icon-gif')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
+         return { icon: html`<${generateIconTagName('icon-gif')}></${generateIconTagName('icon-gif')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
        case ICON_ITEM_TYPE.HTML:
-         return { icon: html`<${createIconTagName('icon-html')}></${createIconTagName('icon-html')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-html')}></${generateIconTagName('icon-html')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.IMAGE:
-         return { icon: html`<${createIconTagName('icon-image')}></${createIconTagName('icon-image')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
+         return { icon: html`<${generateIconTagName('icon-image')}></${generateIconTagName('icon-image')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
        case ICON_ITEM_TYPE.IMAGE_1:
-         return { icon: html`<${createIconTagName('icon-image')}></${createIconTagName('icon-image')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-image')}></${generateIconTagName('icon-image')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.INVENTORY_MANAGEMENT:
-         return { icon: html`<${createIconTagName('icon-inventory-management')}></${createIconTagName('icon-inventory-management')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-inventory-management')}></${generateIconTagName('icon-inventory-management')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.LAYERS_EXTERNAL:
-         return { icon: html`<${createIconTagName('icon-layers-external')}></${createIconTagName('icon-layers-external')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-layers-external')}></${generateIconTagName('icon-layers-external')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.LICENSE_DRAFT:
-         return { icon: html`<${createIconTagName('icon-license-draft')}></${createIconTagName('icon-license-draft')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-license-draft')}></${generateIconTagName('icon-license-draft')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.LICENSE_GLOBAL:
-         return { icon: html`<${createIconTagName('icon-license-global')}></${createIconTagName('icon-license-global')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-license-global')}></${generateIconTagName('icon-license-global')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.LIST_BOXES:
-         return { icon: html`<${createIconTagName('icon-list-boxes')}></${createIconTagName('icon-list-boxes')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-list-boxes')}></${generateIconTagName('icon-list-boxes')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.LIST_DROPDOWN:
-         return { icon: html`<${createIconTagName('icon-list-dropdown')}></${createIconTagName('icon-list-dropdown')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-list-dropdown')}></${generateIconTagName('icon-list-dropdown')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.MAIL_ALL:
-         return { icon: html`<${createIconTagName('icon-mail-all')}></${createIconTagName('icon-mail-all')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-mail-all')}></${generateIconTagName('icon-mail-all')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.MENU:
-         return { icon: html`<${createIconTagName('icon-menu')}></${createIconTagName('icon-menu')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-menu')}></${generateIconTagName('icon-menu')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.NOTEBOOK_REFERENCE:
-         return { icon: html`<${createIconTagName('icon-notebook-reference')}></${createIconTagName('icon-notebook-reference')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-notebook-reference')}></${generateIconTagName('icon-notebook-reference')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.PAGE_ELEMENTS_RICH_TEXT:
-         return { icon: html`<${createIconTagName('icon-page-elements-rich-text')}></${createIconTagName('icon-page-elements-rich-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-elements-rich-text')}></${generateIconTagName('icon-page-elements-rich-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PAGE_ELEMENTS_SHORT_TEXT:
-         return { icon: html`<${createIconTagName('icon-page-elements-short-text')}></${createIconTagName('icon-page-elements-short-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-elements-short-text')}></${generateIconTagName('icon-page-elements-short-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PAGE_ELEMENTS_TEXT:
-         return { icon: html`<${createIconTagName('icon-page-elements-text')}></${createIconTagName('icon-page-elements-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-elements-text')}></${generateIconTagName('icon-page-elements-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PAGE_SCROLL:
-         return { icon: html`<${createIconTagName('icon-page-scroll')}></${createIconTagName('icon-page-scroll')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-scroll')}></${generateIconTagName('icon-page-scroll')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PARENT_CHILD:
-         return { icon: html`<${createIconTagName('icon-parent-child')}></${createIconTagName('icon-parent-child')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-parent-child')}></${generateIconTagName('icon-parent-child')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.PDF:
-         return { icon: html`<${createIconTagName('icon-pdf')}></${createIconTagName('icon-pdf')}>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-pdf')}></${generateIconTagName('icon-pdf')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.PORTFOLIO:
-         return { icon: html`<${createIconTagName('icon-portfolio')}></${createIconTagName('icon-portfolio')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-portfolio')}></${generateIconTagName('icon-portfolio')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.PPT:
-         return { icon: html`<${createIconTagName('icon-ppt')}></${createIconTagName('icon-ppt')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-ppt')}></${generateIconTagName('icon-ppt')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.PPTX:
-         return { icon: html`<${createIconTagName('icon-ppt')}></${createIconTagName('icon-ppt')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-ppt')}></${generateIconTagName('icon-ppt')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.REMINDER:
-         return { icon: html`<${createIconTagName('icon-reminder')}></${createIconTagName('icon-reminder')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-reminder')}></${generateIconTagName('icon-reminder')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.SCRIPT:
-         return { icon: html`<${createIconTagName('icon-script')}></${createIconTagName('icon-script')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-script')}></${generateIconTagName('icon-script')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.SEARCH_LOCATE:
-         return { icon: html`<${createIconTagName('icon-search-locate')}></${createIconTagName('icon-search-locate')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-search-locate')}></${generateIconTagName('icon-search-locate')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.SUBFLOW:
-         return { icon: html`<${createIconTagName('icon-subflow')}></${createIconTagName('icon-subflow')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-subflow')}></${generateIconTagName('icon-subflow')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.TAG_GROUP:
-         return { icon: html`<${createIconTagName('icon-tag-group')}></${createIconTagName('icon-tag-group')}>`, color: AVATAR_COLOR.AVATAR_PINK };
+         return { icon: html`<${generateIconTagName('icon-tag-group')}></${generateIconTagName('icon-tag-group')}>`, color: AVATAR_COLOR.AVATAR_PINK };
        case ICON_ITEM_TYPE.TAG:
-         return { icon: html`<${createIconTagName('icon-tag')}></${createIconTagName('icon-tag')}>`, color: AVATAR_COLOR.AVATAR_PINK };
+         return { icon: html`<${generateIconTagName('icon-tag')}></${generateIconTagName('icon-tag')}>`, color: AVATAR_COLOR.AVATAR_PINK };
        case ICON_ITEM_TYPE.TEMPLATE:
-         return { icon: html`<${createIconTagName('icon-template')}></${createIconTagName('icon-template')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.TEMPLATE_1:
-         return { icon: html`<${createIconTagName('icon-template')}></${createIconTagName('icon-template')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.TEXT_LINK:
-         return { icon: html`<${createIconTagName('icon-text-link')}></${createIconTagName('icon-text-link')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-text-link')}></${generateIconTagName('icon-text-link')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.TIF:
-         return { icon: html`<${createIconTagName('icon-tif')}></${createIconTagName('icon-tif')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
+         return { icon: html`<${generateIconTagName('icon-tif')}></${generateIconTagName('icon-tif')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
        case ICON_ITEM_TYPE.USER_PROFILE:
-         return { icon: html`<${createIconTagName('icon-user-profile')}></${createIconTagName('icon-user-profile')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-user-profile')}></${generateIconTagName('icon-user-profile')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.USER_PROFILE_ALT:
-         return { icon: html`<${createIconTagName('icon-user-profile-alt')}></${createIconTagName('icon-user-profile-alt')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-user-profile-alt')}></${generateIconTagName('icon-user-profile-alt')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.VIDEO:
-         return { icon: html`<${createIconTagName('icon-video')}></${createIconTagName('icon-video')}>`, color: AVATAR_COLOR.AVATAR_PINK };
+         return { icon: html`<${generateIconTagName('icon-video')}></${generateIconTagName('icon-video')}>`, color: AVATAR_COLOR.AVATAR_PINK };
        case ICON_ITEM_TYPE.XLS:
-         return { icon: html`<${createIconTagName('icon-xls')}></${createIconTagName('icon-xls')}>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-xls')}></${generateIconTagName('icon-xls')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        case ICON_ITEM_TYPE.XLSX:
-         return { icon: html`<${createIconTagName('icon-xls')}></${createIconTagName('icon-xls')}>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-xls')}></${generateIconTagName('icon-xls')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        default:
          return { icon: html``, color: AVATAR_COLOR.AVATAR_DEFAULT_COLOR };;
      }

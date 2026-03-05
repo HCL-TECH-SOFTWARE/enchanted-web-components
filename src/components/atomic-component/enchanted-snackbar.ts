@@ -28,7 +28,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--ou
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
-import { createIconTagName, ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../tags';
 
 export class EnchantedSnackbar extends EnchantedAcBaseElement {
 
@@ -50,17 +50,17 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
       } else {
         switch (this.type) {
           case SNACKBAR_TYPE.SNACKBAR_INFO:
-            return html`<${createIconTagName('icon-information')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
-            </${createIconTagName('icon-information')}>`;
+            return html`<${generateIconTagName('icon-information')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-information')}>`;
           case SNACKBAR_TYPE.SNACKBAR_WARNING:
-            return html`<${createIconTagName('icon-warning-alt')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
-            </${createIconTagName('icon-warning-alt')}>`;
+            return html`<${generateIconTagName('icon-warning-alt')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-warning-alt')}>`;
           case SNACKBAR_TYPE.SNACKBAR_ERROR:
-            return html`<${createIconTagName('icon-warning')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
-            </${createIconTagName('icon-warning')}>`;
+            return html`<${generateIconTagName('icon-warning')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-warning')}>`;
           case SNACKBAR_TYPE.SNACKBAR_SUCCESS:
-            return html`<${createIconTagName('icon-checkmark-outline')} size="16" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
-            </${createIconTagName('icon-checkmark-outline')}>`;
+            return html`<${generateIconTagName('icon-checkmark-outline')} size="16" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-checkmark-outline')}>`;
         }
       }
     }

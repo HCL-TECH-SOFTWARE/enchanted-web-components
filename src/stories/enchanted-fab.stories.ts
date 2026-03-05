@@ -27,7 +27,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/apps/es/ai--sparkle';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/arrows';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/circle';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/images';
-import { createIconTagName, ENCHANTED_BADGE_TAG, ENCHANTED_FAB_TAG } from '../components/tags';
+import { generateIconTagName, ENCHANTED_BADGE_TAG, ENCHANTED_FAB_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedFabProps
@@ -152,10 +152,10 @@ const meta: Meta<EnchantedFabProps> = {
   },
   render: (args) => {
     const iconMap = {
-      'ai-sparkle': html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`,
-      'arrows': html`<${createIconTagName('icon-arrows')}></${createIconTagName('icon-arrows')}>`,
-      'circle': html`<${createIconTagName('icon-circle')}></${createIconTagName('icon-circle')}>`,
-      'images': html`<${createIconTagName('icon-images')}></${createIconTagName('icon-images')}>`,
+      'ai-sparkle': html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`,
+      'arrows': html`<${generateIconTagName('icon-arrows')}></${generateIconTagName('icon-arrows')}>`,
+      'circle': html`<${generateIconTagName('icon-circle')}></${generateIconTagName('icon-circle')}>`,
+      'images': html`<${generateIconTagName('icon-images')}></${generateIconTagName('icon-images')}>`,
     };
 
     const selectedIcon = typeof args.icon === 'string' && Object.prototype.hasOwnProperty.call(iconMap, args.icon)
@@ -198,7 +198,7 @@ export const AllStates: Story = {
       <${ENCHANTED_FAB_TAG}
         style="position: relative; top: 10px; left: 10px;"
         .type=${EnchantedFabType.CONTAINED}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
     <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 150px;">[Extended]</div>
@@ -207,7 +207,7 @@ export const AllStates: Story = {
         .type=${EnchantedFabType.CONTAINED}
         .extended=${true}
         .label=${'Extended'}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 350px;">[Badge]</div>
@@ -215,7 +215,7 @@ export const AllStates: Story = {
         style="position: relative; top: 10px; left: 150px;"
         .type=${EnchantedFabType.CONTAINED}
         .badge=${true}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       >
         <${ENCHANTED_BADGE_TAG}
           slot="badge"
@@ -233,7 +233,7 @@ export const AllStates: Story = {
         .extended=${true}
         .badge=${true}
         .label=${'Extended Badge'}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       >
         <${ENCHANTED_BADGE_TAG}
           slot="badge"
@@ -249,7 +249,7 @@ export const AllStates: Story = {
         style="position: relative; top: 10px; left: 270px;"
         .type=${EnchantedFabType.CONTAINED}
         .disabled=${true}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 800px;">[Extended + Disabled]</div>
@@ -259,7 +259,7 @@ export const AllStates: Story = {
         .extended=${true}
         .disabled=${true}
         .label=${'Disabled'}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 1000px;">[No Icon]</div>
@@ -282,7 +282,7 @@ export const AllStates: Story = {
       <${ENCHANTED_FAB_TAG}
         style="position: relative; top: 140px; left: 10px;"
         .type=${EnchantedFabType.OUTLINED}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 120px; left: 150px;">[Extended]</div>
@@ -291,7 +291,7 @@ export const AllStates: Story = {
         .type=${EnchantedFabType.OUTLINED}
         .extended=${true}
         .label=${'Extended'}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 120px; left: 350px;">[Badge]</div>
@@ -299,7 +299,7 @@ export const AllStates: Story = {
         style="position: relative; top: 140px; left: 150px;"
         .type=${EnchantedFabType.OUTLINED}
         .badge=${true}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       >
         <${ENCHANTED_BADGE_TAG}
           slot="badge"
@@ -316,7 +316,7 @@ export const AllStates: Story = {
         .extended=${true}
         .badge=${true}
         .label=${'Extended Badge'}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       >
         <${ENCHANTED_BADGE_TAG}
           slot="badge"
@@ -332,7 +332,7 @@ export const AllStates: Story = {
         style="position: relative; top: 140px; left: 270px;"
         .type=${EnchantedFabType.OUTLINED}
         .disabled=${true}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 120px; left: 800px;">[Extended + Disabled]</div>
@@ -342,7 +342,7 @@ export const AllStates: Story = {
         .extended=${true}
         .disabled=${true}
         .label=${'Disabled'}
-        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 120px; left: 1000px;">[No Icon]</div>

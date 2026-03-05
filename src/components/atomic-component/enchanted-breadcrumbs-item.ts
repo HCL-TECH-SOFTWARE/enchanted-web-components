@@ -29,7 +29,7 @@ import { BREADCRUMBS_ICON_TYPE } from '../../types/enchanted-breadcrumbs';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/home';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 
-import { createIconTagName, ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
+import { generateIconTagName, ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
 
 export interface PathType {
   title?: string,
@@ -84,10 +84,10 @@ export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
 
       switch (this.path.iconName) {
         case BREADCRUMBS_ICON_TYPE.HOME:
-          return html`<${createIconTagName('icon-home')} size="16" part=${part}></${createIconTagName('icon-home')}>`;
+          return html`<${generateIconTagName('icon-home')} size="16" part=${part}></${generateIconTagName('icon-home')}>`;
 
         case BREADCRUMBS_ICON_TYPE.INFORMATION:
-          return html`<${createIconTagName('icon-information')} size="16" part=${part}></${createIconTagName('icon-information')}>`;
+          return html`<${generateIconTagName('icon-information')} size="16" part=${part}></${generateIconTagName('icon-information')}>`;
 
         default:
           // Return nothing for other icons

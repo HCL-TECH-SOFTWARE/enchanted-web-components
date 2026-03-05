@@ -29,7 +29,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--ou
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
-import { createIconTagName, ENCHANTED_ALERT_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_ALERT_TAG_NAME } from '../tags';
 
 /**
  * Alert component.
@@ -86,13 +86,13 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
   private getAlertIcon(): TemplateResult | typeof nothing {
     switch (this.severity) {
       case ALERT_SEVERITY.ALERT_INFO:
-        return html`<${createIconTagName('icon-information')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-information')}>`;
+        return html`<${generateIconTagName('icon-information')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-information')}>`;
       case ALERT_SEVERITY.ALERT_ERROR:
-        return html`<${createIconTagName('icon-warning')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-warning')}>`;
+        return html`<${generateIconTagName('icon-warning')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-warning')}>`;
       case ALERT_SEVERITY.ALERT_WARNING:
-        return html`<${createIconTagName('icon-warning-alt')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-warning-alt')}>`;
+        return html`<${generateIconTagName('icon-warning-alt')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-warning-alt')}>`;
       case ALERT_SEVERITY.ALERT_SUCCESS:
-        return html`<${createIconTagName('icon-checkmark-outline')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-checkmark-outline')}>`;
+        return html`<${generateIconTagName('icon-checkmark-outline')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-checkmark-outline')}>`;
       default:
         return nothing;
     }

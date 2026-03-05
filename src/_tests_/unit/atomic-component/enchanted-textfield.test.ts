@@ -27,7 +27,7 @@ import { EnchantedInputFieldType } from '../../../types/enchanted-select';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
-import { createIconTagName, ENCHANTED_TEXTFIELD_TAG, ENCHANTED_TEXTFIELD_TAG_NAME } from '../../../components/tags';
+import { generateIconTagName, ENCHANTED_TEXTFIELD_TAG, ENCHANTED_TEXTFIELD_TAG_NAME } from '../../../components/tags';
 
 const localization: Map<string, string> = new Map<string, string>();
 localization.set('input.textfield.placeholder.type.to.search', 'Type to search');
@@ -121,7 +121,7 @@ describe(`${ENCHANTED_TEXTFIELD_TAG_NAME} component testing`, () => {
           .localization=${localization}
           field=${EnchantedInputFieldType.QUERY_STRING}
           value="test-value"
-          .clearIcon=${html`<${createIconTagName('icon-close')} size="16" color="currentColor"></${createIconTagName('icon-close')}>`}
+          .clearIcon=${html`<${generateIconTagName('icon-close')} size="16" color="currentColor"></${generateIconTagName('icon-close')}>`}
         ></${ENCHANTED_TEXTFIELD_TAG}>
         <button type="button">Click Me!</button>
       `,
@@ -147,7 +147,7 @@ describe(`${ENCHANTED_TEXTFIELD_TAG_NAME} component testing`, () => {
           .localization=${localization}
           field=${EnchantedInputFieldType.QUERY_STRING}
           value="test-value"
-          .clearIcon=${html`<${createIconTagName('icon-close')} size="16" color="currentColor"></${createIconTagName('icon-close')}>`}
+          .clearIcon=${html`<${generateIconTagName('icon-close')} size="16" color="currentColor"></${generateIconTagName('icon-close')}>`}
         ></${ENCHANTED_TEXTFIELD_TAG}>
         <button type="button">Click Me!</button>
       `,

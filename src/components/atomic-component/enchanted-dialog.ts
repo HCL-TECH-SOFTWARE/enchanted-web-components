@@ -32,7 +32,7 @@ import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
-import { createIconTagName, ENCHANTED_DIALOG_TAG_NAME } from '../tags';
+import { generateIconTagName, ENCHANTED_DIALOG_TAG_NAME } from '../tags';
 
 @localized()
 export class EnchantedDialog extends EnchantedAcBaseElement {
@@ -299,7 +299,7 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
                         ${this.dialogTitle}
                       </p>
                       <div part=${DIALOG_PARTS.ICON_ROOT}>
-                        <${createIconTagName('icon-close')}
+                        <${generateIconTagName('icon-close')}
                           part=${DIALOG_PARTS.ICON_CLOSE}
                           color="rgba(0, 0, 0, 0.60)"
                           size="20"
@@ -307,7 +307,7 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
                           @keydown=${this.handleCloseByEnterKey}
                           tabindex="0"
                         >
-                        </${createIconTagName('icon-close')}>
+                        </${generateIconTagName('icon-close')}>
                       </div>
                     </div>`}
               </div>

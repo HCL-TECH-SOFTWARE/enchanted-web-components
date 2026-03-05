@@ -27,7 +27,7 @@ try {
 }
 debug("Component prefix is '%s'", COMPONENT_PREFIX);
 
-export const createIconTagName = (iconTagName: string): StaticValue => {
+export const generateIconTagName = (iconTagName: string): StaticValue => {
   return unsafeStatic(`${COMPONENT_PREFIX}${iconTagName}`);
 };
 

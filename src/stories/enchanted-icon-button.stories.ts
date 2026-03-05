@@ -17,7 +17,7 @@ import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-icon-button';
 import { ICON_BUTTON_SIZES } from '../types/cssClassEnums';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
-import { createIconTagName, ENCHANTED_ICON_BUTTON_TAG } from '../components/tags';
+import { generateIconTagName, ENCHANTED_ICON_BUTTON_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedIconButtonProps
@@ -95,7 +95,7 @@ const meta: Meta<EnchantedIconButtonProps> = {
     size: ICON_BUTTON_SIZES.SMALL,
     withPadding: false,
     imgurl: 'https://cdn-icons-png.flaticon.com/512/61/61456.png',
-    icon: html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`,
+    icon: html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`,
     disabled: false,
     inverseColor: false,
     ariaLabel: 'Search',
@@ -142,7 +142,7 @@ export const AllStates: Story = {
           <div style="margin-bottom: 8px; font-weight: 500;">Small Size (Default)</div>
           <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.SMALL}"
-            .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ariaLabel="Search"
           ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
@@ -150,7 +150,7 @@ export const AllStates: Story = {
           <div style="margin-bottom: 8px; font-weight: 500;">Medium Size</div>
           <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.MEDIUM}"
-            .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ariaLabel="Search"
           ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
@@ -158,7 +158,7 @@ export const AllStates: Story = {
           <div style="margin-bottom: 8px; font-weight: 500;">FAB Size</div>
           <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.FAB}"
-            .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ariaLabel="Search"
           ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
@@ -166,7 +166,7 @@ export const AllStates: Story = {
           <div style="margin-bottom: 8px; font-weight: 500;">With Padding</div>
           <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.SMALL}"
-            .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?withPadding=${true}
             ariaLabel="Search with padding"
           ></${ENCHANTED_ICON_BUTTON_TAG}>
@@ -175,7 +175,7 @@ export const AllStates: Story = {
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled</div>
           <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.SMALL}"
-            .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?disabled=${true}
             ariaLabel="Search disabled"
           ></${ENCHANTED_ICON_BUTTON_TAG}>
@@ -185,7 +185,7 @@ export const AllStates: Story = {
           <div style="background-color: #333; padding: 12px; border-radius: 4px;">
             <${ENCHANTED_ICON_BUTTON_TAG}
               size="${ICON_BUTTON_SIZES.SMALL}"
-              .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+              .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
               ?inverseColor=${true}
               ariaLabel="Search inverse"
             ></${ENCHANTED_ICON_BUTTON_TAG}>
@@ -196,7 +196,7 @@ export const AllStates: Story = {
           <div style="background-color: #333; padding: 12px; border-radius: 4px;">
             <${ENCHANTED_ICON_BUTTON_TAG}
               size="${ICON_BUTTON_SIZES.FAB}"
-              .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+              .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
               ?inverseColor=${true}
               ariaLabel="Primary action"
             ></${ENCHANTED_ICON_BUTTON_TAG}>
@@ -214,7 +214,7 @@ export const AllStates: Story = {
           <div style="margin-bottom: 8px; font-weight: 500;">Medium with Padding</div>
           <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.MEDIUM}"
-            .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?withPadding=${true}
             ariaLabel="Search medium"
           ></${ENCHANTED_ICON_BUTTON_TAG}>
@@ -223,7 +223,7 @@ export const AllStates: Story = {
           <div style="margin-bottom: 8px; font-weight: 500;">Medium Disabled</div>
           <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.MEDIUM}"
-            .icon=${html`<${createIconTagName('icon-search')}></${createIconTagName('icon-search')}>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?disabled=${true}
             ariaLabel="Search disabled"
           ></${ENCHANTED_ICON_BUTTON_TAG}>
