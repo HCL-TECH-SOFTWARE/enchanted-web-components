@@ -20,7 +20,7 @@ import { BUTTON_VARIANT, ICON_BUTTON_SIZES } from '../types/cssClassEnums';
 
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
 import testImageUrl from '../_tests_/assets/test-avatar-image.jpg';
-import { ENCHANTED_BUTTON_TAG } from '../components/tags';
+import { createIconTagName, ENCHANTED_BUTTON_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedButtonProps
@@ -138,7 +138,7 @@ const meta: Meta<EnchantedButtonProps> = {
     inverseColor: false,
     buttontext: 'Button',
     imgurl: testImageUrl,
-    icon: html`<icon-search size='16' color='#FFFFFF'></icon-search>`,
+    icon: html`<${createIconTagName('icon-search')} size='16' color='#FFFFFF'></${createIconTagName('icon-search')}>`,
     ariaLabel: '',
     ariaHasPopup: '',
     ariaExpanded: 'false',
@@ -193,7 +193,7 @@ export const AllStates: Story = {
               return sizes.map((size) => {
                 return html`
                   <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                    <${ENCHANTED_BUTTON_TAG} .variant=${variant} .size=${size} .buttontext=${'Button'} .icon=${html`<icon-search size='16'></icon-search>`}></${ENCHANTED_BUTTON_TAG}>
+                    <${ENCHANTED_BUTTON_TAG} .variant=${variant} .size=${size} .buttontext=${'Button'} .icon=${html`<${createIconTagName('icon-search')} size='16'></${createIconTagName('icon-search')}>`}></${ENCHANTED_BUTTON_TAG}>
                     <span style="font-size: 11px; color: #666;">${variant} / ${size}</span>
                   </div>
                 `;
@@ -212,7 +212,7 @@ export const AllStates: Story = {
                   .variant=${variant}
                   .size=${ICON_BUTTON_SIZES.MEDIUM}
                   .buttontext=${'Button'}
-                  .icon=${html`<icon-search size='16'></icon-search>`}
+                  .icon=${html`<${createIconTagName('icon-search')} size='16'></${createIconTagName('icon-search')}>`}
                   ?endicon=${true}>
                 </${ENCHANTED_BUTTON_TAG}>
               `;
@@ -238,7 +238,7 @@ export const AllStates: Story = {
           <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
             ${variants.map((variant) => {
               return html`
-                <${ENCHANTED_BUTTON_TAG} .variant=${variant} .size=${ICON_BUTTON_SIZES.MEDIUM} .icon=${html`<icon-search size='16'></icon-search>`} .ariaLabel=${'Search'}></${ENCHANTED_BUTTON_TAG}>
+                <${ENCHANTED_BUTTON_TAG} .variant=${variant} .size=${ICON_BUTTON_SIZES.MEDIUM} .icon=${html`<${createIconTagName('icon-search')} size='16'></${createIconTagName('icon-search')}>`} .ariaLabel=${'Search'}></${ENCHANTED_BUTTON_TAG}>
               `;
             })}
           </div>
@@ -253,7 +253,7 @@ export const AllStates: Story = {
                 <${ENCHANTED_BUTTON_TAG}
                   .variant=${variant}
                   .size=${ICON_BUTTON_SIZES.MEDIUM}
-                  .icon=${html`<icon-search size='16'></icon-search>`}
+                  .icon=${html`<${createIconTagName('icon-search')} size='16'></${createIconTagName('icon-search')}>`}
                   ?withPadding=${true}
                   .ariaLabel=${'Search'}>
                 </${ENCHANTED_BUTTON_TAG}>
@@ -272,7 +272,7 @@ export const AllStates: Story = {
                   .variant=${variant}
                   .size=${ICON_BUTTON_SIZES.MEDIUM}
                   .buttontext=${'Button'}
-                  .icon=${html`<icon-search size='16'></icon-search>`}
+                  .icon=${html`<${createIconTagName('icon-search')} size='16'></${createIconTagName('icon-search')}>`}
                   ?inverseColor=${true}>
                 </${ENCHANTED_BUTTON_TAG}>
               `;
@@ -290,7 +290,7 @@ export const AllStates: Story = {
                   .variant=${variant}
                   .size=${ICON_BUTTON_SIZES.MEDIUM}
                   .buttontext=${'Button'}
-                  .icon=${html`<icon-search size='16'></icon-search>`}
+                  .icon=${html`<${createIconTagName('icon-search')} size='16'></${createIconTagName('icon-search')}>`}
                   ?disabled=${true}>
                 </${ENCHANTED_BUTTON_TAG}>
               `;
@@ -318,7 +318,7 @@ export const AllStates: Story = {
               .variant=${BUTTON_VARIANT.BUTTON_CONTAINED_VAR}
               .size=${ICON_BUTTON_SIZES.MEDIUM}
               .buttontext=${'Menu'}
-              .icon=${html`<icon-search size='16'></icon-search>`}
+              .icon=${html`<${createIconTagName('icon-search')} size='16'></${createIconTagName('icon-search')}>`}
               .ariaLabel=${'Open menu'}
               .ariaHasPopup=${'menu'}
               .ariaExpanded=${'false'}

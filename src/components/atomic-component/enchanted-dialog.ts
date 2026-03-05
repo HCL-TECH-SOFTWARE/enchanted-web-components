@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
+import { nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
@@ -31,7 +32,7 @@ import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
-import { ENCHANTED_DIALOG_TAG_NAME } from '../tags';
+import { createIconTagName, ENCHANTED_DIALOG_TAG_NAME } from '../tags';
 
 @localized()
 export class EnchantedDialog extends EnchantedAcBaseElement {
@@ -298,7 +299,7 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
                         ${this.dialogTitle}
                       </p>
                       <div part=${DIALOG_PARTS.ICON_ROOT}>
-                        <icon-close
+                        <${createIconTagName('icon-close')}
                           part=${DIALOG_PARTS.ICON_CLOSE}
                           color="rgba(0, 0, 0, 0.60)"
                           size="20"
@@ -306,7 +307,7 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
                           @keydown=${this.handleCloseByEnterKey}
                           tabindex="0"
                         >
-                        </icon-close>
+                        </${createIconTagName('icon-close')}>
                       </div>
                     </div>`}
               </div>

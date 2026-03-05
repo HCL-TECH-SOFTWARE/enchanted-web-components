@@ -53,7 +53,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/overflow-menu
 
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import {
-  ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_DATA_GRID_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG,
+  createIconTagName, ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_DATA_GRID_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG,
   ENCHANTED_ITEM_TYPE_AVATAR_TAG, ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_MENU_ITEM_TAG, ENCHANTED_MENU_TAG, ENCHANTED_TOOLTIP_TAG
 } from '../tags';
 
@@ -771,7 +771,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 								<div part="${DATA_GRID_PARTS.TABLE_SORT_BUTTON_CONTAINER}">
 									<${ENCHANTED_ICON_BUTTON_TAG}
 										data-testid="enchanted-data-grid-sort-button-${SortOrder.ASC}-${index}"
-										.icon="${html`<icon-arrow-up></icon-arrow-up>`}"
+										.icon="${html`<${createIconTagName('icon-arrow-up')}></${createIconTagName('icon-arrow-up')}>`}"
 										id="enchanted-data-grid-sort-button-${SortOrder.ASC}-${index}"
 										tabindex=0
 										part="${this.getPartHeaderSort(sortHeaderField, SortOrder.ASC)} ${DATA_GRID_PARTS.TABLE_HEADER_ICON_BUTTON}"
@@ -784,7 +784,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 									</${ENCHANTED_ICON_BUTTON_TAG}>
 									<${ENCHANTED_ICON_BUTTON_TAG}
 										data-testid="enchanted-data-grid-sort-button-${SortOrder.DESC}-${index}"
-										.icon="${html`<icon-arrow-down></icon-arrow-down>`}"
+										.icon="${html`<${createIconTagName('icon-arrow-down')}></${createIconTagName('icon-arrow-down')}>`}"
 										tabindex=0
 										id="enchanted-data-grid-sort-button-${SortOrder.DESC}-${index}"
 										part="${this.getPartHeaderSort(sortHeaderField, SortOrder.DESC)} ${DATA_GRID_PARTS.TABLE_HEADER_ICON_BUTTON}"
@@ -931,7 +931,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 																			data-testid="enchanted-data-grid-edit-button-${index}"
 																			id="enchanted-data-grid-edit-button-${index}"
                                       role="button"
-																			.icon="${html`<icon-edit></icon-edit>`}"
+																			.icon="${html`<${createIconTagName('icon-edit')}></${createIconTagName('icon-edit')}>`}"
 																			tabindex=0
 																			exportparts="${ICON_BUTTON_EXPORT_PARTS}"
 																			@click=${(evt: MouseEvent) => { 
@@ -973,7 +973,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
                                 role="button"
 																data-testid="enchanted-data-grid-overflow-button-${index}"
 																id="enchanted-data-grid-overflow-button-${index}"
-																.icon="${html`<icon-overflow-menu-horizontal></icon-overflow-menu-horizontal>`}"
+																.icon="${html`<${createIconTagName('icon-overflow-menu-horizontal')}></${createIconTagName('icon-overflow-menu-horizontal')}>`}"
 																exportparts="${ICON_BUTTON_EXPORT_PARTS}"
 																@focus=${(evt: FocusEvent) => { return this.handleButtonFocus(evt); }}
 																@blur=${(evt: FocusEvent) => { return this.handleButtonBlur(evt); }}
@@ -1020,7 +1020,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 	    else if (this.enchantedDataGridContext?.total === 0) {
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">         
-						<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
+						<${createIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-empty')}>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.results.found')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 						${unsafeHTML(this.getMessage('output.message.no.match.found', [{ '{search_term}': String(this.enchantedDataGridContext?.searchValue) }]))}
@@ -1031,7 +1031,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 		  debug('%s, %s', this.getMessage('output.message.no.engine.found'), this.getMessage('output.message.contact.admin'));
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-						<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
+						<${createIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-empty')}>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.engine.found')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 						${this.getMessage('output.message.contact.admin')}
@@ -1042,7 +1042,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 		  debug('%s, %s', this.getMessage('output.message.no.content.sources.found'), this.getMessage('output.message.contact.admin'));
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}"> 
-						<icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
+						<${createIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-empty')}>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.content.sources.found')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 						${this.getMessage('output.message.contact.admin')}
@@ -1052,7 +1052,7 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 	    } else {
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-						<icon-items-search-initial size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-initial>
+						<${createIconTagName('icon-items-search-initial')} size="128" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-items-search-initial')}>
 						<p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('authoring.data.grid.initial.message')}</p>
 						<p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
 								${this.isFeatureTagCloudEnabled

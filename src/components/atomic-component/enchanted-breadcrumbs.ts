@@ -27,7 +27,7 @@ import { isLTR } from '../localization';
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
-import { ENCHANTED_BREADCRUMBS_ITEM_TAG, ENCHANTED_BREADCRUMBS_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
+import { createIconTagName, ENCHANTED_BREADCRUMBS_ITEM_TAG, ENCHANTED_BREADCRUMBS_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
 
 /**
  * Breadcrumb component.
@@ -78,8 +78,8 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
                       </li>
                         <li part="${BREADCRUMBS_PART.BREADCRUMBS_SEPARATOR}" aria-hidden="true">
                           <${ENCHANTED_SVG_ICON_TAG} .icon=${ this.isLtr
-                            ? html`<icon-chevron-right size="16"></icon-chevron-right>`
-                            : html`<icon-chevron-left size="16"></icon-chevron-left>`
+                            ? html`<${createIconTagName('icon-chevron-right')} size="16"></${createIconTagName('icon-chevron-right')}>`
+                            : html`<${createIconTagName('icon-chevron-left')} size="16"></${createIconTagName('icon-chevron-left')}>`
                           } ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
                         </li>` :
                     html`

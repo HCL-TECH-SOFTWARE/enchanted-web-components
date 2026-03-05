@@ -23,7 +23,7 @@ import '../../../components/atomic-component/enchanted-avatar';
 // Helper imports
 import { AVATAR_COLOR, AVATAR_PARTS, AVATAR_TYPE, AVATAR_VARIANT } from '../../../types/cssClassEnums';
 import { initSessionStorage } from '../../utils';
-import { ENCHANTED_AVATAR_TAG, ENCHANTED_AVATAR_TAG_NAME } from '../../../components/tags';
+import { createIconTagName, ENCHANTED_AVATAR_TAG, ENCHANTED_AVATAR_TAG_NAME } from '../../../components/tags';
 
 describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
   before(async () => {
@@ -153,7 +153,7 @@ describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
         <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
           type=${AVATAR_TYPE.AVATAR_ROUNDED}
-          .iconTemplate=${html`<icon-content-item></icon-content-item>`}
+          .iconTemplate=${html`<${createIconTagName('icon-content-item')}></${createIconTagName('icon-content-item')}>`}
           color="${AVATAR_COLOR.AVATAR_BLUE}">
         ></${ENCHANTED_AVATAR_TAG}>
       `,
@@ -175,7 +175,7 @@ describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
         <${ENCHANTED_AVATAR_TAG}
           variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
           type=${AVATAR_TYPE.AVATAR_CIRCULAR}
-          .iconTemplate=${html`<icon-content-item></icon-content-item>`}
+          .iconTemplate=${html`<${createIconTagName('icon-content-item')}></${createIconTagName('icon-content-item')}>`}
         ></${ENCHANTED_AVATAR_TAG}>
       `,
       document.body

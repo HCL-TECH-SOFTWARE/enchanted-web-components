@@ -38,6 +38,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close--filled';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark';
 import {
+  createIconTagName,
   ENCHANTED_BUTTON_TAG, ENCHANTED_CHIP_TAG, ENCHANTED_ICON_BUTTON_TAG, ENCHANTED_LIST_ITEM_TAG,
   ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG, ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME
 } from '../tags';
@@ -399,7 +400,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
         : INPUT_MULTI_SELECT_PARTS.CHECKMARK_PLACEHOLDER}"
         >
           ${this.selectedValues.some((v) => { return v.id === id; })
-        ? html`<icon-checkmark size="16" alt="Selected" color="rgba(0, 0, 0, 0.60)"></icon-checkmark>`
+        ? html`<${createIconTagName('icon-checkmark')} size="16" alt="Selected" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-checkmark')}>`
         : nothing}
         </div>
         <div part="${INPUT_MULTI_SELECT_PARTS.LIST_ITEMS}">
@@ -440,7 +441,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
               return this.handleChipRemove(e, id);
             }}
                 >
-                  <icon-close size="16" alt="Clear icon" color="rgba(0, 0, 0, 0.60)"></icon-close>
+                  <${createIconTagName('icon-close')} size="16" alt="Clear icon" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-close')}>
                 </span>
               `
           : nothing}
@@ -560,7 +561,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
         ? html`
               <${ENCHANTED_ICON_BUTTON_TAG}
                 part="${this.getPartClearAllIcon()}"
-                .icon="${html`<icon-close-filled size="16" color="rgba(0, 0, 0, 0.60)"></icon-close-filled>`}"
+                .icon="${html`<${createIconTagName('icon-close-filled')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-close-filled')}>`}"
                 title="${INPUT_MULTI_SELECT_PARTS.CLEAR}"
                 id="${INPUT_MULTI_SELECT_PARTS.CLEAR}"
                 data-testid="enchanted-multi-select-clear-all-button"
@@ -617,8 +618,8 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
             data-testid="enchanted-multi-select-button"
             variant="button"
             .icon="${this.toggleDropDown
-              ? html`<icon-caret-up size="16" color="rgba(0, 0, 0, 0.60)"></icon-caret-up>`
-              : html`<icon-caret-down size="16" color="rgba(0, 0, 0, 0.60)"></icon-caret-down>`
+              ? html`<${createIconTagName('icon-caret-up')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-caret-up')}>`
+              : html`<${createIconTagName('icon-caret-down')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-caret-down')}>`
             }" 
             ?endicon="${true}"
             ?disabled="${this.disabled}"

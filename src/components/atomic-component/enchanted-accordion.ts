@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from "lit";
+import { nothing } from "lit";
+import { html } from 'lit/static-html.js';
 import { property, state } from "lit/decorators.js";
 import { debounce } from "lodash";
 
@@ -29,7 +30,7 @@ import { ACCORDION_PARTS } from "../../types/cssClassEnums";
 //Icon import
 import "@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--down";
 import { KeyboardInputKeys } from "../../utils/keyboardEventKeys";
-import { ENCHANTED_ACCORDION_TAG_NAME } from "../tags";
+import { createIconTagName, ENCHANTED_ACCORDION_TAG_NAME } from "../tags";
 
 export class EnchantedAccordion extends EnchantedAcBaseElement {
   @property({ type: Boolean, reflect: true }) showCheckbox = false;
@@ -117,12 +118,12 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
           @click=${debounce(this.handleArrowClick, 300)}
           @keydown=${this.handleKeyToggle}
         >
-          <icon-chevron-down
+          <${createIconTagName('icon-chevron-down')}
             part=${this.isLTR
               ? `${ACCORDION_PARTS.ENCHANTED_ACCORDION_ARROW_ICON}`
               : `${ACCORDION_PARTS.ENCHANTED_ACCORDION_ARROW_ICON_RTL}`}
             size="16"
-          ></icon-chevron-down>
+          ></${createIconTagName('icon-chevron-down')}>
         </span>
       </div>
       ${this.open

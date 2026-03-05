@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 
-import { unsafeStatic } from 'lit/static-html.js';
+import { StaticValue, unsafeStatic } from 'lit/static-html.js';
 import createDebug from 'debug';
 
 const debug = createDebug('enchanted-web-components:components:tags.ts');
@@ -26,6 +26,10 @@ try {
   COMPONENT_PREFIX = '';
 }
 debug("Component prefix is '%s'", COMPONENT_PREFIX);
+
+export const createIconTagName = (iconTagName: string): StaticValue => {
+  return unsafeStatic(`${COMPONENT_PREFIX}${iconTagName}`);
+};
 
 export const ENCHANTED_ACCORDION_TAG_NAME = `${COMPONENT_PREFIX}enchanted-accordion`;
 export const ENCHANTED_ACCORDION_ITEM_TAG_NAME = `${COMPONENT_PREFIX}enchanted-accordion-item`;

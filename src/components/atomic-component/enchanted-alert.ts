@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing, TemplateResult } from 'lit';
+import { nothing, TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 
@@ -28,7 +29,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--ou
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
-import { ENCHANTED_ALERT_TAG_NAME } from '../tags';
+import { createIconTagName, ENCHANTED_ALERT_TAG_NAME } from '../tags';
 
 /**
  * Alert component.
@@ -85,13 +86,13 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
   private getAlertIcon(): TemplateResult | typeof nothing {
     switch (this.severity) {
       case ALERT_SEVERITY.ALERT_INFO:
-        return html`<icon-information size="16" part="${this.getAlertSVG()}"></icon-information>`;
+        return html`<${createIconTagName('icon-information')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-information')}>`;
       case ALERT_SEVERITY.ALERT_ERROR:
-        return html`<icon-warning size="16" part="${this.getAlertSVG()}"></icon-warning>`;
+        return html`<${createIconTagName('icon-warning')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-warning')}>`;
       case ALERT_SEVERITY.ALERT_WARNING:
-        return html`<icon-warning-alt size="16" part="${this.getAlertSVG()}"></icon-warning-alt>`;
+        return html`<${createIconTagName('icon-warning-alt')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-warning-alt')}>`;
       case ALERT_SEVERITY.ALERT_SUCCESS:
-        return html`<icon-checkmark-outline size="16" part="${this.getAlertSVG()}"></icon-checkmark-outline>`;
+        return html`<${createIconTagName('icon-checkmark-outline')} size="16" part="${this.getAlertSVG()}"></${createIconTagName('icon-checkmark-outline')}>`;
       default:
         return nothing;
     }

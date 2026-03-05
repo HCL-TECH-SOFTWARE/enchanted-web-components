@@ -27,7 +27,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/apps/es/ai--sparkle';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/arrows';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/circle';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/images';
-import { ENCHANTED_BADGE_TAG, ENCHANTED_FAB_AI_TAG } from '../components/tags';
+import { createIconTagName, ENCHANTED_BADGE_TAG, ENCHANTED_FAB_AI_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedFabAiProps
@@ -131,7 +131,7 @@ const meta: Meta<EnchantedFabAiProps> = {
     extended: false,
     disabled: false,
     label: 'Label',
-    icon: html`<icon-ai-sparkle></icon-ai-sparkle>`,
+    icon: html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`,
   },
   parameters: {
     docs: {
@@ -145,10 +145,10 @@ const meta: Meta<EnchantedFabAiProps> = {
   },
   render: (args) => {
     const iconMap = {
-      'ai-sparkle': html`<icon-ai-sparkle></icon-ai-sparkle>`,
-      'arrows': html`<icon-arrows></icon-arrows>`,
-      'circle': html`<icon-circle></icon-circle>`,
-      'images': html`<icon-images></icon-images>`,
+      'ai-sparkle': html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`,
+      'arrows': html`<${createIconTagName('icon-arrows')}></${createIconTagName('icon-arrows')}>`,
+      'circle': html`<${createIconTagName('icon-circle')}></${createIconTagName('icon-circle')}>`,
+      'images': html`<${createIconTagName('icon-images')}></${createIconTagName('icon-images')}>`,
     };
 
     const selectedIcon = typeof args.icon === 'string' && Object.prototype.hasOwnProperty.call(iconMap, args.icon)
@@ -189,7 +189,7 @@ export const AllStates: Story = {
       <div style="font-weight: bold; font-size:14px; position: absolute; top: 0; left: 20px;">Default</div>
       <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 5px;"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 150px;">[Extended]</div>
@@ -197,14 +197,14 @@ export const AllStates: Story = {
         style="position: relative; top: 10px; left: 70px;"
         .extended=${true}
         label="Label"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 320px;">[Badge]</div>
       <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 150px;"
         .badge=${true}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
       >
         <${ENCHANTED_BADGE_TAG}
           slot="badge"
@@ -221,7 +221,7 @@ export const AllStates: Story = {
         .extended=${true}
         .badge=${true}
         label="Label"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
       >
         <${ENCHANTED_BADGE_TAG}
           slot="badge"
@@ -236,7 +236,7 @@ export const AllStates: Story = {
       <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 320px;"
         .disabled=${true}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 750px;">[Extended + Disabled]</div>
@@ -245,7 +245,7 @@ export const AllStates: Story = {
         .extended=${true}
         .disabled=${true}
         label="Label"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${createIconTagName('icon-ai-sparkle')}></${createIconTagName('icon-ai-sparkle')}>`}
       ></${ENCHANTED_FAB_AI_TAG}>
     </div>
   `;

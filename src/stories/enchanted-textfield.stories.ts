@@ -17,7 +17,7 @@ import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-textfield';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
-import { ENCHANTED_TEXTFIELD_TAG } from '../components/tags';
+import { createIconTagName, ENCHANTED_TEXTFIELD_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedInputTextfieldProps
@@ -130,8 +130,8 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
     label: 'Text Field',
     placeholder: 'Enter text',
     disabled: false,
-    clearIcon: html`<icon-close size="16" color="black"></icon-close>`,
-    actionIcon: html`<icon-search size="16" color="black"></icon-search>`,
+    clearIcon: html`<${createIconTagName('icon-close')} size="16" color="black"></${createIconTagName('icon-close')}>`,
+    actionIcon: html`<${createIconTagName('icon-search')} size="16" color="black"></${createIconTagName('icon-search')}>`,
     field: '',
     hassearchedbefore: false,
     autocomplete: 'on',
@@ -229,7 +229,7 @@ export const AllStates: Story = {
           <${ENCHANTED_TEXTFIELD_TAG}
             label="Search"
             .value=${'Search query'}
-            .clearIcon=${html`<icon-close size="16" color="black"></icon-close>`}
+            .clearIcon=${html`<${createIconTagName('icon-close')} size="16" color="black"></${createIconTagName('icon-close')}>`}
           ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
@@ -237,7 +237,7 @@ export const AllStates: Story = {
           <${ENCHANTED_TEXTFIELD_TAG}
             label="Search"
             placeholder="Search..."
-            .actionIcon=${html`<icon-search size="16" color="black"></icon-search>`}
+            .actionIcon=${html`<${createIconTagName('icon-search')} size="16" color="black"></${createIconTagName('icon-search')}>`}
           ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
@@ -245,8 +245,8 @@ export const AllStates: Story = {
           <${ENCHANTED_TEXTFIELD_TAG}
             label="Search Field"
             .value=${'Search term'}
-            .clearIcon=${html`<icon-close size="16" color="black"></icon-close>`}
-            .actionIcon=${html`<icon-search size="16" color="black"></icon-search>`}
+            .clearIcon=${html`<${createIconTagName('icon-close')} size="16" color="black"></${createIconTagName('icon-close')}>`}
+            .actionIcon=${html`<${createIconTagName('icon-search')} size="16" color="black"></${createIconTagName('icon-search')}>`}
           ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
@@ -279,7 +279,7 @@ export const AllStates: Story = {
             label="Search"
             placeholder="Type to search"
             aria-label="Search products in catalog"
-            .actionIcon=${html`<icon-search size="16" color="black"></icon-search>`}
+            .actionIcon=${html`<${createIconTagName('icon-search')} size="16" color="black"></${createIconTagName('icon-search')}>`}
           ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">

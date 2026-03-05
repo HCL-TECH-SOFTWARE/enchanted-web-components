@@ -37,7 +37,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 
 import { LOCALE_DIRECTIONS } from '../constants';
-import { ENCHANTED_BUTTON_TAG, ENCHANTED_SELECT_TAG, ENCHANTED_TABLE_PAGINATION_TAG_NAME } from '../tags';
+import { createIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_SELECT_TAG, ENCHANTED_TABLE_PAGINATION_TAG_NAME } from '../tags';
 
 export class EnchantedTablePagination extends EnchantedAcBaseElement {
   @property({ type: Boolean })
@@ -222,12 +222,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasPreviousPage 
-                    ? html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-first>`
-                    : html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-first>`
+                    ? html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-first')}>`
+                    : html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-first')}>`
                 ) : (
                   this.hasPreviousPage 
-                    ? html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-last>`
-                    : html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-last>`
+                    ? html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-last')}>`
+                    : html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-last')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.FIRST_PAGE}"
@@ -245,12 +245,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasPreviousPage 
-                    ? html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-left>`
-                    : html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-left>`
+                    ? html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-left')}>`
+                    : html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-left')}>`
                 ) : (
                   this.hasPreviousPage
-                    ? html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-right>`
-                    : html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-right>`
+                    ? html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-right')}>`
+                    : html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-right')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.PREVIOUS_PAGE}"
@@ -286,12 +286,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasNextPage
-                    ? html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-right>`
-                    : html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-right>`
+                    ? html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-right')}>`
+                    : html`<${createIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-right')}>`
                 ) : (
                   this.hasNextPage
-                    ? html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-left>`
-                    : html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-left>`
+                    ? html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-left')}>`
+                    : html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-chevron-left')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.NEXT_PAGE}"
@@ -309,12 +309,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasNextPage
-                    ? html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-last>`
-                    : html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-last>`
+                    ? html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-last')}>`
+                    : html`<${createIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-last')}>`
                 ) : (
                   this.hasNextPage
-                    ? html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-first>`
-                    : html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-first>`
+                    ? html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-page-first')}>`
+                    : html`<${createIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${createIconTagName('icon-page-first')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.LAST_PAGE}"

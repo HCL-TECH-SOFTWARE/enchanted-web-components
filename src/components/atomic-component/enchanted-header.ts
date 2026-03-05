@@ -31,7 +31,7 @@ import { BUTTON_PARTS, HEADER_VARIANT, HEADER_PARTS, EnchantedBadgeParts } from 
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/filter';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
-import { ENCHANTED_BADGE_TAG, ENCHANTED_BUTTON_TAG, ENCHANTED_HEADER_TAG_NAME, ENCHANTED_TEXTFIELD_TAG } from '../tags';
+import { createIconTagName, ENCHANTED_BADGE_TAG, ENCHANTED_BUTTON_TAG, ENCHANTED_HEADER_TAG_NAME, ENCHANTED_TEXTFIELD_TAG } from '../tags';
 
 @localized()
 export class EnchantedHeader extends EnchantedAcBaseElement {
@@ -78,7 +78,7 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
               buttontext=''
               ?outlined="${false}"
               data-testid="enchanted-filter-button"
-              .icon="${html`<icon-filter size="16" color="currentColor"></icon-filter>`}"
+              .icon="${html`<${createIconTagName('icon-filter')} size="16" color="currentColor"></${createIconTagName('icon-filter')}>`}"
             >
             </${ENCHANTED_BUTTON_TAG}>
             <${ENCHANTED_BADGE_TAG} part=${EnchantedBadgeParts.BADGE_DOT}/>
@@ -88,7 +88,7 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
           <div part=${HEADER_PARTS.HEADER_SPACING_END}>
             <${ENCHANTED_BUTTON_TAG}
               ?disabled="${this.disabled}"
-              .icon="${html`<icon-search size="16" color="currentColor"></icon-search>`}"
+              .icon="${html`<${createIconTagName('icon-search')} size="16" color="currentColor"></${createIconTagName('icon-search')}>`}"
               buttontext="${this.getMessage('header.enduser.search')}"
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
               ?outlined="${true}"
@@ -114,7 +114,7 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
               buttontext=''
               ?outlined="${false}"
               data-testid="enchanted-back-button"
-              .icon="${html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-left>`}"
+              .icon="${html`<${createIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${createIconTagName('icon-chevron-left')}>`}"
             >
             </${ENCHANTED_BUTTON_TAG}>`
               : nothing

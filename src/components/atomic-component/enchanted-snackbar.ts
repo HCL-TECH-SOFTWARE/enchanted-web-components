@@ -28,7 +28,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--ou
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
-import { ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../tags';
+import { createIconTagName, ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../tags';
 
 export class EnchantedSnackbar extends EnchantedAcBaseElement {
 
@@ -50,13 +50,17 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
       } else {
         switch (this.type) {
           case SNACKBAR_TYPE.SNACKBAR_INFO:
-            return html`<icon-information size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-information>`;
+            return html`<${createIconTagName('icon-information')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${createIconTagName('icon-information')}>`;
           case SNACKBAR_TYPE.SNACKBAR_WARNING:
-            return html`<icon-warning-alt size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-warning-alt>`;
+            return html`<${createIconTagName('icon-warning-alt')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${createIconTagName('icon-warning-alt')}>`;
           case SNACKBAR_TYPE.SNACKBAR_ERROR:
-            return html`<icon-warning size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-warning>`;
+            return html`<${createIconTagName('icon-warning')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${createIconTagName('icon-warning')}>`;
           case SNACKBAR_TYPE.SNACKBAR_SUCCESS:
-            return html`<icon-checkmark-outline size="16" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-checkmark-outline>`;
+            return html`<${createIconTagName('icon-checkmark-outline')} size="16" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${createIconTagName('icon-checkmark-outline')}>`;
         }
       }
     }

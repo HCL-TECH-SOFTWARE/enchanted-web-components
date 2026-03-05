@@ -52,6 +52,7 @@ import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { EnchantedButton } from './enchanted-button';
 import { EnchantedIconButton } from './enchanted-icon-button';
 import {
+  createIconTagName,
   ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_ICON_BUTTON_TAG,
   ENCHANTED_ICON_BUTTON_TAG_NAME, ENCHANTED_ITEM_TYPE_AVATAR_TAG, ENCHANTED_PREVIEW_TAG_NAME, ENCHANTED_SELECT_TAG,
   ENCHANTED_SELECT_TAG_NAME, ENCHANTED_TOOLTIP_TAG
@@ -763,8 +764,8 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
               <${ENCHANTED_ICON_BUTTON_TAG}
                 slot="target"
                 .icon=${ this.isLtr
-                  ? html`<icon-arrow-left></icon-arrow-left>`
-                  : html`<icon-arrow-right></icon-arrow-right>`
+                  ? html`<${createIconTagName('icon-arrow-left')}></${createIconTagName('icon-arrow-left')}>`
+                  : html`<${createIconTagName('icon-arrow-right')}></${createIconTagName('icon-arrow-right')}>`
                 }
                 exportparts="${ICON_BUTTON_EXPORT_PARTS}"
                 @click=${this._handleBack}
@@ -808,7 +809,7 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
                 <${ENCHANTED_TOOLTIP_TAG} tooltiptext=${downloadLabel} exportparts=${TOOLTIP_EXPORT_PARTS}>
                   <${ENCHANTED_ICON_BUTTON_TAG}
                     slot="target"
-                    .icon=${html`<icon-download color="currentColor"></icon-download>`}
+                    .icon=${html`<${createIconTagName('icon-download')} color="currentColor"></${createIconTagName('icon-download')}>`}
                     exportparts="${ICON_BUTTON_EXPORT_PARTS}"
                     @click=${this._handleDownloadButtonClick}
                     data-testid="enchanted-preview-download-button"
@@ -844,8 +845,8 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
                   slot="target"
                   part=${PREVIEW_PARTS.PREVIEW_ITEM_PREVIOUS_BUTTON}
                   .icon=${ this.isLtr
-                    ? html`<icon-chevron-left></icon-chevron-left>`
-                    : html`<icon-chevron-right></icon-chevron-right>`
+                    ? html`<${createIconTagName('icon-chevron-left')}></${createIconTagName('icon-chevron-left')}>`
+                    : html`<${createIconTagName('icon-chevron-right')}></${createIconTagName('icon-chevron-right')}>`
                   }
                   exportparts="${PREVIEW_NAV_BUTTONS_EXPORT_PARTS}"
                   @click=${this._handlePreviousButtonClick}
@@ -882,8 +883,8 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
                   slot="target"
                   part=${PREVIEW_PARTS.PREVIEW_ITEM_NEXT_BUTTON}
                   .icon=${ this.isLtr
-                    ? html`<icon-chevron-right></icon-chevron-right>`
-                    : html`<icon-chevron-left></icon-chevron-left>`
+                    ? html`<${createIconTagName('icon-chevron-right')}></${createIconTagName('icon-chevron-right')}>`
+                    : html`<${createIconTagName('icon-chevron-left')}></${createIconTagName('icon-chevron-left')}>`
                   }
                   exportparts="${PREVIEW_NAV_BUTTONS_EXPORT_PARTS}"
                   @click=${this._handleNextButtonClick}
@@ -909,7 +910,7 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
                   >
                     <${ENCHANTED_ICON_BUTTON_TAG}
                       slot="target"
-                      .icon=${html`<icon-zoom-out></icon-zoom-out>`}
+                      .icon=${html`<${createIconTagName('icon-zoom-out')}></${createIconTagName('icon-zoom-out')}>`}
                       exportparts="${PREVIEW_ZOOM_BUTTONS_EXPORT_PARTS}"
                       @click=${this._handleZoomOutButtonClick}
                       ?disabled=${this.zoomOutDisable}
@@ -943,7 +944,7 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
                   >
                     <${ENCHANTED_ICON_BUTTON_TAG}
                       slot="target"
-                      .icon=${html`<icon-zoom-in></icon-zoom-in>`}
+                      .icon=${html`<${createIconTagName('icon-zoom-in')}></${createIconTagName('icon-zoom-in')}>`}
                       exportparts="${PREVIEW_ZOOM_BUTTONS_EXPORT_PARTS}"
                       @click=${this._handleZoomInButtonClick}
                       ?disabled=${this.zoomInDisable}
