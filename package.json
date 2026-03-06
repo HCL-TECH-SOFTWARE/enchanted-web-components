@@ -76,7 +76,7 @@
     "wdio-json-html-reporter": "^1.5.14"
   },
   "dependencies": {
-    "@hcl-software/enchanted-icons-web-component": "^1.7.2",
+    "@hcl-software/enchanted-icons-web-component": "^1.9.0",
     "@types/debug": "^4.1.12",
     "dayjs": "^1.11.13",
     "debug": "^4.4.3"
