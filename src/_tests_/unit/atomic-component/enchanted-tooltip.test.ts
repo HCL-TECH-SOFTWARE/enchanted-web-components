@@ -402,6 +402,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
         <${ENCHANTED_TOOLTIP_TAG} tooltiptext="sample-tooltiptext">
           <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
         </${ENCHANTED_TOOLTIP_TAG}>
+        <button id="after-focus" type="button">After focus</button>
       `,
       document.body
     );
@@ -411,15 +412,24 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
 
     await expect(component).not.toHaveAttribute('show');
 
-    await browser.keys(['Tab']);
+    // Focus the button inside enchanted-button's shadow root directly
+    // (Tab is unreliable across shadow DOM in WDIO browser runner)
+    await browser.execute((tooltipSelector, buttonSelector) => {
+      const tooltip = document.querySelector(tooltipSelector);
+      const enchantedButton = tooltip?.querySelector(buttonSelector);
+      const innerButton = enchantedButton?.shadowRoot?.querySelector('button');
+      innerButton?.focus();
+    }, ENCHANTED_TOOLTIP_TAG_NAME, ENCHANTED_BUTTON_TAG_NAME);
     await browser.pause(100);
 
     await expect(component).toHaveAttribute('show');
     await expect(tooltipTextSlot).toBeDisplayed();
     await expect(tooltipTextSlot).toHaveText('sample-tooltiptext');
 
-    await browser.keys(['Tab']);
-    await browser.pause(100); 
+    // Blur by clicking an external button
+    const afterFocusButton = await $('#after-focus').getElement();
+    await afterFocusButton.click();
+    await browser.pause(100);
 
     await expect(component).not.toHaveAttribute('show');
     await expect(tooltipTextSlot).not.toBeDisplayed();

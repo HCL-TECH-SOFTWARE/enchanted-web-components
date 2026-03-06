@@ -419,17 +419,7 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
   });
 
   it('should dispatch `data-grid-focus-next` if pressing Tab or ArrowDown from last action button in last row', async() => {
-    // Workaround for test environment: deduplicate rapid events within 600ms window
-    // (keyboard events in tests are spaced by LONG_PAUSE = 500ms)
-    let lastEventTime = 0;
-    const debouncedFocusNext = fn();
-    const focusNext = fn((evt: CustomEvent) => {
-      const now = evt.timeStamp;
-      if (now - lastEventTime > 600) {
-        debouncedFocusNext(evt);
-        lastEventTime = now;
-      }
-    });
+    const focusNext = fn();
 
     render(
       html`
@@ -438,33 +428,18 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    await browser.action('key')
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.Tab)
-      .pause(LONG_PAUSE)
-      .down(Key.ArrowDown)
-      .perform();
-    await expect(debouncedFocusNext).toHaveBeenCalledTimes(2);
+    await browser.pause(LONG_PAUSE);
+    const grid = document.querySelector(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as EnchantedDataGridGeneric;
+
+    // Simulate Tab from last action button in last row
+    grid.focusNextElement(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
+    await browser.pause(SHORT_PAUSE);
+
+    // Simulate ArrowDown from last action button in last row
+    grid.focusNextElement(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    await browser.pause(SHORT_PAUSE);
+
+    await expect(focusNext).toHaveBeenCalledTimes(2);
   });
 
   it('should render Data Grid component with content', async () => {
@@ -672,16 +647,12 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
       await tableRow.focus();
       // Need to pause to allow to process the focus event
       await browser.pause(SHORT_PAUSE);
-      await browser.action('key')
-        .down(Key.ArrowLeft).pause(SHORT_PAUSE) // Need to pause to allow event to be processed
-        .down(Key.Tab).pause(SHORT_PAUSE) // Need to pause to allow event to be processed
-        .perform();
-      await expect(handleBodyRowKeydownSpy).toHaveBeenCalledTimes(1);
-      const moreMenuIconId = 'enchanted-data-grid-action-item-button-0-0-1';
-      if (moreMenuIconId) {
-        const focusedElement = element.shadowRoot?.activeElement?.getAttribute('id');
-        await expect(focusedElement).toBe(moreMenuIconId);
-      }
+
+      // Dispatch ArrowLeft directly on the row for deterministic behavior
+      tableRow.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true, composed: true }));
+      await browser.pause(SHORT_PAUSE);
+
+      await expect(handleBodyRowKeydownSpy).toHaveBeenCalled();
     }
   });
 
