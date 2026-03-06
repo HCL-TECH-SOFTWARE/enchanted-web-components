@@ -5,12 +5,16 @@
 ### Added
 
 ### Fixed
-- Fixed `enchanted-fab` label font styles and padding.
-- Fixed `enchanted-fab-ai` label color styles.
 
 ### Changed
 
 ### Breaking changes
+
+## 5.1.1
+
+### Fixed
+- Fixed `enchanted-fab` label font styles and padding.
+- Fixed `enchanted-fab-ai` label color styles.
 
 ## 5.1.0
 
