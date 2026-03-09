@@ -17,7 +17,9 @@ import { nothing } from "lit";
 import { html } from 'lit/static-html.js';
 import { property, state } from "lit/decorators.js";
 import { debounce } from "lodash";
+import createDebug from 'debug';
 
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-accordion.ts');
 
 // component imports
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
@@ -147,4 +149,8 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_ACCORDION_TAG_NAME, EnchantedAccordion);
+if (!customElements.get(ENCHANTED_ACCORDION_TAG_NAME)) {
+  customElements.define(ENCHANTED_ACCORDION_TAG_NAME, EnchantedAccordion);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ACCORDION_TAG_NAME);
+}

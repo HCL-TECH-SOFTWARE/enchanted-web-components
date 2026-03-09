@@ -15,6 +15,7 @@
 // External imports
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -24,7 +25,9 @@ import { getCurrentDirection } from "../localization";
 import { LOCALE_DIRECTIONS } from "../constants";
 import { EnchantedBadgeColor, EnchantedBadgeBorder, EnchantedBadgeType, EnchantedBadgeParts } from '../../types/cssClassEnums';
 import { ENCHANTED_BADGE_TAG_NAME } from '../tags';
- 
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-badge.ts');
+
 export class EnchantedBadge extends EnchantedAcBaseElement {
 
 
@@ -56,4 +59,8 @@ export class EnchantedBadge extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_BADGE_TAG_NAME, EnchantedBadge);
+if (!customElements.get(ENCHANTED_BADGE_TAG_NAME)) {
+  customElements.define(ENCHANTED_BADGE_TAG_NAME, EnchantedBadge);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_BADGE_TAG_NAME);
+}

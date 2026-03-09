@@ -14,6 +14,7 @@
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 
 //helper import
@@ -23,6 +24,8 @@ import { getCurrentDirection } from '../localization.js';
 import  { EnchantedPopoverArrowPosition } from '../../types/enchanted-popover.js';
 import { POPOVER_PARTS } from "../../types/cssClassEnums";
 import { generateIconTagName, ENCHANTED_POPOVER_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-popover.ts');
 
 export class EnchantedPopover extends EnchantedAcBaseElement {
   
@@ -102,4 +105,8 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_POPOVER_TAG_NAME, EnchantedPopover);
+if (!customElements.get(ENCHANTED_POPOVER_TAG_NAME)) {
+  customElements.define(ENCHANTED_POPOVER_TAG_NAME, EnchantedPopover);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_POPOVER_TAG_NAME);
+}

@@ -15,10 +15,14 @@
 import { TemplateResult } from "lit";
 import { html } from "lit/static-html.js";
 import { property } from "lit/decorators.js";
+import createDebug from 'debug';
+
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
 import { FAB_PARTS } from "../../types/cssClassEnums";
 import "./enchanted-fab";
 import { ENCHANTED_FAB_AI_TAG_NAME, ENCHANTED_FAB_TAG } from "../tags";
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-fab-ai.ts');
 
 /**
  * AI-themed floating action button component using composition.
@@ -60,4 +64,8 @@ export class EnchantedFabAi extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_FAB_AI_TAG_NAME, EnchantedFabAi);
+if (!customElements.get(ENCHANTED_FAB_AI_TAG_NAME)) {
+  customElements.define(ENCHANTED_FAB_AI_TAG_NAME, EnchantedFabAi);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_FAB_AI_TAG_NAME);
+}

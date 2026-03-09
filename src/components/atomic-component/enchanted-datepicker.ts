@@ -18,6 +18,7 @@ import { html } from 'lit/static-html.js';
 import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -43,6 +44,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/circle--solid';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { generateIconTagName, ENCHANTED_DATEPICKER_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-datepicker.ts');
 
 export class EnchantedDatePicker extends EnchantedAcBaseElement {
   @property({ type: String }) name = 'datepicker'; // Name of the datepicker, can be used for form submission
@@ -1016,4 +1019,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_DATEPICKER_TAG_NAME, EnchantedDatePicker);
+if (!customElements.get(ENCHANTED_DATEPICKER_TAG_NAME)) {
+  customElements.define(ENCHANTED_DATEPICKER_TAG_NAME, EnchantedDatePicker);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_DATEPICKER_TAG_NAME);
+}

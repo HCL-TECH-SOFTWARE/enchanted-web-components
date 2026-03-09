@@ -54,7 +54,7 @@ import {
   ENCHANTED_MENU_TAG, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG
 } from '../tags';
 
-const debug = createDebug('enchanted-web-components:components:ac:enchanted-data-grid-generic.ts');
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-data-grid-generic.ts');
 
 export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
   @property()
@@ -1264,4 +1264,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, EnchantedDataGridGeneric);
+if (!customElements.get(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME)) {
+  customElements.define(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, EnchantedDataGridGeneric);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_DATA_GRID_GENERIC_TAG_NAME);
+}

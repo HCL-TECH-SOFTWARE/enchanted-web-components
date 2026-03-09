@@ -16,6 +16,7 @@
 import { property } from 'lit/decorators.js';
 import { html, nothing } from 'lit';
 import { debounce } from 'lodash';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -24,6 +25,8 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { SWITCH_PARTS } from '../../types/cssClassEnums';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { ENCHANTED_SWITCH_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-switch.ts');
 
 export class EnchantedSwitch extends EnchantedAcBaseElement {
 
@@ -102,4 +105,8 @@ export class EnchantedSwitch extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_SWITCH_TAG_NAME, EnchantedSwitch);
+if (!customElements.get(ENCHANTED_SWITCH_TAG_NAME)) {
+  customElements.define(ENCHANTED_SWITCH_TAG_NAME, EnchantedSwitch);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_SWITCH_TAG_NAME);
+}

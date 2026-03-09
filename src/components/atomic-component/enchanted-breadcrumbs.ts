@@ -15,6 +15,7 @@
 // External imports
 import { html } from 'lit/static-html.js';
 import { property, state } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -28,6 +29,8 @@ import { isLTR } from '../localization';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
 import { generateIconTagName, ENCHANTED_BREADCRUMBS_ITEM_TAG, ENCHANTED_BREADCRUMBS_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-breadcrumbs.ts');
 
 /**
  * Breadcrumb component.
@@ -104,4 +107,8 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_BREADCRUMBS_TAG_NAME, EnchantedBreadcrumbs);
+if (!customElements.get(ENCHANTED_BREADCRUMBS_TAG_NAME)) {
+  customElements.define(ENCHANTED_BREADCRUMBS_TAG_NAME, EnchantedBreadcrumbs);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_BREADCRUMBS_TAG_NAME);
+}

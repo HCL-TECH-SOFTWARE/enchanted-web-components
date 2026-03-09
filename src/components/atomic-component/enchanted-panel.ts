@@ -15,6 +15,7 @@
 // External imports
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -26,6 +27,8 @@ import { BUTTON_PARTS, BUTTON_VARIANT, PANEL_PARTS, PANEL_POSITION } from '../..
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_PANEL_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-panel.ts');
 
 export class EnchantedPanel extends EnchantedAcBaseElement {
 
@@ -85,4 +88,8 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_PANEL_TAG_NAME, EnchantedPanel);
+if (!customElements.get(ENCHANTED_PANEL_TAG_NAME)) {
+  customElements.define(ENCHANTED_PANEL_TAG_NAME, EnchantedPanel);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_PANEL_TAG_NAME);
+}

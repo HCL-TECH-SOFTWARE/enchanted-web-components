@@ -17,6 +17,9 @@ import { nothing, TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
+import createDebug from 'debug';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-alert.ts');
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -125,4 +128,8 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_ALERT_TAG_NAME, EnchantedAlert);
+if (!customElements.get(ENCHANTED_ALERT_TAG_NAME)) {
+  customElements.define(ENCHANTED_ALERT_TAG_NAME, EnchantedAlert);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ALERT_TAG_NAME);
+}

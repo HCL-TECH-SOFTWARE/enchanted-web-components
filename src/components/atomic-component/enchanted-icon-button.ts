@@ -16,6 +16,7 @@
 import { property } from 'lit/decorators.js';
 import { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -27,6 +28,8 @@ import { ICON_BUTTON_EXPORT_PARTS } from '../exportParts';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { EnchantedButton } from './enchanted-button';
 import { ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-icon-button.ts');
 
 export class EnchantedIconButton extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
@@ -97,4 +100,8 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_ICON_BUTTON_TAG_NAME, EnchantedIconButton);
+if (!customElements.get(ENCHANTED_ICON_BUTTON_TAG_NAME)) {
+  customElements.define(ENCHANTED_ICON_BUTTON_TAG_NAME, EnchantedIconButton);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ICON_BUTTON_TAG_NAME);
+}

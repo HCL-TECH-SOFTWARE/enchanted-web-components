@@ -17,6 +17,7 @@ import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -32,6 +33,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/filter';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
 import { generateIconTagName, ENCHANTED_BADGE_TAG, ENCHANTED_BUTTON_TAG, ENCHANTED_HEADER_TAG_NAME, ENCHANTED_TEXTFIELD_TAG } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-header.ts');
 
 @localized()
 export class EnchantedHeader extends EnchantedAcBaseElement {
@@ -133,4 +136,8 @@ export class EnchantedHeader extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_HEADER_TAG_NAME, EnchantedHeader);
+if (!customElements.get(ENCHANTED_HEADER_TAG_NAME)) {
+  customElements.define(ENCHANTED_HEADER_TAG_NAME, EnchantedHeader);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_HEADER_TAG_NAME);
+}

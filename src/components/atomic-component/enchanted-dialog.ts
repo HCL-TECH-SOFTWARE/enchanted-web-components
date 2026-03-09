@@ -18,6 +18,7 @@ import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -33,6 +34,8 @@ import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import { generateIconTagName, ENCHANTED_DIALOG_TAG_NAME, ENCHANTED_TEXTFIELD_TAG_NAME, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-dialog.ts');
 
 @localized()
 export class EnchantedDialog extends EnchantedAcBaseElement {
@@ -330,4 +333,8 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_DIALOG_TAG_NAME, EnchantedDialog);
+if (!customElements.get(ENCHANTED_DIALOG_TAG_NAME)) {
+  customElements.define(ENCHANTED_DIALOG_TAG_NAME, EnchantedDialog);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_DIALOG_TAG_NAME);
+}

@@ -16,6 +16,7 @@
 import { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -79,6 +80,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user-profile-
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/video';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/XLS';
 import { generateIconTagName, ENCHANTED_AVATAR_TAG, ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-item-type-avatar.ts');
 
 export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
  
@@ -226,4 +229,8 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
    }
 }
 
-customElements.define(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME, EnchantedItemTypeAvatar);
+if (!customElements.get(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME)) {
+  customElements.define(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME, EnchantedItemTypeAvatar);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
+}

@@ -15,6 +15,7 @@
 // External imports
 import { property } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -22,6 +23,8 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 // Helper imports
 import { AVATAR_PARTS, AVATAR_VARIANT, AVATAR_TYPE, AVATAR_COLOR } from '../../types/cssClassEnums';
 import { ENCHANTED_AVATAR_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-avatar.ts');
 
 export class EnchantedAvatar extends EnchantedAcBaseElement {
   @property()
@@ -112,4 +115,8 @@ export class EnchantedAvatar extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_AVATAR_TAG_NAME, EnchantedAvatar);
+if (!customElements.get(ENCHANTED_AVATAR_TAG_NAME)) {
+  customElements.define(ENCHANTED_AVATAR_TAG_NAME, EnchantedAvatar);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_AVATAR_TAG_NAME);
+}

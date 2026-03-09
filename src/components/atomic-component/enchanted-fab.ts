@@ -14,6 +14,7 @@
  * ======================================================================== */
 import { TemplateResult, html, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
+import createDebug from 'debug';
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 
@@ -25,6 +26,8 @@ import { FAB_PARTS, EnchantedFabType } from '../../types/cssClassEnums';
 // Component imports
 import  "./enchanted-badge";
 import { ENCHANTED_FAB_TAG_NAME } from "../tags";
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-fab.ts');
 
 export class EnchantedFab extends EnchantedAcBaseElement {
   @property({ reflect: true }) type: EnchantedFabType = EnchantedFabType.CONTAINED;
@@ -64,4 +67,8 @@ export class EnchantedFab extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_FAB_TAG_NAME, EnchantedFab);
+if (!customElements.get(ENCHANTED_FAB_TAG_NAME)) {
+  customElements.define(ENCHANTED_FAB_TAG_NAME, EnchantedFab);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_FAB_TAG_NAME);
+}

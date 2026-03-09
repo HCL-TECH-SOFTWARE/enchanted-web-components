@@ -25,7 +25,7 @@ import  * as theme from '../../utils/themeUtils';
 import { ThemeType } from '../../utils/themeUtils';
 import { ENCHANTED_THEME_INSPECTOR_TAG_NAME } from '../tags';
 
-const debug = createDebug('enchanted-web-components:components:ac:enchanted-theme-inspector.ts');
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-theme-inspector.ts');
 
 export class EnchantedThemeInspector extends EnchantedAcBaseElement {
   static styles = css`
@@ -252,4 +252,8 @@ export class EnchantedThemeInspector extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_THEME_INSPECTOR_TAG_NAME, EnchantedThemeInspector);
+if (!customElements.get(ENCHANTED_THEME_INSPECTOR_TAG_NAME)) {
+  customElements.define(ENCHANTED_THEME_INSPECTOR_TAG_NAME, EnchantedThemeInspector);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_THEME_INSPECTOR_TAG_NAME);
+}

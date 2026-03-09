@@ -16,6 +16,7 @@
 import { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -30,6 +31,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/home';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 
 import { generateIconTagName, ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-breadcrumbs-item.ts');
 
 export interface PathType {
   title?: string,
@@ -113,4 +116,8 @@ export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, EnchantedBreadcrumbsItem);
+if (!customElements.get(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME)) {
+  customElements.define(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, EnchantedBreadcrumbsItem);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME);
+}

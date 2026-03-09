@@ -17,6 +17,7 @@ import { property } from 'lit/decorators.js';
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { nothing, TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
+import createDebug from 'debug';
 
 // Component imports
 import './enchanted-avatar';
@@ -26,6 +27,8 @@ import { AVATAR_TYPE, AVATAR_VARIANT, CHIP_PARTS } from '../../types/cssClassEnu
 import { getCurrentDirection } from '../localization';
 import { LOCALE_DIRECTIONS } from '../constants';
 import { ENCHANTED_AVATAR_TAG, ENCHANTED_CHIP_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-chip.ts');
 
 export class EnchantedChip extends EnchantedAcBaseElement {
   @property({ type: String }) name = '';
@@ -64,4 +67,8 @@ export class EnchantedChip extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_CHIP_TAG_NAME, EnchantedChip);
+if (!customElements.get(ENCHANTED_CHIP_TAG_NAME)) {
+  customElements.define(ENCHANTED_CHIP_TAG_NAME, EnchantedChip);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_CHIP_TAG_NAME);
+}

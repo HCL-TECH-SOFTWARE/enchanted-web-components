@@ -16,6 +16,7 @@
 import { nothing, TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property, state } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -75,6 +76,8 @@ export interface PreviewItem {
   renditions?: AssetRendition[];
   fileExtension?: string;
 }
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-preview.ts');
 
 export class EnchantedPreview extends EnchantedAcBaseElement {
   private _ZOOM_OPTIONS = ENCHANTED_PREVIEW_DEFAULT_ZOOM_OPTIONS;
@@ -965,4 +968,8 @@ export class EnchantedPreview extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_PREVIEW_TAG_NAME, EnchantedPreview);
+if (!customElements.get(ENCHANTED_PREVIEW_TAG_NAME)) {
+  customElements.define(ENCHANTED_PREVIEW_TAG_NAME, EnchantedPreview);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_PREVIEW_TAG_NAME);
+}

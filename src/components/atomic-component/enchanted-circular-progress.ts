@@ -15,11 +15,14 @@
 // External imports
 import { property } from 'lit/decorators.js';
 import { css, html } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { CIRCULAR_PROGRESS_PARTS } from '../../types/cssClassEnums';
 import { ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-circular-progress.ts');
 
 /**
  * EnchantedCircularProgress component - Indeterminate variant
@@ -202,4 +205,8 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME, EnchantedCircularProgress);
+if (!customElements.get(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME)) {
+  customElements.define(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME, EnchantedCircularProgress);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME);
+}

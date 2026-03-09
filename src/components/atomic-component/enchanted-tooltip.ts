@@ -17,6 +17,7 @@
 import { property, query, state } from 'lit/decorators.js';
 import { v4 as uuid } from 'uuid';
 import { html, nothing } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -26,6 +27,8 @@ import { TOOLTIP_PARTS, TOOLTIP_PLACEMENT, TOOLTIP_TYPE, TOOLTIP_VARIANT } from 
 import { ViewportBox } from '../../types/enchanted-tooltip';
 import { getAncestorWithTransform, getTransformDetails, runPlacement } from '../../utils/tooltipUtils';
 import { ENCHANTED_TOOLTIP_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-tooltip.ts');
 
 export class EnchantedTooltip extends EnchantedAcBaseElement {
   @property({ type: Boolean, reflect: true })
@@ -578,4 +581,8 @@ export class EnchantedTooltip extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_TOOLTIP_TAG_NAME, EnchantedTooltip);
+if (!customElements.get(ENCHANTED_TOOLTIP_TAG_NAME)) {
+  customElements.define(ENCHANTED_TOOLTIP_TAG_NAME, EnchantedTooltip);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_TOOLTIP_TAG_NAME);
+}

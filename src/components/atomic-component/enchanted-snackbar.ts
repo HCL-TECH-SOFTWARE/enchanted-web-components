@@ -15,6 +15,7 @@
 // External imports
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -29,6 +30,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
 import { generateIconTagName, ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-snackbar.ts');
 
 export class EnchantedSnackbar extends EnchantedAcBaseElement {
 
@@ -82,4 +85,8 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
     }
 }
 
-customElements.define(ENCHANTED_SNACKBAR_TAG_NAME, EnchantedSnackbar);
+if (!customElements.get(ENCHANTED_SNACKBAR_TAG_NAME)) {
+  customElements.define(ENCHANTED_SNACKBAR_TAG_NAME, EnchantedSnackbar);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_SNACKBAR_TAG_NAME);
+}

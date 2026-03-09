@@ -15,6 +15,7 @@
 // External imports
 import { property, query, state } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -25,6 +26,8 @@ import { getCurrentDirection } from '../localization';
 import { LOCALE_DIRECTIONS } from '../constants';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { ENCHANTED_BUTTON_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-button.ts');
 
 export class EnchantedButton extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
@@ -222,4 +225,8 @@ export class EnchantedButton extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_BUTTON_TAG_NAME, EnchantedButton);
+if (!customElements.get(ENCHANTED_BUTTON_TAG_NAME)) {
+  customElements.define(ENCHANTED_BUTTON_TAG_NAME, EnchantedButton);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_BUTTON_TAG_NAME);
+}

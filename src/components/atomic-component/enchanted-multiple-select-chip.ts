@@ -19,6 +19,7 @@ import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { localized } from '@lit/localize';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -42,6 +43,8 @@ import {
   ENCHANTED_BUTTON_TAG, ENCHANTED_CHIP_TAG, ENCHANTED_ICON_BUTTON_TAG, ENCHANTED_LIST_ITEM_TAG,
   ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG, ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME
 } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-multiple-select-chip.ts');
 
 @localized()
 export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
@@ -667,4 +670,8 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME, EnchantedMultipleSelectChip);
+if (!customElements.get(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME)) {
+  customElements.define(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME, EnchantedMultipleSelectChip);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+}

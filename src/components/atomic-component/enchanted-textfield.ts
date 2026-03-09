@@ -31,7 +31,7 @@ import { AutoCompleteTextfieldEnum } from '../../types/enchanted-textfield';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { ENCHANTED_TEXTFIELD_TAG_NAME } from '../tags';
 
-const debug = createDebug('enchanted-web-components:components:ac:enchanted-textfield.ts');
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-textfield.ts');
 
 /**
  * Textfield component.
@@ -276,4 +276,8 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_TEXTFIELD_TAG_NAME, EnchantedInputTextfield);
+if (!customElements.get(ENCHANTED_TEXTFIELD_TAG_NAME)) {
+  customElements.define(ENCHANTED_TEXTFIELD_TAG_NAME, EnchantedInputTextfield);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_TEXTFIELD_TAG_NAME);
+}

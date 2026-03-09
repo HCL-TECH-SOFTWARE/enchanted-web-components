@@ -17,6 +17,7 @@ import { property, state } from 'lit/decorators.js';
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 import { debounce } from 'lodash';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -38,6 +39,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--righ
 
 import { LOCALE_DIRECTIONS } from '../constants';
 import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_SELECT_TAG, ENCHANTED_TABLE_PAGINATION_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-table-pagination.ts');
 
 export class EnchantedTablePagination extends EnchantedAcBaseElement {
   @property({ type: Boolean })
@@ -332,4 +335,8 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_TABLE_PAGINATION_TAG_NAME, EnchantedTablePagination);
+if (!customElements.get(ENCHANTED_TABLE_PAGINATION_TAG_NAME)) {
+  customElements.define(ENCHANTED_TABLE_PAGINATION_TAG_NAME, EnchantedTablePagination);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_TABLE_PAGINATION_TAG_NAME);
+}

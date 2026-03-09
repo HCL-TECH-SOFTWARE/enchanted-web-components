@@ -19,6 +19,7 @@ import { property, state } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -29,6 +30,8 @@ import { BUTTON_PARTS, LIST_PARTS, MENU_PARTS } from '../../types/cssClassEnums'
 import { isLTR } from '../localization';
 import { EnchantedMenuPlacement, EnchantedMenuSize } from '../../types/enchanted-menu';
 import { ENCHANTED_LIST_TAG, ENCHANTED_MENU_ITEM_SELECTOR, ENCHANTED_MENU_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-menu.ts');
 
 @localized()
 export class EnchantedMenu extends EnchantedAcBaseElement {
@@ -202,4 +205,8 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_MENU_TAG_NAME, EnchantedMenu);
+if (!customElements.get(ENCHANTED_MENU_TAG_NAME)) {
+  customElements.define(ENCHANTED_MENU_TAG_NAME, EnchantedMenu);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_MENU_TAG_NAME);
+}

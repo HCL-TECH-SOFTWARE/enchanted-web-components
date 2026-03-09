@@ -23,7 +23,7 @@ import createDebug from 'debug';
 import { Replacement } from '../localization';
 import { SHADOW_ROOT_MODE_KEY } from '../constants';
 
-const debug = createDebug('enchanted-web-components:components:ac:enchanted-ac-base-element.ts');
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-ac-base-element.ts');
 
 /**
  * Base class for all AC components.

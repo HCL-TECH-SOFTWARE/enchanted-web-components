@@ -19,6 +19,7 @@ import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { localized } from '@lit/localize';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -34,6 +35,8 @@ import { EnchantedInputFieldType, OptionData } from '../../types/enchanted-selec
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/caret--down';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
 import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_LIST_ITEM_TAG, ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG, ENCHANTED_SELECT_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-select.ts');
 
 /**
  * Select component.
@@ -356,4 +359,8 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
   }
 }
 
-customElements.define(ENCHANTED_SELECT_TAG_NAME, EnchantedInputSelect);
+if (!customElements.get(ENCHANTED_SELECT_TAG_NAME)) {
+  customElements.define(ENCHANTED_SELECT_TAG_NAME, EnchantedInputSelect);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_SELECT_TAG_NAME);
+}
