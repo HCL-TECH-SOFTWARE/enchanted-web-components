@@ -25,7 +25,7 @@ import { BUTTON_PARTS, BUTTON_VARIANT, ICON_BUTTON_SIZES, ARIA_ROLES } from '../
 import { getCurrentDirection } from '../localization';
 import { LOCALE_DIRECTIONS } from '../constants';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
-import { ENCHANTED_BUTTON_TAG_NAME } from '../tags';
+import { COMPONENT_PREFIX, ENCHANTED_BUTTON_TAG_NAME } from '../tags';
 
 const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-button.ts');
 
@@ -156,7 +156,7 @@ export class EnchantedButton extends EnchantedAcBaseElement {
       const { strings } = this.icon;
       if (strings.length > 0) {
         // Check if icon is an enchanted icon with the <icon-*> tag
-        const match = strings[0].match(/^\s*<icon-[a-zA-Z0-9\-_]+/);
+        const match = strings[0].match(new RegExp(`^\\s*<${COMPONENT_PREFIX}icon-[a-zA-Z0-9\\-_]+`));
         if (match) {
           return html`
             <span part=${this.partAttributeDecider( this.endicon ? BUTTON_PARTS.BUTTON_END_ICON : BUTTON_PARTS.BUTTON_START_ICON)} aria-hidden="true">
