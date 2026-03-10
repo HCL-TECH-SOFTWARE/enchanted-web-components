@@ -1,0 +1,1 @@
+import{L as t}from"./tags-xkLHt5Ez.js";const e=()=>{const r=document.documentElement.dir;return r||t.LTR},i=()=>e()===t.LTR,o=r=>r===void 0?"":r.replace(/([A-Z])/g," $1").trim();export{o as a,e as g,i};
