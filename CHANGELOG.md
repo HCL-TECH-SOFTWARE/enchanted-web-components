@@ -10,6 +10,11 @@
 
 ### Breaking changes
 
+## 5.2.0
+
+### Added
+- Adding a scoping logic for all @hcl-software/enchanted-web-components components. Via the VITE_COMPONENT_PREFIX environment parameter the prefix will be applied.
+
 ## 5.1.1
 
 ### Fixed
