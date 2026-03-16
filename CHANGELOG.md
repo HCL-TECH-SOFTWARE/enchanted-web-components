@@ -5,6 +5,8 @@
 ### Added
 
 ### Fixed
+ - Removed margin right and used gap in 'enchated-alert'.
+ - Removed the unnecessary RTL styles for badge in 'enchanted-fab'.
 
 ### Changed
 
