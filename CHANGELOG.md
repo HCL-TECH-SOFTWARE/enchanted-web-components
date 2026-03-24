@@ -5,12 +5,16 @@
 ### Added
 
 ### Fixed
- - Removed margin right and used gap in 'enchanted-alert'.
- - Removed the unnecessary RTL styles for badge in 'enchanted-fab'.
 
 ### Changed
 
 ### Breaking changes
+
+## 5.2.1
+
+### Fixed
+ - Removed margin right and used gap in 'enchanted-alert'.
+ - Removed the unnecessary RTL styles for badge in 'enchanted-fab'.
 
 ## 5.2.0
 
