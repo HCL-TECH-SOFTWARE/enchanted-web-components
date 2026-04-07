@@ -203,6 +203,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
       case INPUT_TEXTFIELD_PARTS.ICON_CLEAR:
         part = `${this.isRTL ? INPUT_TEXTFIELD_PARTS.ICON_CLEAR_RTL : INPUT_TEXTFIELD_PARTS.ICON_CLEAR}${
           this.label ? ` ${INPUT_TEXTFIELD_PARTS.ICON_CLEAR_WITH_LABEL}` : ''}`;
+          if(this.disabled) part = `${part} ${INPUT_TEXTFIELD_PARTS.ICON_CLEAR_DISABLED}`;
         break;
       case INPUT_TEXTFIELD_PARTS.ICON_ACTION:
         part = `${this.isRTL ? INPUT_TEXTFIELD_PARTS.ICON_ACTION_RTL : INPUT_TEXTFIELD_PARTS.ICON_ACTION}${

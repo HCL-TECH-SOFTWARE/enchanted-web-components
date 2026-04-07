@@ -270,6 +270,8 @@ export enum INPUT_TEXTFIELD_PARTS {
   ICON_ACTION_RTL = 'icon-action-rtl',
   ICON_ACTION_WITH_LABEL = 'icon-action-with-label',
   ICON_ACTION_DISABLED = 'icon-action-disabled',
+  ICON_CLEAR_DISABLED = 'icon-clear-disabled',
+
 }
 
 export enum INPUT_SELECT_PARTS {

@@ -115,7 +115,8 @@
     left: 8px;
   }
 
-  &::part(icon-action-disabled) {
+  &::part(icon-action-disabled),
+  &::part(icon-clear-disabled) {
     opacity: 0.5;
     pointer-events: none;
   }
