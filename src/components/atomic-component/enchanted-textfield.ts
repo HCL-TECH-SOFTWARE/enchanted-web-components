@@ -47,7 +47,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   value = '';
 
   @property({ type: String })
-  type = 'text';
+  type: HTMLInputElement['type'] = 'text';
 
   @property({ type: String })
   label: string | undefined;
@@ -76,6 +76,12 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   @property({ type: String, attribute: 'aria-label' })
   override ariaLabel: string | null = null;
 
+  @property({ type: Boolean, reflect: true })
+  multiline = false;
+
+  @property({ type: Number }) 
+  numberOfLines: number | null = null;
+
   @state()
   private isRTL = getCurrentDirection() === LOCALE_DIRECTIONS.RTL;
 
@@ -91,10 +97,37 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
     super.connectedCallback();
   }
 
+  private adjustTextareaRows(): void {
+    if (!this.multiline || this.numberOfLines) return;
+    const textarea = this.renderRoot.querySelector('textarea') as HTMLTextAreaElement;
+    if (!textarea) return;
+    // Reset to 1 row to get accurate scrollHeight
+    textarea.rows = 1;
+    const style = window.getComputedStyle(textarea);
+    const paddingTop = parseFloat(style.paddingTop);
+    const paddingBottom = parseFloat(style.paddingBottom);
+    const lineHeight = parseFloat(style.lineHeight) || 16;
+    const contentHeight = textarea.scrollHeight - paddingTop - paddingBottom;
+    textarea.rows = Math.max(1, Math.round(contentHeight / lineHeight));
+  }
+
+  override updated(): void {
+    this.adjustTextareaRows();
+  }
+
+  private textareaRows(): number {
+    if (!this.multiline) return 1;
+    if (this.numberOfLines) {
+      return this.numberOfLines;
+    }
+    return 1; // auto-grow handled by adjustTextareaRows in updated()
+  }
+
   private handleInput(event: KeyboardEvent) {
     event.stopPropagation();
     debug('Input event in %s: %s', this.tagName, (event.target as HTMLInputElement).value);
     this.value = (event.target as HTMLInputElement).value;
+    this.requestUpdate();
 
     const stateChange = new CustomEvent('change', { 
       detail: {
@@ -147,6 +180,25 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
     }
   }
 
+  private handleTextareaKeydown(event: KeyboardEvent) {
+    if (event.key !== KeyboardInputKeys.ENTER ) return;
+    if (event.shiftKey) return;
+    event.preventDefault();
+    this.dispatchEvent(new CustomEvent('change', {
+      detail: {
+        value: this.value,
+        type: this.field,
+        triggerSearch: true,
+      }
+    }));
+    this.hassearchedbefore = true;
+  }
+
+  private handlePaste() {
+    // Allow paste freely; numberOfLines only controls visible height, content scrolls beyond it
+    this.requestUpdate();
+  }
+
   private handleBlur(event: FocusEvent) {
     event.stopPropagation();
     event.preventDefault();
@@ -189,21 +241,21 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   private getInputParts(type: string) {
     let part = '';
     switch (type) {
-      case INPUT_TEXTFIELD_PARTS.INPUT: {
+      case INPUT_TEXTFIELD_PARTS.INPUT:
         part = INPUT_TEXTFIELD_PARTS.INPUT;
         if (this.disabled) part = `${INPUT_TEXTFIELD_PARTS.INPUT} ${INPUT_TEXTFIELD_PARTS.INPUT_DISABLED}`;
         if (this.hasClear || this.hasAction) part = `${part} ${this.isRTL
           ? INPUT_TEXTFIELD_PARTS.INPUT_ICON_CLEAR_RTL
           : INPUT_TEXTFIELD_PARTS.INPUT_ICON_CLEAR}`;
-        if (this.hasClear && this.hasAction) part = `${part} ${this.isRTL
+        if (this.hasClear && this.hasAction) {part = `${part} ${this.isRTL
           ? INPUT_TEXTFIELD_PARTS.INPUT_ICON_BOTH_RTL
           : INPUT_TEXTFIELD_PARTS.INPUT_ICON_BOTH}`;
-      }
+        }
         break;
       case INPUT_TEXTFIELD_PARTS.ICON_CLEAR:
         part = `${this.isRTL ? INPUT_TEXTFIELD_PARTS.ICON_CLEAR_RTL : INPUT_TEXTFIELD_PARTS.ICON_CLEAR}${
           this.label ? ` ${INPUT_TEXTFIELD_PARTS.ICON_CLEAR_WITH_LABEL}` : ''}`;
-          if(this.disabled) part = `${part} ${INPUT_TEXTFIELD_PARTS.ICON_CLEAR_DISABLED}`;
+        if (this.disabled) part = `${part} ${INPUT_TEXTFIELD_PARTS.ICON_CLEAR_DISABLED}`;
         break;
       case INPUT_TEXTFIELD_PARTS.ICON_ACTION:
         part = `${this.isRTL ? INPUT_TEXTFIELD_PARTS.ICON_ACTION_RTL : INPUT_TEXTFIELD_PARTS.ICON_ACTION}${
@@ -227,6 +279,25 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
         ${this.label
           ? html`<label data-testid="enchanted-textfield-label" for=${`input-${this.field}`} part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.LABEL)}">${this.label}</label>`
           : nothing }
+          ${this.multiline
+          ? html`
+            <textarea
+              data-testid="enchanted-textfield-textarea"
+              part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.INPUT)}"
+              rows=${this.textareaRows()}
+              .value=${this.value}
+              ?disabled=${this.disabled}
+              placeholder="${this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}"
+              @input=${this.handleInput}
+              @keydown=${this.handleTextareaKeydown}
+              @blur=${this.handleBlur}
+              @paste=${this.handlePaste}
+              id=${`input-${this.field}`}
+              autocomplete=${this.autocomplete}
+              aria-label=${this.ariaLabel || this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}
+            ></textarea>
+          `
+          : html`
         <input
           tabIndex=1
           data-testid="enchanted-textfield-input"
@@ -243,6 +314,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
           autocomplete=${this.autocomplete}
           aria-label=${this.ariaLabel || this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}
         />
+          `}
         <!-- This icon will take color from the parent component as useCurrentColor set to true -->
         ${this.hasClear
           ? html`
@@ -273,7 +345,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
           </div>`
           : nothing}
       </div>
-    `;    
+    `;
   }
 }
 

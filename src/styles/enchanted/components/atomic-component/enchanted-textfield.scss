@@ -27,7 +27,6 @@
     @include typography.font-default;
     margin-bottom: 4px;
     display: block;
-    color: palette.clr(light, text, secondary);
     font-weight: 600;
     font-size: 12px;
     font-style: normal;
@@ -47,10 +46,15 @@
     border: 1px solid palette.clr(light, action, disabled);
     border-radius: 2px;
     padding: 6px 8px;
-    height: 16px;
+    line-height: 16px;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
+  }
+
+  &[multiline]::part(input){
+    resize: none;
+    overflow-y: auto;
   }
 
   &::part(input-disabled) {
@@ -64,11 +68,13 @@
     font-style: italic;
     font-weight: 400;
   }
+
   &::part(input):hover {
     border-radius: 2px;
     border: 1px solid palette.clr(light, action, active);
     border-radius: 2px;
   }
+  
   &::part(input):focus {
     border-radius: 4px;
     border: 1px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
