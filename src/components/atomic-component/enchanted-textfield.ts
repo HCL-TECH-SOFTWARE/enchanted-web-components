@@ -47,7 +47,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   value = '';
 
   @property({ type: String })
-  type: HTMLInputElement['type'] = 'text';
+  type: string = 'text';
 
   @property({ type: String })
   label: string | undefined;
@@ -98,7 +98,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   }
 
   private adjustTextareaRows(): void {
-    if (!this.multiline || this.numberOfLines) return;
+    if (!this.multiline) return;
     const textarea = this.renderRoot.querySelector('textarea') as HTMLTextAreaElement;
     if (!textarea) return;
     // Reset to 1 row to get accurate scrollHeight
@@ -108,7 +108,9 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
     const paddingBottom = parseFloat(style.paddingBottom);
     const lineHeight = parseFloat(style.lineHeight) || 16;
     const contentHeight = textarea.scrollHeight - paddingTop - paddingBottom;
-    textarea.rows = Math.max(1, Math.round(contentHeight / lineHeight));
+    const calculatedRows = Math.max(1, Math.ceil(contentHeight / lineHeight));
+    // Cap at numberOfLines if set, allowing scroll beyond that
+    textarea.rows = this.numberOfLines ? Math.min(calculatedRows, this.numberOfLines) : calculatedRows;
   }
 
   override updated(): void {
@@ -117,9 +119,6 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
 
   private textareaRows(): number {
     if (!this.multiline) return 1;
-    if (this.numberOfLines) {
-      return this.numberOfLines;
-    }
     return 1; // auto-grow handled by adjustTextareaRows in updated()
   }
 
