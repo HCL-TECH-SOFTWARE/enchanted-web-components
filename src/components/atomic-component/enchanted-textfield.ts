@@ -47,7 +47,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
   value = '';
 
   @property({ type: String })
-  type: string = 'text';
+  type = 'text';
 
   @property({ type: String })
   label: string | undefined;

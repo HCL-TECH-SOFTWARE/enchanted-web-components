@@ -127,6 +127,19 @@
     pointer-events: none;
   }
 
+  &[multiline]::part(icon-clear),
+  &[multiline]::part(icon-clear-rtl),
+  &[multiline]::part(icon-action),
+  &[multiline]::part(icon-action-rtl) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &[multiline]::part(icon-clear-with-label),
+  &[multiline]::part(icon-action-with-label) {
+    top: calc(50% + 10px);
+  }
+
   &::part(input-icon-clear) {
     width: calc(100% - 38px);
     padding-right: 28px;
