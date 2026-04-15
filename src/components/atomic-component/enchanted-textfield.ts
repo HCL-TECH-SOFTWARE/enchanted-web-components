@@ -298,7 +298,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
           `
           : html`
         <input
-          tabIndex=1
+          tabIndex=0
           data-testid="enchanted-textfield-input"
           type="${this.type}"
           part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.INPUT)}"
@@ -318,7 +318,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
         ${this.hasClear
           ? html`
           <div
-            tabIndex=2
+            tabindex=${this.disabled ? -1 : 0}
             @click=${this.handleClear}
             @keydown=${this.handleClearEnter}
             data-testid="enchanted-clear-icon"
@@ -338,7 +338,7 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
             aria-label=${this.getMessage('input.textfield.action')}
             part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.ICON_ACTION)}"
             role="button"
-            tabindex=${this.disabled ? -1 : 3}
+            tabindex=${this.disabled ? -1 : 0}
           >
             ${this.actionIcon}
           </div>`

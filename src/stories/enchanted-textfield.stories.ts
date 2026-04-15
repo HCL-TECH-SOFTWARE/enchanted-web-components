@@ -83,8 +83,7 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
       table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: '' } },
     },
     type: {
-      control: { type: 'select' },
-      options: ['text', 'password', 'email', 'number', 'tel', 'url'],
+      control: { type: 'text' },
       description: 'HTML5 input type attribute. Common values: text, password, email, number, tel, url. Controls input validation and mobile keyboard display.',
       table: { category: 'Form', type: { summary: 'string' }, defaultValue: { summary: 'text' } },
     },
@@ -143,7 +142,7 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
     value: '',
     type: 'text',
     label: 'Text Field',
-    placeholder: '',
+    placeholder: 'Enter text',
     disabled: false,
     clearIcon: html`<${generateIconTagName('icon-close')} size="16" color="black"></${generateIconTagName('icon-close')}>`,
     actionIcon: html`<${generateIconTagName('icon-search')} size="16" color="black"></${generateIconTagName('icon-search')}>`,
@@ -157,21 +156,12 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
   },
   
   render: (args) => {
-    const placeholderMap: Record<string, string> = {
-      text: 'Enter text',
-      password: 'Enter password',
-      email: 'Enter email',
-      number: 'Enter number',
-      tel: 'Enter phone number',
-      url: 'Enter URL',
-    };
-    const dynamicPlaceholder = args.placeholder || placeholderMap[args.type ?? 'text'] || 'Enter text';
     return html`
       <${ENCHANTED_TEXTFIELD_TAG}
         .value=${args.value}
         type="${args.type}"
         label="${args.label}"
-        placeholder="${dynamicPlaceholder}"
+        placeholder="${args.placeholder}"
         ?disabled=${args.disabled}
         .clearIcon=${args.showClearIcon ? args.clearIcon : null}
         .actionIcon=${args.actionIcon}
