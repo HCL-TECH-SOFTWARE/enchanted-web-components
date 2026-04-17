@@ -1,0 +1,64 @@
+import{E as g,x as p}from"./iframe-DNG6NGwD.js";import{c as C,E,n as r,M as f,L as $,l as I}from"./tags-Dua8CojJ.js";import{r as m}from"./state-fRMCsTN1.js";import{l as y}from"./lodash-CNEZJmwz.js";import{g as v}from"./localization-Pwna_gtP.js";import{E as N}from"./enchanted-select-Ge91KUgI.js";import{J as a}from"./cssClassEnums-mKa0OyBd.js";import{K as u}from"./keyboardEventKeys-BnoN8uA3.js";var b=(e=>(e.ON="on",e.OFF="off",e))(b||{}),T=Object.defineProperty,L=Object.getOwnPropertyDescriptor,i=(e,t,h,o)=>{for(var n=o>1?void 0:o?L(t,h):t,c=e.length-1,d;c>=0;c--)(d=e[c])&&(n=(o?d(t,h,n):d(n))||n);return o&&n&&T(t,h,n),n};const l=C("enchanted-web-components:components:atomic-component:enchanted-textfield.ts");let s=class extends E{constructor(){super(...arguments),this.value="",this.type="text",this.placeholder="",this.disabled=!1,this.field="",this.hassearchedbefore=!1,this.autocomplete=b.ON,this.ariaLabel=null,this.multiline=!1,this.numberOfLines=null,this.isRTL=v()===$.RTL}get hasClear(){return!!this.clearIcon}get hasAction(){return!!this.actionIcon}connectedCallback(){super.connectedCallback()}adjustTextareaRows(){if(!this.multiline)return;const e=this.renderRoot.querySelector("textarea");if(!e)return;e.rows=1;const t=window.getComputedStyle(e),h=parseFloat(t.paddingTop),o=parseFloat(t.paddingBottom),n=parseFloat(t.lineHeight)||16,c=e.scrollHeight-h-o,d=Math.max(1,Math.ceil(c/n));e.rows=this.numberOfLines?Math.min(d,this.numberOfLines):d}updated(){this.adjustTextareaRows()}textareaRows(){return this.multiline,1}handleInput(e){e.stopPropagation(),l("Input event in %s: %s",this.tagName,e.target.value),this.value=e.target.value,this.requestUpdate();const t=new CustomEvent("change",{detail:{value:this.value,type:this.field,triggerSearch:!1}});this.dispatchEvent(t)}handleEnter(e){if(e.stopPropagation(),l("Enter event in %s: %s",this.tagName,this.value),e.key===u.ENTER){const t=new CustomEvent("change",{detail:{value:this.value,type:this.field,triggerSearch:!0}});this.dispatchEvent(t),this.hassearchedbefore=!0}}handleClear(e){e.stopPropagation(),e.preventDefault(),l("Clear event in %s: %s",this.tagName,this.value),this.value="";const t=this.renderRoot.querySelector(`#${`input-${this.field}`}`);t&&t.focus();const h=new CustomEvent("change",{detail:{type:N.CLEAR_QUERY}});this.dispatchEvent(h)}handleClearEnter(e){e.stopPropagation(),l("Clear Enter event in %s: %s",this.tagName,this.value),(e.key===u.ENTER||e.key===u.SPACE)&&this.handleClear(e)}handleTextareaKeydown(e){e.key===u.ENTER&&(e.shiftKey||(e.preventDefault(),this.dispatchEvent(new CustomEvent("change",{detail:{value:this.value,type:this.field,triggerSearch:!0}})),this.hassearchedbefore=!0))}handlePaste(){this.requestUpdate()}handleBlur(e){if(e.stopPropagation(),e.preventDefault(),l("Blur event in %s: %s",this.tagName,this.value),this.value===""){const t=new CustomEvent("change",{detail:{value:this.value,type:this.field}});this.dispatchEvent(t)}}handleEnterSearch(e){e.stopPropagation(),l("Search by Enter Key event in %s: %s",this.tagName,this.value),e.key===u.ENTER&&(e.stopPropagation(),this.handleSearch(e))}handleSearch(e){e.stopPropagation(),e.preventDefault(),l("Search by Mouse Click event in %s: %s",this.tagName,this.value);const t=new CustomEvent("change",{detail:{value:this.value,type:this.field,triggerSearch:!0}});this.dispatchEvent(t),this.hassearchedbefore=!0}getInputParts(e){let t="";switch(e){case a.INPUT:t=a.INPUT,this.disabled&&(t=`${a.INPUT} ${a.INPUT_DISABLED}`),(this.hasClear||this.hasAction)&&(t=`${t} ${this.isRTL?a.INPUT_ICON_CLEAR_RTL:a.INPUT_ICON_CLEAR}`),this.hasClear&&this.hasAction&&(t=`${t} ${this.isRTL?a.INPUT_ICON_BOTH_RTL:a.INPUT_ICON_BOTH}`);break;case a.ICON_CLEAR:t=`${this.isRTL?a.ICON_CLEAR_RTL:a.ICON_CLEAR}${this.label?` ${a.ICON_CLEAR_WITH_LABEL}`:""}`,this.disabled&&(t=`${t} ${a.ICON_CLEAR_DISABLED}`);break;case a.ICON_ACTION:t=`${this.isRTL?a.ICON_ACTION_RTL:a.ICON_ACTION}${this.label?` ${a.ICON_ACTION_WITH_LABEL}`:""}`,this.disabled&&(t=`${t} ${a.ICON_ACTION_DISABLED}`);break;case a.LABEL:t=this.disabled?`${a.LABEL} ${a.LABEL_DISABLED}`:a.LABEL;break}return t}render(){return l("Rendering %s: value - %s, disabled - %s, has searched before - %s",this.tagName,this.value,this.disabled,this.hassearchedbefore),p`
+      <div part="div">
+        ${this.label?p`<label data-testid="enchanted-textfield-label" for=${`input-${this.field}`} part="${this.getInputParts(a.LABEL)}">${this.label}</label>`:g}
+          ${this.multiline?p`
+            <textarea
+              data-testid="enchanted-textfield-textarea"
+              part="${this.getInputParts(a.INPUT)}"
+              rows=${this.textareaRows()}
+              .value=${this.value}
+              ?disabled=${this.disabled}
+              placeholder="${this.placeholder||this.getMessage("input.textfield.placeholder.type.to.search")}"
+              @input=${this.handleInput}
+              @keydown=${this.handleTextareaKeydown}
+              @blur=${this.handleBlur}
+              @paste=${this.handlePaste}
+              id=${`input-${this.field}`}
+              autocomplete=${this.autocomplete}
+              aria-label=${this.ariaLabel||this.placeholder||this.getMessage("input.textfield.placeholder.type.to.search")}
+            ></textarea>
+          `:p`
+        <input
+          tabIndex=0
+          data-testid="enchanted-textfield-input"
+          type="${this.type}"
+          part="${this.getInputParts(a.INPUT)}"
+          part-attributes="selected"
+          placeholder="${this.placeholder||this.getMessage("input.textfield.placeholder.type.to.search")}"
+          @input=${this.handleInput}
+          @keydown=${y.debounce(this.handleEnter,500)}
+          @blur=${this.handleBlur}
+          id=${`input-${this.field}`}
+          .value=${this.value}
+          ?disabled=${this.disabled}
+          autocomplete=${this.autocomplete}
+          aria-label=${this.ariaLabel||this.placeholder||this.getMessage("input.textfield.placeholder.type.to.search")}
+        />
+          `}
+        <!-- This icon will take color from the parent component as useCurrentColor set to true -->
+        ${this.hasClear?p`
+          <div
+            tabindex=${this.disabled?-1:0}
+            @click=${this.handleClear}
+            @keydown=${this.handleClearEnter}
+            data-testid="enchanted-clear-icon"
+            aria-label=${this.getMessage("input.textfield.clear")}
+            part="${this.getInputParts(a.ICON_CLEAR)}"
+            role="button"
+          >
+            ${this.clearIcon}
+          </div>`:g}
+        ${this.hasAction?p`
+          <div
+            @click=${this.handleSearch}
+            @keydown=${this.handleEnterSearch}
+            data-testid="enchanted-action-icon"
+            aria-label=${this.getMessage("input.textfield.action")}
+            part="${this.getInputParts(a.ICON_ACTION)}"
+            role="button"
+            tabindex=${this.disabled?-1:0}
+          >
+            ${this.actionIcon}
+          </div>`:g}
+      </div>
+    `}};s.shadowRootOptions={...E.shadowRootOptions,delegatesFocus:!0};i([r({type:String})],s.prototype,"value",2);i([r({type:String})],s.prototype,"type",2);i([r({type:String})],s.prototype,"label",2);i([r({type:String})],s.prototype,"placeholder",2);i([r({type:Boolean})],s.prototype,"disabled",2);i([r()],s.prototype,"clearIcon",2);i([r()],s.prototype,"actionIcon",2);i([r()],s.prototype,"field",2);i([r({type:Boolean})],s.prototype,"hassearchedbefore",2);i([r({type:String})],s.prototype,"autocomplete",2);i([r({type:String,attribute:"aria-label"})],s.prototype,"ariaLabel",2);i([r({type:Boolean,reflect:!0})],s.prototype,"multiline",2);i([r({type:Number})],s.prototype,"numberOfLines",2);i([m()],s.prototype,"isRTL",2);s=i([I()],s);customElements.get(f)?l("Component (%s) is currently registered and not possible to registrate again.",f):customElements.define(f,s);
