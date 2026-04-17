@@ -3,6 +3,10 @@
 ## Unreleased
 
 ### Added
+- Added `multiline` property to `enchanted-textfield` component for textarea support
+- Added `numberOfLines` property to `enchanted-textfield` component to cap visible textarea height with scrollable content
+- Added Shift+Enter key support in textarea allows line breaks without search trigger
+- Added paste event handling in `enchanted-textfield` component for multiline support
 
 ### Fixed
 

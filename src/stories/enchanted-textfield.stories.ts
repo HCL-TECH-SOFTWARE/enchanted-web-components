@@ -34,6 +34,8 @@ import { generateIconTagName, ENCHANTED_TEXTFIELD_TAG } from '../components/tags
  * @property hassearchedbefore - If true, indicates a search has been performed.
  * @property autocomplete - Autocomplete attribute value ('on' or 'off').
  * @property ariaLabel - ARIA label for accessibility.
+ * @property multiline - If true, renders a multiline textarea instead of a single-line input.
+ * @property numberOfLines - Number of lines for the textarea when multiline is true.
  */
 export interface EnchantedInputTextfieldProps {
   value?: string;
@@ -48,6 +50,8 @@ export interface EnchantedInputTextfieldProps {
   autocomplete?: string;
   ariaLabel?: string;
   showClearIcon?: boolean;
+  multiline?: boolean;
+  numberOfLines?: number | null;
 }
 
 const meta: Meta<EnchantedInputTextfieldProps> = {
@@ -123,6 +127,16 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
       description: 'Toggle to show or hide the clear icon.',
       table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
     },
+    multiline: {
+      control: { type: 'boolean' },
+      description: 'If true, renders a multiline textarea instead of a single-line input.',
+      table: { category: 'Content', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    numberOfLines: {
+      control: { type: 'number', min: 1 },
+      description: 'Number of visible lines for the textarea when multiline is true. Clear the field for unlimited growth. Ignored if multiline is false.',
+      table: { category: 'Content', type: { summary: 'number | null' }, defaultValue: { summary: 'null' } },
+    },
   },
   args: {
     value: '',
@@ -137,6 +151,8 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
     autocomplete: 'on',
     ariaLabel: '',
     showClearIcon: true,
+    multiline: false,
+    numberOfLines: null,
   },
   
   render: (args) => {
@@ -153,6 +169,8 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
         ?hassearchedbefore=${args.hassearchedbefore}
         autocomplete="${args.autocomplete}"
         aria-label="${args.ariaLabel}"
+        ?multiline=${args.multiline}
+        .numberOfLines=${args.multiline ? (args.numberOfLines ?? null) : null}
       ></${ENCHANTED_TEXTFIELD_TAG}>
     `;
   },
