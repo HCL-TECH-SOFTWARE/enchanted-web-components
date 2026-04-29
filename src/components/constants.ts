@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-export const SHADOW_ROOT_MODE_KEY = 'enchanted.searchv2.useOpenAcShadowRoot';
+export const SHADOW_ROOT_MODE_KEY = 'enchanted.useOpenAcShadowRoot';
 
 export enum LOCALE_DIRECTIONS {
   LTR = 'ltr',

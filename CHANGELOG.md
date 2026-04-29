@@ -7,6 +7,7 @@
 ### Fixed
 
 ### Changed
+- Changed `SHADOW_ROOT_MODE_KEY` constant value to `enchanted.useOpenAcShadowRoot` for consistency
 
 ### Breaking changes
 
