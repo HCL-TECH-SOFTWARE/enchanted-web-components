@@ -81,9 +81,6 @@
     "dayjs": "^1.11.13",
     "debug": "^4.4.3"
   },
-  "engines": {
-    "node": ">=20.X"
-  },
   "overrides": {
     "glob": "^10.2.2",
     "vite-plugin-istanbul": "^7.2.0"
