@@ -50,6 +50,11 @@ const meta: Meta = {
       description: 'Removes the border from the dialog container. When true, displays dialog without border styling. Useful for custom styling or seamless integration with page design.',
       table: { category: 'Styling', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
     },
+    disableBackdropClick: {
+      control: { type: 'boolean' },
+      description: 'Prevents dialog from closing when clicking on the backdrop. When true, clicks on the backdrop will not close the dialog.',
+      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     dialogTitle: 'Dialog Title',
@@ -57,6 +62,7 @@ const meta: Meta = {
     open: true,
     overrideTitle: false,
     removeBorder: false,
+    disableBackdropClick: false,
   },
   parameters: {
     docs: {
@@ -77,6 +83,7 @@ type Story = StoryObj<{
   open: boolean;
   overrideTitle: boolean;
   removeBorder: boolean;
+  disableBackdropClick: boolean;
 }>;
 
 export const EnchantedDialog: Story = {
@@ -86,6 +93,7 @@ export const EnchantedDialog: Story = {
         .dialogTitle=${args.dialogTitle}
         .size=${args.size}
         ?open=${args.open}
+        ?disableBackdropClick=${args.disableBackdropClick}
         ?overrideTitle=${args.overrideTitle}
         ?removeBorder=${args.removeBorder}
       >
@@ -106,7 +114,7 @@ export const AllStates: StoryObj = {
           <h3 style="margin-top: 0;">Dialog Sizes</h3>
           <p style="margin: 10px 0; color: #666;">All dialogs shown with open=true for visualization. In production, only one dialog would be open at a time.</p>
           <div style="display: flex; flex-direction: column; gap: 20px;">
-            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Extra Large Dialog (XL)'} .size=${DialogSizes.XL} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Extra Large Dialog (XL)'} .size=${DialogSizes.XL} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is an extra large (XL) dialog. It provides the most space for content and is suitable for complex forms or detailed information displays.</p>
                 <p>Content can include multiple paragraphs, forms, tables, or any other HTML elements.</p>
@@ -117,7 +125,7 @@ export const AllStates: StoryObj = {
               </div>
             </${ENCHANTED_DIALOG_TAG}>
 
-            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Large Dialog (LG)'} .size=${DialogSizes.LG} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Large Dialog (LG)'} .size=${DialogSizes.LG} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is a large (LG) dialog. It provides ample space for most use cases including forms with multiple fields.</p>
               </div>
@@ -127,7 +135,7 @@ export const AllStates: StoryObj = {
               </div>
             </${ENCHANTED_DIALOG_TAG}>
 
-            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Medium Dialog (MD)'} .size=${DialogSizes.MD} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Medium Dialog (MD)'} .size=${DialogSizes.MD} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is a medium (MD) dialog. A balanced size suitable for most standard dialogs with moderate content.</p>
               </div>
@@ -136,7 +144,7 @@ export const AllStates: StoryObj = {
               </div>
             </${ENCHANTED_DIALOG_TAG}>
 
-            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Small Dialog (SM)'} .size=${DialogSizes.SM} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Small Dialog (SM)'} .size=${DialogSizes.SM} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is a small (SM) dialog. Compact size for simple messages or quick confirmations.</p>
               </div>
@@ -145,7 +153,7 @@ export const AllStates: StoryObj = {
               </div>
             </${ENCHANTED_DIALOG_TAG}>
 
-            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Extra Small Dialog (XS)'} .size=${DialogSizes.XS} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Extra Small Dialog (XS)'} .size=${DialogSizes.XS} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>Extra small (XS) dialog for minimal content or quick alerts.</p>
               </div>
@@ -183,7 +191,7 @@ export const AllStates: StoryObj = {
               </div>
             </${ENCHANTED_DIALOG_TAG}>
 
-            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Dialog with Rich Content'} .size=${DialogSizes.LG} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Dialog with Rich Content'} .size=${DialogSizes.LG} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <h4 style="margin-top: 0;">Form Example</h4>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -207,7 +215,7 @@ export const AllStates: StoryObj = {
               </div>
             </${ENCHANTED_DIALOG_TAG}>
 
-            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Confirmation Dialog'} .size=${DialogSizes.SM} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Confirmation Dialog'} .size=${DialogSizes.SM} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p style="margin: 0;">Are you sure you want to delete this item? This action cannot be undone.</p>
               </div>

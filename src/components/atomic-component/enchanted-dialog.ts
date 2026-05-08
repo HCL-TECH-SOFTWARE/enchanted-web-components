@@ -57,6 +57,9 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
   @property({ type: Boolean })
   removeBorder = false;
 
+  @property({ type: Boolean, reflect: true  })
+  disableBackdropClick = false;
+
   connectedCallback(): void {
     super.connectedCallback();
     if (this.dialogTitle === '') {
@@ -185,6 +188,18 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
       })
     );
   }
+  
+  private handleBackdropClick(event: Event) {
+    if (this.disableBackdropClick) {
+      event.stopPropagation();
+      return;
+    }
+    this.handleClose(event);
+  }
+
+  private _debounceBackdropClick = debounce((event: Event) => {
+    this.handleBackdropClick(event);
+  }, 300);
 
   private handleCloseByEnterKey(event: KeyboardEvent) {
     if (event.key === KeyboardInputKeys.ENTER || event.key === KeyboardInputKeys.SPACE) {
@@ -284,7 +299,7 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
     if (this.open) {
       return html`
         <div role="presentation" part=${isChatMode ? DIALOG_PARTS.DIALOG_ROOT_CHAT : DIALOG_PARTS.DIALOG_ROOT}>
-          ${isChatMode ? nothing : html`<div aria-hidden="true" part=${DIALOG_PARTS.BACKDROP} @click=${debounce(this.handleClose, 300)}></div>`}
+          ${isChatMode ? nothing : html`<div aria-hidden="true" part=${DIALOG_PARTS.BACKDROP} @click=${this._debounceBackdropClick}></div>`}
           <div tabindex="-1" role="presentation" part=${this.getContainerPart()}>
             <div
               part=${this.getPaperPart()}

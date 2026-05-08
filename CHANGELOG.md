@@ -3,7 +3,7 @@
 ## Unreleased
 
 ### Added
-
+- Added `disableBackdropClick` property to `enchanted-dialog` component to disable closing dialog from backdrop click.
 ### Fixed
 
 ### Changed
