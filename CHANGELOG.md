@@ -3,13 +3,20 @@
 ## Unreleased
 
 ### Added
-- Added `disableBackdropClick` property to `enchanted-dialog` component to disable closing dialog from backdrop click.
+
 ### Fixed
 
 ### Changed
-- Changed `SHADOW_ROOT_MODE_KEY` constant value to `enchanted.useOpenAcShadowRoot` for consistency
 
 ### Breaking changes
+
+## 5.4.0
+
+### Added
+- Added `disableBackdropClick` property to `enchanted-dialog` component to disable closing dialog from backdrop click.
+
+### Changed
+- Changed `SHADOW_ROOT_MODE_KEY` constant value to `enchanted.useOpenAcShadowRoot` for consistency
 
 ## 5.3.0
 
