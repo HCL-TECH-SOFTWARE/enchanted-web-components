@@ -13,16 +13,19 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
 import { AVATAR_PARTS, AVATAR_VARIANT, AVATAR_TYPE, AVATAR_COLOR } from '../../types/cssClassEnums';
+import { ENCHANTED_AVATAR_TAG_NAME } from '../tags';
 
-@customElement('enchanted-avatar')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-avatar.ts');
+
 export class EnchantedAvatar extends EnchantedAcBaseElement {
   @property()
   variant: string | undefined;
@@ -112,8 +115,8 @@ export class EnchantedAvatar extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-avatar': EnchantedAvatar
-  }
+if (!customElements.get(ENCHANTED_AVATAR_TAG_NAME)) {
+  customElements.define(ENCHANTED_AVATAR_TAG_NAME, EnchantedAvatar);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_AVATAR_TAG_NAME);
 }

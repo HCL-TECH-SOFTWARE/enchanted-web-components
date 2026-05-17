@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-item-type-avatar';
 import { ICON_ITEM_TYPE } from '../types/enchanted-svg-icon';
+import { ENCHANTED_ITEM_TYPE_AVATAR_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedItemTypeAvatarProps
@@ -46,9 +47,9 @@ const meta: Meta<EnchantedItemTypeAvatarProps> = {
     imageUrl: '',
   },
   render: (args) => {return html`
-    <enchanted-item-type-avatar
+    <${ENCHANTED_ITEM_TYPE_AVATAR_TAG}
       .itemType=${args.itemType}
-    ></enchanted-item-type-avatar>
+    ></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
   `;},
 };
 
@@ -62,27 +63,27 @@ export const AllStates: Story = {
     <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: center;">
       <div>
         <div>Application</div>
-        <enchanted-item-type-avatar itemType="${ICON_ITEM_TYPE.APPLICATION}"></enchanted-item-type-avatar>
+        <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType="${ICON_ITEM_TYPE.APPLICATION}"></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
       </div>
       <div>
         <div>Blog</div>
-        <enchanted-item-type-avatar itemType="${ICON_ITEM_TYPE.BLOG}"></enchanted-item-type-avatar>
+        <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType="${ICON_ITEM_TYPE.BLOG}"></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
       </div>
       <div>
         <div>Catalog</div>
-        <enchanted-item-type-avatar itemType="${ICON_ITEM_TYPE.CATALOG}"></enchanted-item-type-avatar>
+        <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType="${ICON_ITEM_TYPE.CATALOG}"></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
       </div>
       <div>
         <div>PDF</div>
-        <enchanted-item-type-avatar itemType="${ICON_ITEM_TYPE.PDF}"></enchanted-item-type-avatar>
+        <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType="${ICON_ITEM_TYPE.PDF}"></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
       </div>
       <div>
         <div>User Profile</div>
-        <enchanted-item-type-avatar itemType="${ICON_ITEM_TYPE.USER_PROFILE}"></enchanted-item-type-avatar>
+        <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType="${ICON_ITEM_TYPE.USER_PROFILE}"></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
       </div>
       <div>
         <div>Default (no type)</div>
-        <enchanted-item-type-avatar></enchanted-item-type-avatar>
+        <${ENCHANTED_ITEM_TYPE_AVATAR_TAG}></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
       </div>
     </div>
   `;},

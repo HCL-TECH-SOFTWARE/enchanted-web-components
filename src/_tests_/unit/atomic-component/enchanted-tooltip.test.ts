@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { render, nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, browser, expect } from '@wdio/globals';
 import { spyOn } from '@wdio/browser-runner';
 import { v4 as uuid } from 'uuid';
@@ -26,48 +27,45 @@ import '../../../components/atomic-component/enchanted-button';
 import { TOOLTIP_PLACEMENT, TOOLTIP_TYPE, TOOLTIP_VARIANT } from '../../../types/cssClassEnums';
 import { initSessionStorage } from '../../utils';
 import { EnchantedTooltip } from '../../../components/atomic-component/enchanted-tooltip';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_TOOLTIP_TAG, ENCHANTED_TOOLTIP_TAG_NAME } from '../../../components/tags';
  
-describe('EnchantedTooltip component testing', () => {
+describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedTooltip - should render without crashing', async () => {
-    let component = document.createElement('enchanted-tooltip');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_TOOLTIP_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedTooltip - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-tooltip');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_TOOLTIP_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedTooltip - should render component and validate default attributes', async () => { 
+  it('should render component and validate default attributes', async () => { 
     render(
       html`
-        <enchanted-tooltip show=true tooltiptext="sample-tooltiptext">
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+        <${ENCHANTED_TOOLTIP_TAG} show=true tooltiptext="sample-tooltiptext">
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('tooltiptext', 'sample-tooltiptext');
     await expect(component).toHaveElementProperty('tooltipSize', TOOLTIP_VARIANT.TOOLTIP_SMALL);
@@ -75,23 +73,23 @@ describe('EnchantedTooltip component testing', () => {
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM);
   });
 
-  it('EnchantedTooltip - should render component with tooltip type, size, placement and validate', async () => { 
+  it('should render component with tooltip type, size, placement and validate', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           tooltipSize=${TOOLTIP_VARIANT.TOOLTIP_MEDIUM}
           tooltipType=${TOOLTIP_TYPE.TOOLTIP_MULTI_LINE}
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_TOP}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('tooltiptext', 'sample-tooltiptext');
     await expect(component).toHaveElementProperty('tooltipSize', TOOLTIP_VARIANT.TOOLTIP_MEDIUM);
@@ -99,208 +97,208 @@ describe('EnchantedTooltip component testing', () => {
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_TOP);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in TOP_START', async () => { 
+  it('should render component should render component and validate attributes for placement in TOP_START', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_TOP_START}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_TOP_START);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in TOP_END', async () => { 
+  it('should render component should render component and validate attributes for placement in TOP_END', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_TOP_END}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_TOP_END);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in BOTTOM_START', async () => { 
+  it('should render component should render component and validate attributes for placement in BOTTOM_START', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_START}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_START);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in BOTTOM_END', async () => { 
+  it('should render component should render component and validate attributes for placement in BOTTOM_END', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_END}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_END);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in RIGHT_START', async () => { 
+  it('should render component should render component and validate attributes for placement in RIGHT_START', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_START}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_START);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in RIGHT', async () => { 
+  it('should render component should render component and validate attributes for placement in RIGHT', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_RIGHT);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in RIGHT_END', async () => { 
+  it('should render component should render component and validate attributes for placement in RIGHT_END', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_END}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_END);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in LEFT_START', async () => { 
+  it('should render component should render component and validate attributes for placement in LEFT_START', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_LEFT_START}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_LEFT_START);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in LEFT', async () => { 
+  it('should render component should render component and validate attributes for placement in LEFT', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_LEFT}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_LEFT);
   });
 
-  it('EnchantedTooltip - should render component should render component and validate attributes for placement in LEFT_END', async () => { 
+  it('should render component should render component and validate attributes for placement in LEFT_END', async () => { 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true 
           tooltiptext="sample-tooltiptext"
           placement=${TOOLTIP_PLACEMENT.TOOLTIP_LEFT_END}
         >
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_LEFT_END);
   });
 
-  it('EnchantedTooltip - should show tooltip on hover and hide on leave', async () => {
+  it('should show tooltip on hover and hide on leave', async () => {
     render(
       html`
-        <enchanted-tooltip tooltiptext="sample-tooltiptext">
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+        <${ENCHANTED_TOOLTIP_TAG} tooltiptext="sample-tooltiptext">
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-tooltip').getElement();
-    let targetButton = await component.$('enchanted-button[slot="target"]');
+    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let targetButton = await component.$(`${ENCHANTED_BUTTON_TAG_NAME}[slot="target"]`);
     let tooltipText = await component.shadow$(`[data-testid="tooltip-text"]`);
 
     await expect(component).not.toHaveAttribute('show');
@@ -319,17 +317,17 @@ describe('EnchantedTooltip component testing', () => {
     await expect(tooltipSlot).not.toBeDisplayed();
   });
 
-  it('EnchantedTooltip - should render italic tooltip', async () => {
+  it('should render italic tooltip', async () => {
     const id = uuid();
 
     render(
       html`
-        <enchanted-tooltip 
+        <${ENCHANTED_TOOLTIP_TAG} 
           show=true
         >
           <i slot="tooltip" id=${id}>sample-tooltiptext</i>
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
       `,
       document.body
     );
@@ -339,8 +337,8 @@ describe('EnchantedTooltip component testing', () => {
     await expect(component).toHaveElementProperty('id', id);
   });
   
-  it('EnchantedTooltip - should call unmount and verify cleanup operations', async () => {
-    const component = document.createElement('enchanted-tooltip') as EnchantedTooltip;
+  it('should call unmount and verify cleanup operations', async () => {
+    const component = document.createElement(ENCHANTED_TOOLTIP_TAG_NAME) as EnchantedTooltip;
     document.body.appendChild(component);
 
     const cancelAnimationFrameSpy = spyOn(window, 'cancelAnimationFrame');
@@ -363,8 +361,8 @@ describe('EnchantedTooltip component testing', () => {
     await expect(stopObserversSpy).toHaveBeenCalled();
   });
 
-  it('EnchantedTooltip - should clear _targetDismissTimer when target becomes visible', async () => {
-    const component = document.createElement('enchanted-tooltip') as EnchantedTooltip;
+  it('should clear _targetDismissTimer when target becomes visible', async () => {
+    const component = document.createElement(ENCHANTED_TOOLTIP_TAG_NAME) as EnchantedTooltip;
     document.body.appendChild(component);
 
     const clearTimeoutSpy = spyOn(window, 'clearTimeout');
@@ -382,8 +380,8 @@ describe('EnchantedTooltip component testing', () => {
     await expect(component['_targetDismissTimer']).toBeNull();
   });
 
-  it('EnchantedTooltip - should set _targetDismissTimer when target becomes invisible', async () => {
-    const component = document.createElement('enchanted-tooltip') as EnchantedTooltip;
+  it('should set _targetDismissTimer when target becomes invisible', async () => {
+    const component = document.createElement(ENCHANTED_TOOLTIP_TAG_NAME) as EnchantedTooltip;
     document.body.appendChild(component);
 
     const setTimeoutSpy = spyOn(window, 'setTimeout');
@@ -398,37 +396,46 @@ describe('EnchantedTooltip component testing', () => {
     await expect(component.show).toBe(false);
   });
 
-  it('EnchantedTooltip - should show tooltip on focus and hide on blur', async () => {
+  it('should show tooltip on focus and hide on blur', async () => {
     render(
       html`
-        <enchanted-tooltip tooltiptext="sample-tooltiptext">
-          <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-        </enchanted-tooltip>
+        <${ENCHANTED_TOOLTIP_TAG} tooltiptext="sample-tooltiptext">
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
+        <button id="after-focus" type="button">After focus</button>
       `,
       document.body
     );
 
-    const component = await $('enchanted-tooltip').getElement();
+    const component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
     const tooltipTextSlot = await component.$('>>>div[data-testid="tooltip-text"] > slot');
 
     await expect(component).not.toHaveAttribute('show');
 
-    await browser.keys(['Tab']);
+    // Focus the button inside enchanted-button's shadow root directly
+    // (Tab is unreliable across shadow DOM in WDIO browser runner)
+    await browser.execute((tooltipSelector, buttonSelector) => {
+      const tooltip = document.querySelector(tooltipSelector);
+      const enchantedButton = tooltip?.querySelector(buttonSelector);
+      const innerButton = enchantedButton?.shadowRoot?.querySelector('button');
+      innerButton?.focus();
+    }, ENCHANTED_TOOLTIP_TAG_NAME, ENCHANTED_BUTTON_TAG_NAME);
     await browser.pause(100);
 
     await expect(component).toHaveAttribute('show');
     await expect(tooltipTextSlot).toBeDisplayed();
     await expect(tooltipTextSlot).toHaveText('sample-tooltiptext');
 
-    await browser.keys(['Tab']);
-
-    await browser.pause(100); 
+    // Blur by clicking an external button
+    const afterFocusButton = await $('#after-focus').getElement();
+    await afterFocusButton.click();
+    await browser.pause(100);
 
     await expect(component).not.toHaveAttribute('show');
     await expect(tooltipTextSlot).not.toBeDisplayed();
   });
 
-  it('EnchantedTooltip - should fall back to document.documentElement when window.visualViewport is null', async () => {
+  it('should fall back to document.documentElement when window.visualViewport is null', async () => {
     const originalDocumentElement = document.documentElement;
     Object.defineProperty(document, 'documentElement', {
       value: {
@@ -471,7 +478,7 @@ describe('EnchantedTooltip component testing', () => {
     });
   });
 
-  it('EnchantedTooltip - should always return TOOLTIP_MULTI_LINE if prevType is TOOLTIP_MULTI_LINE', async () => {
+  it('should always return TOOLTIP_MULTI_LINE if prevType is TOOLTIP_MULTI_LINE', async () => {
     const component = new EnchantedTooltip();
     const singleLineWidth = 200;
     const availableWidth = 300;
@@ -482,17 +489,17 @@ describe('EnchantedTooltip component testing', () => {
     await expect(result).toBe(TOOLTIP_TYPE.TOOLTIP_MULTI_LINE);
   });
 
-  it('EnchantedTooltip - should hide the tooltip if the target is not visible', async () => {
+  it('should hide the tooltip if the target is not visible', async () => {
     render(
       html`
-              <enchanted-tooltip show=true tooltiptext="sample-tooltiptext">
-                  <enchanted-button slot="target" buttontext="sample-buttontext"></enchanted-button>
-              </enchanted-tooltip>
-          `,
+        <${ENCHANTED_TOOLTIP_TAG} show=true tooltiptext="sample-tooltiptext">
+          <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
+        </${ENCHANTED_TOOLTIP_TAG}>
+      `,
       document.body
     );
 
-    const component = document.querySelector('enchanted-tooltip') as EnchantedTooltip;
+    const component = document.querySelector(ENCHANTED_TOOLTIP_TAG_NAME) as EnchantedTooltip;
     await component.updateComplete;
 
     const isTargetVisibleSpy = spyOn(component, 'isTargetElementVisible').mockReturnValue(false);

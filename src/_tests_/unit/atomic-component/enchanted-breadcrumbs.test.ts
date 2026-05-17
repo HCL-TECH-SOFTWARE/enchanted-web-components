@@ -13,12 +13,15 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { expect, $ } from '@wdio/globals';
 import { spyOn } from '@wdio/browser-runner';
+import { nothing } from 'lit';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-breadcrumbs';
+import '../../../components/atomic-component/enchanted-breadcrumbs-item';
 import { EnchantedBreadcrumbs } from '../../../components/atomic-component/enchanted-breadcrumbs';
 
 // Helper imports
@@ -28,58 +31,56 @@ import { BREADCRUMBS_ICON_TYPE } from '../../../types/enchanted-breadcrumbs';
 
 // Icon imports
 import { svgIconInfo } from '../../assets/svg-icon-info';
+import { ENCHANTED_BREADCRUMBS_ITEM_TAG, ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, ENCHANTED_BREADCRUMBS_TAG, ENCHANTED_BREADCRUMBS_TAG_NAME, ENCHANTED_SVG_ICON_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedBreadcrumbs component testing', () => {
+describe(`${ENCHANTED_BREADCRUMBS_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedBreadcrumbs - should render without crashing', async () => {
-    let component = document.createElement('enchanted-breadcrumbs');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_BREADCRUMBS_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedBreadcrumbs - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-breadcrumbs');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_BREADCRUMBS_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedBreadcrumbs - should render component with icon and text', async () => {
+  it('should render component with icon and text', async () => {
     let items = [
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs1' },
     ];
     render(
       html`
-        <enchanted-breadcrumbs
+        <${ENCHANTED_BREADCRUMBS_TAG}
           .paths=${items}
-        ></enchanted-breadcrumbs>
+        ></${ENCHANTED_BREADCRUMBS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-breadcrumbs').getElement();
+    let component = await $(ENCHANTED_BREADCRUMBS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let enchantedBreadcrumbsIcon = await component.$('>>>enchanted-svg-icon[data-testid="breadcrumbs-item-icon"]').getElement();
+    const breadcrumbsItems = await component.$$(`>>>${ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME}[data-testid="breadcrumbs-item"]`);
+    let enchantedBreadcrumbsIcon = await breadcrumbsItems[0].$(`>>>${ENCHANTED_SVG_ICON_TAG_NAME}[data-testid="breadcrumbs-item-icon"]`).getElement();
     await expect(enchantedBreadcrumbsIcon).toBeExisting();
     let enchantedBreadcrumbsTitle = await component.$('>>>span[data-testid="breadcrumbs-title"]').getElement();
     await expect(enchantedBreadcrumbsTitle).toBeExisting();
   });
 
-  it('EnchantedBreadcrumbs - should trigger handleBreadcrumbClick when clicked', async () => {
+  it('should trigger handleBreadcrumbClick when clicked', async () => {
     let items = [
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs1' },
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs2' },
@@ -87,21 +88,21 @@ describe('EnchantedBreadcrumbs component testing', () => {
     let wasClicked = false;
     render(
       html`
-        <enchanted-breadcrumbs
+        <${ENCHANTED_BREADCRUMBS_TAG}
           .paths=${items}
           .handleBreadcrumbClick=${() => { wasClicked = true; }}
-        ></enchanted-breadcrumbs>
+        ></${ENCHANTED_BREADCRUMBS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-breadcrumbs').getElement();
+    let component = await $(ENCHANTED_BREADCRUMBS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let breadcrumbsItems = await component.$$('>>>enchanted-breadcrumbs-item[data-testid="breadcrumbs-item"]');
+    let breadcrumbsItems = await component.$$(`>>>${ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME}[data-testid="breadcrumbs-item"]`);
     await breadcrumbsItems[0].click();
     await expect(wasClicked).toBe(true);
   });
 
-  it('EnchantedBreadcrumbs - should not trigger handleBreadcrumbClick when the last item is clicked', async () => {
+  it('should not trigger handleBreadcrumbClick when the last item is clicked', async () => {
     let items = [
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs1' },
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs2' },
@@ -109,21 +110,21 @@ describe('EnchantedBreadcrumbs component testing', () => {
     const fn = spyOn(EnchantedBreadcrumbs.prototype, 'handleBreadcrumbClick');
     render(
       html`
-        <enchanted-breadcrumbs
+        <${ENCHANTED_BREADCRUMBS_TAG}
           .paths=${items}
           .handleBreadcrumbClick=${fn}
-        ></enchanted-breadcrumbs>
+        ></${ENCHANTED_BREADCRUMBS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-breadcrumbs').getElement();
+    let component = await $(ENCHANTED_BREADCRUMBS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let breadcrumbsItems = await component.$$('>>>enchanted-breadcrumbs-item[data-testid="breadcrumbs-item"]');
+    let breadcrumbsItems = await component.$$(`>>>${ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME}[data-testid="breadcrumbs-item"]`);
     await breadcrumbsItems[1].click();
     await expect(fn).not.toHaveBeenCalledTimes(1);
   });
 
-  it('EnchantedBreadcrumbs - should not trigger handleBreadcrumbClick when the disabled item is clicked', async () => {
+  it('should not trigger handleBreadcrumbClick when the disabled item is clicked', async () => {
     let items = [
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs1', disabled: true },
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs2' },
@@ -131,21 +132,21 @@ describe('EnchantedBreadcrumbs component testing', () => {
     const fn = spyOn(EnchantedBreadcrumbs.prototype, 'handleBreadcrumbClick');
     render(
       html`
-        <enchanted-breadcrumbs
+        <${ENCHANTED_BREADCRUMBS_TAG}
           .paths=${items}
           .handleBreadcrumbClick=${fn}
-        ></enchanted-breadcrumbs>
+        ></${ENCHANTED_BREADCRUMBS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-breadcrumbs').getElement();
+    let component = await $(ENCHANTED_BREADCRUMBS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let breadcrumbsItems = await component.$$('>>>enchanted-breadcrumbs-item[data-testid="breadcrumbs-item"]');
+    let breadcrumbsItems = await component.$$(`>>>${ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME}[data-testid="breadcrumbs-item"]`);
     await breadcrumbsItems[0].click();
     await expect(fn).not.toHaveBeenCalledTimes(1);
   });
 
-  it('EnchantedBreadcrumbsItem - should have a dynamic part', async () => {
+  it('should have a dynamic part', async () => {
     let items = [
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs1', disabled: true },
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs2' },
@@ -153,13 +154,13 @@ describe('EnchantedBreadcrumbs component testing', () => {
     ];
     render(
       html`
-        <enchanted-breadcrumbs
+        <${ENCHANTED_BREADCRUMBS_TAG}
           .paths=${items}
-        ></enchanted-breadcrumbs>
+        ></${ENCHANTED_BREADCRUMBS_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-breadcrumbs').getElement();
+    let component = await $(ENCHANTED_BREADCRUMBS_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     
     let breadcrumbsItem = await component.$(`>>>[part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM} ${BREADCRUMBS_PART.BREADCRUMBS_DISABLED}"]`).getElement();
@@ -168,11 +169,23 @@ describe('EnchantedBreadcrumbs component testing', () => {
     await expect(breadcrumbsItem).toBeExisting();
   });
 
-  it('EnchantedBreadcrumbsItem - should accept a partProp', async () => {
+});
+
+describe(`${ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME} component testing`, () => {
+  before(async () => {
+    await initSessionStorage();
+    render(nothing, document.body);
+  });
+
+  afterEach(() => {
+    render(nothing, document.body);
+  });
+
+  it('should accept a partProp', async () => {
     let path = { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs1', disabled: true };
     let exportParts = Object.values(BREADCRUMBS_PART).join(', ');
     render(
-      html`<enchanted-breadcrumbs-item
+      html`<${ENCHANTED_BREADCRUMBS_ITEM_TAG}
               .path="${path}"
               exportparts="${exportParts}"
               .partProp="${BREADCRUMBS_PART.BREADCRUMBS_ITEM}"
@@ -180,21 +193,21 @@ describe('EnchantedBreadcrumbs component testing', () => {
             />`,
       document.body
     );
-    let component = await $('enchanted-breadcrumbs-item').getElement();
+    let component = await $(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     let breadcrumbsItem = await component.$(`>>>div[part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM} ${BREADCRUMBS_PART.BREADCRUMBS_DISABLED}"]`).getElement();
     await expect(breadcrumbsItem).toBeExisting();
   });
 
-  it('EnchantedBreadcrumbsItem - should accept an iconName and render icon', async () => {
+  it('should accept an iconName and render icon', async () => {
     let path = {
       iconName: BREADCRUMBS_ICON_TYPE.HOME,
       title: 'Home',
     };
     let exportParts = Object.values(BREADCRUMBS_PART).join(', ');
     render(
-      html`<enchanted-breadcrumbs-item
+      html`<${ENCHANTED_BREADCRUMBS_ITEM_TAG}
               .path="${path}"
               exportparts="${exportParts}"
               .partProp="${BREADCRUMBS_PART.BREADCRUMBS_ITEM}"
@@ -203,7 +216,7 @@ describe('EnchantedBreadcrumbs component testing', () => {
       document.body
     );
 
-    let component = await $('enchanted-breadcrumbs-item').getElement();
+    let component = await $(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     let breadcrumbsIcon = await component.$(`>>>[part="${BREADCRUMBS_PART.BREADCRUMBS_ICON}"]`).getElement();

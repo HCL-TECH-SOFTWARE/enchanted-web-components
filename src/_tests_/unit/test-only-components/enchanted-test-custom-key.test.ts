@@ -55,6 +55,7 @@ import '../../../components/atomic-component/enchanted-avatar'; // Using enchant
 import { EnchantedTestCustomKey } from './enchanted-test-custom-key';
 import { EnchantedAcBaseElement } from '../../../components/atomic-component/enchanted-ac-base-element';
 import { SHADOW_ROOT_MODE_KEY } from '../../../components/constants';
+import { ENCHANTED_AVATAR_TAG_NAME } from '../../../components/tags';
 
 describe('EnchantedTestCustomKey - Shadow Root Mode Override', () => {
   let element: EnchantedTestCustomKey;
@@ -127,7 +128,7 @@ describe('EnchantedTestCustomKey - Shadow Root Mode Override', () => {
     // Don't set ENCHANTED_TEST_CUSTOM_SHADOW_ROOT_MODE
 
     // Create base element - should have open shadow root
-    baseElement = document.createElement('enchanted-avatar');
+    baseElement = document.createElement(ENCHANTED_AVATAR_TAG_NAME);
     document.body.appendChild(baseElement);
     
     // Create custom key element - should have closed shadow root

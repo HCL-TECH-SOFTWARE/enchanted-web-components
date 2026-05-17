@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { render, nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 import { expect, $ } from '@wdio/globals';
 import { waitFor } from '@testing-library/dom';
 
@@ -24,58 +25,55 @@ import { svgIconSearch } from '../../assets/svg-search';
 // Helper imports
 import { initSessionStorage } from '../../utils';
 import { TOGGLE_BUTTON_PARTS } from '../../../types/cssClassEnums';
+import { ENCHANTED_BADGE_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME, ENCHANTED_TOGGLE_BUTTON_TAG, ENCHANTED_TOGGLE_BUTTON_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedToggleButton component testing', () => {
+describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedToggleButton - should render without crashing', async () => {
-    let component = document.createElement('enchanted-toggle-button');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedToggleButton - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-toggle-button');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedToggleButton - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-toggle-button');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedToggleButton - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-toggle-button');
+  it('should validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('disabled', false);
     await expect(component).toHaveElementProperty('outlined', false);
     component.remove();
   });
 
-  it('EnchantedToggleButton - should render component and validate attributes for outlined', async () => {
+  it('should render component and validate attributes for outlined', async () => {
     let wasClicked = false;
     let selectedView = 'iconOne';
 
     render(
       html`
-        <enchanted-toggle-button
+        <${ENCHANTED_TOGGLE_BUTTON_TAG}
           .iconUrls=${[
             'iconOneUrl', 'iconTwoUrl'
           ]}
@@ -84,12 +82,12 @@ describe('EnchantedToggleButton component testing', () => {
           ?outlined=${true}
           @click=${() => { wasClicked = true; selectedView = 'iconTwo'; }}
         >
-        </enchanted-toggle-button>
+        </${ENCHANTED_TOGGLE_BUTTON_TAG}>
       `,
       document.body
     );
     await expect(wasClicked).toBe(false);
-    let component = await $('enchanted-toggle-button').getElement();
+    let component = await $(ENCHANTED_TOGGLE_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('selectedValue', 'iconOne');
     await expect(component).toHaveElementProperty('outlined', true);
@@ -107,13 +105,13 @@ describe('EnchantedToggleButton component testing', () => {
     await expect(selectedView).toBe('iconTwo'); 
   });
 
-  it('EnchantedToggleButton - should render component and validate attributes for non-outlined', async () => {
+  it('should render component and validate attributes for non-outlined', async () => {
     let wasClicked = false;
     let selectedView = 'iconTwo';
 
     render(
       html`
-        <enchanted-toggle-button
+        <${ENCHANTED_TOGGLE_BUTTON_TAG}
           .iconUrls=${[
             'iconOneUrl', 'iconTwoUrl'
           ]}
@@ -122,12 +120,12 @@ describe('EnchantedToggleButton component testing', () => {
           ?outlined=${false}
           @click=${() => { wasClicked = true; selectedView = 'iconOne'; }}
         >
-        </enchanted-toggle-button>
+        </${ENCHANTED_TOGGLE_BUTTON_TAG}>
       `,
       document.body
     );
     await expect(wasClicked).toBe(false);
-    let component = await $('enchanted-toggle-button').getElement();
+    let component = await $(ENCHANTED_TOGGLE_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('selectedValue', 'iconTwo');
     await expect(component).toHaveElementProperty('outlined', false);
@@ -145,10 +143,10 @@ describe('EnchantedToggleButton component testing', () => {
     await expect(selectedView).toBe('iconOne'); 
   });
 
-  it('EnchantedToggleButton - should render single button element', async () => {
+  it('should render single button element', async () => {
     render(
       html`
-        <enchanted-toggle-button
+        <${ENCHANTED_TOGGLE_BUTTON_TAG}
           data-testid="enchanted-filter-button"
           id='enchanted-filter-button'
           ?singleButton=${true}
@@ -156,56 +154,56 @@ describe('EnchantedToggleButton component testing', () => {
           singleButtonAria="test"
           .icon=${html `${svgIconSearch}`}
           >
-        </enchanted-toggle-button>
+        </${ENCHANTED_TOGGLE_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-toggle-button').getElement();
+    let component = await $(ENCHANTED_TOGGLE_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let enchantedButtonElement = await component.$$('>>>enchanted-icon-button[data-testid="enchanted-toggle-single-button"]').getElements();
+    let enchantedButtonElement = await component.$$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-toggle-single-button"]`).getElements();
     await expect(enchantedButtonElement.length).toBe(1);
     
     const attributes = await enchantedButtonElement[0].getAttribute('part');
     await expect(attributes).toContain(`${TOGGLE_BUTTON_PARTS.TOGGLE_OFF_SINGLE_BUTTON}`);
   });
 
-  it('EnchantedToggleButton - should render single button element with toggle on state', async () => {
+  it('should render single button element with toggle on state', async () => {
     render(
       html`
-        <enchanted-toggle-button
+        <${ENCHANTED_TOGGLE_BUTTON_TAG}
           ?singleButton=${true}
           ?toggleOn=${true}
           .icon=${html `${svgIconSearch}`}
           >
-        </enchanted-toggle-button>
+        </${ENCHANTED_TOGGLE_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-toggle-button').getElement();
+    let component = await $(ENCHANTED_TOGGLE_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let enchantedButtonElement = component.$('>>>enchanted-icon-button[data-testid="enchanted-toggle-single-button"]');
+    let enchantedButtonElement = component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-toggle-single-button"]`);
     await expect(enchantedButtonElement).toBeDisplayed();
 
     const attributes = await enchantedButtonElement.getAttribute('part');
     await expect(attributes).toContain(`${TOGGLE_BUTTON_PARTS.TOGGLE_ON_SINGLE_BUTTON}`);
   });
 
-  it('EnchantedToggleButton - should render single button element with badge', async () => {
+  it('should render single button element with badge', async () => {
     render(
       html`
-        <enchanted-toggle-button
+        <${ENCHANTED_TOGGLE_BUTTON_TAG}
           ?showBadge=${true}
           ?singleButton=${true}
           ?toggleOn=${true}
           .icon=${html `${svgIconSearch}`}
           >
-        </enchanted-toggle-button>
+        </${ENCHANTED_TOGGLE_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-toggle-button').getElement();
+    let component = await $(ENCHANTED_TOGGLE_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let enchantedBadgeElement = await component.$('>>>enchanted-badge[data-testid="enchanted-badge"]').getElement();
-    await expect(await enchantedBadgeElement.getHTML()).toContain('enchanted-badge');
+    let enchantedBadgeElement = await component.$(`>>>${ENCHANTED_BADGE_TAG_NAME}[data-testid="enchanted-badge"]`).getElement();
+    await expect(await enchantedBadgeElement.getHTML()).toContain(ENCHANTED_BADGE_TAG_NAME);
   });
 });

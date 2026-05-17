@@ -12,7 +12,8 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-import { html, nothing, render, TemplateResult } from 'lit';
+import { nothing, render, TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, browser, expect } from '@wdio/globals';
 import { fn } from '@wdio/browser-runner';
 import fetchMock from 'fetch-mock';
@@ -24,6 +25,11 @@ import { ItemTypes, ValidationStatus } from '../../../types/enchanted-preview';
 import { OptionData } from '../../../types/enchanted-select';
 import '../../../components/atomic-component/enchanted-preview';
 import { KeyboardInputKeys } from '../../../utils/keyboardEventKeys';
+import {
+  ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME, ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME,
+  ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG_NAME, ENCHANTED_PREVIEW_TAG, ENCHANTED_PREVIEW_TAG_NAME,
+  ENCHANTED_SELECT_TAG_NAME, ENCHANTED_TOOLTIP_TAG_NAME
+} from '../../../components/tags';
 
 const localization: Map<string, string> = new Map<string, string>();
 localization.set('preview.item.unsupported.title', 'Unable to preview');
@@ -81,7 +87,7 @@ const mockCustomComponent: TemplateResult = html`<p data-testid="custom-componen
 
 const mockItems = [mockImageItem, mockVideoItem, mockImageItem2];
 
-describe('EnchantedPreview component testing', () => {
+describe(`${ENCHANTED_PREVIEW_TAG_NAME} component testing`, () => {
   const cleanup = () => {
     // Use Lit's render with nothing to properly clean up
     render(nothing, document.body);
@@ -97,25 +103,25 @@ describe('EnchantedPreview component testing', () => {
   beforeEach(cleanup);
   afterEach(cleanup);
 
-  it('EnchantedPreview - should render without crashing', async () => {
-    let component = document.createElement('enchanted-preview');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_PREVIEW_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedPreview - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-preview');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_PREVIEW_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedPreview - should be hidden by default (open=false)', async () => {
-    render(html`<enchanted-preview></enchanted-preview>`, document.body);
-    const component = await $('enchanted-preview').getElement();
+  it('should be hidden by default (open=false)', async () => {
+    render(html`<${ENCHANTED_PREVIEW_TAG} ></${ENCHANTED_PREVIEW_TAG}>`, document.body);
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const container = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_BACKDROP}]`).getElement();
     await expect(component).not.toHaveAttribute('open');
@@ -123,22 +129,22 @@ describe('EnchantedPreview component testing', () => {
   });
 
   it('EnchantedPreview - should be visible when open attribute is present', async () => {
-    render(html`<enchanted-preview open></enchanted-preview>`, document.body);
-    const component = await $('enchanted-preview').getElement();
+    render(html`<${ENCHANTED_PREVIEW_TAG} open></${ENCHANTED_PREVIEW_TAG}>`, document.body);
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const container = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_BACKDROP}]`).getElement();
     await expect(component).toHaveAttribute('open');
     await expect(container).toHaveAttribute('open');
   });
 
-  it('EnchantedPreview - should render nothing in preview area if items array is empty and no component prop', async () => {
+  it('should render nothing in preview area if items array is empty and no component prop', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const previewItemContainer = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_ITEM_CONTAINER}]`).getElement();
     const img = await previewItemContainer.$('img');
@@ -150,14 +156,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(unsupportedContainer).not.toBeExisting();
   });
 
-  it('EnchantedPreview - should render image correctly from the first rendition by default', async () => {
+  it('should render image correctly from the first rendition by default', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const img = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`).getElement();
     await expect(img).toBeDisplayed();
@@ -165,14 +171,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(img).toHaveAttribute('alt', mockImageItem.title);
   });
 
-  it('EnchantedPreview - should render video correctly from the first rendition by default', async () => {
+  it('should render video correctly from the first rendition by default', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockVideoItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockVideoItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const mockStyle = [
       'height',
       'width',
@@ -185,19 +191,19 @@ describe('EnchantedPreview component testing', () => {
     await expect(await video.getProperty('style')).toEqual(mockStyle);
   });
 
-  it('EnchantedPreview - should render unsupported message for other item types', async () => {
+  it('should render unsupported message for other item types', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockUnsupportedItem]} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockUnsupportedItem]} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const unsupportedContainer = await component.$(`>>>[part=${PREVIEW_PARTS.PREVIEW_ITEM_UNSUPPORTED_CONTAINER}]`).getElement();
     await expect(unsupportedContainer).toBeDisplayed();
 
-    const avatar = await unsupportedContainer.$('enchanted-item-type-avatar').getElement();
+    const avatar = await unsupportedContainer.$(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
     await expect(avatar).toBeDisplayed();
     await expect(avatar).toHaveAttribute('itemtype', mockUnsupportedItem.type);
 
@@ -209,14 +215,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(description).toHaveText(expectedDesc);
   });
 
-  it('EnchantedPreview - should render custom component when component prop is provided, overriding item display', async () => {
+  it('should render custom component when component prop is provided, overriding item display', async () => {
     render(
       html`
-        <enchanted-preview open .component=${mockCustomComponent} .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .component=${mockCustomComponent} .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const customContent = await component.$('>>>[data-testid="custom-component"]').getElement();
     await expect(customContent).toBeDisplayed();
@@ -232,30 +238,30 @@ describe('EnchantedPreview component testing', () => {
     await expect(unsupportedContainer).not.toBeExisting();
   });
 
-  it('EnchantedPreview - should display customHeaderTitle in header when provided', async () => {
+  it('should display customHeaderTitle in header when provided', async () => {
     const customTitle = 'Custom Title';
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} customHeaderTitle=${customTitle}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} customHeaderTitle=${customTitle}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const headerTitle = await component.$(`>>>span[part=${PREVIEW_PARTS.PREVIEW_HEADER_TITLE}]`).getElement();
     await expect(headerTitle).toHaveText(customTitle);
   });
 
-  it('EnchantedPreview - should dispatch "preview-back" event when back button is clicked', async () => {
+  it('should dispatch "preview-back" event when back button is clicked', async () => {
     const previewBack = fn();
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} @preview-back=${previewBack}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} @preview-back=${previewBack}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     let backButton = await component.$(`>>>[data-testid="enchanted-preview-back-button"]`).getElement();
     await backButton.waitForClickable();
@@ -266,11 +272,11 @@ describe('EnchantedPreview component testing', () => {
     await expect(previewBack).toHaveBeenCalled();
   });
 
-  it('EnchantedPreview - should dispatch "preview-download" event with selectedRenditionId when download button is clicked', async () => {
+  it('should dispatch "preview-download" event with selectedRenditionId when download button is clicked', async () => {
     const previewDownload = fn();
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} @preview-download=${previewDownload}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} @preview-download=${previewDownload}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
@@ -279,10 +285,10 @@ describe('EnchantedPreview component testing', () => {
     const expectedRenditionId = mockImageItem.renditions![0].id;
     const expectedSource = mockImageItem.renditions![0].source;
 
-    let downloadButton = await $('enchanted-preview').$(`>>>[data-testid="enchanted-preview-download-button"]`).getElement();
+    let downloadButton = await $(ENCHANTED_PREVIEW_TAG_NAME).$(`>>>[data-testid="enchanted-preview-download-button"]`).getElement();
     await downloadButton.waitForClickable();
     await downloadButton.moveTo();
-    downloadButton = await $('enchanted-preview').$(`>>>[data-testid="enchanted-preview-download-button"]`).getElement();
+    downloadButton = await $(ENCHANTED_PREVIEW_TAG_NAME).$(`>>>[data-testid="enchanted-preview-download-button"]`).getElement();
     await downloadButton.click();
 
     await expect(previewDownload).toHaveBeenCalled();
@@ -294,11 +300,11 @@ describe('EnchantedPreview component testing', () => {
     });
   });
 
-  it('EnchantedPreview - should dispatch "preview-select" event with selectedRenditionId when select button is clicked', async () => {
+  it('should dispatch "preview-select" event with selectedRenditionId when select button is clicked', async () => {
     const previewSelect = fn();
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} @preview-select=${previewSelect}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} @preview-select=${previewSelect}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
@@ -307,7 +313,7 @@ describe('EnchantedPreview component testing', () => {
     const expectedRenditionId = mockImageItem.renditions![0].id;
     const expectedSource = mockImageItem.renditions![0].source;
 
-    const selectButton = await $('enchanted-preview').$(`>>>[data-testid="enchanted-preview-select-button"]`).getElement();
+    const selectButton = await $(ENCHANTED_PREVIEW_TAG_NAME).$(`>>>[data-testid="enchanted-preview-select-button"]`).getElement();
     await selectButton.click();
 
     await expect(previewSelect).toHaveBeenCalled();
@@ -319,40 +325,40 @@ describe('EnchantedPreview component testing', () => {
     });
   });
 
-  it('EnchantedPreview - should display custom select button title', async () => {
+  it('should display custom select button title', async () => {
     const customSelectButtonTitle = 'Custom Select';
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} .localization=${localization} selectButtonTitle=${customSelectButtonTitle}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} .localization=${localization} selectButtonTitle=${customSelectButtonTitle}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const selectButton = await $('enchanted-preview').$(`>>>[data-testid="enchanted-preview-select-button"]`).getElement();
+    const selectButton = await $(ENCHANTED_PREVIEW_TAG_NAME).$(`>>>[data-testid="enchanted-preview-select-button"]`).getElement();
     await expect(selectButton).toHaveAttribute('buttontext', customSelectButtonTitle);
     await expect(selectButton).toHaveText(customSelectButtonTitle);
   });
 
-  it('EnchantedPreview - should not display download button if items length is 0', async () => {
+  it('should not display download button if items length is 0', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const downloadButton = await $('enchanted-preview').$(`>>>[data-testid="enchanted-preview-download-button"]`).getElement();
+    const downloadButton = await $(ENCHANTED_PREVIEW_TAG_NAME).$(`>>>[data-testid="enchanted-preview-download-button"]`).getElement();
     await expect(downloadButton).not.toBeExisting();
   });
 
-  it('EnchantedPreview - should navigate to the next item when next button is clicked and dispatch "preview-next" event', async () => {
+  it('should navigate to the next item when next button is clicked and dispatch "preview-next" event', async () => {
     const previewNext = fn();
     render(
       html`
-        <enchanted-preview open .items=${mockItems} @preview-next=${previewNext}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${mockItems} @preview-next=${previewNext}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     let headerTitle = await component.$(`>>>span[part=${PREVIEW_PARTS.PREVIEW_HEADER_TITLE}]`).getElement();
     await expect(headerTitle).toHaveText(mockItems[0].title);
@@ -372,15 +378,15 @@ describe('EnchantedPreview component testing', () => {
     await expect(await video.getProperty('src')).toContain(mockItems[1].renditions![0].source);
   });
 
-  it('EnchantedPreview - should navigate to the previous item when previous button is clicked and dispatch "preview-previous" event', async () => {
+  it('should navigate to the previous item when previous button is clicked and dispatch "preview-previous" event', async () => {
     const previewPrevious = fn();
     render(
       html`
-        <enchanted-preview open .items=${mockItems} @preview-previous=${previewPrevious} .currentItemIndex=${1}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${mockItems} @preview-previous=${previewPrevious} .currentItemIndex=${1}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     let headerTitle = await component.$(`>>>span[part=${PREVIEW_PARTS.PREVIEW_HEADER_TITLE}]`).getElement();
     await expect(headerTitle).toHaveText(mockItems[1].title);
@@ -400,46 +406,46 @@ describe('EnchantedPreview component testing', () => {
     await expect(img).toHaveAttribute('src', mockItems[0].renditions![0].source);
   });
 
-  it('EnchantedPreview - should disable next/previous buttons at the ends of item list', async () => {
+  it('should disable next/previous buttons at the ends of item list', async () => {
     render(
       html`
-        <enchanted-preview open .items=${mockItems}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${mockItems}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
-    let nextButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-next-button"]`).getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
+    let nextButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-next-button"]`).getElement();
     await nextButton.waitForClickable();
-    const previousButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-previous-button"]`).getElement();
+    const previousButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-previous-button"]`).getElement();
 
     await expect(previousButton).toHaveAttribute('disabled');
     await expect(nextButton).not.toHaveAttribute('disabled');
 
     await nextButton.moveTo();
-    nextButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-next-button"]`).getElement();
+    nextButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-next-button"]`).getElement();
     await nextButton.click();
     await expect(previousButton).not.toHaveAttribute('disabled');
     await expect(nextButton).not.toHaveAttribute('disabled');
 
     await nextButton.moveTo();
-    nextButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-next-button"]`).getElement();
+    nextButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-next-button"]`).getElement();
     await nextButton.click();
     await expect(previousButton).not.toHaveAttribute('disabled');
     await expect(nextButton).toHaveAttribute('disabled');
   });
   
-  it('EnchantedPreview - should disable next/previous buttons using isPreviousButtonDisabled/isNextButtonDisabled props', async () => {
+  it('should disable next/previous buttons using isPreviousButtonDisabled/isNextButtonDisabled props', async () => {
     render(
       html`
-        <enchanted-preview open .items=${mockItems} isPreviousButtonDisabled isNextButtonDisabled></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${mockItems} isPreviousButtonDisabled isNextButtonDisabled></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
-    const nextButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-next-button"]`).getElement();
-    const previousButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-previous-button"]`).getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
+    const nextButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-next-button"]`).getElement();
+    const previousButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-previous-button"]`).getElement();
 
     await expect(previousButton).toHaveAttribute('disabled');
     await expect(nextButton).toHaveAttribute('disabled');
@@ -448,12 +454,12 @@ describe('EnchantedPreview component testing', () => {
   it('EnchantedPreview - should display rendition selector for image item with renditions', async  () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const renditionSelect = await component.$(`>>>[data-testid="enchanted-preview-rendition-select"]`).getElement();
 
     await expect(renditionSelect).toBeDisplayed();
@@ -469,30 +475,30 @@ describe('EnchantedPreview component testing', () => {
     await expect(retrievedOptions[0].id).toBe(mockImageItem.renditions![0].id);
   });
 
-  it('EnchantedPreview - should not display rendition selector for unsupported items', async () => {
+  it('should not display rendition selector for unsupported items', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockUnsupportedItem]} ></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockUnsupportedItem]} ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const renditionSelect = await component.$(`>>>[data-testid="enchanted-preview-rendition-select"]`).getElement();
     await expect(renditionSelect).not.toBeExisting();
   });
 
-  it('EnchantedPreview - should update image source and dispatch "preview-rendition-change" when rendition is changed', async () => {
+  it('should update image source and dispatch "preview-rendition-change" when rendition is changed', async () => {
     const renditionChange = fn();
 
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} @preview-rendition-change=${renditionChange}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} @preview-rendition-change=${renditionChange}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     let img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`).getElement();
     await expect(img).toHaveAttribute('src', mockImageItem.renditions![0].source);
 
@@ -500,8 +506,8 @@ describe('EnchantedPreview component testing', () => {
     const renditionSelectButton = await renditionSelect.$(`>>>[data-testid="enchanted-select-button"]`).getElement();
     await renditionSelectButton.click();
 
-    const renditionList = await renditionSelect.$(`>>>enchanted-list[data-testid="enchanted-select-list"]`).getElement();
-    const renditionListItems = await renditionList.$$(`>>>enchanted-list-item`).getElements();
+    const renditionList = await renditionSelect.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`).getElement();
+    const renditionListItems = await renditionList.$$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}`).getElements();
 
     const secondRenditionListItem = renditionListItems[1];
     await secondRenditionListItem.click();
@@ -519,56 +525,56 @@ describe('EnchantedPreview component testing', () => {
     await expect(await renditionSelect.getProperty('selectedValue')).toBe(`${secondRendition.type} (${secondRendition.dimension})`);
   });
 
-  it('EnchantedPreview - should display zoom controls for image items without a custom component', async () => {
+  it('should display zoom controls for image items without a custom component', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const zoomContainer = await component.$(`>>>div[part=${PREVIEW_PARTS.PREVIEW_ZOOM_CONTAINER}]`);
     await expect(zoomContainer).toBeExisting();
   });
 
-  it('EnchantedPreview - should not display zoom controls for image items with a custom component', async () => {
+  it('should not display zoom controls for image items with a custom component', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} .component=${mockCustomComponent}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} .component=${mockCustomComponent}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const zoomContainer = await component.$(`>>>div[part=${PREVIEW_PARTS.PREVIEW_ZOOM_CONTAINER}]`);
     await expect(zoomContainer).not.toBeExisting();
   });
 
-  it('EnchantedPreview - should not display zoom controls for non-image items', async () => {
+  it('should not display zoom controls for non-image items', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockVideoItem]} ></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockVideoItem]} ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const zoomContainer = await component.$(`>>>div[part=${PREVIEW_PARTS.PREVIEW_ZOOM_CONTAINER}]`);
     await expect(zoomContainer).not.toBeExisting();
   });
 
-  xit('EnchantedPreview - should increase zoom scale and display correct zoom percentage if zoom in button is clicked', async () => {
+  xit('should increase zoom scale and display correct zoom percentage if zoom in button is clicked', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} ></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
-    let zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    let zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.waitForClickable();
-    const zoomPercentageButton = await component.$(`>>>enchanted-button[data-testid="enchanted-preview-zoom-percentage-button"]`);
+    const zoomPercentageButton = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-percentage-button"]`);
 
     // Wait for initial zoom calculation
     await browser.pause(500);
@@ -580,7 +586,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(style.replace(/\s+/g, '')).toContain('height:');
 
     await zoomInButton.moveTo();
-    zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
     await browser.pause(200);
 
@@ -595,19 +601,19 @@ describe('EnchantedPreview component testing', () => {
     await expect(style.replace(/\s+/g, '')).toContain('height:');
   });
 
-  it('EnchantedPreview - should decrease zoom scale and display correct zoom percentage if zoom out button is clicked', async () => {
+  it('should decrease zoom scale and display correct zoom percentage if zoom out button is clicked', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} ></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
-    let zoomOutButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-out-button"]`);
+    let zoomOutButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.waitForClickable();
-    const zoomPercentageButton = await component.$(`>>>enchanted-button[data-testid="enchanted-preview-zoom-percentage-button"]`);
+    const zoomPercentageButton = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-percentage-button"]`);
 
     // Wait for initial zoom calculation
     await browser.pause(500);
@@ -619,7 +625,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(style.replace(/\s+/g, '')).toContain('height:');
 
     await zoomOutButton.moveTo();
-    zoomOutButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-out-button"]`);
+    zoomOutButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.click();
     await browser.pause(200);
 
@@ -634,16 +640,16 @@ describe('EnchantedPreview component testing', () => {
     await expect(style.replace(/\s+/g, '')).toContain('height:');
   });
 
-  it('EnchantedPreview - should toggle between 100% and fit-to-screen-percentage', async () => {
+  it('should toggle between 100% and fit-to-screen-percentage', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} ></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const getZoomPercentageButton = () => {
-      return component.$(`>>>enchanted-button[data-testid="enchanted-preview-zoom-percentage-button"]`);
+      return component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-percentage-button"]`);
     };
     let zoomPercentageButton = await getZoomPercentageButton();
     await zoomPercentageButton.waitForClickable();
@@ -689,139 +695,139 @@ describe('EnchantedPreview component testing', () => {
     await expect(finalZoomValue).toBeGreaterThan(0);
   }); 
 
-  it('EnchantedPreview - should disable zoom-out buttons at min zoom level', async () => {
+  it('should disable zoom-out buttons at min zoom level', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} ></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
-    let zoomOutButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-out-button"]`);
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
+    let zoomOutButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.waitForClickable();
 
     // Set to 10% (from 50%)
     await zoomOutButton.moveTo();
-    zoomOutButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-out-button"]`);
+    zoomOutButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.click();
     await zoomOutButton.moveTo();
-    zoomOutButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-out-button"]`);
+    zoomOutButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.click();
     await zoomOutButton.moveTo();
-    zoomOutButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-out-button"]`);
+    zoomOutButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.click();
     await zoomOutButton.moveTo();
-    zoomOutButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-out-button"]`);
+    zoomOutButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.click();
     await expect(zoomOutButton).toHaveAttribute('disabled');
   });
 
-  it('EnchantedPreview - should disable zoom-in buttons at max zoom level', async () => {
+  it('should disable zoom-in buttons at max zoom level', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} ></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
-    let zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
+    let zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.waitForClickable();
 
     // Set to 400% (from 50%)
     await zoomInButton.moveTo();
-    zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
     await zoomInButton.moveTo();
-    zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
     await zoomInButton.moveTo();
-    zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
     await zoomInButton.moveTo();
-    zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
     await zoomInButton.moveTo();
-    zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
     await zoomInButton.moveTo();
-    zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.click();
     await expect(zoomInButton).toHaveAttribute('disabled');
   });
 
-  it('EnchantedPreview - should display nothing if image fetch returns 404', async() => {
+  it('should display nothing if image fetch returns 404', async() => {
     const previewError = fn();
     const source = 'invalid-image.png';
     const mockBrokenImageItem: PreviewItem = { ...mockImageItem, renditions: [{ id: 'broken', type: 'Original', source }] };
     fetchMock.mock(source, { status: 404 });
     render(
       html`
-        <enchanted-preview open .items=${[mockBrokenImageItem]} @preview-error=${previewError} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockBrokenImageItem]} @preview-error=${previewError} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
     await expect(img).not.toBeExisting();
     await expect(previewError).toHaveBeenCalled();
   });
 
-  it('EnchantedPreview - should display nothing if fetch returns non-404, non-ok response', async() => {
+  it('should display nothing if fetch returns non-404, non-ok response', async() => {
     const previewError = fn();
     const source = 'invalid-image.png';
     const mockBrokenImageItem: PreviewItem = { ...mockImageItem, renditions: [{ id: 'broken', type: 'Original', source }] };
     fetchMock.mock(source, { status: 500 });
     render(
       html`
-        <enchanted-preview open .items=${[mockBrokenImageItem]} @preview-error=${previewError} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockBrokenImageItem]} @preview-error=${previewError} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
     await expect(img).not.toBeExisting();
     await expect(previewError).toHaveBeenCalled();
   });
 
-  it('EnchantedPreview - should display nothing if image mimeType does not match header\'s Content-Type', async() => {
+  it('should display nothing if image mimeType does not match header\'s Content-Type', async() => {
     const previewError = fn();
     const source = 'invalid-image.png';
     const mockBrokenImageItem: PreviewItem = { ...mockImageItem, renditions: [{ id: 'broken', type: 'Original', source }] };
     fetchMock.mock(source, { headers: { 'Content-Type': ItemTypes.DAM_JPEG } });
     render(
       html`
-        <enchanted-preview open .items=${[mockBrokenImageItem]} @preview-error=${previewError} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockBrokenImageItem]} @preview-error=${previewError} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
     await expect(img).not.toBeExisting();
     await expect(previewError).toHaveBeenCalled();
   });
 
-  it('EnchantedPreview - should display nothing if video fetch returns 404', async() => {
+  it('should display nothing if video fetch returns 404', async() => {
     const previewError = fn();
     const source = 'invalid-video.mp4';
     const mockBrokenVideoItem: PreviewItem = { ...mockImageItem, renditions: [{ id: 'broken', type: 'Original', source }] };
     fetchMock.mock(source, { status: 404 });
     render(
       html`
-        <enchanted-preview open .items=${[mockBrokenVideoItem]} @preview-error=${previewError} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockBrokenVideoItem]} @preview-error=${previewError} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const video = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_VIDEO}]`);
     await expect(video).not.toBeExisting();
     await expect(previewError).toHaveBeenCalled();
   });
 
-  it('EnchantedPreview - should not render a rendition select and should not have a rendition source when rendition list is empty', async() => {
+  it('should not render a rendition select and should not have a rendition source when rendition list is empty', async() => {
     const mockImageItemNoRenditions: PreviewItem = { 
       id: 99,
       title: 'Test Image No Renditions',
@@ -831,12 +837,12 @@ describe('EnchantedPreview component testing', () => {
 
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItemNoRenditions]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItemNoRenditions]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const renditionSelect = await component.$(`>>>[data-testid="enchanted-preview-rendition-select"]`);
     await expect(renditionSelect).not.toBeExisting();
 
@@ -844,7 +850,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(img).not.toBeExisting();
   });
 
-  it('EnchantedPreview - should reset loading and error state when the back button is clicked', async() => {
+  it('should reset loading and error state when the back button is clicked', async() => {
     const previewBack = fn();
     const mockImageItemNoRenditions: PreviewItem = { 
       id: 99,
@@ -856,12 +862,12 @@ describe('EnchantedPreview component testing', () => {
     // initialize with an error to set initial values for hasError and isLoading
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItemNoRenditions]} @preview-back=${previewBack}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItemNoRenditions]} @preview-back=${previewBack}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     await expect(await component.getProperty('hasError')).toBeTruthy();
     await expect(await component.getProperty('isLoading')).toBeFalsy();
@@ -877,19 +883,19 @@ describe('EnchantedPreview component testing', () => {
     await expect(await component.getProperty('isLoading')).toBeTruthy();
   });
   
-  it('EnchantedPreview - should correctly select a rendition with a null dimension', async () => {
+  it('should correctly select a rendition with a null dimension', async () => {
     const mockRenditionNoDimension: AssetRendition[] = [
       { id: 'rend3', type: 'Small', source: 'small.png' },
     ];
     const mockItemNoDimension: PreviewItem = { ...mockImageItem, renditions: mockRenditionNoDimension };
     render(
       html`
-        <enchanted-preview open .items=${[mockItemNoDimension]} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockItemNoDimension]} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
     
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const renditionSelect = await component.$(`>>>[data-testid="enchanted-preview-rendition-select"]`);
     await expect(renditionSelect).toBeExisting();
 
@@ -897,7 +903,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(await renditionSelect.getProperty('selectedValue')).toBe(expectedValue);
   });
 
-  it('EnchantedPreview - should handle a rendition with an empty type', async () => {
+  it('should handle a rendition with an empty type', async () => {
     const mockImageItemEmptyRenditionType: PreviewItem = {
       id: 100,
       title: 'Empty Type',
@@ -907,12 +913,12 @@ describe('EnchantedPreview component testing', () => {
 
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItemEmptyRenditionType]} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItemEmptyRenditionType]} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
     
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const renditionSelect = await component.$(`>>>[data-testid="enchanted-preview-rendition-select"]`);
     
     // The expected value should be an empty string
@@ -920,68 +926,68 @@ describe('EnchantedPreview component testing', () => {
     await expect(await renditionSelect.getProperty('selectedValue')).toBe(expectedValue);
   });
 
-  it('EnchantedPreview - should display tooltips when hover', async () => {
+  it('should display tooltips when hover', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const backButton = await component.$(`>>>[data-testid="enchanted-preview-back-button"]`);
     await backButton.moveTo();
-    const backTooltip = await component.$(`>>>enchanted-tooltip:has([data-testid="enchanted-preview-back-button"])`);
+    const backTooltip = await component.$(`>>>${ENCHANTED_TOOLTIP_TAG_NAME}:has([data-testid="enchanted-preview-back-button"])`);
     await expect(backTooltip).toBeDisplayed();
     await expect(await backTooltip.getAttribute('tooltiptext')).toEqual(localization.get('preview.tooltip.back.button'));
 
     const downloadButton = await component.$(`>>>[data-testid="enchanted-preview-download-button"]`);
     await downloadButton.moveTo();
-    const downloadTooltip = await component.$(`>>>enchanted-tooltip:has([data-testid="enchanted-preview-download-button"])`);
+    const downloadTooltip = await component.$(`>>>${ENCHANTED_TOOLTIP_TAG_NAME}:has([data-testid="enchanted-preview-download-button"])`);
     await expect(downloadTooltip).toBeDisplayed();
     await expect(await downloadTooltip.getAttribute('tooltiptext')).toEqual(localization.get('preview.tooltip.download.button'));
 
     const previousButton = await component.$(`>>>[data-testid="enchanted-preview-previous-button"]`);
     await previousButton.moveTo();
-    const previousTooltip = await component.$(`>>>enchanted-tooltip:has([data-testid="enchanted-preview-previous-button"])`);
+    const previousTooltip = await component.$(`>>>${ENCHANTED_TOOLTIP_TAG_NAME}:has([data-testid="enchanted-preview-previous-button"])`);
     await expect(previousTooltip).toBeDisplayed();
     await expect(await previousTooltip.getAttribute('tooltiptext')).toEqual(localization.get('preview.tooltip.previous.asset.button'));
 
     const nextButton = await component.$(`>>>[data-testid="enchanted-preview-next-button"]`);
     await nextButton.moveTo();
-    const nextTooltip = await component.$(`>>>enchanted-tooltip:has([data-testid="enchanted-preview-next-button"])`);
+    const nextTooltip = await component.$(`>>>${ENCHANTED_TOOLTIP_TAG_NAME}:has([data-testid="enchanted-preview-next-button"])`);
     await expect(nextTooltip).toBeDisplayed();
     await expect(await nextTooltip.getAttribute('tooltiptext')).toEqual(localization.get('preview.tooltip.next.asset.button'));
 
     const zoomOutButton = await component.$(`>>>[data-testid="enchanted-preview-zoom-out-button"]`);
     await zoomOutButton.moveTo();
-    const zoomOutTooltip = await component.$(`>>>enchanted-tooltip:has([data-testid="enchanted-preview-zoom-out-button"])`);
+    const zoomOutTooltip = await component.$(`>>>${ENCHANTED_TOOLTIP_TAG_NAME}:has([data-testid="enchanted-preview-zoom-out-button"])`);
     await expect(zoomOutTooltip).toBeDisplayed();
     await expect(await zoomOutTooltip.getAttribute('tooltiptext')).toEqual(localization.get('preview.tooltip.zoom.out.button'));
 
     const zoomInButton = await component.$(`>>>[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.moveTo();
-    const zoomInTooltip = await component.$(`>>>enchanted-tooltip:has([data-testid="enchanted-preview-zoom-in-button"])`);
+    const zoomInTooltip = await component.$(`>>>${ENCHANTED_TOOLTIP_TAG_NAME}:has([data-testid="enchanted-preview-zoom-in-button"])`);
     await expect(zoomInTooltip).toBeDisplayed();
     await expect(await zoomInTooltip.getAttribute('tooltiptext')).toEqual(localization.get('preview.tooltip.zoom.in.button'));
   });
 
-  it('EnchantedPreview - should bypass validation and render initially when skipSourceValidation is true', async () => {
+  it('should bypass validation and render initially when skipSourceValidation is true', async () => {
     const previewError = fn();
     render(
       html`
-        <enchanted-preview
+        <${ENCHANTED_PREVIEW_TAG}
           open
           .items=${[mockImageItem]}
           @preview-error=${previewError}
           .skipSourceValidation=${true}
-        ></enchanted-preview>
+        ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
 
     await expect(img).toBeExisting();
@@ -993,7 +999,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(previewError).not.toHaveBeenCalled();
   });
 
-  it('EnchantedPreview - should enter error state if fetch returns 403 Forbidden', async () => {
+  it('should enter error state if fetch returns 403 Forbidden', async () => {
     const previewError = fn();
     const forbiddenSource = 'forbidden-image.png';
     const mockForbiddenItem: PreviewItem = {
@@ -1005,16 +1011,16 @@ describe('EnchantedPreview component testing', () => {
 
     render(
       html`
-        <enchanted-preview
+        <${ENCHANTED_PREVIEW_TAG}
           open
           .items=${[mockForbiddenItem]}
           @preview-error=${previewError}
-        ></enchanted-preview>
+        ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
 
     await expect(img).not.toBeExisting();
@@ -1027,7 +1033,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(await component.getProperty('errorType')).toEqual(ValidationStatus.ERROR_FORBIDDEN);
   });
 
-  it('EnchantedPreview - should enter error state if fetch returns 400 Bad Request', async () => {
+  it('should enter error state if fetch returns 400 Bad Request', async () => {
     const previewError = fn();
     const badRequestSource = 'bad-request-image.png';
     const mockBadRequestItem: PreviewItem = {
@@ -1039,16 +1045,16 @@ describe('EnchantedPreview component testing', () => {
 
     render(
       html`
-        <enchanted-preview
+        <${ENCHANTED_PREVIEW_TAG}
           open
           .items=${[mockBadRequestItem]}
           @preview-error=${previewError}
-        ></enchanted-preview>
+        ></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const img = await component.$(`>>>img[part=${PREVIEW_PARTS.PREVIEW_ITEM_IMAGE}]`);
 
     await expect(img).not.toBeExisting();
@@ -1061,15 +1067,15 @@ describe('EnchantedPreview component testing', () => {
     await expect(await component.getProperty('errorType')).toEqual(ValidationStatus.ERROR_BAD_REQUEST);
   });
 
-  it('EnchantedPreview - should have proper ARIA attributes and labels for all interactive elements', async () => {
+  it('should have proper ARIA attributes and labels for all interactive elements', async () => {
     const customTitle = 'Custom Preview Title';
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} customHeaderTitle=${customTitle} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} customHeaderTitle=${customTitle} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     await browser.pause(100);
     
     // Verify dialog role and aria attributes
@@ -1108,14 +1114,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(renditionLabel).toHaveAttribute('id', 'enchanted-preview-rendition-select-label');
   });
 
-  it('EnchantedPreview - navigation buttons should have proper aria-labels with multiple items', async () => {
+  it('should have proper aria-labels for navigation buttons with multiple items', async () => {
     render(
       html`
-        <enchanted-preview open .items=${mockItems} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${mockItems} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     
     const previousButton = await component.$('>>>[data-testid="enchanted-preview-previous-button"]').getElement();
     await expect(previousButton).toHaveAttribute('ariaLabel', localization.get('preview.tooltip.previous.asset.button'));
@@ -1125,14 +1131,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(ariaLabel).toBe(localization.get('preview.tooltip.next.asset.button'));
   });
 
-  it('EnchantedPreview - all interactive buttons should be keyboard accessible with tabindex', async () => {
+  it('should have all interactive buttons keyboard accessible with tabindex', async () => {
     render(
       html`
-        <enchanted-preview open .items=${mockItems} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${mockItems} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     
     const previousButton = await component.$('>>>[data-testid="enchanted-preview-previous-button"]').getElement();
     await expect(previousButton).toExist();
@@ -1141,14 +1147,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(nextButton).toExist();
   });
 
-  it('EnchantedPreview - should have aria-hidden on visual elements to prevent duplicate announcements', async () => {
+  it('should have aria-hidden on visual elements to prevent duplicate announcements', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} .localization=${localization}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} .localization=${localization}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     
     // Verify header buttons have aria-hidden
     const backButton = await component.$('>>>[data-testid="enchanted-preview-back-button"]').getElement();
@@ -1168,17 +1174,17 @@ describe('EnchantedPreview component testing', () => {
     await expect(renditionLabel).toHaveAttribute('aria-hidden', 'true');
   });
 
-  it('EnchantedPreview - should trap focus within the component when open', async () => {
+  it('should trap focus within the component when open', async () => {
     render(
       html`
         <div>
-          <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+          <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
         </div>
       `,
       document.body
     );
 
-    const enchantedPreview = document.querySelector('enchanted-preview') as EnchantedPreview;
+    const enchantedPreview = document.querySelector(ENCHANTED_PREVIEW_TAG_NAME) as EnchantedPreview;
     if (!enchantedPreview) {
       throw new Error('EnchantedPreview component not found');
     }
@@ -1189,27 +1195,30 @@ describe('EnchantedPreview component testing', () => {
     // Wait a bit for the image to load and zoom controls to appear
     await browser.pause(500);
     
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     const zoomInButton = await component.$('>>>[data-testid="enchanted-preview-zoom-in-button"]').getElement();
     await expect(zoomInButton).toBeDisplayed();
     
     // Get all focusable elements in the preview
+    // eslint-why - We need to execute this in the browser context to access the shadow DOM and get the actual focusable elements, which is necessary for testing the focus trap behavior accurately.
+    /* eslint-disable max-len */
     const focusableInfo = await browser.execute(
-      `const preview = document.querySelector('enchanted-preview');
-       const focusableElements = preview?.shadowRoot?.querySelectorAll('enchanted-icon-button:not([disabled]), enchanted-button:not([disabled]), enchanted-select:not([disabled])');
+      `const preview = document.querySelector('${ENCHANTED_PREVIEW_TAG_NAME}');
+       const focusableElements = preview?.shadowRoot?.querySelectorAll('${ENCHANTED_ICON_BUTTON_TAG_NAME}:not([disabled]), ${ENCHANTED_BUTTON_TAG_NAME}:not([disabled]), ${ENCHANTED_SELECT_TAG_NAME}:not([disabled])');
        const elementsArray = Array.from(focusableElements || []);
        return {
          count: elementsArray.length,
          testIds: elementsArray.map(el => el.getAttribute('data-testid'))
        };`
     ) as {count: number, testIds: string[]};
+    /* eslint-enable max-len */
     
     await expect(focusableInfo.count).toBeGreaterThan(0);
     
     // Helper function to get the currently focused element's test ID
     const getActiveElementTestId = async () => {
       return await browser.execute(
-        `const preview = document.querySelector('enchanted-preview');
+        `const preview = document.querySelector('${ENCHANTED_PREVIEW_TAG_NAME}');
          // Check which component in the preview shadow root is currently the activeElement
          const activeInPreview = preview?.shadowRoot?.activeElement;
          return activeInPreview?.getAttribute('data-testid');`
@@ -1218,7 +1227,7 @@ describe('EnchantedPreview component testing', () => {
     
     // Focus the first element (back button) using _focusButton
     await browser.execute(
-      `const preview = document.querySelector('enchanted-preview');
+      `const preview = document.querySelector('${ENCHANTED_PREVIEW_TAG_NAME}');
        const backBtn = preview?.shadowRoot?.querySelector('[data-testid="enchanted-preview-back-button"]');
        if (backBtn && typeof backBtn._focusButton === 'function') {
          backBtn._focusButton();
@@ -1263,18 +1272,18 @@ describe('EnchantedPreview component testing', () => {
     await expect(activeTestId).toBe(lastElementTestId);
   });
 
-  it('EnchantedPreview - should not reset the currentItemIndex when back button is click', async () => {
+  it('should not reset the currentItemIndex when back button is click', async () => {
     const previewBack = fn();
     const initialIndex = 1;
 
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]} @preview-back=${previewBack} .currentItemIndex=${initialIndex}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]} @preview-back=${previewBack} .currentItemIndex=${initialIndex}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
     await expect(await component.getProperty('currentItemIndex')).toEqual(initialIndex);
 
     let backButton = await component.$(`>>>[data-testid="enchanted-preview-back-button"]`).getElement();
@@ -1291,15 +1300,15 @@ describe('EnchantedPreview component testing', () => {
     await expect(await component.getProperty('open')).toBe(false);
   });
 
-  xit('EnchantedPreview - should start with zoom-to-fit percentage for large images', async () => {
+  xit('should start with zoom-to-fit percentage for large images', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
-    const zoomPercentageButton = await component.$(`>>>enchanted-button[data-testid="enchanted-preview-zoom-percentage-button"]`);
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
+    const zoomPercentageButton = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-percentage-button"]`);
 
     // Wait for image to load and zoom to be calculated
     await browser.waitUntil(
@@ -1317,14 +1326,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(zoomText).toBe('50%');
   });
 
-  it('EnchantedPreview - should enable scrolling when zoomed image exceeds container dimensions', async () => {
+  it('should enable scrolling when zoomed image exceeds container dimensions', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     // Initially at 50%, isZoomedIn should be false
     await browser.pause(500);
@@ -1332,7 +1341,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(isZoomedIn).toBe(false);
 
     // Zoom to 200% to ensure image exceeds container
-    let zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    let zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.waitForClickable();
 
     // Click zoom in twice (50% -> 75% -> 100%)
@@ -1351,23 +1360,23 @@ describe('EnchantedPreview component testing', () => {
     await expect(hasZoomedClass).toBe(true);
   });
 
-  it('EnchantedPreview - should center image while allowing full scrollability to all edges', async () => {
+  it('should center image while allowing full scrollability to all edges', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     // Zoom to 200% to ensure image is larger than container
-    let zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    let zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.waitForClickable();
 
     // Click zoom in multiple times to get to a high zoom level (200%)
     for (let i = 0; i < 4; i++) {
       await zoomInButton.moveTo();
-      zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+      zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
       await zoomInButton.click();
       await browser.pause(100);
     }
@@ -1383,17 +1392,17 @@ describe('EnchantedPreview component testing', () => {
     await expect(hasZoomedClass).toBe(true);
   });
 
-  it('EnchantedPreview - should recalculate zoom-to-fit when toggling between actual size and fit', async () => {
+  it('should recalculate zoom-to-fit when toggling between actual size and fit', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     const getZoomPercentageButton = () => {
-      return component.$(`>>>enchanted-button[data-testid="enchanted-preview-zoom-percentage-button"]`);
+      return component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-percentage-button"]`);
     };
 
     // Wait for initial zoom calculation
@@ -1452,14 +1461,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(finalValue).toBeGreaterThan(0);
   });
 
-  it('EnchantedPreview - should detect isZoomedIn based on actual image dimensions vs container', async () => {
+  it('should detect isZoomedIn based on actual image dimensions vs container', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     // Wait for image to load
     await browser.pause(500);
@@ -1469,7 +1478,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(isZoomedIn).toBe(false);
 
     // Zoom in several times to ensure image exceeds container
-    let zoomInButton = await component.$(`>>>enchanted-icon-button[data-testid="enchanted-preview-zoom-in-button"]`);
+    let zoomInButton = await component.$(`>>>${ENCHANTED_ICON_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-in-button"]`);
     await zoomInButton.waitForClickable();
 
     // Zoom in twice (fit -> next -> next higher)
@@ -1486,14 +1495,14 @@ describe('EnchantedPreview component testing', () => {
     await expect(isZoomedIn).toBe(true);
   });
 
-  it('EnchantedPreview - should have transition properties defined for smooth zoom', async () => {
+  it('should have transition properties defined for smooth zoom', async () => {
     render(
       html`
-        <enchanted-preview open .items=${[mockImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[mockImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     await browser.pause(500);
 
@@ -1513,7 +1522,7 @@ describe('EnchantedPreview component testing', () => {
     await expect(wrapperTransition.value).toBeTruthy();
   });
 
-  it('EnchantedPreview - should cap zoom-to-fit at 100% for small images', async () => {
+  it('should cap zoom-to-fit at 100% for small images', async () => {
     // Create a very small image that would calculate > 100% to fit
     const smallImageBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
     const smallImageItem: PreviewItem = {
@@ -1525,16 +1534,16 @@ describe('EnchantedPreview component testing', () => {
 
     render(
       html`
-        <enchanted-preview open .items=${[smallImageItem]}></enchanted-preview>
+        <${ENCHANTED_PREVIEW_TAG} open .items=${[smallImageItem]}></${ENCHANTED_PREVIEW_TAG}>
       `,
       document.body
     );
-    const component = await $('enchanted-preview').getElement();
+    const component = await $(ENCHANTED_PREVIEW_TAG_NAME).getElement();
 
     // Wait for zoom calculation
     await browser.pause(500);
 
-    const zoomPercentageButton = await component.$(`>>>enchanted-button[data-testid="enchanted-preview-zoom-percentage-button"]`);
+    const zoomPercentageButton = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-preview-zoom-percentage-button"]`);
     const zoomText = await zoomPercentageButton.getText();
 
     // Should be capped at 100% or less, never more

@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from "lit";
+import { html } from 'lit/static-html.js';
 import { expect, $ } from "@wdio/globals";
 
 // Helper import
@@ -22,24 +22,25 @@ import { EnchantedFabType, FAB_PARTS } from '../../../types/cssClassEnums';
 
 // Component import
 import "../../../components/atomic-component/enchanted-fab";
+import { generateIconTagName, ENCHANTED_BADGE_TAG, ENCHANTED_BADGE_TAG_NAME, ENCHANTED_FAB_TAG, ENCHANTED_FAB_TAG_NAME, COMPONENT_PREFIX } from '../../../components/tags';
 
 afterEach(() => {
   document.body.innerHTML = "";
 });
 
-describe("enchanted-fab - component test", () => {
+describe(`${ENCHANTED_FAB_TAG_NAME} - component test`, () => {
   beforeEach(async () => {
     document.body.innerHTML = ""; // Clear the DOM before each test
   });
 
-  it("enchanted-fab - should render the component with correct content", async () => {
-    renderComponent(html`<enchanted-fab
+  it("should render the component with correct content", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG}
       type="${EnchantedFabType.CONTAINED}"
       label="Test FAB"
       extended
       badge
-    ></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+    ></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await expect(fab).toBeExisting();
     await expect(fab).toHaveAttribute("type", "contained");
 
@@ -49,15 +50,15 @@ describe("enchanted-fab - component test", () => {
     await expect(label).toHaveText("Test FAB");
   });
 
-  it("enchanted-fab - should not render badge when badge property is not enabled", async () => {
-    renderComponent(html`<enchanted-fab type="${EnchantedFabType.CONTAINED}" label="No Badge"></enchanted-fab>`);
-    const badge = await $("enchanted-fab enchanted-badge");
+  it("should not render badge when badge property is not enabled", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} type="${EnchantedFabType.CONTAINED}" label="No Badge"></${ENCHANTED_FAB_TAG}>`);
+    const badge = await $(`${ENCHANTED_FAB_TAG_NAME} ${ENCHANTED_BADGE_TAG_NAME}`);
     await expect(badge).not.toBeExisting();
   });
 
-  it("enchanted-fab - should render with default properties", async () => {
-    renderComponent(html`<enchanted-fab></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should render with default properties", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG}></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await expect(fab).toBeExisting();
     await expect(fab).toHaveAttribute("type", EnchantedFabType.CONTAINED);
     await expect(fab).not.toHaveAttribute("extended");
@@ -66,36 +67,36 @@ describe("enchanted-fab - component test", () => {
     await expect(label).not.toBeExisting();
   });
 
-  it("enchanted-fab - should apply disabled state", async () => {
-    renderComponent(html`<enchanted-fab type="${EnchantedFabType.CONTAINED}" label="Disabled FAB" disabled></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should apply disabled state", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} type="${EnchantedFabType.CONTAINED}" label="Disabled FAB" disabled></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await expect(fab).toHaveAttribute("disabled");
     await expect(fab).not.toBeClickable();
   });
 
-  it("enchanted-fab - should render extended state with label", async () => {
-    renderComponent(html`<enchanted-fab type="${EnchantedFabType.CONTAINED}" label="Extended FAB" extended></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should render extended state with label", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} type="${EnchantedFabType.CONTAINED}" label="Extended FAB" extended></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     const label = await fab.shadow$(`span[part='${FAB_PARTS.LABEL}']`);
     await expect(label).toBeExisting();
     await expect(label).toHaveText("Extended FAB");
   });
 
-  it("enchanted-fab - should handle click events", async () => {
+  it("should handle click events", async () => {
     let clicked = false;
-    renderComponent(html`<enchanted-fab
+    renderComponent(html`<${ENCHANTED_FAB_TAG}
       @click="${() => {
         clicked = true;
       }}"
-    ></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+    ></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await fab.click();
     await expect(clicked).toBe(true);
   });
 
-  it("enchanted-fab - should not display label when extended property is not passed", async () => {
-    renderComponent(html`<enchanted-fab label="Test Label"></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should not display label when extended property is not passed", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} label="Test Label"></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
 
     // Verify the component exists
     await expect(fab).toBeExisting();
@@ -105,71 +106,71 @@ describe("enchanted-fab - component test", () => {
     await expect(label).not.toBeExisting();
   });
 
-  it("enchanted-fab - should apply correct FAB part for LTR direction", async () => {
-    renderComponent(html`<enchanted-fab></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should apply correct FAB part for LTR direction", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG}></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     const button = await fab.shadow$("button");
     await expect(button).toBeExisting();
     await expect(button).toHaveAttribute("part", FAB_PARTS.FAB);
   });
 
-  it("enchanted-fab - should render contained type FAB by default", async () => {
-    renderComponent(html`<enchanted-fab></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should render contained type FAB by default", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG}></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await expect(fab).toHaveAttribute("type", EnchantedFabType.CONTAINED);
   });
 
-  it("enchanted-fab - should render outlined type when type is outlined", async () => {
-    renderComponent(html`<enchanted-fab type="${EnchantedFabType.OUTLINED}"></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should render outlined type when type is outlined", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} type="${EnchantedFabType.OUTLINED}"></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await expect(fab).toHaveAttribute("type", EnchantedFabType.OUTLINED);
   });
 
-  it("enchanted-fab - should not be disabled by default", async () => {
-    renderComponent(html`<enchanted-fab></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should not be disabled by default", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG}></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await expect(fab).not.toHaveAttribute("disabled");
     const button = await fab.shadow$("button");
     await expect(button).not.toHaveAttribute("disabled");
   });
 
-  it("enchanted-fab - should render icon slot with correct part", async () => {
-    renderComponent(html`<enchanted-fab .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should render icon slot with correct part", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     const iconSpan = await fab.shadow$(`span[part='${FAB_PARTS.ICON}']`);
     await expect(iconSpan).toBeExisting();
   });
 
-  it("enchanted-fab - should render provided icon template", async () => {
-    renderComponent(html`<enchanted-fab .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should render provided icon template", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     const iconSpan = await fab.shadow$(`span[part='${FAB_PARTS.ICON}']`);
     await expect(iconSpan).toBeExisting();
-    const svg = await iconSpan.$("icon-ai-sparkle");
+    const svg = await iconSpan.$(`${COMPONENT_PREFIX}icon-ai-sparkle`);
     await expect(svg).toBeExisting();
   });
 
-  it("enchanted-fab - should not render icon span when no icon is provided", async () => {
-    renderComponent(html`<enchanted-fab></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should not render icon span when no icon is provided", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG}></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     const iconSpan = await fab.shadow$(`span[part='${FAB_PARTS.ICON}']`);
     await expect(iconSpan).not.toBeExisting();
   });
 
-  it("enchanted-fab - should render badge slot when badge is true", async () => {
-    renderComponent(html`<enchanted-fab badge></enchanted-fab>`);
-    const fab = await $("enchanted-fab");
+  it("should render badge slot when badge is true", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} badge></${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
     await expect(fab).toHaveAttribute("badge");
     const badgeSlot = await fab.shadow$("slot[name='badge']");
     await expect(badgeSlot).toBeExisting();
   });
 
-  it("enchanted-fab - should accept slotted badge content", async () => {
-    renderComponent(html`<enchanted-fab badge>
-      <enchanted-badge slot="badge" badge="text" text="5" color="primary"></enchanted-badge>
-    </enchanted-fab>`);
-    const fab = await $("enchanted-fab");
-    const badge = await fab.$("enchanted-badge[slot='badge']");
+  it("should accept slotted badge content", async () => {
+    renderComponent(html`<${ENCHANTED_FAB_TAG} badge>
+      <${ENCHANTED_BADGE_TAG} slot="badge" badge="text" text="5" color="primary"></${ENCHANTED_BADGE_TAG}>
+    </${ENCHANTED_FAB_TAG}>`);
+    const fab = await $(ENCHANTED_FAB_TAG_NAME);
+    const badge = await fab.$(`${ENCHANTED_BADGE_TAG_NAME}[slot='badge']`);
     await expect(badge).toBeExisting();
     await expect(badge).toHaveAttribute("badge", "text");
     await expect(badge).toHaveAttribute("text", "5");

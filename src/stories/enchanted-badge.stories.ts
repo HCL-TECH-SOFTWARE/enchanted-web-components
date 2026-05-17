@@ -13,13 +13,14 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../components/atomic-component/enchanted-badge';
 
 // Helper imports
 import { EnchantedBadgeColor, EnchantedBadgeBorder, EnchantedBadgeType } from '../types/cssClassEnums';
+import { ENCHANTED_BADGE_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Data display/enchanted-badge',
@@ -66,8 +67,8 @@ export const Default: Story = {
   render: ({ badge, text, color, border }) => {
     return html`
       <div style=" position: absolute;display: flex; justify-content: center; align-items: center; width: 20px; height: 20px; top: 50px; left: 50px;">
-        <enchanted-badge badge="${badge}" text="${text}" color="${color}" border="${border}">
-        </enchanted-badge>
+        <${ENCHANTED_BADGE_TAG} badge="${badge}" text="${text}" color="${color}" border="${border}">
+        </${ENCHANTED_BADGE_TAG}>
       </div>
     </div>
     `;
@@ -85,7 +86,7 @@ export const AllVariants: Story = {
             return html`
               <div style="position: relative; width: 50px; height: 50px; text-align: center;">
                 <button style="width: 100%; height: 100%; position: absolute; border: none; background: none;"></button>
-                <enchanted-badge badge="${EnchantedBadgeType.TEXT}" text="12" color="${color}" border="${EnchantedBadgeBorder.DEFAULT}"></enchanted-badge>
+                <${ENCHANTED_BADGE_TAG} badge="${EnchantedBadgeType.TEXT}" text="12" color="${color}" border="${EnchantedBadgeBorder.DEFAULT}"></${ENCHANTED_BADGE_TAG}>
                 <div style="margin-top: 8px; font-size: 12px;">Color: ${color}</div>
               </div>
             `;
@@ -100,7 +101,7 @@ export const AllVariants: Story = {
             return html`
               <div style="position: relative; width: 50px; height: 50px; text-align: center;">
                 <button style="width: 100%; height: 100%; position: absolute; border: none; background: none;"></button>
-                <enchanted-badge badge="${EnchantedBadgeType.DOT}" color="${color}" border="${EnchantedBadgeBorder.DEFAULT}"></enchanted-badge>
+                <${ENCHANTED_BADGE_TAG} badge="${EnchantedBadgeType.DOT}" color="${color}" border="${EnchantedBadgeBorder.DEFAULT}"></${ENCHANTED_BADGE_TAG}>
                 <div style="margin-top: 8px; font-size: 12px;">Color: ${color}</div>
               </div>
             `;
@@ -115,7 +116,7 @@ export const AllVariants: Story = {
             return html`
               <div style="position: relative; width: 50px; height: 50px; text-align: center;">
                 <button style="width: 100%; height: 100%; position: absolute; border: none; background: none;"></button>
-                <enchanted-badge badge="${EnchantedBadgeType.TEXT}" text="B" color="${EnchantedBadgeColor.PRIMARY}" border="${border}"></enchanted-badge>
+                <${ENCHANTED_BADGE_TAG} badge="${EnchantedBadgeType.TEXT}" text="B" color="${EnchantedBadgeColor.PRIMARY}" border="${border}"></${ENCHANTED_BADGE_TAG}>
                 <div style="margin-top: 8px; font-size: 12px;">Border: ${border}</div>
               </div>
             `;

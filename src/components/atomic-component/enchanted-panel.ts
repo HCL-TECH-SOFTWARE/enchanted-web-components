@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit/static-html.js';
+import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -25,8 +26,10 @@ import { BUTTON_PARTS, BUTTON_VARIANT, PANEL_PARTS, PANEL_POSITION } from '../..
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
+import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_PANEL_TAG_NAME } from '../tags';
 
-@customElement('enchanted-panel')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-panel.ts');
+
 export class EnchantedPanel extends EnchantedAcBaseElement {
 
   @property({ type: Boolean, reflect: true }) open = false;
@@ -66,16 +69,16 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
           <div>
             <slot name="center-title-content"></slot>
           </div>
-          <enchanted-button
+          <${ENCHANTED_BUTTON_TAG}
             part=${PANEL_PARTS.PANEL_CLOSE_BUTTON}
             exportparts="${Object.values(BUTTON_PARTS).join(",")}"
             buttontext=""
             ?outlined="${false}"
-            .icon="${html`<icon-close size="16" color="rgba(0, 0, 0, 0.60)"></icon-close>`}"
+            .icon="${html`<${generateIconTagName('icon-close')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-close')}>`}"
             @click=${this._handleCloseClick}
             variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
           >
-          </enchanted-button>
+          </${ENCHANTED_BUTTON_TAG}>
         </div>
         <div part=${PANEL_PARTS.PANEL_CONTENT} tabindex="-1">
           <slot name="content"></slot>
@@ -85,8 +88,8 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-panel': EnchantedPanel;
-  }
+if (!customElements.get(ENCHANTED_PANEL_TAG_NAME)) {
+  customElements.define(ENCHANTED_PANEL_TAG_NAME, EnchantedPanel);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_PANEL_TAG_NAME);
 }

@@ -14,15 +14,18 @@
  * ======================================================================== */
 // External imports
 import { html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
+import createDebug from 'debug';
 
 //Helper imports
 import { getCurrentDirection } from "../localization";
 import { LOCALE_DIRECTIONS } from "../constants";
 import { ACCORDION_SUMMARY_PARTS } from "../../types/cssClassEnums";
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
+import { ENCHANTED_ACCORDION_SUMMARY_TAG_NAME } from "../tags";
 
-@customElement("enchanted-accordion-summary")
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-accordion-summary.ts');
+
 export class EnchantedAccordionSummary extends EnchantedAcBaseElement {
   @property({ type: String }) label = "";
   @property({ type: String }) secondaryText = "";
@@ -72,8 +75,9 @@ export class EnchantedAccordionSummary extends EnchantedAcBaseElement {
     `;
    }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    "enchanted-accordion-summary": EnchantedAccordionSummary;
-  }
+
+if (!customElements.get(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME)) {
+  customElements.define(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME, EnchantedAccordionSummary);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);
 }

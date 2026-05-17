@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-preview';
+import { ENCHANTED_PREVIEW_TAG } from '../components/tags';
 
 /**
  * @typedef AssetRendition
@@ -181,7 +182,7 @@ export const EnchantedPreviewStory: Story = {
   name: 'Default',
   render: (args) => {
     return html`
-      <enchanted-preview
+      <${ENCHANTED_PREVIEW_TAG}
         ?open=${args.open}
         .items=${args.items}
         customHeaderTitle="${args.customHeaderTitle}"
@@ -193,7 +194,7 @@ export const EnchantedPreviewStory: Story = {
         .currentItemIndex=${args.currentItemIndex}
         selectedRenditionId="${args.selectedRenditionId}"
         ?skipSourceValidation=${args.skipSourceValidation}
-      ></enchanted-preview>
+      ></${ENCHANTED_PREVIEW_TAG}>
     `;
   },
 };

@@ -14,7 +14,8 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-link';
@@ -22,38 +23,35 @@ import '../../../components/atomic-component/enchanted-link';
 // Helper imports
 import { PAGINATION_PARTS } from '../../../types/cssClassEnums';
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_LINK_TAG, ENCHANTED_LINK_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedAnchorTag component testing', () => {
+describe(`${ENCHANTED_LINK_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedAnchorTag - should render without crashing', async () => {
-    let component = document.createElement('enchanted-link');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_LINK_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedAnchorTag - remove component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-link');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_LINK_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedAnchorTag - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-link');
+  it('should validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_LINK_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('url', '');
     await expect(component).toHaveElementProperty('weight', 0);
@@ -63,8 +61,8 @@ describe('EnchantedAnchorTag component testing', () => {
     component.remove();
   });
 
-  it('EnchantedAnchorTag - set and remove attributes and validate', async () => {
-    let component = document.createElement('enchanted-link');
+  it('should set and remove attributes and validate', async () => {
+    let component = document.createElement(ENCHANTED_LINK_TAG_NAME);
     component.setAttribute('anchorURL', 'testURL');
     document.body.appendChild(component);
     await expect($(component).getAttribute('anchorURL')).not.toBeNull();
@@ -72,16 +70,16 @@ describe('EnchantedAnchorTag component testing', () => {
     component.remove();
   });
 
-  it('EnchantedAnchorTag - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-link');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_LINK_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedAnchorTag - should render component and validate attributes', async () => {
+  it('should render component and validate attributes', async () => {
     render(
       html`
-        <enchanted-link
+        <${ENCHANTED_LINK_TAG}
           url="testURL"
           weight="0"
           anchorTitle="Anchor Title"
@@ -89,11 +87,11 @@ describe('EnchantedAnchorTag component testing', () => {
           rel="noopener"
           value="1"
           mode="pagination">
-        </enchanted-link>
+        </${ENCHANTED_LINK_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-link').getElement();
+    let component = await $(ENCHANTED_LINK_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     let linkElement = await component.$('>>>a[data-testid="enchanted-link-link"]').getElement();
     await expect(linkElement).toHaveText('Test');
@@ -103,21 +101,21 @@ describe('EnchantedAnchorTag component testing', () => {
     await expect(linkElement).toHaveAttribute('value', '1');
   }); 
 
-  it('EnchantedAnchorTag - should render component with selected css as per setting mode', async () => {
+  it('should render component with selected css as per setting mode', async () => {
     render(
       html`
-        <enchanted-link
+        <${ENCHANTED_LINK_TAG}
           url="testURL"
           weight="0"
           anchorTitle="Anchor Title"
           name="Test"
           rel="noopener"
           mode=${PAGINATION_PARTS.PAGINATION_INDEX_DEFAULT}>
-        </enchanted-link>
+        </${ENCHANTED_LINK_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-link').getElement();
+    let component = await $(ENCHANTED_LINK_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     let linkElement = await component.$('>>>a[data-testid="enchanted-link-link"]').getElement();
     const color = await linkElement.getCSSProperty('color');

@@ -32,6 +32,7 @@
     outline: 0px;
     padding: 4px 8px;
     align-items: flex-start;
+    gap: 8px;
   }
 
   &::part(alert-contained-success) {
@@ -92,22 +93,18 @@
 
   &::part(alert-svg-success) {
     color: map.get(themeMap.$enchantedPalette, GREEN800);
-    margin-right: 8px;
   }
 
   &::part(alert-svg-error) {
     color: map.get(themeMap.$enchantedPalette, RED800);
-    margin-right: 8px;
   }
 
   &::part(alert-svg-warning) {
     color: map.get(themeMap.$enchantedPalette, ORANGE800);
-    margin-right: 8px;
   }
 
   &::part(alert-svg-info) {
     color: map.get(themeMap.$enchantedPalette, BLUE800);
-    margin-right: 8px;
   }
 
   &::part(alert-content) {

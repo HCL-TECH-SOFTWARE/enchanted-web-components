@@ -11,10 +11,11 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-data-grid-generic';
 import { EnchantedDataGridColDef } from '../types/enchanted-data-grid';
 import { EnchantedDataGridContextType } from '../components/atomic-component/contexts/enchanted-data-grid-context';
+import { ENCHANTED_DATA_GRID_GENERIC_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedDataGridGenericProps
@@ -182,7 +183,7 @@ type Story = StoryObj<EnchantedDataGridGenericProps>;
 export const EnchantedDataGridGeneric: Story = {
   render: (args) => {
     return html`
-      <enchanted-data-grid-generic
+      <${ENCHANTED_DATA_GRID_GENERIC_TAG}
         .isLoading=${args.isLoading}
         .data=${args.data}
         .columns=${args.columns}
@@ -195,7 +196,7 @@ export const EnchantedDataGridGeneric: Story = {
         .customTableHeaderPart=${args.customTableHeaderPart}
         .customeTableCellPart=${args.customeTableCellPart}
         .tableHover=${args.tableHover}
-      ></enchanted-data-grid-generic>
+      ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
     `;
   },
   name: 'Default',
@@ -237,86 +238,86 @@ export const AllStates: Story = {
         <!-- Basic Grid -->
         <div>
           <h3 style="margin: 0 0 16px 0;">Basic Data Grid</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${false}
             .data=${sampleData}
             .columns=${sampleColumns}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
 
         <!-- With Checkbox Selection -->
         <div>
           <h3 style="margin: 0 0 16px 0;">With Checkbox Selection</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${false}
             .data=${sampleData}
             .columns=${sampleColumns}
             ?checkboxSelection=${true}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
 
         <!-- With Table Hover -->
         <div>
           <h3 style="margin: 0 0 16px 0;">With Table Hover</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${false}
             .data=${sampleData}
             .columns=${sampleColumns}
             .tableHover=${'true'}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
 
         <!-- Clickable Rows -->
         <div>
           <h3 style="margin: 0 0 16px 0;">Clickable Rows</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${false}
             .data=${sampleData}
             .columns=${sampleColumns}
             ?isRowClickable=${true}
             .tableHover=${'true'}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
 
         <!-- With Actions -->
         <div>
           <h3 style="margin: 0 0 16px 0;">With Action Columns</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${false}
             .data=${sampleData}
             .columns=${columnsWithActions}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
 
         <!-- Loading State -->
         <div>
           <h3 style="margin: 0 0 16px 0;">Loading State</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${true}
             .data=${sampleData}
             .columns=${sampleColumns}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
 
         <!-- Empty State -->
         <div>
           <h3 style="margin: 0 0 16px 0;">Empty State (No Data)</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${false}
             .data=${{ searchItems: [] }}
             .columns=${sampleColumns}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
 
         <!-- Error State -->
         <div>
           <h3 style="margin: 0 0 16px 0;">Error State (Middleware Error)</h3>
-          <enchanted-data-grid-generic
+          <${ENCHANTED_DATA_GRID_GENERIC_TAG}
             ?isLoading=${false}
             .data=${sampleData}
             .columns=${sampleColumns}
             ?hasMiddlewareError=${true}
-          ></enchanted-data-grid-generic>
+          ></${ENCHANTED_DATA_GRID_GENERIC_TAG}>
         </div>
       </div>
     `;

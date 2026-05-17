@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-select';
+import { ENCHANTED_SELECT_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedInputSelectProps
@@ -141,7 +142,7 @@ const meta: Meta<EnchantedInputSelectProps> = {
     ariaLabel: '',
   },
   render: (args) => {return html`
-    <enchanted-select
+    <${ENCHANTED_SELECT_TAG}
       label="${args.label}"
       ?disabled=${args.disabled}
       .selectedValue=${args.selectedValue}
@@ -154,7 +155,7 @@ const meta: Meta<EnchantedInputSelectProps> = {
       ?hiddenIcon=${args.hiddenIcon}
       ?showRemoveLabel=${args.showRemoveLabel}
       ariaLabel="${args.ariaLabel}"
-    ></enchanted-select>
+    ></${ENCHANTED_SELECT_TAG}>
   `;},
 };
 
@@ -181,18 +182,18 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Default</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             .options=${[
               { id: '1', name: 'Option 1', value: '1' },
               { id: '2', name: 'Option 2', value: '2' },
               { id: '3', name: 'Option 3', value: '3' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Placeholder</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             placeholder="Pick one..."
             .options=${[
@@ -200,11 +201,11 @@ export const AllStates: Story = {
               { id: '2', name: 'Option 2', value: '2' },
               { id: '3', name: 'Option 3', value: '3' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Selected Value</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             .selectedValue="2"
             .options=${[
@@ -212,11 +213,11 @@ export const AllStates: Story = {
               { id: '2', name: 'Option 2', value: '2' },
               { id: '3', name: 'Option 3', value: '3' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Always Show Placeholder</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             placeholder="Choose one"
             .selectedValue="2"
@@ -226,11 +227,11 @@ export const AllStates: Story = {
               { id: '2', name: 'Option 2', value: '2' },
               { id: '3', name: 'Option 3', value: '3' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             .options=${[
               { id: '1', name: 'Option 1', value: '1' },
@@ -238,11 +239,11 @@ export const AllStates: Story = {
               { id: '3', name: 'Option 3', value: '3' },
             ]}
             ?disabled=${true}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled with Value</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             .selectedValue="2"
             .options=${[
@@ -251,11 +252,11 @@ export const AllStates: Story = {
               { id: '3', name: 'Option 3', value: '3' },
             ]}
             ?disabled=${true}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Hidden Label</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             ?hiddenLabel=${true}
             placeholder="Hidden label example"
@@ -264,11 +265,11 @@ export const AllStates: Story = {
               { id: '2', name: 'Option 2', value: '2' },
               { id: '3', name: 'Option 3', value: '3' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Hidden Icon</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             ?hiddenIcon=${true}
             .options=${[
@@ -276,11 +277,11 @@ export const AllStates: Story = {
               { id: '2', name: 'Option 2', value: '2' },
               { id: '3', name: 'Option 3', value: '3' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Remove Label</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select an option"
             .selectedValue="2"
             ?showRemoveLabel=${true}
@@ -289,18 +290,18 @@ export const AllStates: Story = {
               { id: '2', name: 'Option 2', value: '2' },
               { id: '3', name: 'Option 3', value: '3' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">String Options</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select a fruit"
             .options=${['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With ARIA Label</div>
-          <enchanted-select
+          <${ENCHANTED_SELECT_TAG}
             label="Select country"
             ariaLabel="Country selection dropdown"
             .options=${[
@@ -308,7 +309,7 @@ export const AllStates: Story = {
               { id: 'ca', name: 'Canada', value: 'ca' },
               { id: 'mx', name: 'Mexico', value: 'mx' },
             ]}
-          ></enchanted-select>
+          ></${ENCHANTED_SELECT_TAG}>
         </div>
       </div>
     `;

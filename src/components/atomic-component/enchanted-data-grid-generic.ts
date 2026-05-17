@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
-import { customElement, state, property } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { html } from 'lit/static-html.js';
+import { state, property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import createDebug from 'debug';
 
@@ -46,10 +47,15 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--up';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/arrow--down';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/items--search--empty';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/items--search--initial';
+import { 
+  generateIconTagName,
+  ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG,
+  ENCHANTED_ICON_BUTTON_TAG_NAME, ENCHANTED_ITEM_TYPE_AVATAR_TAG, ENCHANTED_MENU_ITEM_TAG,
+  ENCHANTED_MENU_TAG, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG
+} from '../tags';
 
-const debug = createDebug('enchanted-web-components:components:ac:enchanted-data-grid-generic.ts');
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-data-grid-generic.ts');
 
-@customElement('enchanted-data-grid-generic')
 export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
   @property()
   private isLoading: boolean = false;
@@ -355,7 +361,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
 
     if (isMenu) {
       const moreMenuIcon = evt.target as HTMLElement;
-      const isOpen = this.renderRoot.querySelector('enchanted-menu')?.openMenu;
+      const isOpen = (this.renderRoot.querySelector(ENCHANTED_MENU_TAG_NAME) as EnchantedMenu)?.openMenu;
 
       const closeMenu = (targetIndex: number) => {
         if (isOpen) {
@@ -600,7 +606,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
       const firstActionButtonDiv = rowElement?.querySelector(`[part~="${DATA_GRID_PARTS.TABLE_ACTION_ICON_BUTTON}"]`) as HTMLDivElement;
      
       if (firstActionButtonDiv) {
-        const firstActionButton = firstActionButtonDiv.querySelector('enchanted-icon-button') as EnchantedIconButton;
+        const firstActionButton = firstActionButtonDiv.querySelector(ENCHANTED_ICON_BUTTON_TAG_NAME) as EnchantedIconButton;
         if (firstActionButton) {
           evt.preventDefault();
           this.currentHoverRow = index;
@@ -699,7 +705,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
     this.currentHoverField = '';
     const row = event.target as HTMLElement;
     row.setAttribute('autofocus', 'true');
-    const actionButtons = row.querySelectorAll('enchanted-icon-button');
+    const actionButtons = row.querySelectorAll(ENCHANTED_ICON_BUTTON_TAG_NAME);
     this.focusedRowActionButtons = Array.from(actionButtons) as EnchantedIconButton[];
   }
 
@@ -780,9 +786,9 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                 ${ header.sortEnable ?
                   html`
                     <div part="${DATA_GRID_PARTS.TABLE_SORT_BUTTON_CONTAINER}">
-                      <enchanted-icon-button
+                      <${ENCHANTED_ICON_BUTTON_TAG}
                         data-testid="enchanted-data-grid-sort-button-${SortOrder.ASC}-${index}"
-                        .icon=${html`<icon-arrow-up></icon-arrow-up>`}
+                        .icon=${html`<${generateIconTagName('icon-arrow-up')}></${generateIconTagName('icon-arrow-up')}>`}
                         id="enchanted-data-grid-sort-button-${SortOrder.ASC}-${index}"
                         tabindex=0
                         part="${this.getPartHeaderSort(sortHeaderField, SortOrder.ASC)} ${DATA_GRID_PARTS.TABLE_HEADER_ICON_BUTTON}"
@@ -792,10 +798,10 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                         ?disabled=${header.sortEnable === undefined ? false : !header.sortEnable}
                         ariaLabel=${this.getMessage('datagrid.column.sort.asc', [{ '{columnName}': String(header.headerName) }])}
                       >
-                      </enchanted-icon-button>
-                      <enchanted-icon-button
+                      </${ENCHANTED_ICON_BUTTON_TAG}>
+                      <${ENCHANTED_ICON_BUTTON_TAG}
                         data-testid="enchanted-data-grid-sort-button-${SortOrder.DESC}-${index}"
-                        .icon=${html`<icon-arrow-down></icon-arrow-down>`}
+                        .icon=${html`<${generateIconTagName('icon-arrow-down')}></${generateIconTagName('icon-arrow-down')}>`}
                         tabindex=0
                         id="enchanted-data-grid-sort-button-${SortOrder.DESC}-${index}"
                         part="${this.getPartHeaderSort(sortHeaderField, SortOrder.DESC)} ${DATA_GRID_PARTS.TABLE_HEADER_ICON_BUTTON}"
@@ -805,7 +811,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                         ?disabled=${header.sortEnable === undefined ? false : !header.sortEnable}
                         ariaLabel=${this.getMessage('datagrid.column.sort.desc', [{ '{columnName}': String(header.headerName) }])}
                       >
-                      </enchanted-icon-button>
+                      </${ENCHANTED_ICON_BUTTON_TAG}>
                     </div>`
                 : nothing }
               </div>
@@ -861,7 +867,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
             tabindex="-1"
             aria-label="${this.getMessage('output.message.loading.search.results')}"
           >
-            <enchanted-circular-progress></enchanted-circular-progress>
+            <${ENCHANTED_CIRCULAR_PROGRESS_TAG}></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
             <p data-testid="table-loading-text" part="${DATA_GRID_PARTS.TABLE_LOADING_TEXT}">${this.getMessage('output.message.loading.search.results')}</p>
           </div>
         `;
@@ -929,7 +935,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                 <div part="${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV.replace('{index}', ind.toString())}">
                   <div part="${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_0.replace('{index}', ind.toString())}">
                     ${header.avatar ? html`
-                      <enchanted-item-type-avatar
+                      <${ENCHANTED_ITEM_TYPE_AVATAR_TAG}
                         title=${avatarName}
                         itemType=${getObjectValue(this.specialFields, data, header.avatarType, header.keyForStringify)}
                         imageUrl=${getObjectValue(this.specialFields, data, header.thumbnailUrl)}
@@ -996,7 +1002,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                               return html`
                                 <div part="${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_3.replace('{index}', ind.toString())}">
                                   <div part=${`${this.getPartActionButton(index)} ${DATA_GRID_PARTS.TABLE_ACTION_ICON_BUTTON_MENU}`} >
-                                      <enchanted-menu 
+                                      <${ENCHANTED_MENU_TAG} 
                                         data-testid="enchanted-data-grid-menu-${index}-${ind}-${itemIndex}"
                                         exportparts="
                                         ${Object.values(MENU_PARTS).join(',')},
@@ -1010,8 +1016,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                                       >
                                         <div slot="target-anchor">
                                         ${item.icon ? html`
-                                            <enchanted-tooltip tooltiptext=${item.text} exportparts=${TOOLTIP_EXPORT_PARTS}>
-                                              <enchanted-icon-button
+                                            <${ENCHANTED_TOOLTIP_TAG} tooltiptext=${item.text} exportparts=${TOOLTIP_EXPORT_PARTS}>
+                                              <${ENCHANTED_ICON_BUTTON_TAG}
                                                 slot="target"
                                                 @keydown=${(evt: KeyboardEvent) => {
                                                   return this.handleActionItemKeydown(evt, index, ind, itemIndex, true);
@@ -1026,8 +1032,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                                                 part=${DATA_GRID_PARTS.TABLE_CELL_ICON_BUTTON}
                                                 ariaLabel=${item.text}
                                               >
-                                              </enchanted-icon-button>
-                                            </enchanted-tooltip>
+                                              </${ENCHANTED_ICON_BUTTON_TAG}>
+                                            </${ENCHANTED_TOOLTIP_TAG}>
                                           ` : html`
                                               <div
                                                 title=${item.text}
@@ -1049,7 +1055,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                                         <div slot="menu-items">
                                           ${visibleMenuItems.map((menuItem: ActionMenu, menuIndex: number) => {
                                             return html`
-                                              <enchanted-menu-item 
+                                              <${ENCHANTED_MENU_ITEM_TAG} 
                                                 text="${menuItem.text}" 
                                                 tabindex=0
                                                 data-testid="enchanted-data-grid-menu-item-${index}-${ind}-${itemIndex}-${menuIndex}"
@@ -1062,11 +1068,11 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                                                 @keydown=${(evt: KeyboardEvent) => { return this.handleMenuItemKeydown(evt, index, ind, menuIndex, itemIndex, item.menu ? item.menu.length : 0); }}
                                                 part=${DATA_GRID_PARTS.TABLE_HEADER_MENU_ITEM}
                                               >
-                                              </enchanted-menu-item>
+                                              </${ENCHANTED_MENU_ITEM_TAG}>
                                             `;
                                           })}
                                         </div>
-                                    </enchanted-menu>
+                                    </${ENCHANTED_MENU_TAG}>
                                   </div>
                                 </div>
                               `;
@@ -1077,8 +1083,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                                 <div part="${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_3.replace('{index}', ind.toString())}">
                                   <div part=${this.getPartActionButton(index)} >
                                     ${singleActionItem.icon ? html`
-                                        <enchanted-tooltip tooltiptext=${singleActionItem.text} exportparts=${TOOLTIP_EXPORT_PARTS}>
-                                          <enchanted-icon-button 
+                                        <${ENCHANTED_TOOLTIP_TAG} tooltiptext=${singleActionItem.text} exportparts=${TOOLTIP_EXPORT_PARTS}>
+                                          <${ENCHANTED_ICON_BUTTON_TAG} 
                                             slot="target"
                                             data-testid="enchanted-data-grid-action-item-button-${index}-${ind}-${itemIndex}"
                                             id="enchanted-data-grid-action-item-button-${index}-${ind}-${itemIndex}"
@@ -1096,8 +1102,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                                             @blur=${(evt: FocusEvent) => { return this.handleButtonBlur(evt); }}
                                             part=${DATA_GRID_PARTS.TABLE_CELL_ICON_BUTTON}
                                             ariaLabel=${singleActionItem.text}>
-                                          </enchanted-icon-button>
-                                        </enchanted-tooltip>  
+                                          </${ENCHANTED_ICON_BUTTON_TAG}>
+                                        </${ENCHANTED_TOOLTIP_TAG}>  
                                         ` 
                                         : html`<div
                                             title=${singleActionItem.text}
@@ -1131,8 +1137,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                               <div part="${DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_3.replace('{index}', ind.toString())}">
                                   <div part=${this.getPartActionButton(index)} >
                                       ${item.icon ? html`
-                                        <enchanted-tooltip tooltiptext=${item.text} exportparts=${TOOLTIP_EXPORT_PARTS}>
-                                          <enchanted-icon-button 
+                                        <${ENCHANTED_TOOLTIP_TAG} tooltiptext=${item.text} exportparts=${TOOLTIP_EXPORT_PARTS}>
+                                          <${ENCHANTED_ICON_BUTTON_TAG} 
                                             slot="target"
                                             data-testid="enchanted-data-grid-action-item-button-${index}-${ind}-${itemIndex}"
                                             id="enchanted-data-grid-action-item-button-${index}-${ind}-${itemIndex}"
@@ -1151,8 +1157,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
                                             @blur=${(evt: FocusEvent) => { return this.handleButtonBlur(evt); }}
                                             part=${DATA_GRID_PARTS.TABLE_CELL_ICON_BUTTON}
                                             ariaLabel=${item.text}>
-                                          </enchanted-icon-button>
-                                        </enchanted-tooltip>
+                                          </${ENCHANTED_ICON_BUTTON_TAG}>
+                                        </${ENCHANTED_TOOLTIP_TAG}>
                                         ` 
                                           : html`<div
                                               title=${item.text}
@@ -1188,7 +1194,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
       else if (this.data?.total === 0) {
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">         
-            <icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
+            <${generateIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-empty')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.results.found')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
             ${unsafeHTML(this.getMessage('output.message.no.match.found', [{ '{search_term}': String(this.data?.searchValue) }]))}
@@ -1199,7 +1205,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
         debug('%s, %s', this.getMessage('output.message.no.engine.found'), this.getMessage('output.message.contact.admin'));
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-            <icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
+            <${generateIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-empty')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.engine.found')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
             ${this.getMessage('output.message.contact.admin')}
@@ -1210,7 +1216,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
         debug('%s, %s', this.getMessage('output.message.no.content.sources.found'), this.getMessage('output.message.contact.admin'));
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}"> 
-            <icon-items-search-empty size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-empty>
+            <${generateIconTagName('icon-items-search-empty')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-empty')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('output.message.no.content.sources.found')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
             ${this.getMessage('output.message.contact.admin')}
@@ -1220,7 +1226,7 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
       } else {
         return html`
           <div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-            <icon-items-search-initial size="128" color="rgba(0, 0, 0, 0.38)"></icon-items-search-initial>
+            <${generateIconTagName('icon-items-search-initial')} size="128" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-items-search-initial')}>
             <p data-testid="table-result-label" part="${DATA_GRID_PARTS.TABLE_RESULT_LABEL}">${this.getMessage('authoring.data.grid.initial.message')}</p>
             <p part="${DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION}">
                 ${this.isFeatureTagCloudEnabled
@@ -1258,8 +1264,8 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-data-grid-generic': EnchantedDataGridGeneric
-  }
+if (!customElements.get(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME)) {
+  customElements.define(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, EnchantedDataGridGeneric);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_DATA_GRID_GENERIC_TAG_NAME);
 }

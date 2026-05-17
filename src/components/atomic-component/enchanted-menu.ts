@@ -13,11 +13,13 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { html } from 'lit/static-html.js';
+import { property, state } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -27,8 +29,10 @@ import './enchanted-list';
 import { BUTTON_PARTS, LIST_PARTS, MENU_PARTS } from '../../types/cssClassEnums';
 import { isLTR } from '../localization';
 import { EnchantedMenuPlacement, EnchantedMenuSize } from '../../types/enchanted-menu';
+import { ENCHANTED_LIST_TAG, ENCHANTED_MENU_ITEM_SELECTOR, ENCHANTED_MENU_TAG_NAME } from '../tags';
 
-@customElement('enchanted-menu')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-menu.ts');
+
 @localized()
 export class EnchantedMenu extends EnchantedAcBaseElement {
   @property({ type: Number })
@@ -139,7 +143,7 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
     event.preventDefault();
     event.stopPropagation();
     const target = event.target as HTMLElement;
-    const menuItem = target.closest('enchanted-menu-item');
+    const menuItem = target.closest(ENCHANTED_MENU_ITEM_SELECTOR);
     if (evt.detail && menuItem) {
       this.dispatchEvent(new CustomEvent('change', {
         bubbles: true, composed: true, detail: { 
@@ -170,13 +174,13 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
         >
           <div data-testid="menu-backdrop" aria-hidden="true" part=${MENU_PARTS.BACKDROP} @click=${debounce(this.toggleMenuOpen, 300)}></div>
           <div part=${MENU_PARTS.PAPER_ROOT} id="menu${this.componentId}" style="visibility: hidden;">
-            <enchanted-list
+            <${ENCHANTED_LIST_TAG}
               role="menu"
               exportparts="${Object.values(LIST_PARTS).join(',')}"
               @menuItemClick=${this.handleMenuItemClick}
             >
               <slot name="menu-items"></slot>
-            </enchanted-list>
+            </${ENCHANTED_LIST_TAG}>
           </div>
         </div>
       `;
@@ -201,9 +205,8 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
   }
 }
 
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-menu': EnchantedMenu
-  }
+if (!customElements.get(ENCHANTED_MENU_TAG_NAME)) {
+  customElements.define(ENCHANTED_MENU_TAG_NAME, EnchantedMenu);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_MENU_TAG_NAME);
 }

@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { render, nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, expect } from '@wdio/globals';
 
 // Component imports
@@ -21,45 +22,42 @@ import '../../../components/atomic-component/enchanted-theme-inspector';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_THEME_INSPECTOR_TAG, ENCHANTED_THEME_INSPECTOR_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedThemeInspector component testing', () => {
+describe(`${ENCHANTED_THEME_INSPECTOR_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedThemeInspector - should render without crashing', async () => {
-    let component = document.createElement('enchanted-theme-inspector');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_THEME_INSPECTOR_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedThemeInspector - removes component from document body and validates removal', async () => {
-    let component = document.createElement('EnchantedThemeInspector');
+  it('removes component from document body and validates removal', async () => {
+    let component = document.createElement(ENCHANTED_THEME_INSPECTOR_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedThemeInspector - should render theme inspector', async () => {
+  it('should render theme inspector', async () => {
     render(
       html`
-        <enchanted-theme-inspector />
+        <${ENCHANTED_THEME_INSPECTOR_TAG} />
       `,
       document.body
     );
-    const component = await $('enchanted-theme-inspector');
+    const component = await $(ENCHANTED_THEME_INSPECTOR_TAG_NAME);
     const container = await component.$('>>>div[data-testid="enchanted-theme-inspector-container"]');
     await container.waitForDisplayed({ timeout: 8000 });
     await expect(container).toBeDisplayed();

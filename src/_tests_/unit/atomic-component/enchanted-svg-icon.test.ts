@@ -14,7 +14,8 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { render, nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-svg-icon';
@@ -24,38 +25,35 @@ import { initSessionStorage } from '../../utils';
 
 // Icon imports
 import { svgIconEnd } from '../../assets/svg-input-end-icon';
+import { ENCHANTED_SVG_ICON_TAG, ENCHANTED_SVG_ICON_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedSvgIcon component testing', () => {
+describe(`${ENCHANTED_SVG_ICON_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedSvgIcon - should render without crashing', async () => {
-    let component = document.createElement('enchanted-svg-icon');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_SVG_ICON_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedSvgIcon - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-svg-icon');
+  it('removes component from document body and validates removal', async () => {
+    let component = document.createElement(ENCHANTED_SVG_ICON_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedSvgIcon - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-svg-icon');
+  it('validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_SVG_ICON_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('color', '');
     await expect(component).toHaveElementProperty('useCurrentColor', false);
@@ -64,28 +62,28 @@ describe('EnchantedSvgIcon component testing', () => {
     component.remove();
   });
 
-  it('EnchantedSvgIcon - should render svg with color and size as passing props if useCurrentColor set to false', async () => {
+  it('should render svg with color and size as passing props if useCurrentColor set to false', async () => {
     render(
       html`
-        <enchanted-svg-icon .icon=${svgIconEnd} color="red" size="16px" ?useCurrentColor=${false}/>
+        <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="red" size="16px" ?useCurrentColor=${false}/>
       `,
       document.body
     );
-    let component = await $('enchanted-svg-icon').getElement();
+    let component = await $(ENCHANTED_SVG_ICON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', '16px');
     await expect(component).toHaveElementProperty('useCurrentColor', false);
     await expect(component).toHaveElementProperty('color', 'red');
   });
 
-  it('EnchantedSvgIcon - should render svg with parent color if useCurrentColor set to true', async () => {
+  it('should render svg with parent color if useCurrentColor set to true', async () => {
     render(
       html`
-        <enchanted-svg-icon .icon=${svgIconEnd} size="16px" ?useCurrentColor=${true} style="color: green;"/>
+        <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="16px" ?useCurrentColor=${true} style="color: green;"/>
       `,
       document.body
     );
-    let component = await $('enchanted-svg-icon').getElement();
+    let component = await $(ENCHANTED_SVG_ICON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('size', '16px');
     await expect(component).toHaveElementProperty('useCurrentColor', true);

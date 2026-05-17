@@ -13,9 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property, state } from 'lit/decorators.js';
-import { html, nothing } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 import { debounce } from 'lodash';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -36,8 +38,10 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 
 import { LOCALE_DIRECTIONS } from '../constants';
+import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_SELECT_TAG, ENCHANTED_TABLE_PAGINATION_TAG_NAME } from '../tags';
 
-@customElement('enchanted-table-pagination')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-table-pagination.ts');
+
 export class EnchantedTablePagination extends EnchantedAcBaseElement {
   @property({ type: Boolean })
   disabled = false;
@@ -192,7 +196,7 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
       return html`
         <div part=${TABLE_PAGINATION_PARTS.CONTAINER}>
           <div part=${TABLE_PAGINATION_PARTS.ROWS_SECTION}>
-            <enchanted-select
+            <${ENCHANTED_SELECT_TAG}
               .localization=${this.localization}
               exportparts="${PAGINATION_SELECT_EXPORT_PARTS}"
               field=${EnchantedInputFieldType.PAGINATION_ROWS}
@@ -206,13 +210,13 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
                   { '{rows_per_page}': this.rowSizeState.toString() }
                 ])
               }
-            ></enchanted-select>
+            ></${ENCHANTED_SELECT_TAG}>
             <span part=${TABLE_PAGINATION_PARTS.ROWS_DESCRIPTION}>
               ${this.rowMessage}
             </span>
           </div>
           <div part=${TABLE_PAGINATION_PARTS.PAGES_SECTION}>
-            <enchanted-button
+            <${ENCHANTED_BUTTON_TAG}
               part=${TABLE_PAGINATION_PARTS.PAGES_NAV_BUTTON}
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
               buttontext=''
@@ -221,12 +225,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasPreviousPage 
-                    ? html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-first>`
-                    : html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-first>`
+                    ? html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-first')}>`
+                    : html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-first')}>`
                 ) : (
                   this.hasPreviousPage 
-                    ? html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-last>`
-                    : html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-last>`
+                    ? html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-last')}>`
+                    : html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-last')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.FIRST_PAGE}"
@@ -234,8 +238,8 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
               ariaLabel=${this.getMessage('output.pagination.first.page.aria.label')}
             >
-            </enchanted-button>
-            <enchanted-button
+            </${ENCHANTED_BUTTON_TAG}>
+            <${ENCHANTED_BUTTON_TAG}
               part=${TABLE_PAGINATION_PARTS.PAGES_NAV_BUTTON}
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
               buttontext=''
@@ -244,12 +248,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasPreviousPage 
-                    ? html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-left>`
-                    : html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-left>`
+                    ? html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-left')}>`
+                    : html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-left')}>`
                 ) : (
                   this.hasPreviousPage
-                    ? html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-right>`
-                    : html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-right>`
+                    ? html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-right')}>`
+                    : html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-right')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.PREVIOUS_PAGE}"
@@ -257,8 +261,8 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
               ariaLabel=${this.getMessage('output.pagination.previous.page.aria.label')}
             >
-            </enchanted-button>
-            <enchanted-select
+            </${ENCHANTED_BUTTON_TAG}>
+            <${ENCHANTED_SELECT_TAG}
               .localization=${this.localization}
               exportparts="${PAGINATION_SELECT_EXPORT_PARTS}"
               field=${EnchantedInputFieldType.PAGINATION_PAGE}
@@ -272,11 +276,11 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
                 { '{current_page}': this.currentPageState.toString() },
                 { '{total_pages}': this.pagesCount.toString() }
               ])}
-            ></enchanted-select>
+            ></${ENCHANTED_SELECT_TAG}>
             <span part=${TABLE_PAGINATION_PARTS.PAGES_DESCRIPTION}>
               &nbsp; ${this.renderSlash()} ${this.pagesCount} &nbsp;
             </span>
-            <enchanted-button
+            <${ENCHANTED_BUTTON_TAG}
               part=${TABLE_PAGINATION_PARTS.PAGES_NAV_BUTTON}
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
               buttontext=''
@@ -285,12 +289,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasNextPage
-                    ? html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-right>`
-                    : html`<icon-chevron-right size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-right>`
+                    ? html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-right')}>`
+                    : html`<${generateIconTagName('icon-chevron-right')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-right')}>`
                 ) : (
                   this.hasNextPage
-                    ? html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.60)"></icon-chevron-left>`
-                    : html`<icon-chevron-left size="16" color="rgba(0, 0, 0, 0.38)"></icon-chevron-left>`
+                    ? html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-chevron-left')}>`
+                    : html`<${generateIconTagName('icon-chevron-left')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-chevron-left')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.NEXT_PAGE}"
@@ -298,8 +302,8 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
               ariaLabel=${this.getMessage('output.pagination.next.page.aria.label')}
             >
-            </enchanted-button>
-            <enchanted-button
+            </${ENCHANTED_BUTTON_TAG}>
+            <${ENCHANTED_BUTTON_TAG}
               part=${TABLE_PAGINATION_PARTS.PAGES_NAV_BUTTON}
               exportparts="${Object.values(BUTTON_PARTS).join(',')}"
               buttontext=''
@@ -308,12 +312,12 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               .icon="${
                 isLTR() ? (
                   this.hasNextPage
-                    ? html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-last>`
-                    : html`<icon-page-last size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-last>`
+                    ? html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-last')}>`
+                    : html`<${generateIconTagName('icon-page-last')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-last')}>`
                 ) : (
                   this.hasNextPage
-                    ? html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.60)"></icon-page-first>`
-                    : html`<icon-page-first size="16" color="rgba(0, 0, 0, 0.38)"></icon-page-first>`
+                    ? html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-page-first')}>`
+                    : html`<${generateIconTagName('icon-page-first')} size="16" color="rgba(0, 0, 0, 0.38)"></${generateIconTagName('icon-page-first')}>`
                 )
               }"
               data-testid="${EnchantedPaginationActions.LAST_PAGE}"
@@ -321,7 +325,7 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
               variant=${BUTTON_VARIANT.BUTTON_TEXT_VAR}
               ariaLabel=${this.getMessage('output.pagination.last.page.aria.label')}
             >
-            </enchanted-button>
+            </${ENCHANTED_BUTTON_TAG}>
           </div>
         </div>
       `;
@@ -331,8 +335,8 @@ export class EnchantedTablePagination extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-table-pagination': EnchantedTablePagination;
-  }
+if (!customElements.get(ENCHANTED_TABLE_PAGINATION_TAG_NAME)) {
+  customElements.define(ENCHANTED_TABLE_PAGINATION_TAG_NAME, EnchantedTablePagination);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_TABLE_PAGINATION_TAG_NAME);
 }

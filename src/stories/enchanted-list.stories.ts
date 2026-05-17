@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-list';
 import '../components/atomic-component/enchanted-list-item';
+import { ENCHANTED_LIST_ITEM_TAG, ENCHANTED_LIST_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedListProps
@@ -51,11 +52,11 @@ const meta: Meta<EnchantedListProps> = {
   },
   render: (args) => {
     return html`
-      <enchanted-list role="${args.role}">
-        <enchanted-list-item>Item 1</enchanted-list-item>
-        <enchanted-list-item>Item 2</enchanted-list-item>
-        <enchanted-list-item>Item 3</enchanted-list-item>
-      </enchanted-list>
+      <${ENCHANTED_LIST_TAG} role="${args.role}">
+        <${ENCHANTED_LIST_ITEM_TAG}>Item 1</${ENCHANTED_LIST_ITEM_TAG}>
+        <${ENCHANTED_LIST_ITEM_TAG}>Item 2</${ENCHANTED_LIST_ITEM_TAG}>
+        <${ENCHANTED_LIST_ITEM_TAG}>Item 3</${ENCHANTED_LIST_ITEM_TAG}>
+      </${ENCHANTED_LIST_TAG}>
     `;
   },
 };
@@ -71,76 +72,76 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
         <div>
           <h3 style="margin-top: 0;">Default List</h3>
-          <enchanted-list>
-            <enchanted-list-item>Item 1</enchanted-list-item>
-            <enchanted-list-item>Item 2</enchanted-list-item>
-            <enchanted-list-item>Item 3</enchanted-list-item>
-          </enchanted-list>
+          <${ENCHANTED_LIST_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 1</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 2</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 3</${ENCHANTED_LIST_ITEM_TAG}>
+          </${ENCHANTED_LIST_TAG}>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">List with role="listbox"</h3>
-          <enchanted-list role="listbox">
-            <enchanted-list-item role="option">Option A</enchanted-list-item>
-            <enchanted-list-item role="option">Option B</enchanted-list-item>
-            <enchanted-list-item role="option">Option C</enchanted-list-item>
-          </enchanted-list>
+          <${ENCHANTED_LIST_TAG} role="listbox">
+            <${ENCHANTED_LIST_ITEM_TAG} role="option">Option A</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} role="option">Option B</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} role="option">Option C</${ENCHANTED_LIST_ITEM_TAG}>
+          </${ENCHANTED_LIST_TAG}>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">List with role="menu"</h3>
-          <enchanted-list role="menu">
-            <enchanted-list-item role="menuitem">Menu Item 1</enchanted-list-item>
-            <enchanted-list-item role="menuitem">Menu Item 2</enchanted-list-item>
-            <enchanted-list-item role="menuitem">Menu Item 3</enchanted-list-item>
-          </enchanted-list>
+          <${ENCHANTED_LIST_TAG} role="menu">
+            <${ENCHANTED_LIST_ITEM_TAG} role="menuitem">Menu Item 1</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} role="menuitem">Menu Item 2</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} role="menuitem">Menu Item 3</${ENCHANTED_LIST_ITEM_TAG}>
+          </${ENCHANTED_LIST_TAG}>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">List with Selected Items</h3>
-          <enchanted-list>
-            <enchanted-list-item>Regular Item</enchanted-list-item>
-            <enchanted-list-item ?isSelected=${true}>Selected Item 1</enchanted-list-item>
-            <enchanted-list-item>Regular Item</enchanted-list-item>
-            <enchanted-list-item ?isSelected=${true}>Selected Item 2</enchanted-list-item>
-          </enchanted-list>
+          <${ENCHANTED_LIST_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Regular Item</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} ?isSelected=${true}>Selected Item 1</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Regular Item</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} ?isSelected=${true}>Selected Item 2</${ENCHANTED_LIST_ITEM_TAG}>
+          </${ENCHANTED_LIST_TAG}>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">List with Keys</h3>
-          <enchanted-list>
-            <enchanted-list-item .key=${'item-1'}>Item with key "item-1"</enchanted-list-item>
-            <enchanted-list-item .key=${'item-2'}>Item with key "item-2"</enchanted-list-item>
-            <enchanted-list-item .key=${'item-3'}>Item with key "item-3"</enchanted-list-item>
-          </enchanted-list>
+          <${ENCHANTED_LIST_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} .key=${'item-1'}>Item with key "item-1"</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} .key=${'item-2'}>Item with key "item-2"</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} .key=${'item-3'}>Item with key "item-3"</${ENCHANTED_LIST_ITEM_TAG}>
+          </${ENCHANTED_LIST_TAG}>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">Empty List</h3>
-          <enchanted-list></enchanted-list>
+          <${ENCHANTED_LIST_TAG}></${ENCHANTED_LIST_TAG}>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">Long List</h3>
-          <enchanted-list style="max-height: 200px; overflow-y: auto;">
-            <enchanted-list-item>Item 1</enchanted-list-item>
-            <enchanted-list-item>Item 2</enchanted-list-item>
-            <enchanted-list-item>Item 3</enchanted-list-item>
-            <enchanted-list-item>Item 4</enchanted-list-item>
-            <enchanted-list-item>Item 5</enchanted-list-item>
-            <enchanted-list-item>Item 6</enchanted-list-item>
-            <enchanted-list-item>Item 7</enchanted-list-item>
-            <enchanted-list-item>Item 8</enchanted-list-item>
-          </enchanted-list>
+          <${ENCHANTED_LIST_TAG} style="max-height: 200px; overflow-y: auto;">
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 1</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 2</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 3</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 4</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 5</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 6</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 7</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Item 8</${ENCHANTED_LIST_ITEM_TAG}>
+          </${ENCHANTED_LIST_TAG}>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">Mixed Content</h3>
-          <enchanted-list>
-            <enchanted-list-item ?isSelected=${true}>Selected with long text that wraps to multiple lines to show layout</enchanted-list-item>
-            <enchanted-list-item>Short item</enchanted-list-item>
-            <enchanted-list-item .key=${'custom-key'}>Item with custom key</enchanted-list-item>
-          </enchanted-list>
+          <${ENCHANTED_LIST_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} ?isSelected=${true}>Selected with long text that wraps to multiple lines to show layout</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG}>Short item</${ENCHANTED_LIST_ITEM_TAG}>
+            <${ENCHANTED_LIST_ITEM_TAG} .key=${'custom-key'}>Item with custom key</${ENCHANTED_LIST_ITEM_TAG}>
+          </${ENCHANTED_LIST_TAG}>
         </div>
       </div>
     `;

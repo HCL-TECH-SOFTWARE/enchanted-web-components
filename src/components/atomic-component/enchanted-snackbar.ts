@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit/static-html.js';
+import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -28,8 +29,10 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--ou
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
+import { generateIconTagName, ENCHANTED_CIRCULAR_PROGRESS_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../tags';
 
-@customElement('enchanted-snackbar')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-snackbar.ts');
+
 export class EnchantedSnackbar extends EnchantedAcBaseElement {
 
     @property({ type: String }) message = '';
@@ -40,7 +43,7 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
         // progresscolor is HCLSOFTWAREBLUE09, trackcolor is the hex equivalent of Enchanted Palette WHITE15P
         return html`
           <div part="${SNACKBAR_PARTS.SNACKBAR_PROGRESS}">
-            <enchanted-circular-progress
+            <${ENCHANTED_CIRCULAR_PROGRESS_TAG}
               size="36" strokewidth="2"
               progresscolor="#B3D9F8"
               trackcolor="#ffffff26"
@@ -50,13 +53,17 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
       } else {
         switch (this.type) {
           case SNACKBAR_TYPE.SNACKBAR_INFO:
-            return html`<icon-information size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-information>`;
+            return html`<${generateIconTagName('icon-information')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-information')}>`;
           case SNACKBAR_TYPE.SNACKBAR_WARNING:
-            return html`<icon-warning-alt size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-warning-alt>`;
+            return html`<${generateIconTagName('icon-warning-alt')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-warning-alt')}>`;
           case SNACKBAR_TYPE.SNACKBAR_ERROR:
-            return html`<icon-warning size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-warning>`;
+            return html`<${generateIconTagName('icon-warning')} size="16" data-test-id="enchanted-snackbar-icon" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-warning')}>`;
           case SNACKBAR_TYPE.SNACKBAR_SUCCESS:
-            return html`<icon-checkmark-outline size="16" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}"></icon-checkmark-outline>`;
+            return html`<${generateIconTagName('icon-checkmark-outline')} size="16" part="${SNACKBAR_PARTS.SNACKBAR_ICON} icon-${this.type}">
+            </${generateIconTagName('icon-checkmark-outline')}>`;
         }
       }
     }
@@ -78,8 +85,8 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
     }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-snackbar': EnchantedSnackbar;
-  }
+if (!customElements.get(ENCHANTED_SNACKBAR_TAG_NAME)) {
+  customElements.define(ENCHANTED_SNACKBAR_TAG_NAME, EnchantedSnackbar);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_SNACKBAR_TAG_NAME);
 }

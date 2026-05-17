@@ -13,11 +13,13 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { html } from 'lit/static-html.js';
+import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { localized } from '@lit/localize';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -32,11 +34,13 @@ import { EnchantedInputFieldType, OptionData } from '../../types/enchanted-selec
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/caret--down';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { generateIconTagName, ENCHANTED_BUTTON_TAG, ENCHANTED_LIST_ITEM_TAG, ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG, ENCHANTED_SELECT_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-select.ts');
 
 /**
  * Select component.
  */
-@customElement('enchanted-select')
 @localized()
 export class EnchantedInputSelect extends EnchantedAcBaseElement {
 
@@ -152,7 +156,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
   
   private getSelectedOption(option: string | OptionData) {
     return html`
-      <enchanted-list-item
+      <${ENCHANTED_LIST_ITEM_TAG}
         @pointerdown=${this.handleListItemClick}
         exportparts="${Object.values(LIST_ITEM_PARTS).join(',')}" 
         tabindex=0
@@ -163,7 +167,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
         aria-selected="${(typeof option === 'string' ? this.selectedValue === option : this.selectedId === (option as OptionData)?.id) ? 'true' : 'false'}"
         id="${typeof option === 'string' ? uuid() : (option as OptionData).id || option}">
         ${typeof option === 'string' ? option : (option as OptionData).name || option}
-      </enchanted-list-item>
+      </${ENCHANTED_LIST_ITEM_TAG}>
     `;
   }
 
@@ -171,7 +175,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
     event.stopPropagation();
     this.toggleDropDown = !this.toggleDropDown;
     if (await this.updateComplete && this.toggleDropDown) {
-      this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+      this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_TAG_NAME));
     }
   }
 
@@ -240,7 +244,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
       case 'Enter':
         event.preventDefault(); 
         if (await this.updateComplete) {
-          this.listItems = Array.from(this.renderRoot.querySelectorAll('enchanted-list-item'));
+          this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_TAG_NAME));
         }
         if (this.currentFocusedItem) {
           this.currentFocusedItem.click();
@@ -329,13 +333,13 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
             </label>
           ` : nothing}
         </div>
-        <enchanted-button 
+        <${ENCHANTED_BUTTON_TAG} 
           buttontext=${buttonText}
           @click=${debounce(this.handleButtonClick, 300)}
           exportparts="${Object.values(BUTTON_PARTS).join(',')}"
           data-testid="enchanted-select-button"
           variant="button"
-          .icon="${!this.hiddenIcon ? html`<icon-caret-down size="16" color="rgba(0, 0, 0, 0.60)"></icon-caret-down>` : nothing}"
+          .icon="${!this.hiddenIcon ? html`<${generateIconTagName('icon-caret-down')} size="16" color="rgba(0, 0, 0, 0.60)"></${generateIconTagName('icon-caret-down')}>` : nothing}"
           ?endicon="${true}"
           ?disabled=${this.disabled}
           id="button-${this.field}"
@@ -343,20 +347,20 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
           ariaExpanded="${this.toggleDropDown ? 'true' : 'false'}"
           ariaLabel="${this.ariaLabel}"
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
         ${!this.disabled && this.toggleDropDown ? html `
-          <enchanted-list exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="enchanted-select-list" id="list-${this.field}" role="listbox"
+          <${ENCHANTED_LIST_TAG} exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="enchanted-select-list" id="list-${this.field}" role="listbox"
             @mousedown=${() => { this.ignoreNextFocusOut = true; }}>
             ${options.map((option: string | OptionData) => {return this.getSelectedOption(option);})}
-          </enchanted-list>
+          </${ENCHANTED_LIST_TAG}>
         ` : nothing}
       </div>
     `;
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-select': EnchantedInputSelect
-  }
+if (!customElements.get(ENCHANTED_SELECT_TAG_NAME)) {
+  customElements.define(ENCHANTED_SELECT_TAG_NAME, EnchantedInputSelect);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_SELECT_TAG_NAME);
 }

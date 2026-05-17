@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-circular-progress';
+import { ENCHANTED_CIRCULAR_PROGRESS_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Feedback/enchanted-circular-progress',
@@ -103,7 +104,7 @@ type Story = StoryObj<{
 export const Default: Story = {
   render: (args) => {
     return html`
-      <enchanted-circular-progress
+      <${ENCHANTED_CIRCULAR_PROGRESS_TAG}
         .size=${args.size}
         .strokewidth=${args.strokewidth}
         .trackcolor=${args.trackcolor}
@@ -111,7 +112,7 @@ export const Default: Story = {
         ?disable-shrink=${args.disableShrink}
         .label=${args.label}
         ?show-label=${args.showLabel}
-      ></enchanted-circular-progress>
+      ></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
     `;
   },
 };
@@ -158,142 +159,142 @@ export const AllStates: Story = {
         <h3 style="${sectionHeaderStyle}">Thinking State with Label</h3>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Thinking...(24px)</span>
-          <enchanted-circular-progress size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Thinking..." show-label="true"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Thinking..." show-label="true"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Thinking...(40px)</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Thinking..." show-label="true"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Thinking..." show-label="true"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Custom: Processing...</span>
-          <enchanted-circular-progress size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Processing..." show-label="true"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Processing..." show-label="true"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Custom: Loading...</span>
-          <enchanted-circular-progress size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Loading..." show-label="true"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="24" strokewidth="2.2" trackcolor="#D6D6D6" progresscolor="#0550DC" label="Loading..." show-label="true"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
 
         <!-- Size Variations -->
         <h3 style="${sectionHeaderStyle}">Size Variations</h3>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Extra Small (20px)</span>
-          <enchanted-circular-progress size="20" strokewidth="2" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="20" strokewidth="2" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Small (30px)</span>
-          <enchanted-circular-progress size="30" strokewidth="3" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="30" strokewidth="3" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Default (40px)</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Medium (60px)</span>
-          <enchanted-circular-progress size="60" strokewidth="4" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="60" strokewidth="4" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Large (80px)</span>
-          <enchanted-circular-progress size="80" strokewidth="5" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="80" strokewidth="5" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Extra Large (120px)</span>
-          <enchanted-circular-progress size="120" strokewidth="6" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="120" strokewidth="6" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
 
         <!-- Stroke Width Variations -->
         <h3 style="${sectionHeaderStyle}">Stroke Width Variations</h3>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Very Thin (1px)</span>
-          <enchanted-circular-progress size="40" strokewidth="1" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="1" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Thin (2px)</span>
-          <enchanted-circular-progress size="40" strokewidth="2" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="2" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Default (3.6px)</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Thick (6px)</span>
-          <enchanted-circular-progress size="40" strokewidth="6" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="6" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Very Thick (10px)</span>
-          <enchanted-circular-progress size="40" strokewidth="10" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="10" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Extra Thick (15px)</span>
-          <enchanted-circular-progress size="40" strokewidth="15" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="15" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
 
         <!-- Color Variations -->
         <h3 style="${sectionHeaderStyle}">Color Variations</h3>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Default Blue</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Success Green</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#E8F5E9" progresscolor="#2E7D32"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#E8F5E9" progresscolor="#2E7D32"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Warning Orange</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#FFF3E0" progresscolor="#F57C00"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#FFF3E0" progresscolor="#F57C00"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Error Red</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#FFE5E5" progresscolor="#e61010"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#FFE5E5" progresscolor="#e61010"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Purple</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#F3E5F5" progresscolor="#7B1FA2"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#F3E5F5" progresscolor="#7B1FA2"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Dark Theme</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#424242" progresscolor="#90CAF9"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#424242" progresscolor="#90CAF9"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">High Contrast</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#000000" progresscolor="#FFFF00"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#000000" progresscolor="#FFFF00"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Monochrome</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#E0E0E0" progresscolor="#424242"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#E0E0E0" progresscolor="#424242"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
 
         <!-- Animation States -->
         <h3 style="${sectionHeaderStyle}">Animation States</h3>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Default Animation</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Disable Shrink</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC" disable-shrink></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="#D6D6D6" progresscolor="#0550DC" disable-shrink></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Large + Disable Shrink</span>
-          <enchanted-circular-progress size="80" strokewidth="5" trackcolor="#D6D6D6" progresscolor="#0550DC" disable-shrink></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="80" strokewidth="5" trackcolor="#D6D6D6" progresscolor="#0550DC" disable-shrink></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
 
         <!-- Edge Cases -->
         <h3 style="${sectionHeaderStyle}">Edge Cases</h3>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Minimum Size (20px)</span>
-          <enchanted-circular-progress size="20" strokewidth="2" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="20" strokewidth="2" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Maximum Stroke<br/>(Half Radius)</span>
-          <enchanted-circular-progress size="60" strokewidth="20" trackcolor="#D6D6D6" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="60" strokewidth="20" trackcolor="#D6D6D6" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Transparent Track</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="transparent" progresscolor="#0550DC"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="transparent" progresscolor="#0550DC"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Semi-transparent</span>
-          <enchanted-circular-progress size="40" strokewidth="3.6" trackcolor="rgba(214, 214, 214, 0.3)" progresscolor="rgba(5, 80, 220, 0.7)"></enchanted-circular-progress>
+          <${ENCHANTED_CIRCULAR_PROGRESS_TAG} size="40" strokewidth="3.6" trackcolor="rgba(214, 214, 214, 0.3)" progresscolor="rgba(5, 80, 220, 0.7)"></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
         </div>
       </div>
     `;

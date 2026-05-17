@@ -14,10 +14,11 @@
  * ======================================================================== */
 
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-popover';
 import '../components/atomic-component/enchanted-button';
 import { EnchantedPopoverArrowPosition } from '../types/enchanted-popover';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_POPOVER_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedPopoverProps
@@ -157,7 +158,7 @@ export const EnchantedPopoverStory: Story = {
   name: 'Default',
   render: (args) => {
     return html`
-    <enchanted-popover
+    <${ENCHANTED_POPOVER_TAG}
       ?open=${args.open}
       label=${args.label}
       text=${args.text}
@@ -170,8 +171,8 @@ export const EnchantedPopoverStory: Story = {
       ?disableHover=${args.disableHover}
       style="position: absolute; top: 50%; left: 45%;"
     >
-      <enchanted-button slot="target" buttontext="${args.buttontext}"></enchanted-button>
-    </enchanted-popover>
+      <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="${args.buttontext}"></${ENCHANTED_BUTTON_TAG}>
+    </${ENCHANTED_POPOVER_TAG}>
   `;
   },
 };
@@ -234,7 +235,7 @@ export const AllStates: Story = {
         <h3>Arrow Positions (Light Theme)</h3>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Top"
               text="Arrow at top"
@@ -243,11 +244,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Top"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Top"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Top Left"
               text="Arrow at top-left"
@@ -256,11 +257,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP_LEFT}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Top Left"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Top Left"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Top Right"
               text="Arrow at top-right"
@@ -269,13 +270,13 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP_RIGHT}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Top Right"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Top Right"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Bottom"
               text="Arrow at bottom"
@@ -284,11 +285,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.BOTTOM}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Bottom"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Bottom"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Bottom Left"
               text="Arrow at bottom-left"
@@ -297,11 +298,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.BOTTOM_LEFT}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Bottom Left"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Bottom Left"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Bottom Right"
               text="Arrow at bottom-right"
@@ -310,13 +311,13 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.BOTTOM_RIGHT}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Bottom Right"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Bottom Right"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Left"
               text="Arrow at left"
@@ -325,11 +326,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.LEFT}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Left"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Left"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Left Top"
               text="Arrow at left-top"
@@ -338,11 +339,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.LEFT_TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Left Top"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Left Top"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Left Bottom"
               text="Arrow at left-bottom"
@@ -351,13 +352,13 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.LEFT_BOTTOM}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Left Bottom"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Left Bottom"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Right"
               text="Arrow at right"
@@ -366,11 +367,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.RIGHT}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Right"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Right"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Right Top"
               text="Arrow at right-top"
@@ -379,11 +380,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.RIGHT_TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Right Top"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Right Top"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Right Bottom"
               text="Arrow at right-bottom"
@@ -392,11 +393,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.RIGHT_BOTTOM}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Right Bottom"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Right Bottom"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="No Arrow"
               text="Arrow set to NONE"
@@ -405,8 +406,8 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.NONE}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="No Arrow"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="No Arrow"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
       </div>
@@ -416,7 +417,7 @@ export const AllStates: Story = {
         <h3>Dark Theme (Inverse)</h3>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Dark Theme"
               text="Popover with inverse styling"
@@ -426,11 +427,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Dark Top"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Dark Top"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Dark Right"
               text="Dark theme with right arrow"
@@ -440,11 +441,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.RIGHT}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Dark Right"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Dark Right"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Dark Bottom"
               text="Dark theme with bottom arrow"
@@ -454,8 +455,8 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.BOTTOM}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Dark Bottom"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Dark Bottom"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
       </div>
@@ -465,7 +466,7 @@ export const AllStates: Story = {
         <h3>Content Variations</h3>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Label Only"
               ?showLabel=${true}
@@ -473,11 +474,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Label Only"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Label Only"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               text="Text only, no label shown"
               ?showLabel=${false}
@@ -485,11 +486,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Text Only"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Text Only"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="With Close"
               text="Popover with close button"
@@ -499,8 +500,8 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="With Close"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="With Close"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
       </div>
@@ -510,7 +511,7 @@ export const AllStates: Story = {
         <h3>Layout Options</h3>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="No Padding"
               text="Content without internal padding"
@@ -519,11 +520,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP}
               ?withpadding=${false}
             >
-              <enchanted-button slot="target" buttontext="No Padding"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="No Padding"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="With Padding"
               text="Content with internal padding"
@@ -532,11 +533,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="With Padding"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="With Padding"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Hover Disabled"
               text="Must be controlled via open property"
@@ -547,8 +548,8 @@ export const AllStates: Story = {
               ?withpadding=${true}
               ?disableHover=${true}
             >
-              <enchanted-button slot="target" buttontext="No Hover"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="No Hover"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
       </div>
@@ -558,7 +559,7 @@ export const AllStates: Story = {
         <h3>Combined States</h3>
         <div class="popover-row">
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               label="Full Featured"
               text="Dark theme with close icon, padding, and custom arrow"
@@ -569,11 +570,11 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.RIGHT_TOP}
               ?withpadding=${true}
             >
-              <enchanted-button slot="target" buttontext="Full Featured"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Full Featured"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
           <div class="popover-item">
-            <enchanted-popover
+            <${ENCHANTED_POPOVER_TAG}
               ?open=${true}
               text="Minimal popover with no arrow or padding"
               ?showLabel=${false}
@@ -581,8 +582,8 @@ export const AllStates: Story = {
               .arrow=${EnchantedPopoverArrowPosition.NONE}
               ?withpadding=${false}
             >
-              <enchanted-button slot="target" buttontext="Minimal"></enchanted-button>
-            </enchanted-popover>
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Minimal"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_POPOVER_TAG}>
           </div>
         </div>
       </div>

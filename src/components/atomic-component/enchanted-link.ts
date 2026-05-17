@@ -13,16 +13,19 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, nothing } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Helper imports
 import { PAGINATION_PARTS } from '../../types/cssClassEnums';
+import { ENCHANTED_LINK_TAG_NAME } from '../tags';
 
-@customElement('enchanted-link')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-link.ts');
+
 export class EnchantedAnchorTag extends EnchantedAcBaseElement {
   @property({ type: String }) url = '';
   @property({ type: Number }) weight = 0;
@@ -86,8 +89,9 @@ export class EnchantedAnchorTag extends EnchantedAcBaseElement {
     `;
   }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-link': EnchantedAnchorTag;
-  }
+
+if (!customElements.get(ENCHANTED_LINK_TAG_NAME)) {
+  customElements.define(ENCHANTED_LINK_TAG_NAME, EnchantedAnchorTag);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_LINK_TAG_NAME);
 }

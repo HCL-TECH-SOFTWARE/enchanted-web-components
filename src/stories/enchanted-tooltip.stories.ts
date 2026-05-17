@@ -13,10 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-tooltip';
 import '../components/atomic-component/enchanted-button';
 import { TOOLTIP_PLACEMENT, TOOLTIP_VARIANT, TOOLTIP_TYPE } from '../types/cssClassEnums';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_TOOLTIP_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedTooltipProps
@@ -142,7 +143,7 @@ const meta: Meta<EnchantedTooltipProps> = {
   },
   render: (args) => {
     return html`
-      <enchanted-tooltip
+      <${ENCHANTED_TOOLTIP_TAG}
         tooltiptext="${args.tooltiptext}"
         placement="${args.placement}"
         tooltipSize="${args.tooltipSize}"
@@ -154,8 +155,8 @@ const meta: Meta<EnchantedTooltipProps> = {
         .minimumWidth=${args.minimumWidth}
         ?isRTL=${args.isRTL}
       >
-        <enchanted-button slot="target" buttontext="Show Tooltip"></enchanted-button>
-      </enchanted-tooltip>
+        <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Show Tooltip"></${ENCHANTED_BUTTON_TAG}>
+      </${ENCHANTED_TOOLTIP_TAG}>
     `;
   },
 };
@@ -174,86 +175,86 @@ export const AllStates: StoryObj = {
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; place-items: center;">
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Top</p>
-              <enchanted-tooltip tooltiptext="Top placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" show>
-                <enchanted-button slot="target" buttontext="Top"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Top placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Top"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Top Start</p>
-              <enchanted-tooltip tooltiptext="Top start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP_START}" show>
-                <enchanted-button slot="target" buttontext="Top Start"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Top start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP_START}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Top Start"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Top End</p>
-              <enchanted-tooltip tooltiptext="Top end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP_END}" show>
-                <enchanted-button slot="target" buttontext="Top End"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Top end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP_END}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Top End"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Bottom</p>
-              <enchanted-tooltip tooltiptext="Bottom placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM}" show>
-                <enchanted-button slot="target" buttontext="Bottom"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Bottom placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Bottom"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Bottom Start</p>
-              <enchanted-tooltip tooltiptext="Bottom start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_START}" show>
-                <enchanted-button slot="target" buttontext="Bottom Start"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Bottom start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_START}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Bottom Start"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Bottom End</p>
-              <enchanted-tooltip tooltiptext="Bottom end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_END}" show>
-                <enchanted-button slot="target" buttontext="Bottom End"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Bottom end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_END}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Bottom End"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Left</p>
-              <enchanted-tooltip tooltiptext="Left placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_LEFT}" show>
-                <enchanted-button slot="target" buttontext="Left"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Left placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_LEFT}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Left"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Left Start</p>
-              <enchanted-tooltip tooltiptext="Left start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_LEFT_START}" show>
-                <enchanted-button slot="target" buttontext="Left Start"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Left start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_LEFT_START}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Left Start"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Left End</p>
-              <enchanted-tooltip tooltiptext="Left end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_LEFT_END}" show>
-                <enchanted-button slot="target" buttontext="Left End"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Left end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_LEFT_END}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Left End"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Right</p>
-              <enchanted-tooltip tooltiptext="Right placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT}" show>
-                <enchanted-button slot="target" buttontext="Right"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Right placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Right"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Right Start</p>
-              <enchanted-tooltip tooltiptext="Right start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_START}" show>
-                <enchanted-button slot="target" buttontext="Right Start"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Right start placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_START}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Right Start"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 12px;">Right End</p>
-              <enchanted-tooltip tooltiptext="Right end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_END}" show>
-                <enchanted-button slot="target" buttontext="Right End"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Right end placement" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_END}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Right End"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
           </div>
         </div>
@@ -263,16 +264,16 @@ export const AllStates: StoryObj = {
           <div style="display: flex; gap: 40px; align-items: center;">
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">Small (Default)</p>
-              <enchanted-tooltip tooltiptext="Small tooltip size" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" tooltipSize="${TOOLTIP_VARIANT.TOOLTIP_SMALL}" show>
-                <enchanted-button slot="target" buttontext="Small Tooltip"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Small tooltip size" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" tooltipSize="${TOOLTIP_VARIANT.TOOLTIP_SMALL}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Small Tooltip"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">Medium</p>
-              <enchanted-tooltip tooltiptext="Medium tooltip size" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" tooltipSize="${TOOLTIP_VARIANT.TOOLTIP_MEDIUM}" show>
-                <enchanted-button slot="target" buttontext="Medium Tooltip"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Medium tooltip size" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" tooltipSize="${TOOLTIP_VARIANT.TOOLTIP_MEDIUM}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Medium Tooltip"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
           </div>
         </div>
@@ -282,21 +283,22 @@ export const AllStates: StoryObj = {
           <div style="display: flex; gap: 40px; align-items: center;">
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">Single Line</p>
-              <enchanted-tooltip tooltiptext="This is a single line tooltip that stays on one line" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" tooltipType="${TOOLTIP_TYPE.TOOLTIP_SINGLE_LINE}" show>
-                <enchanted-button slot="target" buttontext="Single Line"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="This is a single line tooltip that stays on one line" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" 
+                tooltipType="${TOOLTIP_TYPE.TOOLTIP_SINGLE_LINE}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Single Line"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">Multi Line</p>
-              <enchanted-tooltip
+              <${ENCHANTED_TOOLTIP_TAG}
                 tooltiptext="This is a multi-line tooltip that can wrap text across multiple lines when it exceeds the maximum width"
                 placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}"
                 tooltipType="${TOOLTIP_TYPE.TOOLTIP_MULTI_LINE}"
                 show
               >
-                <enchanted-button slot="target" buttontext="Multi Line"></enchanted-button>
-              </enchanted-tooltip>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Multi Line"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
           </div>
         </div>
@@ -306,29 +308,29 @@ export const AllStates: StoryObj = {
           <div style="display: flex; gap: 40px; align-items: center;">
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">Custom Gap (20px)</p>
-              <enchanted-tooltip tooltiptext="Tooltip with 20px gap" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" .gap=${20} show>
-                <enchanted-button slot="target" buttontext="Large Gap"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Tooltip with 20px gap" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" .gap=${20} show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Large Gap"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">Minimum Width (200px)</p>
-              <enchanted-tooltip tooltiptext="Wide tooltip" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" .minimumWidth=${200} show>
-                <enchanted-button slot="target" buttontext="Wide Tooltip"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Wide tooltip" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" .minimumWidth=${200} show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Wide Tooltip"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">Multi-line Max Width (150px)</p>
-              <enchanted-tooltip
+              <${ENCHANTED_TOOLTIP_TAG}
                 tooltiptext="This tooltip has a narrow max width so it wraps sooner"
                 placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}"
                 tooltipType="${TOOLTIP_TYPE.TOOLTIP_MULTI_LINE}"
                 .multiLineMaxWidth=${150}
                 show
               >
-                <enchanted-button slot="target" buttontext="Narrow Wrap"></enchanted-button>
-              </enchanted-tooltip>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Narrow Wrap"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
           </div>
         </div>
@@ -338,16 +340,16 @@ export const AllStates: StoryObj = {
           <div style="display: flex; gap: 40px; align-items: center;">
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">LTR (Default)</p>
-              <enchanted-tooltip tooltiptext="Left to right text direction" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" show>
-                <enchanted-button slot="target" buttontext="LTR Tooltip"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Left to right text direction" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="LTR Tooltip"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
             
             <div style="text-align: center;">
               <p style="margin: 0 0 10px 0; font-weight: 600;">RTL</p>
-              <enchanted-tooltip tooltiptext="مرحبا بك في التلميح" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" ?isRTL=${true} show>
-                <enchanted-button slot="target" buttontext="RTL Tooltip"></enchanted-button>
-              </enchanted-tooltip>
+              <${ENCHANTED_TOOLTIP_TAG} tooltiptext="مرحبا بك في التلميح" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}" ?isRTL=${true} show>
+                <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="RTL Tooltip"></${ENCHANTED_BUTTON_TAG}>
+              </${ENCHANTED_TOOLTIP_TAG}>
             </div>
           </div>
         </div>
@@ -355,17 +357,17 @@ export const AllStates: StoryObj = {
         <div>
           <h3 style="margin: 0 0 20px 0;">Interactive (Hover to Show)</h3>
           <div style="display: flex; gap: 40px; align-items: center;">
-            <enchanted-tooltip tooltiptext="Hover over me to see the tooltip" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}">
-              <enchanted-button slot="target" buttontext="Hover Me"></enchanted-button>
-            </enchanted-tooltip>
+            <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Hover over me to see the tooltip" placement="${TOOLTIP_PLACEMENT.TOOLTIP_TOP}">
+              <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="Hover Me"></${ENCHANTED_BUTTON_TAG}>
+            </${ENCHANTED_TOOLTIP_TAG}>
             
-            <enchanted-tooltip tooltiptext="This tooltip appears on hover" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT}">
+            <${ENCHANTED_TOOLTIP_TAG} tooltiptext="This tooltip appears on hover" placement="${TOOLTIP_PLACEMENT.TOOLTIP_RIGHT}">
               <button slot="target" style="padding: 8px 16px; cursor: pointer;">Custom Target</button>
-            </enchanted-tooltip>
+            </${ENCHANTED_TOOLTIP_TAG}>
             
-            <enchanted-tooltip tooltiptext="Works with any element" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM}">
+            <${ENCHANTED_TOOLTIP_TAG} tooltiptext="Works with any element" placement="${TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM}">
               <span slot="target" style="padding: 8px; border: 1px solid #ccc; cursor: help;">ⓘ Info Icon</span>
-            </enchanted-tooltip>
+            </${ENCHANTED_TOOLTIP_TAG}>
           </div>
         </div>
       </div>

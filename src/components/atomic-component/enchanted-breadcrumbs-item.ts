@@ -13,8 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
+import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -28,6 +30,10 @@ import { BREADCRUMBS_ICON_TYPE } from '../../types/enchanted-breadcrumbs';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/home';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 
+import { generateIconTagName, ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-breadcrumbs-item.ts');
+
 export interface PathType {
   title?: string,
   parentId?: string,
@@ -39,7 +45,6 @@ export interface PathType {
 /**
  * Breadcrumb item component.
  */
-@customElement('enchanted-breadcrumbs-item')
 export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
   @property({ type: Object }) path?: PathType;
   @property({ type: String }) partProp?: String;
@@ -66,7 +71,7 @@ export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
   renderIcon() {
     // Check if icon is provided, then render it
     if (this.path?.icon) {
-      return html`<enchanted-svg-icon .icon=${this.path.icon} part=${BREADCRUMBS_PART.BREADCRUMBS_ICON} color="#00000099" data-testid="breadcrumbs-item-icon"/>`;
+      return html`<${ENCHANTED_SVG_ICON_TAG} .icon=${this.path.icon} part=${BREADCRUMBS_PART.BREADCRUMBS_ICON} color="#00000099" data-testid="breadcrumbs-item-icon"></${ENCHANTED_SVG_ICON_TAG}>`;
     }
 
     // If iconName is provided, render the corresponding icon
@@ -82,10 +87,10 @@ export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
 
       switch (this.path.iconName) {
         case BREADCRUMBS_ICON_TYPE.HOME:
-          return html`<icon-home size="16" part=${part}></icon-home>`;
+          return html`<${generateIconTagName('icon-home')} size="16" part=${part}></${generateIconTagName('icon-home')}>`;
 
         case BREADCRUMBS_ICON_TYPE.INFORMATION:
-          return html`<icon-information size="16" part=${part}></icon-information>`;
+          return html`<${generateIconTagName('icon-information')} size="16" part=${part}></${generateIconTagName('icon-information')}>`;
 
         default:
           // Return nothing for other icons
@@ -111,8 +116,8 @@ export class EnchantedBreadcrumbsItem extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-breadcrumbs-item': EnchantedBreadcrumbsItem
-  }
+if (!customElements.get(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME)) {
+  customElements.define(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME, EnchantedBreadcrumbsItem);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME);
 }

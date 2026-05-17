@@ -14,8 +14,10 @@
  * ======================================================================== */
 
 // External imports
-import { customElement, property } from 'lit/decorators.js';
-import { html, nothing, TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
+import { nothing, TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
+import createDebug from 'debug';
 import { isLTR } from '../localization';
 
 // Component imports
@@ -26,8 +28,10 @@ import './enchanted-icon-button';
 // Helper imports
 import { ICON_BUTTON_SIZES, TOGGLE_BUTTON_PARTS } from '../../types/cssClassEnums';
 import { ICON_BUTTON_EXPORT_PARTS } from '../exportParts';
+import { ENCHANTED_BADGE_TAG, ENCHANTED_ICON_BUTTON_TAG, ENCHANTED_TOGGLE_BUTTON_TAG_NAME } from '../tags';
 
-@customElement('enchanted-toggle-button')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-toggle-button.ts');
+
 export class EnchantedToggleButton extends EnchantedAcBaseElement {
   @property({ type: Boolean })
   singleButton = false;
@@ -142,14 +146,14 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
         ${this.singleButton === true ? html`
           ${this.showBadge === true
           ? html`
-            <enchanted-badge 
+            <${ENCHANTED_BADGE_TAG} 
               data-testid="enchanted-badge" 
               part='${isLTR()
                 ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE
                 :`${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE} ${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE_RTL}`}'
-            ></enchanted-badge>`
+            ></${ENCHANTED_BADGE_TAG}>`
           : ''}
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             title=${this.singleButtonTitle}
             aria-label=${this.singleButtonAria}
             role='button'
@@ -162,7 +166,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
             data-testid="enchanted-toggle-single-button"
             exportparts="${ICON_BUTTON_EXPORT_PARTS}"
           >
-          </enchanted-icon-button>
+          </${ENCHANTED_ICON_BUTTON_TAG}>
         `
         : html`
           <button
@@ -189,8 +193,8 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-toggle-button': EnchantedToggleButton;
-  }
+if (!customElements.get(ENCHANTED_TOGGLE_BUTTON_TAG_NAME)) {
+  customElements.define(ENCHANTED_TOGGLE_BUTTON_TAG_NAME, EnchantedToggleButton);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
 }

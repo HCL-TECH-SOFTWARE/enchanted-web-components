@@ -13,8 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
-import { html, TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
+import { TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -24,8 +26,11 @@ import './enchanted-button';
 import { ARIA_ROLES, ICON_BUTTON_SIZES } from '../../types/cssClassEnums';
 import { ICON_BUTTON_EXPORT_PARTS } from '../exportParts';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { EnchantedButton } from './enchanted-button';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME } from '../tags';
 
-@customElement('enchanted-icon-button')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-icon-button.ts');
+
 export class EnchantedIconButton extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
     ...EnchantedAcBaseElement.shadowRootOptions,
@@ -61,13 +66,13 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
   ariaLabel: string = 'Icon button'; // Provide a default accessible name
 
   public _focusButton() {
-    const button = this.renderRoot.querySelector('enchanted-button');
+    const button: EnchantedButton | null = this.renderRoot.querySelector(ENCHANTED_BUTTON_TAG_NAME);
     button?._focusButton();
   }
 
   render() {
     return html`
-      <enchanted-button
+      <${ENCHANTED_BUTTON_TAG}
         outlined="false"
         data-testid="enchanted-icon-button"
         ?inverseColor=${this.inverseColor}
@@ -83,7 +88,7 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
         @click=${this._handleClick}
         @keydown=${this._handleKeyDown} // Add keyboard event listener
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `;
   }
 
@@ -95,8 +100,8 @@ export class EnchantedIconButton extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-icon-button': EnchantedIconButton;
-  }
+if (!customElements.get(ENCHANTED_ICON_BUTTON_TAG_NAME)) {
+  customElements.define(ENCHANTED_ICON_BUTTON_TAG_NAME, EnchantedIconButton);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ICON_BUTTON_TAG_NAME);
 }

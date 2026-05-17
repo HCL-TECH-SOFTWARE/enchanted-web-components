@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from "lit";
+import { html } from 'lit/static-html.js';
 import { expect, $, browser } from "@wdio/globals";
 
 // Helper import
@@ -21,90 +21,91 @@ import { renderComponent } from "../../utils";
 
 // Component import
 import "../../../components/atomic-component/enchanted-accordion";
+import { ENCHANTED_ACCORDION_TAG, ENCHANTED_ACCORDION_TAG_NAME } from '../../../components/tags';
 
 afterEach(() => {
   document.body.innerHTML = "";
 });
 async function waitForAccordion() {
-  const accordion = await $("enchanted-accordion");
+  const accordion = await $(`${ENCHANTED_ACCORDION_TAG_NAME}`);
   await accordion.waitForExist({ timeout: 1000 });
   return accordion;
 }
-describe("enchanted-accordion - component test", () => {
+describe(`${ENCHANTED_ACCORDION_TAG_NAME} - component test`, () => {
   beforeEach(async () => {
-    renderComponent(html`<enchanted-accordion showCheckbox type="outlined">
+    renderComponent(html`<${ENCHANTED_ACCORDION_TAG} showCheckbox type="outlined">
       <span slot="header">My accordion Header</span>
       <div slot="accordion-items">tests</div>
-    </enchanted-accordion>`);
+    </${ENCHANTED_ACCORDION_TAG}>`);
   });
-  it("enchanted-accordion - should render the component with correct content", async () => {
+  it('should render the component with correct content', async () => {
     const accordion = await waitForAccordion();
     await expect(accordion).toBeExisting();
-    const header = await $('enchanted-accordion span[slot="header"]');
+    const header = await $(`${ENCHANTED_ACCORDION_TAG_NAME} span[slot="header"]`);
     await header.waitForExist();
     await expect(header).toHaveText("My accordion Header");
   });
 });
-describe("enchanted-accordion - Attributes tests- showCheckbox, showSecondaryText, no-outline", () => {
+describe(`${ENCHANTED_ACCORDION_TAG_NAME} - Attributes tests- showCheckbox, showSecondaryText, no-outline`, () => {
   beforeEach(async () => {
-    renderComponent(html`<enchanted-accordion
+    renderComponent(html`<${ENCHANTED_ACCORDION_TAG}
       showCheckbox
       showSecondaryText
       type="no-outline"
     >
       <span slot="header">My accordion Header</span>
       <div slot="accordion-items">tests</div>
-    </enchanted-accordion>`);
+    </${ENCHANTED_ACCORDION_TAG}>`);
   });
-  it("enchanted-accordion - should have showCheckbox property set to true", async () => {
+  it('should have showCheckbox property set to true', async () => {
     const accordion = await waitForAccordion();
     const showCheckbox = await accordion.getProperty("showCheckbox");
     await expect(showCheckbox).toBe(true);
   });
-  it("enchanted-accordion - should have showSecondaryText property set to true", async () => {
+  it('should have showSecondaryText property set to true', async () => {
     const accordion = await waitForAccordion();
     const showSecondaryText = await accordion.getProperty("showSecondaryText");
     await expect(showSecondaryText).toBe(true);
   });
 
-  it("enchanted-accordion - should have type = no-outline", async () => {
+  it('should have type = no-outline', async () => {
     const accordion = await waitForAccordion();
     await expect(accordion).toHaveAttribute("type", "no-outline");
   });
 
-  it("enchanted-accordion - should not have Disabled property set", async () => {
+  it('should not have Disabled property set', async () => {
     const accordion = await waitForAccordion();
     await expect(accordion).not.toHaveAttribute("disabled");
   });
 });
-describe(" enchanted-accordion - Attributes tests - open, disabled, type", () => {
+describe(`${ENCHANTED_ACCORDION_TAG_NAME} - Attributes tests - open, disabled, type`, () => {
   beforeEach(async () => {
-    renderComponent(html`<enchanted-accordion open disabled type="outlined">
+    renderComponent(html`<${ENCHANTED_ACCORDION_TAG} open disabled type="outlined">
       <span slot="header">My accordion Header</span>
       <div slot="accordion-items">tests</div>
-    </enchanted-accordion>`);
+    </${ENCHANTED_ACCORDION_TAG}>`);
   });
-  it("enchanted-accordion - should have disabled property set to true", async () => {
+  it('should have disabled property set to true', async () => {
     const accordion = await waitForAccordion();
     const disabled = await accordion.getProperty("disabled");
     await expect(disabled).toBe(true);
   });
 
-  it("enchanted-accordion - should have type = outlined", async () => {
+  it('should have type = outlined', async () => {
     const accordion = await waitForAccordion();
     await expect(accordion).toHaveAttribute("type", "outlined");
   });
-  it("enchanted-accordion - should have open property set to true", async () => {
+  it('should have open property set to true', async () => {
     const accordion = await waitForAccordion();
     const open = await accordion.getProperty("open");
     await expect(open).toBe(true);
   });
-  it("enchanted-accordion - should render the accordion-items slot content when open state", async () => {
-    const content = await $('enchanted-accordion div[slot="accordion-items"]');
+  it('should render the accordion-items slot content when open state', async () => {
+    const content = await $(`${ENCHANTED_ACCORDION_TAG_NAME} div[slot="accordion-items"]`);
     await expect(content).toBeExisting();
     await expect(content).toHaveText("tests");
   });
-  it("enchanted-accordion - should not have showCheckbox property and showSecondaryText property", async () => {
+  it('should not have showCheckbox property and showSecondaryText property', async () => {
     const accordion = await waitForAccordion();
     const showCheckbox = await accordion.getProperty("showCheckbox");
     const showSecondaryText = await accordion.getProperty("showSecondaryText");
@@ -112,16 +113,16 @@ describe(" enchanted-accordion - Attributes tests - open, disabled, type", () =>
     await expect(showSecondaryText).toBe(false);
   });
 });
-describe("enchanted-accordion - toggle behavior tests (click on header)", () => {
+describe(`${ENCHANTED_ACCORDION_TAG_NAME} - toggle behavior tests (click on header)`, () => {
   beforeEach(async () => {
-    renderComponent(html`<enchanted-accordion>
+    renderComponent(html`<${ENCHANTED_ACCORDION_TAG}>
       <span slot="header">My accordion Header</span>
       <div slot="accordion-items">tests</div>
-    </enchanted-accordion>`);
+    </${ENCHANTED_ACCORDION_TAG}>`);
   });
-  it("enchanted-accordion - should toggle open state on header click", async () => {
+  it('should toggle open state on header click', async () => {
     const accordion = await waitForAccordion();
-    const header = await $('enchanted-accordion span[slot="header"]');
+    const header = await $(`${ENCHANTED_ACCORDION_TAG_NAME} span[slot="header"]`);
     await header.waitForExist();
 
     const isOpenInitially = await accordion.getProperty("open");

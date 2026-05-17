@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
@@ -26,102 +27,99 @@ import { initSessionStorage } from '../../utils';
 // Icon imports
 import { svgIconSearch } from '../../assets/svg-search';
 import { EnchantedIconButton } from '../../../components/atomic-component/enchanted-icon-button';
+import { ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG, ENCHANTED_ICON_BUTTON_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedIconButton component testing', () => {
+describe(`${ENCHANTED_ICON_BUTTON_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedIconButton - should render without crashing', async () => {
-    let component = document.createElement('enchanted-icon-button');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_ICON_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedIconButton - removes component from document body and validates removal', async () => {
-    let component = document.createElement('EnchantedIconButton');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_ICON_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedIconButton - should render with attribute withPadding', async () => {
+  it('should render with attribute withPadding', async () => {
     render(
       html`
-        <enchanted-icon-button withPadding=true></enchanted-icon-button>
+        <${ENCHANTED_ICON_BUTTON_TAG} withPadding=true></${ENCHANTED_ICON_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = $('enchanted-icon-button').getAttribute('withPadding');
+    let component = $(ENCHANTED_ICON_BUTTON_TAG_NAME).getAttribute('withPadding');
     expect(await component).toBe("true");
   });
 
-  it('EnchantedIconButton - should render with attribute size', async () => {
+  it('should render with attribute size', async () => {
     render(
       html`
-        <enchanted-icon-button size='small' withPadding=true imgurl='../../static/assets/add-icon.svg'></enchanted-icon-button>
+        <${ENCHANTED_ICON_BUTTON_TAG} size='small' withPadding=true imgurl='../../static/assets/add-icon.svg'></${ENCHANTED_ICON_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-icon-button').getElement();
+    let component = await $(ENCHANTED_ICON_BUTTON_TAG_NAME).getElement();
     await expect(component).toHaveAttribute('size', ICON_BUTTON_SIZES.SMALL);
     await expect(component).toHaveAttribute('withPadding', "true");
-    let buttonElement = await component.$('>>>enchanted-button[data-testid="enchanted-icon-button"]').getElement();
+    let buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-icon-button"]`).getElement();
     await expect(buttonElement).toHaveAttribute('outlined', "false");
     await expect(buttonElement).toHaveAttribute('imgurl', '../../static/assets/add-icon.svg');
   });
 
-  it('EnchantedIconButton - should render with fab size', async () => {
+  it('should render with fab size', async () => {
     render(
       html`
-        <enchanted-icon-button size='fab' withPadding imgurl='../../static/assets/add-icon.svg'></enchanted-icon-button>
+        <${ENCHANTED_ICON_BUTTON_TAG} size='fab' withPadding imgurl='../../static/assets/add-icon.svg'></${ENCHANTED_ICON_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-icon-button').getElement();
+    let component = await $(ENCHANTED_ICON_BUTTON_TAG_NAME).getElement();
     await expect(component).toHaveAttribute('size', ICON_BUTTON_SIZES.FAB);
     await expect(component).toHaveAttribute('withPadding');
-    let buttonElement = await component.$('>>>enchanted-button[data-testid="enchanted-icon-button"]').getElement();
+    let buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-icon-button"]`).getElement();
     await expect(buttonElement).toHaveAttribute('outlined', "false");
     await expect(buttonElement).toHaveAttribute('imgurl', '../../static/assets/add-icon.svg');
   });
 
-  it('EnchantedIconButton - should render with attribute icon', async () => {
+  it('should render with attribute icon', async () => {
     render(
       html`
-        <enchanted-icon-button
+        <${ENCHANTED_ICON_BUTTON_TAG}
           .icon=${
             html`
               <span data-testid="enchanted-svg-test">${svgIconSearch}</span>
             `
           }
         >
-        </enchanted-icon-button>
+        </${ENCHANTED_ICON_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-icon-button').getElement();
-    let buttonElement = await component.$('>>>enchanted-button[data-testid="enchanted-icon-button"]').getElement();
+    let component = await $(ENCHANTED_ICON_BUTTON_TAG_NAME).getElement();
+    let buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-icon-button"]`).getElement();
     let svgElement = await buttonElement.$('>>>span[data-testid="enchanted-svg-test"]').getElement();
     await expect(svgElement).toBeExisting();
   });
 
-  it('EnchantedIconButton - should focus the button when _focusButton is called', async () => {
+  it('should focus the button when _focusButton is called', async () => {
     render(
       html`
-        <enchanted-icon-button
+        <${ENCHANTED_ICON_BUTTON_TAG}
           .icon=${
             html`
               <span data-testid="enchanted-svg-test">${svgIconSearch}</span>
@@ -129,12 +127,12 @@ describe('EnchantedIconButton component testing', () => {
           }
           data-testid="enchanted-icon-button"
         >
-        </enchanted-icon-button>
+        </${ENCHANTED_ICON_BUTTON_TAG}>
       `,
       document.body
     );
 
-    const iconButton = document.querySelector('enchanted-icon-button') as EnchantedIconButton;
+    const iconButton = document.querySelector(ENCHANTED_ICON_BUTTON_TAG_NAME) as EnchantedIconButton;
     if (!iconButton) {
       throw new Error('EnchantedIconButton component not found');
     }
@@ -142,7 +140,7 @@ describe('EnchantedIconButton component testing', () => {
     // Wait for the component to be fully rendered
     await iconButton.updateComplete;
     
-    const enchantedButton = iconButton.shadowRoot?.querySelector('enchanted-button');
+    const enchantedButton = iconButton.shadowRoot?.querySelector(ENCHANTED_BUTTON_TAG_NAME);
     if (enchantedButton) {
       await (enchantedButton as unknown as EnchantedIconButton).updateComplete;
     }
@@ -155,8 +153,8 @@ describe('EnchantedIconButton component testing', () => {
     
     // Check what element is actually focused - navigate through shadow DOMs
     const focusedElementInfo = await browser.execute(
-      `const iconBtn = document.querySelector('enchanted-icon-button');
-       const enchantedBtn = iconBtn?.shadowRoot?.querySelector('enchanted-button');
+      `const iconBtn = document.querySelector('${ENCHANTED_ICON_BUTTON_TAG_NAME}');
+       const enchantedBtn = iconBtn?.shadowRoot?.querySelector('${ENCHANTED_BUTTON_TAG_NAME}');
        const activeInEnchantedBtn = enchantedBtn?.shadowRoot?.activeElement;
        return activeInEnchantedBtn?.getAttribute('data-testid');`
     ) as string;

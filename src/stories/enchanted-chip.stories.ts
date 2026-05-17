@@ -13,10 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-chip';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
+import { generateIconTagName, ENCHANTED_CHIP_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Data display/enchanted-chip',
@@ -84,19 +85,19 @@ type Story = StoryObj<{
 export const EnchantedChip: Story = {
   render: (args) => {
     return html`
-      <enchanted-chip
+      <${ENCHANTED_CHIP_TAG}
         .name=${args.name}
         .count=${args.count}
-        .icon=${html`<icon-checkmark size='16'></icon-checkmark>`}
+        .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
         ?showChipCount=${args.showChipCount}
         ?showAvatar=${args.showAvatar}
         ?clearIcon=${args.clearIcon}
         ?disabled=${args.disabled}
       >
         <div slot="clear-icon">
-          <icon-close size='16'></icon-close>
+          <${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}>
         </div>
-      </enchanted-chip>
+      </${ENCHANTED_CHIP_TAG}>
     `;
   },
   name: 'Default',
@@ -109,81 +110,107 @@ export const AllStates: StoryObj = {
         <div>
           <h3>Basic Chips</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <enchanted-chip .name=${'Basic Chip'}></enchanted-chip>
-            <enchanted-chip .name=${'With Count'} .count=${5} ?showChipCount=${true}></enchanted-chip>
-            <enchanted-chip .name=${'High Count'} .count=${99} ?showChipCount=${true}></enchanted-chip>
+            <${ENCHANTED_CHIP_TAG} .name=${'Basic Chip'}></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG} .name=${'With Count'} .count=${5} ?showChipCount=${true}></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG} .name=${'High Count'} .count=${99} ?showChipCount=${true}></${ENCHANTED_CHIP_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Chips with Avatar</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <enchanted-chip .name=${'Avatar Chip'} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true}></enchanted-chip>
-            <enchanted-chip .name=${'Avatar + Count'} .count=${12} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true} ?showChipCount=${true}></enchanted-chip>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Avatar Chip'}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}>
+            </${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Avatar + Count'}
+              .count=${12}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}
+              ?showChipCount=${true}>
+            </${ENCHANTED_CHIP_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Chips with Clear Icon</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <enchanted-chip .name=${'Clearable Chip'} ?clearIcon=${true}>
-              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
-            </enchanted-chip>
-            <enchanted-chip .name=${'Clear + Count'} .count=${8} ?clearIcon=${true} ?showChipCount=${true}>
-              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
-            </enchanted-chip>
-            <enchanted-chip .name=${'Clear + Avatar'} ?clearIcon=${true} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true}>
-              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
-            </enchanted-chip>
+            <${ENCHANTED_CHIP_TAG} .name=${'Clearable Chip'} ?clearIcon=${true}>
+              <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
+            </${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG} .name=${'Clear + Count'} .count=${8} ?clearIcon=${true} ?showChipCount=${true}>
+              <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
+            </${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Clear + Avatar'}
+              ?clearIcon=${true}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}>
+              <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
+            </${ENCHANTED_CHIP_TAG}>
           </div>
         </div>
 
         <div>
           <h3>All Features Combined</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <enchanted-chip .name=${'Full Featured'} .count=${25} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?showAvatar=${true} ?showChipCount=${true} ?clearIcon=${true}>
-              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
-            </enchanted-chip>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Full Featured'}
+              .count=${25}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?showAvatar=${true}
+              ?showChipCount=${true}
+              ?clearIcon=${true}
+            >
+              <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
+            </${ENCHANTED_CHIP_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Disabled States</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <enchanted-chip .name=${'Disabled Basic'} ?disabled=${true}></enchanted-chip>
-            <enchanted-chip .name=${'Disabled + Count'} .count=${7} ?disabled=${true} ?showChipCount=${true}></enchanted-chip>
-            <enchanted-chip .name=${'Disabled + Avatar'} .icon=${html`<icon-checkmark size='16'></icon-checkmark>`} ?disabled=${true} ?showAvatar=${true}></enchanted-chip>
-            <enchanted-chip .name=${'Disabled + Clear'} ?disabled=${true} ?clearIcon=${true}>
-              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
-            </enchanted-chip>
-            <enchanted-chip
+            <${ENCHANTED_CHIP_TAG} .name=${'Disabled Basic'} ?disabled=${true}></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG} .name=${'Disabled + Count'} .count=${7} ?disabled=${true} ?showChipCount=${true}></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
+              .name=${'Disabled + Avatar'}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
+              ?disabled=${true}
+              ?showAvatar=${true}
+            ></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG} .name=${'Disabled + Clear'} ?disabled=${true} ?clearIcon=${true}>
+              <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
+            </${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
               .name=${'Disabled Full'}
               .count=${42}
-              .icon=${html`<icon-checkmark size='16'></icon-checkmark>`}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
               ?disabled=${true}
               ?showAvatar=${true}
               ?showChipCount=${true}
               ?clearIcon=${true}
             >
-              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
-            </enchanted-chip>
+              <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
+            </${ENCHANTED_CHIP_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Long Text Handling</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <enchanted-chip .name=${'This is a chip with a very long name that might need handling'}></enchanted-chip>
-            <enchanted-chip
+            <${ENCHANTED_CHIP_TAG} .name=${'This is a chip with a very long name that might need handling'}></${ENCHANTED_CHIP_TAG}>
+            <${ENCHANTED_CHIP_TAG}
               .name=${'Long Name with Features'}
               .count=${99}
-              .icon=${html`<icon-checkmark size='16'></icon-checkmark>`}
+              .icon=${html`<${generateIconTagName('icon-checkmark')} size='16'></${generateIconTagName('icon-checkmark')}>`}
               ?showAvatar=${true}
               ?showChipCount=${true}
               ?clearIcon=${true}
             >
-              <div slot="clear-icon"><icon-close size='16'></icon-close></div>
-            </enchanted-chip>
+              <div slot="clear-icon"><${generateIconTagName('icon-close')} size='16'></${generateIconTagName('icon-close')}></div>
+            </${ENCHANTED_CHIP_TAG}>
           </div>
         </div>
       </div>

@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-alert';
 import { ALERT_SEVERITY, ALERT_VARIANTS } from '../types/cssClassEnums';
+import { ENCHANTED_ALERT_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Feedback/enchanted-alert',
@@ -97,13 +98,13 @@ type Story = StoryObj<{ message: string; severity: string; variant: string; widt
 export const EnchantedAlert: Story = {
   render: (args) => {
     return html`
-      <enchanted-alert 
+      <${ENCHANTED_ALERT_TAG}
         .message=${args.message} 
         .severity=${args.severity} 
         .variant=${args.variant}
         .width=${args.width}
         .alertTitle=${args.alertTitle}
-      ></enchanted-alert>
+      ></${ENCHANTED_ALERT_TAG}>
     `;
   },
   name: 'Default',
@@ -121,44 +122,44 @@ export const AllStates: Story = {
   render: () => {return html`
     <div style="display: flex; flex-direction: column; gap: 16px;">
       <div><strong>Contained Variant</strong></div>
-      <enchanted-alert message="Info alert (contained)" severity="${ALERT_SEVERITY.ALERT_INFO}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></enchanted-alert>
-      <enchanted-alert message="Success alert (contained)" severity="${ALERT_SEVERITY.ALERT_SUCCESS}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></enchanted-alert>
-      <enchanted-alert message="Warning alert (contained)" severity="${ALERT_SEVERITY.ALERT_WARNING}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></enchanted-alert>
-      <enchanted-alert message="Error alert (contained)" severity="${ALERT_SEVERITY.ALERT_ERROR}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></enchanted-alert>
+      <${ENCHANTED_ALERT_TAG} message="Info alert (contained)" severity="${ALERT_SEVERITY.ALERT_INFO}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} message="Success alert (contained)" severity="${ALERT_SEVERITY.ALERT_SUCCESS}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} message="Warning alert (contained)" severity="${ALERT_SEVERITY.ALERT_WARNING}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} message="Error alert (contained)" severity="${ALERT_SEVERITY.ALERT_ERROR}" variant="${ALERT_VARIANTS.ALERT_CONTAINED}"></${ENCHANTED_ALERT_TAG}>
       <div style="margin-top: 24px;"><strong>Outlined Variant</strong></div>
-      <enchanted-alert message="Info alert (outlined)" severity="${ALERT_SEVERITY.ALERT_INFO}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></enchanted-alert>
-      <enchanted-alert message="Success alert (outlined)" severity="${ALERT_SEVERITY.ALERT_SUCCESS}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></enchanted-alert>
-      <enchanted-alert message="Warning alert (outlined)" severity="${ALERT_SEVERITY.ALERT_WARNING}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></enchanted-alert>
-      <enchanted-alert message="Error alert (outlined)" severity="${ALERT_SEVERITY.ALERT_ERROR}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></enchanted-alert>
+      <${ENCHANTED_ALERT_TAG} message="Info alert (outlined)" severity="${ALERT_SEVERITY.ALERT_INFO}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} message="Success alert (outlined)" severity="${ALERT_SEVERITY.ALERT_SUCCESS}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} message="Warning alert (outlined)" severity="${ALERT_SEVERITY.ALERT_WARNING}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} message="Error alert (outlined)" severity="${ALERT_SEVERITY.ALERT_ERROR}" variant="${ALERT_VARIANTS.ALERT_OUTLINED}"></${ENCHANTED_ALERT_TAG}>
       <div style="margin-top: 24px;"><strong>Alerts with Titles</strong></div>
-      <enchanted-alert 
+      <${ENCHANTED_ALERT_TAG} 
         alertTitle="Information" 
         message="This alert includes a title to provide additional context" 
         severity="${ALERT_SEVERITY.ALERT_INFO}" 
         variant="${ALERT_VARIANTS.ALERT_CONTAINED}"
         width="400">
-      </enchanted-alert>
-      <enchanted-alert 
+      </${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} 
         alertTitle="Success" 
         message="Your changes have been saved successfully" 
         severity="${ALERT_SEVERITY.ALERT_SUCCESS}" 
         variant="${ALERT_VARIANTS.ALERT_CONTAINED}"
         width="400">
-      </enchanted-alert>
-      <enchanted-alert 
+      </${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} 
         alertTitle="Warning" 
         message="Please review your input before proceeding" 
         severity="${ALERT_SEVERITY.ALERT_WARNING}" 
         variant="${ALERT_VARIANTS.ALERT_OUTLINED}"
         width="400">
-      </enchanted-alert>
-      <enchanted-alert 
+      </${ENCHANTED_ALERT_TAG}>
+      <${ENCHANTED_ALERT_TAG} 
         alertTitle="Error" 
         message="An error occurred while processing your request" 
         severity="${ALERT_SEVERITY.ALERT_ERROR}" 
         variant="${ALERT_VARIANTS.ALERT_CONTAINED}"
         width="400">
-      </enchanted-alert>
+      </${ENCHANTED_ALERT_TAG}>
     </div>
   `;},
   parameters: {

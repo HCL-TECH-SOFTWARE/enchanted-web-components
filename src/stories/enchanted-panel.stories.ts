@@ -13,10 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-panel';
 import '../components/atomic-component/enchanted-button';
 import { PANEL_POSITION } from '../types/cssClassEnums';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_PANEL_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedPanelProps
@@ -66,7 +67,7 @@ const meta: Meta<EnchantedPanelProps> = {
   },
   render: (args) => {
     return html`
-      <enchanted-panel
+      <${ENCHANTED_PANEL_TAG}
         ?open=${args.open}
         title="${args.title}"
         position="${args.position}"
@@ -75,7 +76,7 @@ const meta: Meta<EnchantedPanelProps> = {
         <div slot="content">
           <p>This is the panel content area. You can put any HTML or components here.</p>
         </div>
-      </enchanted-panel>
+      </${ENCHANTED_PANEL_TAG}>
     `;
   },
 };
@@ -139,14 +140,14 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Open panel on the left with title and content</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} title="Left Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} title="Left Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
                 <div slot="center-title-content">Additional Title Info</div>
                 <div slot="content">
                   <p>This is the main content area of the left panel.</p>
                   <p>You can add any HTML or components here.</p>
-                  <enchanted-button buttontext="Action Button"></enchanted-button>
+                  <${ENCHANTED_BUTTON_TAG} buttontext="Action Button"></${ENCHANTED_BUTTON_TAG}>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -154,11 +155,11 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Left panel with minimal content</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} title="Minimal Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} title="Minimal Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
                 <div slot="content">
                   <p>Simple panel content.</p>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -166,11 +167,11 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Left panel without title</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} .position=${PANEL_POSITION.PANEL_LEFT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} .position=${PANEL_POSITION.PANEL_LEFT}>
                 <div slot="content">
                   <p>Panel content without a title.</p>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -182,14 +183,14 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Open panel on the right with title and content</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} title="Right Panel" .position=${PANEL_POSITION.PANEL_RIGHT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} title="Right Panel" .position=${PANEL_POSITION.PANEL_RIGHT}>
                 <div slot="center-title-content">Settings</div>
                 <div slot="content">
                   <p>This panel slides in from the right side.</p>
                   <p>Commonly used for settings, filters, or additional information.</p>
-                  <enchanted-button buttontext="Apply Settings"></enchanted-button>
+                  <${ENCHANTED_BUTTON_TAG} buttontext="Apply Settings"></${ENCHANTED_BUTTON_TAG}>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -197,12 +198,12 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Right panel with form content</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} title="Configuration" .position=${PANEL_POSITION.PANEL_RIGHT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} title="Configuration" .position=${PANEL_POSITION.PANEL_RIGHT}>
                 <div slot="content">
                   <p>Configuration Panel</p>
                   <p>Use this for settings and options.</p>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -210,11 +211,11 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Right panel without title</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} .position=${PANEL_POSITION.PANEL_RIGHT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} .position=${PANEL_POSITION.PANEL_RIGHT}>
                 <div slot="content">
                   <p>Panel content on the right side without a title.</p>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -226,11 +227,11 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Closed panel (not visible)</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${false} title="Closed Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${false} title="Closed Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
                 <div slot="content">
                   <p>This content is hidden when the panel is closed.</p>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area (Panel is closed)</div>
             </div>
           </div>
@@ -242,7 +243,7 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Panel with rich content</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} title="Rich Content Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} title="Rich Content Panel" .position=${PANEL_POSITION.PANEL_LEFT}>
                 <div slot="center-title-content">Document Details</div>
                 <div slot="content">
                   <h4>Section 1</h4>
@@ -253,10 +254,10 @@ export const AllStates: Story = {
                     <li>Item 2</li>
                     <li>Item 3</li>
                   </ul>
-                  <enchanted-button buttontext="Save"></enchanted-button>
-                  <enchanted-button buttontext="Cancel"></enchanted-button>
+                  <${ENCHANTED_BUTTON_TAG} buttontext="Save"></${ENCHANTED_BUTTON_TAG}>
+                  <${ENCHANTED_BUTTON_TAG} buttontext="Cancel"></${ENCHANTED_BUTTON_TAG}>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -264,7 +265,7 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Panel with long scrollable content</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} title="Scrollable Content" .position=${PANEL_POSITION.PANEL_RIGHT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} title="Scrollable Content" .position=${PANEL_POSITION.PANEL_RIGHT}>
                 <div slot="content">
                   <p>This panel has a lot of content that requires scrolling.</p>
                   <p>Paragraph 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -273,7 +274,7 @@ export const AllStates: Story = {
                   <p>Paragraph 4: Duis aute irure dolor in reprehenderit in voluptate velit.</p>
                   <p>Paragraph 5: Excepteur sint occaecat cupidatat non proident.</p>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>
@@ -285,14 +286,14 @@ export const AllStates: Story = {
           <div>
             <div class="panel-label">Panel with custom center title content</div>
             <div class="panel-demo">
-              <enchanted-panel ?open=${true} title="Main Title" .position=${PANEL_POSITION.PANEL_LEFT}>
+              <${ENCHANTED_PANEL_TAG} ?open=${true} title="Main Title" .position=${PANEL_POSITION.PANEL_LEFT}>
                 <div slot="center-title-content">
                   <span style="font-size: 14px; color: #666;">Custom Center Content</span>
                 </div>
                 <div slot="content">
                   <p>The center-title-content slot allows additional information in the header.</p>
                 </div>
-              </enchanted-panel>
+              </${ENCHANTED_PANEL_TAG}>
               <div class="demo-content">Main Content Area</div>
             </div>
           </div>

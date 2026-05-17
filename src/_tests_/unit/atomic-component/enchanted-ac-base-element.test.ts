@@ -30,14 +30,14 @@ export class EnchantedAcBaseSample extends EnchantedAcBaseElement {
   }
 }
 
-describe('AC base component testing', () => {
+describe('enchanted-ac-base-element-test-component component testing', () => {
   let elem: HTMLElement;
 
   beforeEach(() => {
     elem = document.createElement('enchanted-fcc-base-element-test-component');
   });
 
-  it('EnchantedAcBaseSample - should render component and validate id attribute', async () => {
+  it('should render component and validate id attribute', async () => {
     const id = uuid();
     render(
       html`

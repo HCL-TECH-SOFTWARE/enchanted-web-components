@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-svg-icon';
 import { svgIconEnd } from '../_tests_/assets/svg-input-end-icon';
+import { ENCHANTED_SVG_ICON_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedSvgIconProps
@@ -78,16 +79,15 @@ export default meta;
 
 type Story = StoryObj<EnchantedSvgIconProps>;
 
-export const EnchantedSvgIconStory: Story = {
-  name: 'enchanted-svg-icon',
+export const Default: Story = {
   render: (args) => {
     return html`
-      <enchanted-svg-icon
+      <${ENCHANTED_SVG_ICON_TAG}
         .icon=${args.icon}
         color="${args.color}"
         size="${args.size}"
         ?useCurrentColor=${args.useCurrentColor}
-      ></enchanted-svg-icon>
+      ></${ENCHANTED_SVG_ICON_TAG}>
     `;
   },
 };
@@ -143,7 +143,7 @@ export const AllStates: Story = {
           <h3>Default State</h3>
           <div class="icon-row">
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd}></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd}></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Default (16px)</span>
             </div>
           </div>
@@ -154,27 +154,27 @@ export const AllStates: Story = {
           <h3>Custom Colors</h3>
           <div class="icon-row">
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="red"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="red"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Red</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="blue"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="blue"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Blue</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="green"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="green"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Green</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="#FF6B35"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="#FF6B35"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Hex Color</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="rgb(138, 43, 226)"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="rgb(138, 43, 226)"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">RGB Color</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="rgba(255, 99, 71, 0.6)"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="rgba(255, 99, 71, 0.6)"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">RGBA (transparent)</span>
             </div>
           </div>
@@ -185,35 +185,35 @@ export const AllStates: Story = {
           <h3>Sizes</h3>
           <div class="icon-row">
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="12px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="12px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">12px (small)</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="16px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="16px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">16px (default)</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="24px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="24px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">24px</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="32px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="32px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">32px</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="48px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="48px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">48px</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="64px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="64px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">64px (large)</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="2rem"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="2rem"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">2rem</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} size="3em"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="3em"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">3em</span>
             </div>
           </div>
@@ -225,31 +225,31 @@ export const AllStates: Story = {
           <div class="icon-row">
             <div class="icon-item">
               <span style="color: green; font-size: 24px;">
-                <enchanted-svg-icon .icon=${svgIconEnd} ?useCurrentColor=${true}></enchanted-svg-icon>
+                <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
               </span>
               <span class="icon-label">Green parent</span>
             </div>
             <div class="icon-item">
               <span style="color: purple; font-size: 24px;">
-                <enchanted-svg-icon .icon=${svgIconEnd} ?useCurrentColor=${true}></enchanted-svg-icon>
+                <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
               </span>
               <span class="icon-label">Purple parent</span>
             </div>
             <div class="icon-item">
               <span style="color: orange; font-size: 32px;">
-                <enchanted-svg-icon .icon=${svgIconEnd} ?useCurrentColor=${true}></enchanted-svg-icon>
+                <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
               </span>
               <span class="icon-label">Orange + 32px</span>
             </div>
             <div class="icon-item">
               <span style="color: #E91E63; font-size: 40px;">
-                <enchanted-svg-icon .icon=${svgIconEnd} ?useCurrentColor=${true}></enchanted-svg-icon>
+                <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
               </span>
               <span class="icon-label">Pink + 40px</span>
             </div>
             <div class="icon-item">
               <span style="color: navy; font-size: 48px;">
-                <enchanted-svg-icon .icon=${svgIconEnd} ?useCurrentColor=${true}></enchanted-svg-icon>
+                <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
               </span>
               <span class="icon-label">Navy + 48px</span>
             </div>
@@ -261,26 +261,26 @@ export const AllStates: Story = {
           <h3>Combined States</h3>
           <div class="icon-row">
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="crimson" size="32px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="crimson" size="32px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Color + Size</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="teal" size="48px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="teal" size="48px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Teal + 48px</span>
             </div>
             <div class="icon-item">
-              <enchanted-svg-icon .icon=${svgIconEnd} color="#4CAF50" size="24px"></enchanted-svg-icon>
+              <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} color="#4CAF50" size="24px"></${ENCHANTED_SVG_ICON_TAG}>
               <span class="icon-label">Hex + 24px</span>
             </div>
             <div class="icon-item">
               <span style="color: indigo; font-size: 48px;">
-                <enchanted-svg-icon .icon=${svgIconEnd} size="48px" ?useCurrentColor=${true}></enchanted-svg-icon>
+                <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} size="48px" ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
               </span>
               <span class="icon-label">Parent color + size</span>
             </div>
             <div class="icon-item">
               <span style="color: darkorange; font-size: 64px;">
-                <enchanted-svg-icon .icon=${svgIconEnd} ?useCurrentColor=${true}></enchanted-svg-icon>
+                <${ENCHANTED_SVG_ICON_TAG} .icon=${svgIconEnd} ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
               </span>
               <span class="icon-label">Large inherited</span>
             </div>

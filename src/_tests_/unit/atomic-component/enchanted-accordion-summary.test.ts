@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from "lit";
+import { html } from 'lit/static-html.js';
 import { expect, $ } from "@wdio/globals";
 
 // Helper import
@@ -21,6 +21,8 @@ import { renderComponent } from "../../utils";
 
 // Component import
 import "../../../components/atomic-component/enchanted-accordion-summary";
+import { ENCHANTED_ACCORDION_SUMMARY_TAG, ENCHANTED_ACCORDION_SUMMARY_TAG_NAME } from "../../../components/tags";
+
 function renderSummaryTemplate({
   label = "",
   secondaryText = "",
@@ -29,21 +31,21 @@ function renderSummaryTemplate({
   secondaryText?: string;
 } = {}) {
   renderComponent(html`
-    <enchanted-accordion-summary label=${label} secondaryText=${secondaryText}>
-    </enchanted-accordion-summary>
+    <${ENCHANTED_ACCORDION_SUMMARY_TAG} label=${label} secondaryText=${secondaryText}>
+    </${ENCHANTED_ACCORDION_SUMMARY_TAG}>
   `);
 }
-describe("<enchanted-accordion-summary> render", () => {
+describe(`${ENCHANTED_ACCORDION_SUMMARY_TAG_NAME} render`, () => {
   it("should render part='label' with correct text", async () => {
     renderSummaryTemplate({ label: "Test Label" });
-    const summary = await $("enchanted-accordion-summary");
+    const summary = await $(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);
     const labelPart = await summary.shadow$('[part="label"]');
     const labelText = await labelPart.getText();
     expect(labelText).toBe("Test Label");
   });
   it("should render part='secondary' with correct text", async () => {
     renderSummaryTemplate({ secondaryText: "Test Secondary Text" });
-    const summary = await $("enchanted-accordion-summary");
+    const summary = await $(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);
     const secondaryTextPart = await summary.shadow$('[part="summary"]');
     expect(secondaryTextPart).not.toBeNull();
     const secondaryText = await secondaryTextPart.getText();
@@ -51,7 +53,7 @@ describe("<enchanted-accordion-summary> render", () => {
   });
   it("should  render secondary text part when not provided", async () => {
     renderSummaryTemplate({ label: "Test Label" });
-    const summary = await $("enchanted-accordion-summary");
+    const summary = await $(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);
     const secondaryTextPart = await summary.shadow$('[part="secondary"]');
     if (secondaryTextPart === null) {
       expect(secondaryTextPart).toBeNull();

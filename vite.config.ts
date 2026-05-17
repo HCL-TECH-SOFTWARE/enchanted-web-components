@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -12,14 +12,20 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
+import { defineConfig, loadEnv } from 'vite';
 
-export const SNAPSHOT_WINDOW_HEIGHT = 1200;
-export const SNAPSHOT_WINDOW_WIDTH = 1600;
+// ...existing code...
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const componentPrefix = env.VITE_COMPONENT_PREFIX ? env.VITE_COMPONENT_PREFIX : '';
 
-export const appendEnchantedStylingLink = (): HTMLLinkElement => {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = '/enchanted.css'; // Append the link element to the document's head
-  document.head.appendChild(link);
-  return link;
-};
+  return {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `$component-prefix: "${componentPrefix}";`,
+        },
+      },
+    },
+  };
+});

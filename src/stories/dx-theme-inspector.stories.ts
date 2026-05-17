@@ -14,8 +14,9 @@
  * ======================================================================== */
 
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-theme-inspector';
+import { ENCHANTED_THEME_INSPECTOR_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Utilities/enchanted-theme-inspector',
@@ -41,7 +42,7 @@ export const ColorInspector: Story = {
   render: () => {
     return html`
       <div style="width: 100%; overflow-x: auto;">
-        <enchanted-theme-inspector></enchanted-theme-inspector>
+        <${ENCHANTED_THEME_INSPECTOR_TAG}></${ENCHANTED_THEME_INSPECTOR_TAG}>
       </div>
     `;
   },

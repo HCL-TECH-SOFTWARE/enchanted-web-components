@@ -13,9 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
-import { html, nothing, TemplateResult } from 'lit';
+import { nothing, TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
+import createDebug from 'debug';
 
 // Component imports
 import './enchanted-avatar';
@@ -24,8 +26,10 @@ import './enchanted-avatar';
 import { AVATAR_TYPE, AVATAR_VARIANT, CHIP_PARTS } from '../../types/cssClassEnums';
 import { getCurrentDirection } from '../localization';
 import { LOCALE_DIRECTIONS } from '../constants';
+import { ENCHANTED_AVATAR_TAG, ENCHANTED_CHIP_TAG_NAME } from '../tags';
 
-@customElement('enchanted-chip')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-chip.ts');
+
 export class EnchantedChip extends EnchantedAcBaseElement {
   @property({ type: String }) name = '';
   @property({ type: Number }) count = 0;
@@ -48,7 +52,8 @@ export class EnchantedChip extends EnchantedAcBaseElement {
     return html`
       <div part=${this.disabled ? `${CHIP_PARTS.CHIP_DIV} ${CHIP_PARTS.CHIP_DIV_DISABLED}` : CHIP_PARTS.CHIP_DIV} tabindex=${this.disabled ? '-1' : '0'}>
         ${this.showAvatar
-          ? html`<enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${this.icon} ?disabled=${this.disabled}></enchanted-avatar>`
+          ? html`<${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${this.icon} ?disabled=${this.disabled}>
+            </${ENCHANTED_AVATAR_TAG}>`
           : nothing}
         <span part=${CHIP_PARTS.CHIP_NAME}>${this.name}</span>
         ${this.showChipCount
@@ -61,8 +66,9 @@ export class EnchantedChip extends EnchantedAcBaseElement {
     `;
   }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-chip': EnchantedChip
-  }
+
+if (!customElements.get(ENCHANTED_CHIP_TAG_NAME)) {
+  customElements.define(ENCHANTED_CHIP_TAG_NAME, EnchantedChip);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_CHIP_TAG_NAME);
 }

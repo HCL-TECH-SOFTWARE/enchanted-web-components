@@ -13,10 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-snackbar';
 import '../components/atomic-component/enchanted-button';
 import { SNACKBAR_TYPE } from '../types/cssClassEnums';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_SNACKBAR_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedSnackbarProps
@@ -68,14 +69,14 @@ const meta: Meta<EnchantedSnackbarProps> = {
   },
   render: (args) => {
     return html`
-      <enchanted-snackbar
+      <${ENCHANTED_SNACKBAR_TAG}
         message="${args.message}"
         .type="${args.type}"
       >
         <div slot="snackbar-buttons">
-          <enchanted-button buttontext="Action" variant="text"></enchanted-button>
+          <${ENCHANTED_BUTTON_TAG} buttontext="Action" variant="text"></${ENCHANTED_BUTTON_TAG}>
         </div>
-      </enchanted-snackbar>
+      </${ENCHANTED_SNACKBAR_TAG}>
     `;
   },
 };
@@ -103,49 +104,50 @@ export const AllStates: Story = {
       <div style="display: flex; flex-direction: column; gap: 24px; max-width: 600px;">
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Info Type</div>
-          <enchanted-snackbar message="This is an informational message" type="${SNACKBAR_TYPE.SNACKBAR_INFO}"></enchanted-snackbar>
+          <${ENCHANTED_SNACKBAR_TAG} message="This is an informational message" type="${SNACKBAR_TYPE.SNACKBAR_INFO}"></${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Success Type</div>
-          <enchanted-snackbar message="Operation completed successfully!" type="${SNACKBAR_TYPE.SNACKBAR_SUCCESS}"></enchanted-snackbar>
+          <${ENCHANTED_SNACKBAR_TAG} message="Operation completed successfully!" type="${SNACKBAR_TYPE.SNACKBAR_SUCCESS}"></${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Warning Type</div>
-          <enchanted-snackbar message="Warning: Please review before proceeding" type="${SNACKBAR_TYPE.SNACKBAR_WARNING}"></enchanted-snackbar>
+          <${ENCHANTED_SNACKBAR_TAG} message="Warning: Please review before proceeding" type="${SNACKBAR_TYPE.SNACKBAR_WARNING}"></${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Error Type</div>
-          <enchanted-snackbar message="Error: Unable to complete the operation" type="${SNACKBAR_TYPE.SNACKBAR_ERROR}"></enchanted-snackbar>
+          <${ENCHANTED_SNACKBAR_TAG} message="Error: Unable to complete the operation" type="${SNACKBAR_TYPE.SNACKBAR_ERROR}"></${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Progress Type</div>
-          <enchanted-snackbar message="Processing your request..." type="${SNACKBAR_TYPE.SNACKBAR_PROGRESS}"></enchanted-snackbar>
+          <${ENCHANTED_SNACKBAR_TAG} message="Processing your request..." type="${SNACKBAR_TYPE.SNACKBAR_PROGRESS}"></${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">With Action Button</div>
-          <enchanted-snackbar message="File deleted" type="${SNACKBAR_TYPE.SNACKBAR_INFO}">
+          <${ENCHANTED_SNACKBAR_TAG} message="File deleted" type="${SNACKBAR_TYPE.SNACKBAR_INFO}">
             <div slot="snackbar-buttons">
-              <enchanted-button buttontext="Undo" variant="text"></enchanted-button>
+              <${ENCHANTED_BUTTON_TAG} buttontext="Undo" variant="text"></${ENCHANTED_BUTTON_TAG}>
             </div>
-          </enchanted-snackbar>
+          </${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">With Multiple Buttons</div>
-          <enchanted-snackbar message="Connection lost" type="${SNACKBAR_TYPE.SNACKBAR_ERROR}">
+          <${ENCHANTED_SNACKBAR_TAG} message="Connection lost" type="${SNACKBAR_TYPE.SNACKBAR_ERROR}">
             <div slot="snackbar-buttons">
-              <enchanted-button buttontext="Retry" variant="text"></enchanted-button>
-              <enchanted-button buttontext="Dismiss" variant="text"></enchanted-button>
+              <${ENCHANTED_BUTTON_TAG} buttontext="Retry" variant="text"></${ENCHANTED_BUTTON_TAG}>
+              <${ENCHANTED_BUTTON_TAG} buttontext="Dismiss" variant="text"></${ENCHANTED_BUTTON_TAG}>
             </div>
-          </enchanted-snackbar>
+          </${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">With HTML Content</div>
-          <enchanted-snackbar message="This is a <strong>bold</strong> message with <em>emphasis</em>.<br>It spans multiple lines." type="${SNACKBAR_TYPE.SNACKBAR_INFO}"></enchanted-snackbar>
+          <${ENCHANTED_SNACKBAR_TAG} message="This is a <strong>bold</strong> message with <em>emphasis</em>.<br>It spans multiple lines." type="${SNACKBAR_TYPE.SNACKBAR_INFO}">
+          </${ENCHANTED_SNACKBAR_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Long Message</div>
-          <enchanted-snackbar message="This is a longer message that demonstrates how the snackbar handles extended text content. The component will wrap the text appropriately." 
-            type="${SNACKBAR_TYPE.SNACKBAR_WARNING}"></enchanted-snackbar>
+          <${ENCHANTED_SNACKBAR_TAG} message="This is a longer message that demonstrates how the snackbar handles extended text content. The component will wrap the text appropriately." 
+            type="${SNACKBAR_TYPE.SNACKBAR_WARNING}"></${ENCHANTED_SNACKBAR_TAG}>
         </div>
       </div>
     `;

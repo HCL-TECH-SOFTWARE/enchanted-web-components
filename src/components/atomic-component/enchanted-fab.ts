@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import { TemplateResult, html, nothing } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
+import createDebug from 'debug';
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 
@@ -24,8 +25,10 @@ import { FAB_PARTS, EnchantedFabType } from '../../types/cssClassEnums';
 
 // Component imports
 import  "./enchanted-badge";
+import { ENCHANTED_FAB_TAG_NAME } from "../tags";
 
-@customElement('enchanted-fab')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-fab.ts');
+
 export class EnchantedFab extends EnchantedAcBaseElement {
   @property({ reflect: true }) type: EnchantedFabType = EnchantedFabType.CONTAINED;
   @property({ type: Boolean, reflect: true }) extended = false;
@@ -64,8 +67,8 @@ export class EnchantedFab extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-fab': EnchantedFab;
-  }
+if (!customElements.get(ENCHANTED_FAB_TAG_NAME)) {
+  customElements.define(ENCHANTED_FAB_TAG_NAME, EnchantedFab);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_FAB_TAG_NAME);
 }

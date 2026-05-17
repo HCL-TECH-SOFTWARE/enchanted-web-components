@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-switch';
+import { ENCHANTED_SWITCH_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedSwitchProps
@@ -58,10 +59,10 @@ const meta: Meta<EnchantedSwitchProps> = {
   },
   render: (args) => {
     return html`
-      <enchanted-switch
+      <${ENCHANTED_SWITCH_TAG}
         ?isChecked=${args.isChecked}
         ?isDisabled=${args.isDisabled}
-      ></enchanted-switch>
+      ></${ENCHANTED_SWITCH_TAG}>
     `;
   },
 };
@@ -88,19 +89,19 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 48px; flex-wrap: wrap; align-items: center;">
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Unchecked (Off)</div>
-          <enchanted-switch></enchanted-switch>
+          <${ENCHANTED_SWITCH_TAG}></${ENCHANTED_SWITCH_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Checked (On)</div>
-          <enchanted-switch ?isChecked=${true}></enchanted-switch>
+          <${ENCHANTED_SWITCH_TAG} ?isChecked=${true}></${ENCHANTED_SWITCH_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled (Off)</div>
-          <enchanted-switch ?isDisabled=${true}></enchanted-switch>
+          <${ENCHANTED_SWITCH_TAG} ?isDisabled=${true}></${ENCHANTED_SWITCH_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled (On)</div>
-          <enchanted-switch ?isChecked=${true} ?isDisabled=${true}></enchanted-switch>
+          <${ENCHANTED_SWITCH_TAG} ?isChecked=${true} ?isDisabled=${true}></${ENCHANTED_SWITCH_TAG}>
         </div>
       </div>
     `;

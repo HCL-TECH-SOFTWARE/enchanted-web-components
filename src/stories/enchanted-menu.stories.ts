@@ -13,11 +13,12 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-menu';
 import '../components/atomic-component/enchanted-menu-item';
 import '../components/atomic-component/enchanted-button';
 import { EnchantedMenuPlacement, EnchantedMenuSize } from '../types/enchanted-menu';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_MENU_ITEM_TAG, ENCHANTED_MENU_TAG } from '../components/tags';
 
 // Styling constants to avoid overly long inline style lines and satisfy max-len lint rule
 const containerStyle = [
@@ -101,17 +102,17 @@ const meta: Meta<EnchantedMenuProps> = {
   render: (args) => {
     return html`
       <div style="${containerStyle}">
-        <enchanted-menu 
+        <${ENCHANTED_MENU_TAG} 
           style=${args.dropdownMinWidth ? `--dropdown-menu-min-width: ${args.dropdownMinWidth};` : ''}
           menuDelay=${args.menuDelay}
           placement=${args.placement}
           size=${args.size}
         >
-          <enchanted-button slot="target-anchor" variant="contained" size="large" buttontext="Menu"></enchanted-button>
+          <${ENCHANTED_BUTTON_TAG} slot="target-anchor" variant="contained" size="large" buttontext="Menu"></${ENCHANTED_BUTTON_TAG}>
           ${args.items && args.items.map((item) => { return html`
-            <enchanted-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></enchanted-menu-item>
+            <${ENCHANTED_MENU_ITEM_TAG} slot="menu-items" text="${item.text}" value="${item.value}"></${ENCHANTED_MENU_ITEM_TAG}>
           `; })}
-        </enchanted-menu>
+        </${ENCHANTED_MENU_TAG}>
       </div>
     `;
   },  
@@ -181,65 +182,65 @@ export const AllStates: Story = {
         <!-- Small size, Bottom Start -->
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Size: Small, Placement: Bottom Start</span>
-          <enchanted-menu 
+          <${ENCHANTED_MENU_TAG} 
             style="--dropdown-menu-min-width: 240px;"
             menuDelay="300"
             placement="${EnchantedMenuPlacement.BOTTOM_START}"
             size="${EnchantedMenuSize.SMALL}"
           >
-            <enchanted-button slot="target-anchor" variant="contained" size="large" buttontext="Small - Bottom Start"></enchanted-button>
+            <${ENCHANTED_BUTTON_TAG} slot="target-anchor" variant="contained" size="large" buttontext="Small - Bottom Start"></${ENCHANTED_BUTTON_TAG}>
             ${items.map((item) => { return html`
-              <enchanted-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></enchanted-menu-item>
+              <${ENCHANTED_MENU_ITEM_TAG} slot="menu-items" text="${item.text}" value="${item.value}"></${ENCHANTED_MENU_ITEM_TAG}>
             `; })}
-          </enchanted-menu>
+          </${ENCHANTED_MENU_TAG}>
         </div>
 
         <!-- Small size, Bottom End -->
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Size: Small, Placement: Bottom End</span>
-          <enchanted-menu 
+          <${ENCHANTED_MENU_TAG} 
             style="--dropdown-menu-min-width: 240px;"
             menuDelay="300"
             placement="${EnchantedMenuPlacement.BOTTOM_END}"
             size="${EnchantedMenuSize.SMALL}"
           >
-            <enchanted-button slot="target-anchor" variant="contained" size="large" buttontext="Small - Bottom End"></enchanted-button>
+            <${ENCHANTED_BUTTON_TAG} slot="target-anchor" variant="contained" size="large" buttontext="Small - Bottom End"></${ENCHANTED_BUTTON_TAG}>
             ${items.map((item) => { return html`
-              <enchanted-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></enchanted-menu-item>
+              <${ENCHANTED_MENU_ITEM_TAG} slot="menu-items" text="${item.text}" value="${item.value}"></${ENCHANTED_MENU_ITEM_TAG}>
             `; })}
-          </enchanted-menu>
+          </${ENCHANTED_MENU_TAG}>
         </div>
 
         <!-- Medium size, Bottom Start -->
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Size: Medium, Placement: Bottom Start</span>
-          <enchanted-menu 
+          <${ENCHANTED_MENU_TAG} 
             style="--dropdown-menu-min-width: 240px;"
             menuDelay="300"
             placement="${EnchantedMenuPlacement.BOTTOM_START}"
             size="${EnchantedMenuSize.MEDIUM}"
           >
-            <enchanted-button slot="target-anchor" variant="contained" size="large" buttontext="Medium - Bottom Start"></enchanted-button>
+            <${ENCHANTED_BUTTON_TAG} slot="target-anchor" variant="contained" size="large" buttontext="Medium - Bottom Start"></${ENCHANTED_BUTTON_TAG}>
             ${items.map((item) => { return html`
-              <enchanted-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></enchanted-menu-item>
+              <${ENCHANTED_MENU_ITEM_TAG} slot="menu-items" text="${item.text}" value="${item.value}"></${ENCHANTED_MENU_ITEM_TAG}>
             `; })}
-          </enchanted-menu>
+          </${ENCHANTED_MENU_TAG}>
         </div>
 
         <!-- Medium size, Bottom End -->
         <div style="${itemContainerStyle}">
           <span style="${labelStyle}">Size: Medium, Placement: Bottom End</span>
-          <enchanted-menu 
+          <${ENCHANTED_MENU_TAG} 
             style="--dropdown-menu-min-width: 240px;"
             menuDelay="300"
             placement="${EnchantedMenuPlacement.BOTTOM_END}"
             size="${EnchantedMenuSize.MEDIUM}"
           >
-            <enchanted-button slot="target-anchor" variant="contained" size="large" buttontext="Medium - Bottom End"></enchanted-button>
+            <${ENCHANTED_BUTTON_TAG} slot="target-anchor" variant="contained" size="large" buttontext="Medium - Bottom End"></${ENCHANTED_BUTTON_TAG}>
             ${items.map((item) => { return html`
-              <enchanted-menu-item slot="menu-items" text="${item.text}" value="${item.value}"></enchanted-menu-item>
+              <${ENCHANTED_MENU_ITEM_TAG} slot="menu-items" text="${item.text}" value="${item.value}"></${ENCHANTED_MENU_ITEM_TAG}>
             `; })}
-          </enchanted-menu>
+          </${ENCHANTED_MENU_TAG}>
         </div>
       </div>
     `;

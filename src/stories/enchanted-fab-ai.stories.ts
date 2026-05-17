@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, TemplateResult } from 'lit';
+import { TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
 // Component imports
 import '../components/atomic-component/enchanted-fab-ai';
 import '../components/atomic-component/enchanted-badge';
@@ -26,6 +27,7 @@ import '@hcl-software/enchanted-icons-web-component/dist/apps/es/ai--sparkle';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/arrows';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/circle';
 import '@hcl-software/enchanted-icons-web-component/dist/apps/es/images';
+import { generateIconTagName, ENCHANTED_BADGE_TAG, ENCHANTED_FAB_AI_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedFabAiProps
@@ -129,7 +131,7 @@ const meta: Meta<EnchantedFabAiProps> = {
     extended: false,
     disabled: false,
     label: 'Label',
-    icon: html`<icon-ai-sparkle></icon-ai-sparkle>`,
+    icon: html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`,
   },
   parameters: {
     docs: {
@@ -143,10 +145,10 @@ const meta: Meta<EnchantedFabAiProps> = {
   },
   render: (args) => {
     const iconMap = {
-      'ai-sparkle': html`<icon-ai-sparkle></icon-ai-sparkle>`,
-      'arrows': html`<icon-arrows></icon-arrows>`,
-      'circle': html`<icon-circle></icon-circle>`,
-      'images': html`<icon-images></icon-images>`,
+      'ai-sparkle': html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`,
+      'arrows': html`<${generateIconTagName('icon-arrows')}></${generateIconTagName('icon-arrows')}>`,
+      'circle': html`<${generateIconTagName('icon-circle')}></${generateIconTagName('icon-circle')}>`,
+      'images': html`<${generateIconTagName('icon-images')}></${generateIconTagName('icon-images')}>`,
     };
 
     const selectedIcon = typeof args.icon === 'string' && Object.prototype.hasOwnProperty.call(iconMap, args.icon)
@@ -154,21 +156,21 @@ const meta: Meta<EnchantedFabAiProps> = {
       : args.icon || html``;
 
     return html`
-      <enchanted-fab-ai
+      <${ENCHANTED_FAB_AI_TAG}
         .badge=${args.badge}
         .extended=${args.extended}
         .disabled=${args.disabled}
         .label=${args.label}
         .icon=${selectedIcon}
       >
-        <enchanted-badge
+        <${ENCHANTED_BADGE_TAG}
           slot="badge"
           badge="${args.badgeType}"
           text="${args.badgeText}"
           border="${args.badgeBorder}"
           color="${args.badgeColor}"
-        ></enchanted-badge>
-      </enchanted-fab-ai>
+        ></${ENCHANTED_BADGE_TAG}>
+      </${ENCHANTED_FAB_AI_TAG}>
     `;
   },
 };
@@ -185,66 +187,66 @@ export const AllStates: Story = {
     <div style="position: relative; display: flex; flex-wrap: wrap; gap: 10px; padding: 20px;">
       <!-- AI Button States (Extended EnchantedFab) -->
       <div style="font-weight: bold; font-size:14px; position: absolute; top: 0; left: 20px;">Default</div>
-      <enchanted-fab-ai
+      <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 5px;"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab-ai>
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
+      ></${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 150px;">[Extended]</div>
-      <enchanted-fab-ai
+      <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 70px;"
         .extended=${true}
         label="Label"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab-ai>
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
+      ></${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 320px;">[Badge]</div>
-      <enchanted-fab-ai
+      <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 150px;"
         .badge=${true}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       >
-        <enchanted-badge
+        <${ENCHANTED_BADGE_TAG}
           slot="badge"
           badge="dot"
           text="3"
           border="none"
           color="primary"
-        ></enchanted-badge>
-      </enchanted-fab-ai>
+        ></${ENCHANTED_BADGE_TAG}>
+      </${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 430px;">[Extended + Badge]</div>
-      <enchanted-fab-ai
+      <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 230px;"
         .extended=${true}
         .badge=${true}
         label="Label"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
       >
-        <enchanted-badge
+        <${ENCHANTED_BADGE_TAG}
           slot="badge"
           badge="text"
           text="5"
           border="none"
           color="error"
-        ></enchanted-badge>
-      </enchanted-fab-ai>
+        ></${ENCHANTED_BADGE_TAG}>
+      </${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 620px;">[Disabled]</div>
-      <enchanted-fab-ai
+      <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 320px;"
         .disabled=${true}
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab-ai>
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
+      ></${ENCHANTED_FAB_AI_TAG}>
       
       <div style="font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 750px;">[Extended + Disabled]</div>
-      <enchanted-fab-ai
+      <${ENCHANTED_FAB_AI_TAG}
         style="position: relative; top: 10px; left: 400px;"
         .extended=${true}
         .disabled=${true}
         label="Label"
-        .icon=${html`<icon-ai-sparkle></icon-ai-sparkle>`}
-      ></enchanted-fab-ai>
+        .icon=${html`<${generateIconTagName('icon-ai-sparkle')}></${generateIconTagName('icon-ai-sparkle')}>`}
+      ></${ENCHANTED_FAB_AI_TAG}>
     </div>
   `;
   },

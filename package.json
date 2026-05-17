@@ -5,7 +5,7 @@
   "types": "dist/index.d.ts",
   "author": "Hanjo Hagemeier <hanjo.hagemeier@hcl.com>",
   "license": "Apache-2.0",
-  "version": "5.1.0",
+  "version": "5.4.0",
   "type": "module",
   "homepage": "https://github.com/HCL-TECH-SOFTWARE/enchanted-web-components#readme",
   "repository": {
@@ -32,14 +32,13 @@
     "prepare-for-publish": "cp ./package.json ./dist/package.json && cp ./README.md ./dist/README.md && cp ./LICENSE.txt ./dist/LICENSE.txt && cp ./enchanted.css ./dist/enchanted.css && cp -r ./src/styles ./dist && cp -r ./src/eslint ./dist && rm -rf ./dist/_tests_ && rm -rf ./dist/stories",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
-    "test": "npm run test-unit",
+    "test": "npm run test-unit && VITE_COMPONENT_PREFIX=prefix- npm run test-unit",
     "test-unit": "wdio run ./wdio.unit.conf.ts",
-    "test-snapshot": "wdio run ./wdio.snapshot.conf.ts",
     "compile-enchanted-css": "rm -f ./enchanted.css && sass --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
     "watch-enchanted-css": "rm -f ./enchanted.css && sass --watch --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_b91762b136f3f72"
+    "chromatic": "npx chromatic --project-token=chpt_f299987ece7d70a"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -77,13 +76,10 @@
     "wdio-json-html-reporter": "^1.5.14"
   },
   "dependencies": {
-    "@hcl-software/enchanted-icons-web-component": "^1.7.2",
+    "@hcl-software/enchanted-icons-web-component": "^1.9.0",
     "@types/debug": "^4.1.12",
     "dayjs": "^1.11.13",
     "debug": "^4.4.3"
-  },
-  "engines": {
-    "node": ">=20.X"
   },
   "overrides": {
     "glob": "^10.2.2",

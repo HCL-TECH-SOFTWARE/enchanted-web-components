@@ -14,18 +14,21 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 
 // Icon imports
 import { LIST_ITEM_PARTS } from '../../types/cssClassEnums';
+import { ENCHANTED_LIST_ITEM_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-list-item.ts');
 
 /**
  * List item component.
  */
-@customElement('enchanted-list-item')
 export class EnchantedListItem extends EnchantedAcBaseElement {
   @property({ type: String })
   key = '';
@@ -57,8 +60,8 @@ export class EnchantedListItem extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-list-item': EnchantedListItem
-  }
+if (!customElements.get(ENCHANTED_LIST_ITEM_TAG_NAME)) {
+  customElements.define(ENCHANTED_LIST_ITEM_TAG_NAME, EnchantedListItem);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_LIST_ITEM_TAG_NAME);
 }

@@ -14,45 +14,43 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-chip';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_CHIP_TAG, ENCHANTED_CHIP_TAG_NAME } from '../../../components/tags';
  
-describe('EnchantedChip component testing', () => {
+describe(`${ENCHANTED_CHIP_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedChip - should render chip web component without crashing', async () => {
-    let component = document.createElement('enchanted-chip');
+  it('should render chip web component without crashing', async () => {
+    let component = document.createElement(ENCHANTED_CHIP_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedChip - removes web component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-chip');
+  it('should remove web component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_CHIP_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedChip - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-chip');
+  it('should validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_CHIP_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('name', '');
     await expect(component).toHaveElementProperty('count', 0);
@@ -60,38 +58,38 @@ describe('EnchantedChip component testing', () => {
     component.remove();
   });
 
-  it('EnchantedChip - should render web component and validate attributes', async () => {
+  it('should render web component and validate attributes', async () => {
     render(
       html`
-        <enchanted-chip 
+        <${ENCHANTED_CHIP_TAG} 
           name="tag cloud" 
           count="100"
           showChipCount
-        ></enchanted-chip>
+        ></${ENCHANTED_CHIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-chip').getElement();
+    let component = await $(ENCHANTED_CHIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('name', 'tag cloud');
     await expect(component).toHaveAttribute('count', '100');
     await expect(component).toHaveAttribute('showChipCount', '');
   });
 
-  it('EnchantedChip - should render web component with a badge counter if showChipCount attribute is set to true', async () => {
+  it('should render web component with a badge counter if showChipCount attribute is set to true', async () => {
     render(
       html`
-        <enchanted-chip 
+        <${ENCHANTED_CHIP_TAG} 
           name="tag cloud" 
           count="100"
           showChipCount
-        ></enchanted-chip>
+        ></${ENCHANTED_CHIP_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-chip').getElement();
+    let component = await $(ENCHANTED_CHIP_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     if (await component.getAttribute('showChipCount') === '') {
       let badgeSpan = await component.$('>>>span[part="chip-count"]').getElement();

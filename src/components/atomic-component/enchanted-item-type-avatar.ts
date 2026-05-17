@@ -13,8 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
+import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -77,8 +79,10 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user--profile
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/user-profile--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/video';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/XLS';
+import { generateIconTagName, ENCHANTED_AVATAR_TAG, ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME } from '../tags';
 
- @customElement('enchanted-item-type-avatar')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-item-type-avatar.ts');
+
 export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
  
    @property({ type: String }) itemType = '';
@@ -88,123 +92,123 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
    private getSvgIcon(path: string): {icon: TemplateResult | String, color: AVATAR_COLOR} {
      switch (path) {
        case ICON_ITEM_TYPE.APPLICATION:
-         return { icon: html`<icon-application></icon-application>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-application')}></${generateIconTagName('icon-application')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.BLOG:
-         return { icon: html`<icon-blog></icon-blog>`, color: AVATAR_COLOR.AVATAR_PURPLE };
+         return { icon: html`<${generateIconTagName('icon-blog')}></${generateIconTagName('icon-blog')}>`, color: AVATAR_COLOR.AVATAR_PURPLE };
        case ICON_ITEM_TYPE.CATALOG:
-         return { icon: html`<icon-catalog></icon-catalog>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-catalog')}></${generateIconTagName('icon-catalog')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.CHARACTER_WHOLE_NUMBER:
-         return { icon: html`<icon-character-whole-number></icon-character-whole-number>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-character-whole-number')}></${generateIconTagName('icon-character-whole-number')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.COLLABORATE:
-         return { icon: html`<icon-collaborate></icon-collaborate>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-collaborate')}></${generateIconTagName('icon-collaborate')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.CONTENT_ITEM:
-         return { icon: html`<icon-content-item></icon-content-item>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-content-item')}></${generateIconTagName('icon-content-item')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.COPY_FILE:
-         return { icon: html`<icon-copy-file></icon-copy-file>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-copy-file')}></${generateIconTagName('icon-copy-file')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.DATA_ANALYTICS:
-         return { icon: html`<icon-data-analytics></icon-data-analytics>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-data-analytics')}></${generateIconTagName('icon-data-analytics')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.DATA_BASE:
-         return { icon: html`<icon-data-base></icon-data-base>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-data-base')}></${generateIconTagName('icon-data-base')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.DECISION_TREE:
-         return { icon: html`<icon-decision-tree></icon-decision-tree>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-decision-tree')}></${generateIconTagName('icon-decision-tree')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        case ICON_ITEM_TYPE.DIAGRAM:
-         return { icon: html`<icon-diagram></icon-diagram>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-diagram')}></${generateIconTagName('icon-diagram')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.DOC:
-         return { icon: html`<icon-doc></icon-doc>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-doc')}></${generateIconTagName('icon-doc')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.DOCUMENT_BLANK:
-         return { icon: html`<icon-document-blank></icon-document-blank>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-document-blank')}></${generateIconTagName('icon-document-blank')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.DOCUMENT_EXPORT:
-         return { icon: html`<icon-document-export></icon-document-export>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-document-export')}></${generateIconTagName('icon-document-export')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.EVENT_SCHEDULE:
-         return { icon: html`<icon-event-schedule></icon-event-schedule>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-event-schedule')}></${generateIconTagName('icon-event-schedule')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.EVENT_WARNING:
-         return { icon: html`<icon-event-warning></icon-event-warning>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-event-warning')}></${generateIconTagName('icon-event-warning')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.FLOW_DATA:
-         return { icon: html`<icon-flow-data></icon-flow-data>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-flow-data')}></${generateIconTagName('icon-flow-data')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        case ICON_ITEM_TYPE.FOLDER:
-         return { icon: html`<icon-folder></icon-folder>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-folder')}></${generateIconTagName('icon-folder')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.FOLDER_DETAILS:
-         return { icon: html`<icon-folder-details></icon-folder-details>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.FOLDER_DETAILS_1:
-         return { icon: html`<icon-folder-details></icon-folder-details>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.FOLDER_DETAILS_2:
-         return { icon: html`<icon-folder-details></icon-folder-details>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.FOLDER_DETAILS_3:
-         return { icon: html`<icon-folder-details></icon-folder-details>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-folder-details')}></${generateIconTagName('icon-folder-details')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.GIF:
-         return { icon: html`<icon-gif></icon-gif>`, color: AVATAR_COLOR.AVATAR_INDIGO };
+         return { icon: html`<${generateIconTagName('icon-gif')}></${generateIconTagName('icon-gif')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
        case ICON_ITEM_TYPE.HTML:
-         return { icon: html`<icon-html></icon-html>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-html')}></${generateIconTagName('icon-html')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.IMAGE:
-         return { icon: html`<icon-image></icon-image>`, color: AVATAR_COLOR.AVATAR_INDIGO };
+         return { icon: html`<${generateIconTagName('icon-image')}></${generateIconTagName('icon-image')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
        case ICON_ITEM_TYPE.IMAGE_1:
-         return { icon: html`<icon-image></icon-image>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-image')}></${generateIconTagName('icon-image')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.INVENTORY_MANAGEMENT:
-         return { icon: html`<icon-inventory-management></icon-inventory-management>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-inventory-management')}></${generateIconTagName('icon-inventory-management')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.LAYERS_EXTERNAL:
-         return { icon: html`<icon-layers-external></icon-layers-external>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-layers-external')}></${generateIconTagName('icon-layers-external')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.LICENSE_DRAFT:
-         return { icon: html`<icon-license-draft></icon-license-draft>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-license-draft')}></${generateIconTagName('icon-license-draft')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.LICENSE_GLOBAL:
-         return { icon: html`<icon-license-global></icon-license-global>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-license-global')}></${generateIconTagName('icon-license-global')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.LIST_BOXES:
-         return { icon: html`<icon-list-boxes></icon-list-boxes>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-list-boxes')}></${generateIconTagName('icon-list-boxes')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.LIST_DROPDOWN:
-         return { icon: html`<icon-page-elements-text></icon-page-elements-text>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-list-dropdown')}></${generateIconTagName('icon-list-dropdown')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.MAIL_ALL:
-         return { icon: html`<icon-mail-all></icon-mail-all>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-mail-all')}></${generateIconTagName('icon-mail-all')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.MENU:
-         return { icon: html`<icon-menu></icon-menu>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-menu')}></${generateIconTagName('icon-menu')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.NOTEBOOK_REFERENCE:
-         return { icon: html`<icon-notebook-reference></icon-notebook-reference>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-notebook-reference')}></${generateIconTagName('icon-notebook-reference')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.PAGE_ELEMENTS_RICH_TEXT:
-         return { icon: html`<icon-page-elements-rich-text></icon-page-elements-rich-text>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-elements-rich-text')}></${generateIconTagName('icon-page-elements-rich-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PAGE_ELEMENTS_SHORT_TEXT:
-         return { icon: html`<icon-page-elements-short-text></icon-page-elements-short-text>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-elements-short-text')}></${generateIconTagName('icon-page-elements-short-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PAGE_ELEMENTS_TEXT:
-         return { icon: html`<icon-page-elements-text></icon-page-elements-text>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-elements-text')}></${generateIconTagName('icon-page-elements-text')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PAGE_SCROLL:
-         return { icon: html`<icon-page-scroll></icon-page-scroll>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-page-scroll')}></${generateIconTagName('icon-page-scroll')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.PARENT_CHILD:
-         return { icon: html`<icon-parent-child></icon-parent-child>`, color: AVATAR_COLOR.AVATAR_BLUE };
+         return { icon: html`<${generateIconTagName('icon-parent-child')}></${generateIconTagName('icon-parent-child')}>`, color: AVATAR_COLOR.AVATAR_BLUE };
        case ICON_ITEM_TYPE.PDF:
-         return { icon: html`<icon-pdf></icon-pdf>`, color: AVATAR_COLOR.AVATAR_RED };
+         return { icon: html`<${generateIconTagName('icon-pdf')}></${generateIconTagName('icon-pdf')}>`, color: AVATAR_COLOR.AVATAR_RED };
        case ICON_ITEM_TYPE.PORTFOLIO:
-         return { icon: html`<icon-portfolio></icon-portfolio>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-portfolio')}></${generateIconTagName('icon-portfolio')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.PPT:
-         return { icon: html`<icon-ppt></icon-ppt>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-ppt')}></${generateIconTagName('icon-ppt')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.PPTX:
-         return { icon: html`<icon-ppt></icon-ppt>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-ppt')}></${generateIconTagName('icon-ppt')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.REMINDER:
-         return { icon: html`<icon-reminder></icon-reminder>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-reminder')}></${generateIconTagName('icon-reminder')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.SCRIPT:
-         return { icon: html`<icon-script></icon-script>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-script')}></${generateIconTagName('icon-script')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.SEARCH_LOCATE:
-         return { icon: html`<icon-search-locate></icon-search-locate>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-search-locate')}></${generateIconTagName('icon-search-locate')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.SUBFLOW:
-         return { icon: html`<icon-subflow></icon-subflow>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-subflow')}></${generateIconTagName('icon-subflow')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.TAG_GROUP:
-         return { icon: html`<icon-tag-group></icon-tag-group>`, color: AVATAR_COLOR.AVATAR_PINK };
+         return { icon: html`<${generateIconTagName('icon-tag-group')}></${generateIconTagName('icon-tag-group')}>`, color: AVATAR_COLOR.AVATAR_PINK };
        case ICON_ITEM_TYPE.TAG:
-         return { icon: html`<icon-tag></icon-tag>`, color: AVATAR_COLOR.AVATAR_PINK };
+         return { icon: html`<${generateIconTagName('icon-tag')}></${generateIconTagName('icon-tag')}>`, color: AVATAR_COLOR.AVATAR_PINK };
        case ICON_ITEM_TYPE.TEMPLATE:
-         return { icon: html`<icon-template></icon-template>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.TEMPLATE_1:
-         return { icon: html`<icon-template></icon-template>`, color: AVATAR_COLOR.AVATAR_ORANGE };
+         return { icon: html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`, color: AVATAR_COLOR.AVATAR_ORANGE };
        case ICON_ITEM_TYPE.TEXT_LINK:
-         return { icon: html`<icon-text-link></icon-text-link>`, color: AVATAR_COLOR.AVATAR_TEAL };
+         return { icon: html`<${generateIconTagName('icon-text-link')}></${generateIconTagName('icon-text-link')}>`, color: AVATAR_COLOR.AVATAR_TEAL };
        case ICON_ITEM_TYPE.TIF:
-         return { icon: html`<icon-tif></icon-tif>`, color: AVATAR_COLOR.AVATAR_INDIGO };
+         return { icon: html`<${generateIconTagName('icon-tif')}></${generateIconTagName('icon-tif')}>`, color: AVATAR_COLOR.AVATAR_INDIGO };
        case ICON_ITEM_TYPE.USER_PROFILE:
-         return { icon: html`<icon-user-profile></icon-user-profile>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-user-profile')}></${generateIconTagName('icon-user-profile')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.USER_PROFILE_ALT:
-         return { icon: html`<icon-user-profile-alt></icon-user-profile-alt>`, color: AVATAR_COLOR.AVATAR_YELLOW };
+         return { icon: html`<${generateIconTagName('icon-user-profile-alt')}></${generateIconTagName('icon-user-profile-alt')}>`, color: AVATAR_COLOR.AVATAR_YELLOW };
        case ICON_ITEM_TYPE.VIDEO:
-         return { icon: html`<icon-video></icon-video>`, color: AVATAR_COLOR.AVATAR_PINK };
+         return { icon: html`<${generateIconTagName('icon-video')}></${generateIconTagName('icon-video')}>`, color: AVATAR_COLOR.AVATAR_PINK };
        case ICON_ITEM_TYPE.XLS:
-         return { icon: html`<icon-xls></icon-xls>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-xls')}></${generateIconTagName('icon-xls')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        case ICON_ITEM_TYPE.XLSX:
-         return { icon: html`<icon-xls></icon-xls>`, color: AVATAR_COLOR.AVATAR_LIME };
+         return { icon: html`<${generateIconTagName('icon-xls')}></${generateIconTagName('icon-xls')}>`, color: AVATAR_COLOR.AVATAR_LIME };
        default:
          return { icon: html``, color: AVATAR_COLOR.AVATAR_DEFAULT_COLOR };;
      }
@@ -212,7 +216,7 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
 
    render() {
      return html`
-        <enchanted-avatar
+        <${ENCHANTED_AVATAR_TAG}
           data-testId="enchanted-item-type-avatar"
           variant=${this.imageUrl && this.itemType === ICON_ITEM_TYPE.IMAGE ? AVATAR_VARIANT.AVATAR_IMG : AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
           type=${AVATAR_TYPE.AVATAR_ROUNDED}
@@ -220,13 +224,13 @@ export class EnchantedItemTypeAvatar extends EnchantedAcBaseElement {
           imgUrl="${this.imageUrl}"
           color="${this.getSvgIcon(this.itemType).color}"
           exportparts="${ITEM_TYPE_AVATAR_EXPORT_PARTS}"
-        />
+        ></${ENCHANTED_AVATAR_TAG}>
       `;
    }
 }
-  
- declare global {
-   interface HTMLElementTagNameMap {
-     'enchanted-item-type-avatar': EnchantedItemTypeAvatar
-   }
- }
+
+if (!customElements.get(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME)) {
+  customElements.define(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME, EnchantedItemTypeAvatar);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
+}

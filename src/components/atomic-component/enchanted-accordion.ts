@@ -13,10 +13,13 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { nothing } from "lit";
+import { html } from 'lit/static-html.js';
+import { property, state } from "lit/decorators.js";
 import { debounce } from "lodash";
+import createDebug from 'debug';
 
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-accordion.ts');
 
 // component imports
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
@@ -29,8 +32,8 @@ import { ACCORDION_PARTS } from "../../types/cssClassEnums";
 //Icon import
 import "@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--down";
 import { KeyboardInputKeys } from "../../utils/keyboardEventKeys";
+import { generateIconTagName, ENCHANTED_ACCORDION_TAG_NAME } from "../tags";
 
-@customElement("enchanted-accordion")
 export class EnchantedAccordion extends EnchantedAcBaseElement {
   @property({ type: Boolean, reflect: true }) showCheckbox = false;
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -117,12 +120,12 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
           @click=${debounce(this.handleArrowClick, 300)}
           @keydown=${this.handleKeyToggle}
         >
-          <icon-chevron-down
+          <${generateIconTagName('icon-chevron-down')}
             part=${this.isLTR
               ? `${ACCORDION_PARTS.ENCHANTED_ACCORDION_ARROW_ICON}`
               : `${ACCORDION_PARTS.ENCHANTED_ACCORDION_ARROW_ICON_RTL}`}
             size="16"
-          ></icon-chevron-down>
+          ></${generateIconTagName('icon-chevron-down')}>
         </span>
       </div>
       ${this.open
@@ -145,8 +148,9 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
     this.requestUpdate();
   }
 }
-declare global {
-  interface HTMLElementTagNameMap {
-    "enchanted-accordion": EnchantedAccordion;
-  }
+
+if (!customElements.get(ENCHANTED_ACCORDION_TAG_NAME)) {
+  customElements.define(ENCHANTED_ACCORDION_TAG_NAME, EnchantedAccordion);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ACCORDION_TAG_NAME);
 }

@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-breadcrumbs';
+import { ENCHANTED_BREADCRUMBS_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Navigation/enchanted-breadcrumbs',
@@ -54,7 +55,7 @@ type Story = StoryObj<{ paths: Array<{ name: string; icon?: string; disabled?: b
 export const EnchantedBreadcrumbs: Story = {
   render: (args) => {
     return html`
-      <enchanted-breadcrumbs .paths=${args.paths}></enchanted-breadcrumbs>
+      <${ENCHANTED_BREADCRUMBS_TAG} .paths=${args.paths}></${ENCHANTED_BREADCRUMBS_TAG}>
     `;
   },
   name: 'EnchantedBreadcrumbs',

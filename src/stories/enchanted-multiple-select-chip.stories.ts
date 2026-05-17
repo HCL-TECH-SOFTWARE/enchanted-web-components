@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-multiple-select-chip';
+import { ENCHANTED_MULTIPLE_SELECT_CHIP_TAG } from '../components/tags';
 
 /**
  * @typedef OptionData
@@ -174,7 +175,7 @@ export const EnchantedMultipleSelectChipStory: Story = {
   name: 'Default',
   render: (args) => {
     return html`
-      <enchanted-multiple-select-chip
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
         .options=${args.options}
         .selectedValues=${args.selectedValues}
         label="${args.label}"
@@ -188,7 +189,7 @@ export const EnchantedMultipleSelectChipStory: Story = {
         customWidth="${args.customWidth}"
         name="${args.name}"
         field="${args.field}"
-      ></enchanted-multiple-select-chip>
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
     `;
   },
 };
@@ -238,39 +239,39 @@ export const AllStates: Story = {
           <h3>Default States</h3>
           <div class="select-item">
             <span class="select-label">No selections</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[]}
               label="Fruits"
               placeholder="Select fruits"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">Single selection</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0]]}
               label="Fruits"
               placeholder="Select fruits"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">Multiple selections (2 chips)</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0], OPTIONS[1]]}
               label="Fruits"
               placeholder="Select fruits"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">All items selected (4 chips)</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${OPTIONS}
               label="Fruits"
               placeholder="Select fruits"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -279,23 +280,23 @@ export const AllStates: Story = {
           <h3>Disabled State</h3>
           <div class="select-item">
             <span class="select-label">Disabled with selections</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0], OPTIONS[2]]}
               label="Fruits (Disabled)"
               placeholder="Select fruits"
               ?disabled=${true}
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">Disabled without selections</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[]}
               label="Fruits (Disabled)"
               placeholder="Select fruits"
               ?disabled=${true}
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -304,25 +305,25 @@ export const AllStates: Story = {
           <h3>Helper Text</h3>
           <div class="select-item">
             <span class="select-label">With informational helper text</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0]]}
               label="Fruits"
               placeholder="Select fruits"
               ?showHelperText=${true}
               helperText="You can select multiple fruits from the list"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">With instructional helper text</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[1], OPTIONS[2]]}
               label="Fruits"
               placeholder="Select fruits"
               ?showHelperText=${true}
               helperText="Selected fruits will be used for the recipe"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -331,23 +332,23 @@ export const AllStates: Story = {
           <h3>Clear Icon Options</h3>
           <div class="select-item">
             <span class="select-label">With clear icon (default)</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0], OPTIONS[1], OPTIONS[2]]}
               label="Fruits"
               placeholder="Select fruits"
               ?clearIcon=${true}
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">Without clear icon</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0], OPTIONS[1]]}
               label="Fruits"
               placeholder="Select fruits"
               ?clearIcon=${false}
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -356,13 +357,13 @@ export const AllStates: Story = {
           <h3>Remove Label (Accessibility)</h3>
           <div class="select-item">
             <span class="select-label">With remove label for screen readers</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0], OPTIONS[2]]}
               label="Fruits"
               placeholder="Select fruits"
               ?showRemoveLabel=${true}
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -371,13 +372,13 @@ export const AllStates: Story = {
           <h3>Empty Options State</h3>
           <div class="select-item">
             <span class="select-label">No options available</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${[]}
               .selectedValues=${[]}
               label="Fruits"
               placeholder="No options available"
               ?emptyOptions=${true}
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -386,33 +387,33 @@ export const AllStates: Story = {
           <h3>Custom Width</h3>
           <div class="select-item">
             <span class="select-label">Width: 200px</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[1]]}
               label="Fruits"
               placeholder="Select fruits"
               customWidth="200"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">Width: 400px</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0], OPTIONS[2]]}
               label="Fruits"
               placeholder="Select fruits"
               customWidth="400"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">Width: 500px</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[1], OPTIONS[3]]}
               label="Fruits"
               placeholder="Select fruits"
               customWidth="500"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -421,24 +422,24 @@ export const AllStates: Story = {
           <h3>Form Field Configuration</h3>
           <div class="select-item">
             <span class="select-label">Custom name attribute</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0]]}
               label="Fruits"
               placeholder="Select fruits"
               name="fruit-selection"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">With field type configuration</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[1], OPTIONS[2]]}
               label="Fruits"
               placeholder="Select fruits"
               name="fruits"
               field="tags"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
 
@@ -447,7 +448,7 @@ export const AllStates: Story = {
           <h3>Combined States</h3>
           <div class="select-item">
             <span class="select-label">Error with multiple selections and helper text</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[0], OPTIONS[1], OPTIONS[2], OPTIONS[3]]}
               label="Fruits"
@@ -456,11 +457,11 @@ export const AllStates: Story = {
               ?showHelperText=${true}
               helperText="Too many fruits selected. Maximum is 3."
               customWidth="350"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
           <div class="select-item">
             <span class="select-label">Full-featured: custom width, helper text, remove label, clear icon</span>
-            <enchanted-multiple-select-chip
+            <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
               .options=${OPTIONS}
               .selectedValues=${[OPTIONS[1], OPTIONS[3]]}
               label="Favorite Fruits"
@@ -471,7 +472,7 @@ export const AllStates: Story = {
               ?clearIcon=${true}
               customWidth="380"
               name="favorite-fruits"
-            ></enchanted-multiple-select-chip>
+            ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
           </div>
         </div>
       </div>

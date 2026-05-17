@@ -14,62 +14,60 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-list-item';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_LIST_ITEM_TAG, ENCHANTED_LIST_ITEM_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedListItem component testing', () => {
+describe(`${ENCHANTED_LIST_ITEM_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedListItem - should render without crashing', async () => {
-    let component = document.createElement('enchanted-list-item');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_LIST_ITEM_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedListItem - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-list-item');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_LIST_ITEM_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedListItem - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-list-item');
+  it('should validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_LIST_ITEM_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('key', '');
     component.remove();
   });
 
-  it('EnchantedListItem - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-list-item');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_LIST_ITEM_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedListItem - should component render with different attributes', async () => {
+  it('should render with different attributes', async () => {
     render(
-      html`<enchanted-list-item key="test_key" isSelected/>`,
+      html`<${ENCHANTED_LIST_ITEM_TAG} key="test_key" isSelected/>`,
       document.body
     );
-    const component = await $('enchanted-list-item').getElement();
+    const component = await $(ENCHANTED_LIST_ITEM_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     let listElement = await component.$('>>>li[data-testid="enchanted-list-item-list"]').getElement();
     await expect(listElement).toHaveAttribute('key', 'test_key');

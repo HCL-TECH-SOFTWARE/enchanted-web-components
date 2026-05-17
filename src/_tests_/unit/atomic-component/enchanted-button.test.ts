@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
@@ -25,39 +26,36 @@ import { initSessionStorage } from '../../utils';
 // Icon imports
 import { svgIconSearch } from '../../assets/svg-search';
 import { EnchantedButton } from '../../../components/atomic-component/enchanted-button';
+import { ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedButton component testing', () => {
+describe(`${ENCHANTED_BUTTON_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedButton - should render without crashing', async () => {
-    let component = document.createElement('enchanted-button');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedButton - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-button');
+  it('removes component from document body and validates removal', async () => {
+    let component = document.createElement(ENCHANTED_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedButton - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-button');
+  it('validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_BUTTON_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('focused', false);
     await expect(component).toHaveElementProperty('disabled', false);
@@ -67,27 +65,27 @@ describe('EnchantedButton component testing', () => {
     component.remove();
   });
 
-  it('EnchantedButton - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-button');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_BUTTON_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedButton - should render component and validate attributes for outlined, disabled, and with start icon', async () => {
+  it('should render component and validate attributes for outlined, disabled, and with start icon', async () => {
     let wasClicked = false;
     render(
       html`
-        <enchanted-button
+        <${ENCHANTED_BUTTON_TAG}
           disabled="true"
           imgurl="sample-url"
           buttontext="sample-buttontext"
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `,
       document.body
     );
     await expect(wasClicked).toBe(false);
-    let component = await $('enchanted-button').getElement();
+    let component = await $(ENCHANTED_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('imgurl', 'sample-url');
     await expect(component).toHaveElementProperty('buttontext', 'sample-buttontext');
@@ -100,20 +98,20 @@ describe('EnchantedButton component testing', () => {
     await expect(wasClicked).toBe(false); // because disabled
   });
 
-  it('EnchantedButton - should render component and validate attributes for NOT outlined, NOT disabled, and without start icon', async () => {
+  it('should render component and validate attributes for NOT outlined, NOT disabled, and without start icon', async () => {
     let wasClicked = false;
     render(
       html`
-        <enchanted-button
+        <${ENCHANTED_BUTTON_TAG}
           buttontext="sample-buttontext"
           @click=${() => { wasClicked = true; }}
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `,
       document.body
     );
     await expect(wasClicked).toBe(false);
-    let component = await $('enchanted-button').getElement();
+    let component = await $(ENCHANTED_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('buttontext', 'sample-buttontext');
     await expect(component).not.toHaveElementProperty('outlined');
@@ -126,21 +124,21 @@ describe('EnchantedButton component testing', () => {
     await expect(wasClicked).toBe(true);
   });
 
-  it('EnchantedButton - should render component and validate attributes for NOT outlined, but disabled, and without button text', async () => {
+  it('should render component and validate attributes for NOT outlined, but disabled, and without button text', async () => {
     let wasClicked = false;
     render(
       html`
-        <enchanted-button
+        <${ENCHANTED_BUTTON_TAG}
           disabled
           imgurl="sample-url"
           @click=${() => { wasClicked = true; }}
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `,
       document.body
     );
     await expect(wasClicked).toBe(false);
-    let component = await $('enchanted-button').getElement();
+    let component = await $(ENCHANTED_BUTTON_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('imgurl', 'sample-url');
     await expect(component).not.toHaveElementProperty('outlined');
@@ -153,10 +151,10 @@ describe('EnchantedButton component testing', () => {
     await expect(wasClicked).toBe(false); // because disabled
   });
 
-  it('EnchantedButton - should render icon and validate attributes for lit template icon', async () => {
+  it('should render icon and validate attributes for lit template icon', async () => {
     render(
       html`
-        <enchanted-button
+        <${ENCHANTED_BUTTON_TAG}
           buttontext="sample-buttontext"
           .icon=${
             html`
@@ -164,20 +162,20 @@ describe('EnchantedButton component testing', () => {
             `
           }
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-button').getElement();
+    let component = await $(ENCHANTED_BUTTON_TAG_NAME).getElement();
     let buttonElement = await component.$('>>>button[data-testid="enchanted-button"]').getElement();
     let svgElement = await buttonElement.$('>>>span[data-testid="enchanted-svg-test"]').getElement();
     await expect(svgElement).toBeExisting();
   });
 
-  it('EnchantedButton - should override imgurl and display lit template icon', async () => {
+  it('should override imgurl and display lit template icon', async () => {
     render(
       html`
-        <enchanted-button
+        <${ENCHANTED_BUTTON_TAG}
           imgurl="sample-url"
           buttontext="sample-buttontext"
           .icon=${
@@ -186,11 +184,11 @@ describe('EnchantedButton component testing', () => {
             `
           }
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-button').getElement();
+    let component = await $(ENCHANTED_BUTTON_TAG_NAME).getElement();
     let buttonElement = await component.$('>>>button[data-testid="enchanted-button"]').getElement();
     let imgElement = await buttonElement.$('>>>img[data-testid="enchanted-button-img"]').getElement();
     await expect(imgElement).not.toBeExisting();
@@ -198,18 +196,18 @@ describe('EnchantedButton component testing', () => {
     await expect(svgElement).toBeExisting();
   });
 
-  it('EnchantedButton - should focus the button when _focusButton is called', async () => {
+  it('should focus the button when _focusButton is called', async () => {
     render(
       html`
-        <enchanted-button
+        <${ENCHANTED_BUTTON_TAG}
           buttontext="sample-buttontext"
           data-testid="enchanted-button"
         >
-        </enchanted-button>
+        </${ENCHANTED_BUTTON_TAG}>
       `,
       document.body
     );
-    let enchantedButton = await document.querySelector('enchanted-button') as EnchantedButton;
+    let enchantedButton = await document.querySelector(ENCHANTED_BUTTON_TAG_NAME) as EnchantedButton;
     // Call the _focusButton method
     enchantedButton._focusButton();
 
@@ -217,7 +215,7 @@ describe('EnchantedButton component testing', () => {
     await browser.pause(100); // Small delay to ensure focus is set
 
     // Verify that the button is focused
-    const activeElement = document.querySelector('enchanted-button')?.shadowRoot?.activeElement?.getAttribute('data-testid');
+    const activeElement = document.querySelector(ENCHANTED_BUTTON_TAG_NAME)?.shadowRoot?.activeElement?.getAttribute('data-testid');
     await expect(activeElement).toBe(enchantedButton.getAttribute('data-testid'));
   });
 });

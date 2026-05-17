@@ -13,10 +13,12 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { html } from 'lit/static-html.js';
+import { property, state } from 'lit/decorators.js';
 import { debounce } from 'lodash';
 import { v4 as uuid } from 'uuid';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -41,8 +43,10 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/help';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/circle--solid';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { generateIconTagName, ENCHANTED_DATEPICKER_TAG_NAME } from '../tags';
 
-@customElement('enchanted-datepicker')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-datepicker.ts');
+
 export class EnchantedDatePicker extends EnchantedAcBaseElement {
   @property({ type: String }) name = 'datepicker'; // Name of the datepicker, can be used for form submission
   @property({ type: String }) label = 'Label'; // Label for the datepicker, displayed above the input
@@ -237,7 +241,7 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                 }"
                 ?disabled=${this.disabled}
               >
-                <icon-calendar color="currentColor"></icon-calendar>
+                <${generateIconTagName('icon-calendar')} color="currentColor"></${generateIconTagName('icon-calendar')}>
               </button>
             </div>
           </div>
@@ -307,8 +311,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
             >
               ${
                 !this._showYearSelection
-                ? html`<icon-caret-down color="currentColor"></icon-caret-down>`
-                : html`<icon-caret-up color="currentColor"></icon-caret-up>`
+                ? html`<${generateIconTagName('icon-caret-down')} color="currentColor"></${generateIconTagName('icon-caret-down')}>`
+                : html`<${generateIconTagName('icon-caret-up')} color="currentColor"></${generateIconTagName('icon-caret-up')}>`
               }
             </button>
           </div>
@@ -335,8 +339,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                   }}
                 >
                   ${isLTR()
-                    ? html`<icon-chevron-left color="currentColor"></icon-chevron-left>`
-                    : html`<icon-chevron-right color="currentColor"></icon-chevron-right>`
+                    ? html`<${generateIconTagName('icon-chevron-left')} color="currentColor"></${generateIconTagName('icon-chevron-left')}>`
+                    : html`<${generateIconTagName('icon-chevron-right')} color="currentColor"></${generateIconTagName('icon-chevron-right')}>`
                   }
                 </button>
                 <button
@@ -358,8 +362,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                   }"
                 >
                   ${isLTR()
-                    ? html`<icon-chevron-right color="currentColor"></icon-chevron-right>`
-                    : html`<icon-chevron-left color="currentColor"></icon-chevron-left>`
+                    ? html`<${generateIconTagName('icon-chevron-right')} color="currentColor"></${generateIconTagName('icon-chevron-right')}>`
+                    : html`<${generateIconTagName('icon-chevron-left')} color="currentColor"></${generateIconTagName('icon-chevron-left')}>`
                   }
                 </button>
               </div>
@@ -458,7 +462,7 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
                         : `${DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_TODAY_SPAN} ${DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_TODAY_SPAN_RTL}`
                       }"
                     >
-                      <icon-circle-solid 
+                      <${generateIconTagName('icon-circle-solid')} 
                         color="currentColor"
                         ?useCurrentColor=${false}
                         color="none"
@@ -1015,8 +1019,8 @@ export class EnchantedDatePicker extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-datepicker': EnchantedDatePicker
-  }
+if (!customElements.get(ENCHANTED_DATEPICKER_TAG_NAME)) {
+  customElements.define(ENCHANTED_DATEPICKER_TAG_NAME, EnchantedDatePicker);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_DATEPICKER_TAG_NAME);
 }

@@ -13,9 +13,13 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, nothing, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { nothing, TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
+import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
+import createDebug from 'debug';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-alert.ts');
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -28,11 +32,11 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--ou
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/information';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning--alt';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/warning';
+import { generateIconTagName, ENCHANTED_ALERT_TAG_NAME } from '../tags';
 
 /**
  * Alert component.
  */
-@customElement('enchanted-alert')
 @localized()
 export class EnchantedAlert extends EnchantedAcBaseElement {
 
@@ -85,13 +89,13 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
   private getAlertIcon(): TemplateResult | typeof nothing {
     switch (this.severity) {
       case ALERT_SEVERITY.ALERT_INFO:
-        return html`<icon-information size="16" part="${this.getAlertSVG()}"></icon-information>`;
+        return html`<${generateIconTagName('icon-information')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-information')}>`;
       case ALERT_SEVERITY.ALERT_ERROR:
-        return html`<icon-warning size="16" part="${this.getAlertSVG()}"></icon-warning>`;
+        return html`<${generateIconTagName('icon-warning')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-warning')}>`;
       case ALERT_SEVERITY.ALERT_WARNING:
-        return html`<icon-warning-alt size="16" part="${this.getAlertSVG()}"></icon-warning-alt>`;
+        return html`<${generateIconTagName('icon-warning-alt')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-warning-alt')}>`;
       case ALERT_SEVERITY.ALERT_SUCCESS:
-        return html`<icon-checkmark-outline size="16" part="${this.getAlertSVG()}"></icon-checkmark-outline>`;
+        return html`<${generateIconTagName('icon-checkmark-outline')} size="16" part="${this.getAlertSVG()}"></${generateIconTagName('icon-checkmark-outline')}>`;
       default:
         return nothing;
     }
@@ -124,8 +128,8 @@ export class EnchantedAlert extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-alert': EnchantedAlert
-  }
+if (!customElements.get(ENCHANTED_ALERT_TAG_NAME)) {
+  customElements.define(ENCHANTED_ALERT_TAG_NAME, EnchantedAlert);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_ALERT_TAG_NAME);
 }

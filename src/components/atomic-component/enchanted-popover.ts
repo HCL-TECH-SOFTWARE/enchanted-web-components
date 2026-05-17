@@ -11,8 +11,10 @@
  */
 
 // External imports
-import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { html } from 'lit/static-html.js';
+import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 
 //helper import
@@ -21,9 +23,10 @@ import { LOCALE_DIRECTIONS } from '../constants.js';
 import { getCurrentDirection } from '../localization.js';
 import  { EnchantedPopoverArrowPosition } from '../../types/enchanted-popover.js';
 import { POPOVER_PARTS } from "../../types/cssClassEnums";
+import { generateIconTagName, ENCHANTED_POPOVER_TAG_NAME } from '../tags';
 
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-popover.ts');
 
-@customElement('enchanted-popover')
 export class EnchantedPopover extends EnchantedAcBaseElement {
   
   @property({ type: Boolean, reflect: true }) open = false;
@@ -93,7 +96,7 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
           </div>
           ${this.showCloseIcon ? html`<button part=${this.isLTR ? POPOVER_PARTS.POPOVER_CLOSE_ICON : POPOVER_PARTS.POPOVER_CLOSE_ICON_RTL} 
             @click="${this._onCloseClick}" aria-label="Close popover">
-            <icon-close size="16" color="currentColor"></icon-close>
+            <${generateIconTagName('icon-close')} size="16" color="currentColor"></${generateIconTagName('icon-close')}>
           </button>` : nothing}
         </div>
       </div>
@@ -102,8 +105,8 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-popover': EnchantedPopover;
-  }
+if (!customElements.get(ENCHANTED_POPOVER_TAG_NAME)) {
+  customElements.define(ENCHANTED_POPOVER_TAG_NAME, EnchantedPopover);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_POPOVER_TAG_NAME);
 }

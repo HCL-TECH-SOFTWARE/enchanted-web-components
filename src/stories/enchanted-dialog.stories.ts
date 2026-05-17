@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-dialog';
 import { DialogSizes } from '../types/enchanted-dialog';
+import { ENCHANTED_DIALOG_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Feedback/enchanted-dialog',
@@ -49,6 +50,11 @@ const meta: Meta = {
       description: 'Removes the border from the dialog container. When true, displays dialog without border styling. Useful for custom styling or seamless integration with page design.',
       table: { category: 'Styling', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
     },
+    disableBackdropClick: {
+      control: { type: 'boolean' },
+      description: 'Prevents dialog from closing when clicking on the backdrop. When true, clicks on the backdrop will not close the dialog.',
+      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     dialogTitle: 'Dialog Title',
@@ -56,6 +62,7 @@ const meta: Meta = {
     open: true,
     overrideTitle: false,
     removeBorder: false,
+    disableBackdropClick: false,
   },
   parameters: {
     docs: {
@@ -76,22 +83,24 @@ type Story = StoryObj<{
   open: boolean;
   overrideTitle: boolean;
   removeBorder: boolean;
+  disableBackdropClick: boolean;
 }>;
 
 export const EnchantedDialog: Story = {
   render: (args) => {
     return html`
-      <enchanted-dialog
+      <${ENCHANTED_DIALOG_TAG}
         .dialogTitle=${args.dialogTitle}
         .size=${args.size}
         ?open=${args.open}
+        ?disableBackdropClick=${args.disableBackdropClick}
         ?overrideTitle=${args.overrideTitle}
         ?removeBorder=${args.removeBorder}
       >
         <span slot="title">Custom Title Slot</span>
         <div slot="content">Dialog content goes here.</div>
         <div slot="footer">Footer actions here.</div>
-      </enchanted-dialog>
+      </${ENCHANTED_DIALOG_TAG}>
     `;
   },
   name: 'Default'
@@ -105,7 +114,7 @@ export const AllStates: StoryObj = {
           <h3 style="margin-top: 0;">Dialog Sizes</h3>
           <p style="margin: 10px 0; color: #666;">All dialogs shown with open=true for visualization. In production, only one dialog would be open at a time.</p>
           <div style="display: flex; flex-direction: column; gap: 20px;">
-            <enchanted-dialog .dialogTitle=${'Extra Large Dialog (XL)'} .size=${DialogSizes.XL} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Extra Large Dialog (XL)'} .size=${DialogSizes.XL} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is an extra large (XL) dialog. It provides the most space for content and is suitable for complex forms or detailed information displays.</p>
                 <p>Content can include multiple paragraphs, forms, tables, or any other HTML elements.</p>
@@ -114,9 +123,9 @@ export const AllStates: StoryObj = {
                 <button>Cancel</button>
                 <button>Confirm</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
 
-            <enchanted-dialog .dialogTitle=${'Large Dialog (LG)'} .size=${DialogSizes.LG} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Large Dialog (LG)'} .size=${DialogSizes.LG} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is a large (LG) dialog. It provides ample space for most use cases including forms with multiple fields.</p>
               </div>
@@ -124,41 +133,41 @@ export const AllStates: StoryObj = {
                 <button>Cancel</button>
                 <button>Save</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
 
-            <enchanted-dialog .dialogTitle=${'Medium Dialog (MD)'} .size=${DialogSizes.MD} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Medium Dialog (MD)'} .size=${DialogSizes.MD} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is a medium (MD) dialog. A balanced size suitable for most standard dialogs with moderate content.</p>
               </div>
               <div slot="footer">
                 <button>OK</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
 
-            <enchanted-dialog .dialogTitle=${'Small Dialog (SM)'} .size=${DialogSizes.SM} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Small Dialog (SM)'} .size=${DialogSizes.SM} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>This is a small (SM) dialog. Compact size for simple messages or quick confirmations.</p>
               </div>
               <div slot="footer">
                 <button>Close</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
 
-            <enchanted-dialog .dialogTitle=${'Extra Small Dialog (XS)'} .size=${DialogSizes.XS} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Extra Small Dialog (XS)'} .size=${DialogSizes.XS} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p>Extra small (XS) dialog for minimal content or quick alerts.</p>
               </div>
               <div slot="footer">
                 <button>OK</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
           </div>
         </div>
 
         <div style="margin-top: 40px;">
           <h3 style="margin-top: 0;">Dialog Variations</h3>
           <div style="display: flex; flex-direction: column; gap: 20px;">
-            <enchanted-dialog .dialogTitle=${'Dialog with Custom Title Slot'} .size=${DialogSizes.MD} ?open=${true} ?overrideTitle=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Dialog with Custom Title Slot'} .size=${DialogSizes.MD} ?open=${true} ?overrideTitle=${true}>
               <span slot="title" style="display: flex; align-items: center; gap: 8px; color: #1976d2;">
                 <span>🔔</span>
                 <strong>Custom Styled Title with Icon</strong>
@@ -170,9 +179,9 @@ export const AllStates: StoryObj = {
               <div slot="footer">
                 <button>Dismiss</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
 
-            <enchanted-dialog .dialogTitle=${'Dialog without Border'} .size=${DialogSizes.MD} ?open=${true} ?removeBorder=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Dialog without Border'} .size=${DialogSizes.MD} ?open=${true} ?removeBorder=${true}>
               <div slot="content">
                 <p>This dialog has removeBorder set to true, removing the border styling from the dialog container.</p>
                 <p>Useful for custom styling or seamless integration with specific design requirements.</p>
@@ -180,9 +189,9 @@ export const AllStates: StoryObj = {
               <div slot="footer">
                 <button>Close</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
 
-            <enchanted-dialog .dialogTitle=${'Dialog with Rich Content'} .size=${DialogSizes.LG} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Dialog with Rich Content'} .size=${DialogSizes.LG} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <h4 style="margin-top: 0;">Form Example</h4>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -204,9 +213,9 @@ export const AllStates: StoryObj = {
                 <button>Cancel</button>
                 <button style="background: #1976d2; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Submit</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
 
-            <enchanted-dialog .dialogTitle=${'Confirmation Dialog'} .size=${DialogSizes.SM} ?open=${true}>
+            <${ENCHANTED_DIALOG_TAG} .dialogTitle=${'Confirmation Dialog'} .size=${DialogSizes.SM} ?open=${true} ?disableBackdropClick=${true}>
               <div slot="content">
                 <p style="margin: 0;">Are you sure you want to delete this item? This action cannot be undone.</p>
               </div>
@@ -214,7 +223,7 @@ export const AllStates: StoryObj = {
                 <button style="padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer;">Cancel</button>
                 <button style="padding: 8px 16px; background: #d32f2f; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
               </div>
-            </enchanted-dialog>
+            </${ENCHANTED_DIALOG_TAG}>
           </div>
         </div>
       </div>

@@ -15,7 +15,8 @@
 // External imports
 import { Key } from 'webdriverio';
 import { $, browser, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-datepicker';
@@ -25,8 +26,9 @@ import { initSessionStorage } from '../../utils';
 import { DATEPICKER_PARTS } from '../../../types/cssClassEnums';
 import { FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP, MAX_YEAR_BUFFER, MIN_YEAR } from '../../../types/enchanted-datepicker';
 import { formatDate, getLocalizedMonths } from '../../../utils/dateUtils';
+import { ENCHANTED_DATEPICKER_TAG, ENCHANTED_DATEPICKER_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedDatepicker component testing', () => {
+describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
   const monthsEn = getLocalizedMonths();
 
   // Constants during test run date
@@ -45,45 +47,39 @@ describe('EnchantedDatepicker component testing', () => {
     dayNow = new Date().getDate();
     daysInMonth = new Date(yearNow, monthNow + 1, 0).getDate();
 
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   beforeEach(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   after(async () => {
     await browser.setTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
   });
 
-  it('EnchantedDatepicker - should render datepicker web component without crashing', async () => {
-    let component = document.createElement('enchanted-datepicker');
+  it('should render datepicker web component without crashing', async () => {
+    let component = document.createElement(ENCHANTED_DATEPICKER_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedDatepicker - should remove web component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-datepicker');
+  it('should remove web component from document body and validates removal', async () => {
+    let component = document.createElement(ENCHANTED_DATEPICKER_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedDatepicker - should validate default values of attributes', async () => {
-    let component = document.createElement('enchanted-datepicker');
+  it('should validate default values of attributes', async () => {
+    let component = document.createElement(ENCHANTED_DATEPICKER_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('label', 'Label');
     await expect(component).toHaveElementProperty('name', 'datepicker');
@@ -91,20 +87,20 @@ describe('EnchantedDatepicker component testing', () => {
     component.remove();
   });
 
-  it('EnchantedDatepicker - should validate custom values of attributes', async () => {
+  it('should validate custom values of attributes', async () => {
     render(
       html`
-        <enchanted-datepicker
+        <${ENCHANTED_DATEPICKER_TAG}
           label="Sample label"
           name="Sample form name"
           helpericontooltip="Sample helper tooltip"
           requiredField
-        ></enchanted-datepicker>
+        ></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const label = await component.shadow$('label').getElement();
@@ -127,15 +123,15 @@ describe('EnchantedDatepicker component testing', () => {
     await expect(input).toHaveAttribute('name', 'Sample form name');
   });
 
-  it('EnchantedDatepicker - should be able to open calendar and select a date', async () => {
+  it('should be able to open calendar and select a date', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -168,15 +164,15 @@ describe('EnchantedDatepicker component testing', () => {
     }).format(selectedDate));
   });
 
-  it('EnchantedDatepicker - should be able to open calendar and select Today', async () => {
+  it('should be able to open calendar and select Today', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -203,15 +199,15 @@ describe('EnchantedDatepicker component testing', () => {
     }).format(selectedDate));
   });
 
-  it('EnchantedDatepicker - should be able to open calendar and change Year and reopen calendar and year view again', async () => {
+  it('should be able to open calendar and change Year and reopen calendar and year view again', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-datepicker').getElement();
+    let component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -229,7 +225,7 @@ describe('EnchantedDatepicker component testing', () => {
     await yearViewBtn.click();
     await browser.pause(400);
 
-    component = await $('enchanted-datepicker').getElement();
+    component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     let yearDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION_YEAR_DIV}]`).getElement();
     await expect(yearDiv).toBeDisplayed();
 
@@ -283,15 +279,15 @@ describe('EnchantedDatepicker component testing', () => {
   });
 
 
-  it('EnchantedDatepicker - should be able to open calendar and change to Next Month', async () => {
+  it('should be able to open calendar and change to Next Month', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -333,15 +329,15 @@ describe('EnchantedDatepicker component testing', () => {
     }).format(selectedDate));
   });
 
-  it('EnchantedDatepicker - should be able to open calendar and change Prev Month', async () => {
+  it('should be able to open calendar and change Prev Month', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -383,15 +379,15 @@ describe('EnchantedDatepicker component testing', () => {
     }).format(selectedDate));
   });
 
-  it('EnchantedDatepicker - should validate that the component calendar buttons are accessible via Tab and Shift + Tab', async () => {
+  it('should validate that the component calendar buttons are accessible via Tab and Shift + Tab', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    let component = await $('enchanted-datepicker').getElement();
+    let component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -411,7 +407,7 @@ describe('EnchantedDatepicker component testing', () => {
       .perform();
 
     await browser.pause(400);
-    component = await $('enchanted-datepicker').getElement();
+    component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
 
     const input = await component.shadow$('input').getElement();
     await expect(input).toBeDisplayed();
@@ -457,15 +453,15 @@ describe('EnchantedDatepicker component testing', () => {
     expect(calendarDiv).not.toBeDisplayed();
   });
 
-  it('EnchantedDatepicker - should be able to open calendar, change month, navigate to first day of month and select it', async () => {
+  it('should be able to open calendar, change month, navigate to first day of month and select it', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -508,15 +504,15 @@ describe('EnchantedDatepicker component testing', () => {
     await expect(await input.getValue()).toEqual(formattedDate);
   });
 
-  it('EnchantedDatepicker - should be able to keyboard navigate and select date', async () => {
+  it('should be able to keyboard navigate and select date', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -609,15 +605,15 @@ describe('EnchantedDatepicker component testing', () => {
     await expect(await input.getValue()).toEqual(formattedDate1);
   });
 
-  it('EnchantedDatepicker - should be able to open calendar and close it via Escape key', async () => {
+  it('should be able to open calendar and close it via Escape key', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -640,15 +636,15 @@ describe('EnchantedDatepicker component testing', () => {
     await expect(calendarDiv).not.toBeDisplayed();
   });
 
-  it('EnchantedDatepicker - should be able to go to last supported month and check that next month is disabled', async () => {
+  it('should be able to go to last supported month and check that next month is disabled', async () => {
     render(
       html`
-        <enchanted-datepicker></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     let calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
@@ -699,16 +695,16 @@ describe('EnchantedDatepicker component testing', () => {
     await browser.pause(400);
   });
 
-  it('EnchantedDatepicker - should be able to type a full valid date', async () => {
+  it('should be able to type a full valid date', async () => {
     let changeEventDetail = '';
     render(
       html`
-        <enchanted-datepicker @date-change=${(e: CustomEvent) => {return changeEventDetail = e.detail.value;} }></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG} @date-change=${(e: CustomEvent) => {return changeEventDetail = e.detail.value;} }></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarInput = await component.shadow$('input').getElement();
@@ -740,16 +736,16 @@ describe('EnchantedDatepicker component testing', () => {
     expect('2025-01-01').toEqual(formatDate(Number(changeEventDetail), FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP));
   });
 
-  it('EnchantedDatepicker - should be able to type a partial date and expect invalid hint', async () => {
+  it('should be able to type a partial date and expect invalid hint', async () => {
     let changeEventDetail = '';
     render(
       html`
-        <enchanted-datepicker @date-change=${(e: CustomEvent) => {return changeEventDetail = e.detail.value;} }></enchanted-datepicker>
+        <${ENCHANTED_DATEPICKER_TAG} @date-change=${(e: CustomEvent) => {return changeEventDetail = e.detail.value;} }></${ENCHANTED_DATEPICKER_TAG}>
       `,
       document.body
     );
 
-    const component = await $('enchanted-datepicker').getElement();
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
 
     const calendarInput = await component.shadow$('input').getElement();

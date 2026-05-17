@@ -40,5 +40,5 @@ We provide the following utility development commands:
 | `lint` | `npm run lint` | Run the linting task |
 | `styling` | `npm run compile-enchanted-css` and `npm run watch-enchanted-css` | Runs the styling tasks |
 | `build storybook` | `npm run build-storybook` | Builds a storybook |
-| `storybook` | `npm run storybook` | Runs a storybook instance |
-| `testing` | `npm run test-unit` and `npm run test-snapshot` | Run unit and snapshot tests |
+| `storybook` | `npm run storybook`  or scoped one `VITE_COMPONENT_PREFIX=prefix- npm run storybook` | Runs a storybook instance |
+| `testing` | `npm run test-unit` or scoped one `VITE_COMPONENT_PREFIX=prefix- npm run test-unit` | Run unit tests |

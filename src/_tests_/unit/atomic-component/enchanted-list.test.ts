@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, expect } from '@wdio/globals';
 
 // Component imports
@@ -21,53 +22,50 @@ import '../../../components/atomic-component/enchanted-list';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_LIST_TAG, ENCHANTED_LIST_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedList component testing', () => {
+describe(`${ENCHANTED_LIST_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedList - should render without crashing', async () => {
-    let component = document.createElement('enchanted-list');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_LIST_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedList - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-list');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_LIST_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedList - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-list');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_LIST_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedList - should render component and validate attributes', async () => {
+  it('should render component and validate attributes', async () => {
     render(
       html`
-        <enchanted-list>
+        <${ENCHANTED_LIST_TAG}>
           <slot name="test">testing</slot>
-        </enchanted-list>
+        </${ENCHANTED_LIST_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-list').getElement();
+    let component = await $(ENCHANTED_LIST_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     const slot = await $('slot[name="test"]').getElement();
     await expect(slot).toHaveText('testing');

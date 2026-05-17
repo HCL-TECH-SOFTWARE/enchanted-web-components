@@ -14,14 +14,18 @@
  * ======================================================================== */
 // External imports
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import createDebug from 'debug';
+
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { HEADER_LAYOUT_PARTS } from '../../types/cssClassEnums';
- 
+import { ENCHANTED_HEADER_LAYOUT_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-header-layout.ts');
+
 /**
  * Search Header template.
  */
-@customElement('enchanted-header-layout')
 export class EnchantedHeaderLayout extends EnchantedAcBaseElement {
 
   @property({ type: Boolean }) isTagsAvailable = false;
@@ -47,9 +51,8 @@ export class EnchantedHeaderLayout extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-header-layout': EnchantedHeaderLayout
-  }
+if (!customElements.get(ENCHANTED_HEADER_LAYOUT_TAG_NAME)) {
+  customElements.define(ENCHANTED_HEADER_LAYOUT_TAG_NAME, EnchantedHeaderLayout);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_HEADER_LAYOUT_TAG_NAME);
 }
-  

@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-toggle-button';
 import '../components/atomic-component/enchanted-badge';
 import '../components/atomic-component/enchanted-icon-button';
@@ -21,6 +21,7 @@ import '../components/atomic-component/enchanted-icon-button';
 import tagUrl from '../_tests_/assets/tag.svg';
 import listUrl from '../_tests_/assets/list.svg';
 import { svgClose } from '../_tests_/assets/svg-close';
+import { ENCHANTED_TOGGLE_BUTTON_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedToggleButtonProps
@@ -84,14 +85,14 @@ const meta: Meta<EnchantedToggleButtonProps> = {
   },
   render: (args) => {
     return html`
-      <enchanted-toggle-button
+      <${ENCHANTED_TOGGLE_BUTTON_TAG}
         ?toggleOn=${args.toggleOn}
         ?disabled=${args.disabled}
         ?outlined=${args.outlined}
         .selectedValue=${args.selectedValue}
         .iconUrls=${[tagUrl, listUrl]}
         .values=${args.values}
-      ></enchanted-toggle-button>
+      ></${ENCHANTED_TOGGLE_BUTTON_TAG}>
     `;
   },
 };
@@ -107,27 +108,27 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-end;">
         <div>
           <div>Two Button (Off)</div>
-          <enchanted-toggle-button .iconUrls=${[tagUrl, listUrl]} .values=${['on', 'off']} selectedValue="off"></enchanted-toggle-button>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} .iconUrls=${[tagUrl, listUrl]} .values=${['on', 'off']} selectedValue="off"></${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>Two Button (On)</div>
-          <enchanted-toggle-button .iconUrls=${[tagUrl, listUrl]} .values=${['on', 'off']} selectedValue="on"></enchanted-toggle-button>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} .iconUrls=${[tagUrl, listUrl]} .values=${['on', 'off']} selectedValue="on"></${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>Single Button (Off)</div>
-          <enchanted-toggle-button singleButton .icon=${svgClose} singleButtonTitle="Power" singleButtonAria="Power off" toggleOn="false"></enchanted-toggle-button>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} singleButton .icon=${svgClose} singleButtonTitle="Power" singleButtonAria="Power off" toggleOn="false"></${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>Single Button (On)</div>
-          <enchanted-toggle-button singleButton .icon=${svgClose} singleButtonTitle="Power" singleButtonAria="Power on" toggleOn></enchanted-toggle-button>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} singleButton .icon=${svgClose} singleButtonTitle="Power" singleButtonAria="Power on" toggleOn></${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>Single Button with Badge</div>
-          <enchanted-toggle-button singleButton .icon=${svgClose} singleButtonTitle="Badge" showBadge toggleOn></enchanted-toggle-button>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} singleButton .icon=${svgClose} singleButtonTitle="Badge" showBadge toggleOn></${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>Disabled</div>
-          <enchanted-toggle-button .iconUrls=${[tagUrl, listUrl]} .values=${['on', 'off']} selectedValue="off" disabled></enchanted-toggle-button>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} .iconUrls=${[tagUrl, listUrl]} .values=${['on', 'off']} selectedValue="off" disabled></${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
       </div>
     `;

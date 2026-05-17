@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-datepicker';
 import { DEFAULT_CALENDAR_LOCALE } from '../types/enchanted-datepicker';
+import { ENCHANTED_DATEPICKER_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Input/enchanted-datepicker',
@@ -130,7 +131,7 @@ type Story = StoryObj<{
 export const EnchantedDatepicker: Story = {
   render: (args) => {
     return html`
-      <enchanted-datepicker
+      <${ENCHANTED_DATEPICKER_TAG}
         .name=${args.name}
         .label=${args.label}
         .field=${args.field}
@@ -143,7 +144,7 @@ export const EnchantedDatepicker: Story = {
         ?hideHelperText=${args.hideHelperText}
         ?showRemoveLabel=${args.showRemoveLabel}
         ?disabled=${args.disabled}
-      ></enchanted-datepicker>
+      ></${ENCHANTED_DATEPICKER_TAG}>
     `;
   },
   name: 'Default'
@@ -159,60 +160,60 @@ export const AllStates: StoryObj = {
         <div>
           <h3 style="margin-top: 0;">Basic States</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <enchanted-datepicker .label=${'Default Datepicker'} .name=${'datepicker-1'}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'With Selected Date'} .name=${'datepicker-2'} .value=${selectedDate}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Required Field'} .name=${'datepicker-3'} ?requiredField=${true}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'With Remove Button'} .name=${'datepicker-4'} .value=${selectedDate} ?showRemoveLabel=${true}></enchanted-datepicker>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Default Datepicker'} .name=${'datepicker-1'}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'With Selected Date'} .name=${'datepicker-2'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Required Field'} .name=${'datepicker-3'} ?requiredField=${true}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'With Remove Button'} .name=${'datepicker-4'} .value=${selectedDate} ?showRemoveLabel=${true}></${ENCHANTED_DATEPICKER_TAG}>
           </div>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">Display Variations</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <enchanted-datepicker .label=${'With Input Action'} .name=${'datepicker-5'} ?showInputAction=${true}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Hidden Helper Text'} .name=${'datepicker-6'} ?hideHelperText=${true}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'With Tooltip'} .name=${'datepicker-7'} .helperIconTooltip=${'This is a helpful tooltip message'}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Custom Field ID'} .name=${'datepicker-8'} .field=${'custom-field-id'}></enchanted-datepicker>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'With Input Action'} .name=${'datepicker-5'} ?showInputAction=${true}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Hidden Helper Text'} .name=${'datepicker-6'} ?hideHelperText=${true}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'With Tooltip'} .name=${'datepicker-7'} .helperIconTooltip=${'This is a helpful tooltip message'}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Custom Field ID'} .name=${'datepicker-8'} .field=${'custom-field-id'}></${ENCHANTED_DATEPICKER_TAG}>
           </div>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">Disabled State</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <enchanted-datepicker .label=${'Disabled Empty'} .name=${'datepicker-9'} ?disabled=${true}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Disabled with Date'} .name=${'datepicker-10'} .value=${selectedDate} ?disabled=${true}></enchanted-datepicker>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Disabled Empty'} .name=${'datepicker-9'} ?disabled=${true}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Disabled with Date'} .name=${'datepicker-10'} .value=${selectedDate} ?disabled=${true}></${ENCHANTED_DATEPICKER_TAG}>
           </div>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">Locales</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <enchanted-datepicker .label=${'English (en)'} .name=${'datepicker-11'} .locale=${'en'} .value=${selectedDate}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'French (fr)'} .name=${'datepicker-12'} .locale=${'fr'} .value=${selectedDate}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'German (de)'} .name=${'datepicker-13'} .locale=${'de'} .value=${selectedDate}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Spanish (es)'} .name=${'datepicker-14'} .locale=${'es'} .value=${selectedDate}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Italian (it)'} .name=${'datepicker-15'} .locale=${'it'} .value=${selectedDate}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Chinese (zh)'} .name=${'datepicker-16'} .locale=${'zh'} .value=${selectedDate}></enchanted-datepicker>
-            <enchanted-datepicker .label=${'Japanese (ja)'} .name=${'datepicker-17'} .locale=${'ja'} .value=${selectedDate}></enchanted-datepicker>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'English (en)'} .name=${'datepicker-11'} .locale=${'en'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'French (fr)'} .name=${'datepicker-12'} .locale=${'fr'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'German (de)'} .name=${'datepicker-13'} .locale=${'de'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Spanish (es)'} .name=${'datepicker-14'} .locale=${'es'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Italian (it)'} .name=${'datepicker-15'} .locale=${'it'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Chinese (zh)'} .name=${'datepicker-16'} .locale=${'zh'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG} .label=${'Japanese (ja)'} .name=${'datepicker-17'} .locale=${'ja'} .value=${selectedDate}></${ENCHANTED_DATEPICKER_TAG}>
           </div>
         </div>
 
         <div>
           <h3 style="margin-top: 0;">Combined Features</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <enchanted-datepicker
+            <${ENCHANTED_DATEPICKER_TAG}
               .label=${'Full Featured'}
               .name=${'datepicker-18'}
               .value=${selectedDate}
               ?requiredField=${true}
               ?showInputAction=${true}
               ?showRemoveLabel=${true}
-            ></enchanted-datepicker>
-            <enchanted-datepicker
+            ></${ENCHANTED_DATEPICKER_TAG}>
+            <${ENCHANTED_DATEPICKER_TAG}
               .label=${'Minimal Display'}
               .name=${'datepicker-19'}
               ?hideHelperText=${true}
-            ></enchanted-datepicker>
+            ></${ENCHANTED_DATEPICKER_TAG}>
           </div>
         </div>
       </div>

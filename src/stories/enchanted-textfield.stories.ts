@@ -13,10 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-textfield';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
+import { generateIconTagName, ENCHANTED_TEXTFIELD_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedInputTextfieldProps
@@ -33,6 +34,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
  * @property hassearchedbefore - If true, indicates a search has been performed.
  * @property autocomplete - Autocomplete attribute value ('on' or 'off').
  * @property ariaLabel - ARIA label for accessibility.
+ * @property multiline - If true, renders a multiline textarea instead of a single-line input.
+ * @property numberOfLines - Number of lines for the textarea when multiline is true.
  */
 export interface EnchantedInputTextfieldProps {
   value?: string;
@@ -47,6 +50,8 @@ export interface EnchantedInputTextfieldProps {
   autocomplete?: string;
   ariaLabel?: string;
   showClearIcon?: boolean;
+  multiline?: boolean;
+  numberOfLines?: number | null;
 }
 
 const meta: Meta<EnchantedInputTextfieldProps> = {
@@ -122,6 +127,16 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
       description: 'Toggle to show or hide the clear icon.',
       table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
     },
+    multiline: {
+      control: { type: 'boolean' },
+      description: 'If true, renders a multiline textarea instead of a single-line input.',
+      table: { category: 'Content', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
+    numberOfLines: {
+      control: { type: 'number', min: 1 },
+      description: 'Number of visible lines for the textarea when multiline is true. Clear the field for unlimited growth. Ignored if multiline is false.',
+      table: { category: 'Content', type: { summary: 'number | null' }, defaultValue: { summary: 'null' } },
+    },
   },
   args: {
     value: '',
@@ -129,18 +144,20 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
     label: 'Text Field',
     placeholder: 'Enter text',
     disabled: false,
-    clearIcon: html`<icon-close size="16" color="black"></icon-close>`,
-    actionIcon: html`<icon-search size="16" color="black"></icon-search>`,
+    clearIcon: html`<${generateIconTagName('icon-close')} size="16" color="black"></${generateIconTagName('icon-close')}>`,
+    actionIcon: html`<${generateIconTagName('icon-search')} size="16" color="black"></${generateIconTagName('icon-search')}>`,
     field: '',
     hassearchedbefore: false,
     autocomplete: 'on',
     ariaLabel: '',
     showClearIcon: true,
+    multiline: false,
+    numberOfLines: null,
   },
   
   render: (args) => {
     return html`
-      <enchanted-textfield
+      <${ENCHANTED_TEXTFIELD_TAG}
         .value=${args.value}
         type="${args.type}"
         label="${args.label}"
@@ -152,7 +169,9 @@ const meta: Meta<EnchantedInputTextfieldProps> = {
         ?hassearchedbefore=${args.hassearchedbefore}
         autocomplete="${args.autocomplete}"
         aria-label="${args.ariaLabel}"
-      ></enchanted-textfield>
+        ?multiline=${args.multiline}
+        .numberOfLines=${args.multiline ? (args.numberOfLines ?? null) : null}
+      ></${ENCHANTED_TEXTFIELD_TAG}>
     `;
   },
 };
@@ -180,113 +199,113 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Default (Empty)</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Text Field"
             placeholder="Enter text"
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Value</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Text Field"
             .value=${'Sample text'}
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Placeholder</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Username"
             placeholder="Enter your username"
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Password Type</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Password"
             type="password"
             placeholder="Enter password"
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Email Type</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Email"
             type="email"
             placeholder="name@example.com"
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Number Type</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Age"
             type="number"
             placeholder="Enter age"
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Clear Icon</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Search"
             .value=${'Search query'}
-            .clearIcon=${html`<icon-close size="16" color="black"></icon-close>`}
-          ></enchanted-textfield>
+            .clearIcon=${html`<${generateIconTagName('icon-close')} size="16" color="black"></${generateIconTagName('icon-close')}>`}
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Action Icon</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Search"
             placeholder="Search..."
-            .actionIcon=${html`<icon-search size="16" color="black"></icon-search>`}
-          ></enchanted-textfield>
+            .actionIcon=${html`<${generateIconTagName('icon-search')} size="16" color="black"></${generateIconTagName('icon-search')}>`}
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With Both Icons</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Search Field"
             .value=${'Search term'}
-            .clearIcon=${html`<icon-close size="16" color="black"></icon-close>`}
-            .actionIcon=${html`<icon-search size="16" color="black"></icon-search>`}
-          ></enchanted-textfield>
+            .clearIcon=${html`<${generateIconTagName('icon-close')} size="16" color="black"></${generateIconTagName('icon-close')}>`}
+            .actionIcon=${html`<${generateIconTagName('icon-search')} size="16" color="black"></${generateIconTagName('icon-search')}>`}
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled (Empty)</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Text Field"
             placeholder="Disabled"
             ?disabled=${true}
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled (Filled)</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Text Field"
             .value=${'Disabled value'}
             ?disabled=${true}
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Autocomplete Off</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Credit Card"
             placeholder="XXXX-XXXX-XXXX-XXXX"
             autocomplete="off"
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">With ARIA Label</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Search"
             placeholder="Type to search"
             aria-label="Search products in catalog"
-            .actionIcon=${html`<icon-search size="16" color="black"></icon-search>`}
-          ></enchanted-textfield>
+            .actionIcon=${html`<${generateIconTagName('icon-search')} size="16" color="black"></${generateIconTagName('icon-search')}>`}
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
         <div style="width: 250px;">
           <div style="margin-bottom: 8px; font-weight: 500;">Long Placeholder</div>
-          <enchanted-textfield
+          <${ENCHANTED_TEXTFIELD_TAG}
             label="Description"
             placeholder="Enter a detailed description of your item"
-          ></enchanted-textfield>
+          ></${ENCHANTED_TEXTFIELD_TAG}>
         </div>
       </div>
     `;

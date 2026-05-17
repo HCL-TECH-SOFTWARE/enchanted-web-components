@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { html } from 'lit/static-html.js';
+import { property, state } from 'lit/decorators.js';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -27,11 +28,13 @@ import { isLTR } from '../localization';
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--right';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--left';
+import { generateIconTagName, ENCHANTED_BREADCRUMBS_ITEM_TAG, ENCHANTED_BREADCRUMBS_TAG_NAME, ENCHANTED_SVG_ICON_TAG } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-breadcrumbs.ts');
 
 /**
  * Breadcrumb component.
  */
-@customElement('enchanted-breadcrumbs')
 export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
     ...EnchantedAcBaseElement.shadowRootOptions,
@@ -65,7 +68,7 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
                   index < this.paths.length-1 ? 
                     html`
                       <li part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LIST}" key="breadcrumb-${index}">
-                        <enchanted-breadcrumbs-item
+                        <${ENCHANTED_BREADCRUMBS_ITEM_TAG}
                           @click="${(event: Event) => {
                             if (this.handleBreadcrumbClick && !path.disabled) this.handleBreadcrumbClick(event, path);
                           }}"
@@ -74,24 +77,24 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
                           exportparts="${this.exportParts}"
                           data-testid="breadcrumbs-item"
                         >
-                        </enchanted-breadcrumbs-item>
+                        </${ENCHANTED_BREADCRUMBS_ITEM_TAG}>
                       </li>
                         <li part="${BREADCRUMBS_PART.BREADCRUMBS_SEPARATOR}" aria-hidden="true">
-                          <enchanted-svg-icon .icon=${ this.isLtr
-                            ? html`<icon-chevron-right size="16"></icon-chevron-right>`
-                            : html`<icon-chevron-left size="16"></icon-chevron-left>`
-                          } ?useCurrentColor=${true}></enchanted-svg-icon>
+                          <${ENCHANTED_SVG_ICON_TAG} .icon=${ this.isLtr
+                            ? html`<${generateIconTagName('icon-chevron-right')} size="16"></${generateIconTagName('icon-chevron-right')}>`
+                            : html`<${generateIconTagName('icon-chevron-left')} size="16"></${generateIconTagName('icon-chevron-left')}>`
+                          } ?useCurrentColor=${true}></${ENCHANTED_SVG_ICON_TAG}>
                         </li>` :
                     html`
                       <li part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LIST}" key="breadcrumb-${index}">
-                        <enchanted-breadcrumbs-item
+                        <${ENCHANTED_BREADCRUMBS_ITEM_TAG}
                           .path="${path}"
                           key="breadcrumb-${index}"
                           exportparts="${this.exportParts}"
                           partProp="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LAST}"
                           data-testid="breadcrumbs-item"
                           aria-current="page"
-                        />
+                        ></${ENCHANTED_BREADCRUMBS_ITEM_TAG}>
                       </li>`
                 }
               `;
@@ -104,8 +107,8 @@ export class EnchantedBreadcrumbs extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-breadcrumbs': EnchantedBreadcrumbs
-  }
+if (!customElements.get(ENCHANTED_BREADCRUMBS_TAG_NAME)) {
+  customElements.define(ENCHANTED_BREADCRUMBS_TAG_NAME, EnchantedBreadcrumbs);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_BREADCRUMBS_TAG_NAME);
 }

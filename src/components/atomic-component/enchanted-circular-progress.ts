@@ -13,19 +13,22 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { css, html } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import { CIRCULAR_PROGRESS_PARTS } from '../../types/cssClassEnums';
+import { ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-circular-progress.ts');
 
 /**
  * EnchantedCircularProgress component - Indeterminate variant
  * Displays an animated circular progress indicator with track and progress colors
  * Based on Material UI's CircularProgress component
  */
-@customElement('enchanted-circular-progress')
 export class EnchantedCircularProgress extends EnchantedAcBaseElement {
   /**
    * Inline styles for @keyframes only.
@@ -202,8 +205,8 @@ export class EnchantedCircularProgress extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-circular-progress': EnchantedCircularProgress
-  }
+if (!customElements.get(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME)) {
+  customElements.define(ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME, EnchantedCircularProgress);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME);
 }

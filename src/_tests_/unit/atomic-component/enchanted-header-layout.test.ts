@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, expect } from '@wdio/globals';
 
 // Component imports
@@ -22,55 +23,52 @@ import '../../../components/atomic-component/enchanted-header-layout';
 // Helper imports
 import { initSessionStorage } from '../../utils';
 import { HEADER_LAYOUT_PARTS } from '../../../types/cssClassEnums';
+import { ENCHANTED_HEADER_LAYOUT_TAG, ENCHANTED_HEADER_LAYOUT_TAG_NAME } from '../../../components/tags';
  
-describe('EnchantedHeaderLayout component testing', () => {
+describe(`${ENCHANTED_HEADER_LAYOUT_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedHeaderLayout - should render without crashing', async () => {
-    let component = document.createElement('enchanted-header-layout');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_HEADER_LAYOUT_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedHeaderLayout - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-header-layout');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_HEADER_LAYOUT_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedHeaderLayout - should validate null for non-existent attributes', async () => {
-    let component = document.createElement('enchanted-header-layout');
+  it('should validate null for non-existent attributes', async () => {
+    let component = document.createElement(ENCHANTED_HEADER_LAYOUT_TAG_NAME);
     await expect(component.getAttribute('nonExistentAttribute')).toBeNull();
     component.remove();
   });
 
-  it('EnchantedHeaderLayout - should render component and validate attributes', async () => {
+  it('should render component and validate attributes', async () => {
     render(
       html`
-        <enchanted-header-layout>
+        <${ENCHANTED_HEADER_LAYOUT_TAG}>
           <div slot="header-start">testing1</div>
           <div slot="header-middle">testing2</div>
           <div slot="header-end">testing3</div>
-        </enchanted-header-layout>
+        </${ENCHANTED_HEADER_LAYOUT_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-header-layout').getElement();
+    let component = await $(ENCHANTED_HEADER_LAYOUT_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     const slot1 = await $('div[slot="header-start"]').getElement();
     await expect(slot1).toHaveText('testing1');
@@ -82,11 +80,11 @@ describe('EnchantedHeaderLayout component testing', () => {
     await expect(slot3).toHaveText('testing3');
   });
 
-  it('EnchantedHeaderLayout - should render component in chat header mode', async () => {
+  it('should render component in chat header mode', async () => {
     render(
       html`
-        <enchanted-header-layout ?isChatHeader=${true}>
-        </enchanted-header-layout>
+        <${ENCHANTED_HEADER_LAYOUT_TAG} ?isChatHeader=${true}>
+        </${ENCHANTED_HEADER_LAYOUT_TAG}>
       `,
       document.body
     );

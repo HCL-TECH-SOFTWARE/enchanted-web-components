@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -24,8 +25,10 @@ import { BUTTON_PARTS, BUTTON_VARIANT, ICON_BUTTON_SIZES, ARIA_ROLES } from '../
 import { getCurrentDirection } from '../localization';
 import { LOCALE_DIRECTIONS } from '../constants';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { COMPONENT_PREFIX, ENCHANTED_BUTTON_TAG_NAME } from '../tags';
 
-@customElement('enchanted-button')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-button.ts');
+
 export class EnchantedButton extends EnchantedAcBaseElement {
   static override shadowRootOptions = {
     ...EnchantedAcBaseElement.shadowRootOptions,
@@ -153,7 +156,7 @@ export class EnchantedButton extends EnchantedAcBaseElement {
       const { strings } = this.icon;
       if (strings.length > 0) {
         // Check if icon is an enchanted icon with the <icon-*> tag
-        const match = strings[0].match(/^\s*<icon-[a-zA-Z0-9\-_]+/);
+        const match = strings[0].match(new RegExp(`^\\s*<${COMPONENT_PREFIX}icon-[a-zA-Z0-9\\-_]+`));
         if (match) {
           return html`
             <span part=${this.partAttributeDecider( this.endicon ? BUTTON_PARTS.BUTTON_END_ICON : BUTTON_PARTS.BUTTON_START_ICON)} aria-hidden="true">
@@ -222,8 +225,8 @@ export class EnchantedButton extends EnchantedAcBaseElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-button': EnchantedButton;
-  }
+if (!customElements.get(ENCHANTED_BUTTON_TAG_NAME)) {
+  customElements.define(ENCHANTED_BUTTON_TAG_NAME, EnchantedButton);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_BUTTON_TAG_NAME);
 }

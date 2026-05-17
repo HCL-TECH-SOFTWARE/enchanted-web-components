@@ -13,8 +13,9 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-table-pagination';
+import { ENCHANTED_TABLE_PAGINATION_TAG } from '../components/tags';
 
 /**
  * @typedef EnchantedTablePaginationProps
@@ -87,17 +88,16 @@ export default meta;
 
 type Story = StoryObj<EnchantedTablePaginationProps>;
 
-export const EnchantedTablePaginationStory: Story = {
-  name: 'enchanted-table-pagination',
+export const Default: Story = {
   render: (args) => {
     return html`
-      <enchanted-table-pagination
+      <${ENCHANTED_TABLE_PAGINATION_TAG}
         ?disabled=${args.disabled}
         .currentPage=${args.currentPage}
         .totalCount=${args.totalCount}
         .rowSize=${args.rowSize}
         .options=${args.options}
-      ></enchanted-table-pagination>
+      ></${ENCHANTED_TABLE_PAGINATION_TAG}>
     `;
   },
 };
@@ -147,15 +147,15 @@ export const AllStates: Story = {
           <h3>Default States</h3>
           <div class="pagination-item">
             <span class="pagination-label">Default - First Page (1-10 of 100)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Middle Page (21-30 of 100)</span>
-            <enchanted-table-pagination .currentPage=${3} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${3} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Last Page (91-100 of 100)</span>
-            <enchanted-table-pagination .currentPage=${10} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${10} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
         </div>
 
@@ -164,7 +164,7 @@ export const AllStates: Story = {
           <h3>Disabled State</h3>
           <div class="pagination-item">
             <span class="pagination-label">All controls disabled</span>
-            <enchanted-table-pagination ?disabled=${true} .currentPage=${5} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} ?disabled=${true} .currentPage=${5} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
         </div>
 
@@ -173,19 +173,19 @@ export const AllStates: Story = {
           <h3>Different Row Sizes</h3>
           <div class="pagination-item">
             <span class="pagination-label">10 rows per page (1-10 of 100)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">20 rows per page (1-20 of 100)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${100} .rowSize=${20} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${100} .rowSize=${20} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">50 rows per page (1-50 of 100)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${100} .rowSize=${50} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${100} .rowSize=${50} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">100 rows per page (1-100 of 250)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${250} .rowSize=${100} .options=${['10', '20', '50', '100']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${250} .rowSize=${100} .options=${['10', '20', '50', '100']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
         </div>
 
@@ -194,23 +194,23 @@ export const AllStates: Story = {
           <h3>Different Data Sizes</h3>
           <div class="pagination-item">
             <span class="pagination-label">Small dataset - Single page (1-5 of 5)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${5} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${5} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Few items (1-10 of 15, 2 pages)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${15} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${15} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Medium dataset (1-10 of 250, 25 pages)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${250} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${250} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Large dataset (1-10 of 1000, 100 pages)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${1000} .rowSize=${10} .options=${['10', '20', '50', '100']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${1000} .rowSize=${10} .options=${['10', '20', '50', '100']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Very large dataset (501-510 of 5000, 500 pages)</span>
-            <enchanted-table-pagination .currentPage=${51} .totalCount=${5000} .rowSize=${10} .options=${['10', '20', '50', '100']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${51} .totalCount=${5000} .rowSize=${10} .options=${['10', '20', '50', '100']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
         </div>
 
@@ -219,15 +219,15 @@ export const AllStates: Story = {
           <h3>Custom Row Size Options</h3>
           <div class="pagination-item">
             <span class="pagination-label">Standard options: 10, 20, 50</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Extended options: 10, 20, 50, 100</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${500} .rowSize=${10} .options=${['10', '20', '50', '100']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${500} .rowSize=${10} .options=${['10', '20', '50', '100']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Custom options: 5, 15, 25, 50</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${100} .rowSize=${15} .options=${['5', '15', '25', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${100} .rowSize=${15} .options=${['5', '15', '25', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
         </div>
 
@@ -236,15 +236,15 @@ export const AllStates: Story = {
           <h3>Edge Cases</h3>
           <div class="pagination-item">
             <span class="pagination-label">Empty dataset (0 items)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${0} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${0} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Exactly one page (1-10 of 10)</span>
-            <enchanted-table-pagination .currentPage=${1} .totalCount=${10} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${1} .totalCount=${10} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
           <div class="pagination-item">
             <span class="pagination-label">Last page with fewer items (96-100 of 100)</span>
-            <enchanted-table-pagination .currentPage=${10} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></enchanted-table-pagination>
+            <${ENCHANTED_TABLE_PAGINATION_TAG} .currentPage=${10} .totalCount=${100} .rowSize=${10} .options=${['10', '20', '50']}></${ENCHANTED_TABLE_PAGINATION_TAG}>
           </div>
         </div>
       </div>

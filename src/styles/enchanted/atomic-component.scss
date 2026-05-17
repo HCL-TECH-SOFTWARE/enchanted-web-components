@@ -51,36 +51,46 @@
 @use 'components/atomic-component/enchanted-badge.scss';
 @use 'common/typography';
 
-enchanted-link {
+$component-prefix: '' !default;
+
+#{$component-prefix}enchanted-accordion {
+  @include enchanted-accordion.enchanted-accordion-base-styles;
+}
+
+#{$component-prefix}enchanted-accordion-summary {
+  @include enchanted-accordion-summary.enchanted-accordion-summary-base-styles;
+}
+
+#{$component-prefix}enchanted-link {
   @include enchanted-link.enchanted-link-base-styles;
 }
 
-enchanted-avatar {
+#{$component-prefix}enchanted-avatar {
   @include enchanted-avatar.enchanted-avatar-base-styles;
 }
 
-enchanted-fab {
+#{$component-prefix}enchanted-fab {
   @include enchanted-fab.enchanted-fab-base-styles;
 }
 
-enchanted-fab-ai {
+#{$component-prefix}enchanted-fab-ai {
   @include enchanted-fab.enchanted-fab-base-styles;
   @include enchanted-fab-ai.enchanted-fab-ai-base-styles;
 }
 
-enchanted-button {
+#{$component-prefix}enchanted-button {
   @include enchanted-button.enchanted-button-base-styles;
 }
 
-enchanted-chip {
+#{$component-prefix}enchanted-chip {
   @include enchanted-chip.enchanted-chip-base-styles;
 }
 
-enchanted-circular-progress {
+#{$component-prefix}enchanted-circular-progress {
   @include enchanted-circular-progress.enchanted-circular-progress-base-styles;
 }
 
-enchanted-data-grid {
+#{$component-prefix}enchanted-data-grid {
   @include enchanted-data-grid.enchanted-data-grid-styles;
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
   @include enchanted-menu.enchanted-menu-base-styles;
@@ -91,7 +101,7 @@ enchanted-data-grid {
   @include enchanted-tooltip.enchanted-tooltip-base-styles;
 }
 
-enchanted-data-grid-generic {
+#{$component-prefix}enchanted-data-grid-generic {
   @include enchanted-data-grid-generic.enchanted-data-grid-generic-styles;
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
   @include enchanted-menu.enchanted-menu-base-styles;
@@ -102,12 +112,12 @@ enchanted-data-grid-generic {
   @include enchanted-tooltip.enchanted-tooltip-base-styles;
 }
 
-enchanted-datepicker {
+#{$component-prefix}enchanted-datepicker {
   @include enchanted-datepicker.enchanted-datepicker-base-styles;
   @include enchanted-tooltip.enchanted-tooltip-base-styles;
 }
 
-enchanted-dialog {
+#{$component-prefix}enchanted-dialog {
   @include typography.body2;
   display: block;
   unicode-bidi: isolate;
@@ -115,27 +125,27 @@ enchanted-dialog {
   @include enchanted-button.enchanted-button-base-styles;
 }
 
-enchanted-header {
+#{$component-prefix}enchanted-header {
   @include enchanted-header.enchanted-header-base-styles;
 }
 
-enchanted-textfield {
+#{$component-prefix}enchanted-textfield {
   @include enchanted-textfield.enchanted-textfield-base-styles;
 }
 
-enchanted-select {
+#{$component-prefix}enchanted-select {
   @include enchanted-select.enchanted-select-base-styles;
 }
 
-enchanted-list {
+#{$component-prefix}enchanted-list {
   @include enchanted-list.enchanted-list-base-styles;
 }
 
-enchanted-list-item {
+#{$component-prefix}enchanted-list-item {
   @include enchanted-list-item.enchanted-list-item-base-styles;
 }
 
-enchanted-menu {
+#{$component-prefix}enchanted-menu {
   display: block;
   unicode-bidi: isolate;
   @include enchanted-menu.enchanted-menu-base-styles;
@@ -145,17 +155,17 @@ enchanted-menu {
   @include enchanted-button.enchanted-button-base-styles;
 }
 
-enchanted-menu-item {
+#{$component-prefix}enchanted-menu-item {
   display: block;
   unicode-bidi: isolate;
   @include enchanted-menu-item.enchanted-menu-item-base-styles;
 }
 
-enchanted-icon-button {
+#{$component-prefix}enchanted-icon-button {
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
 }
 
-enchanted-table-pagination {
+#{$component-prefix}enchanted-table-pagination {
   @include enchanted-table-pagination.enchanted-table-pagination-base-styles;
   @include enchanted-select.enchanted-select-base-styles(
     $part-button-contained-focused: 'pagination-select-button-contained-focused',
@@ -195,41 +205,41 @@ enchanted-table-pagination {
   }
 }
 
-enchanted-switch {
+#{$component-prefix}enchanted-switch {
   @include enchanted-switch.enchanted-switch-base-styles;
 }
 
-enchanted-header-layout {
+#{$component-prefix}enchanted-header-layout {
   @include enchanted-header-layout.enchanted-header-layout-base-styles;
 }
 
-enchanted-authoring-item-type-avatar {
+#{$component-prefix}enchanted-authoring-item-type-avatar {
   @include enchanted-authoring-item-type-avatar.enchanted-authoring-item-type-avatar-base-styles;
   @include enchanted-button.enchanted-button-base-styles;
 }
 
-enchanted-snackbar {
+#{$component-prefix}enchanted-snackbar {
   @include enchanted-snackbar.enchanted-snackbar-base-styles;
   @include enchanted-button.enchanted-button-base-styles;
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
 }
 
-enchanted-panel {
+#{$component-prefix}enchanted-panel {
   @include enchanted-panel.enchanted-panel-base-styles;
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
   @include enchanted-button.enchanted-button-base-styles;
 }
 
-enchanted-tooltip {
+#{$component-prefix}enchanted-tooltip {
   @include enchanted-tooltip.enchanted-tooltip-base-styles;
 }
 
-enchanted-breadcrumbs {
+#{$component-prefix}enchanted-breadcrumbs {
   @include typography.body2;
   @include enchanted-breadcrumbs.enchanted-breadcrumbs-base-styles;
 }
 
-enchanted-preview {
+#{$component-prefix}enchanted-preview {
   @include enchanted-button.enchanted-button-base-styles;
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
   @include enchanted-avatar.enchanted-avatar-base-styles;
@@ -243,26 +253,26 @@ enchanted-preview {
   @include enchanted-tooltip.enchanted-tooltip-base-styles;
 }
 
-enchanted-alert {
+#{$component-prefix}enchanted-alert {
   @include enchanted-alert.enchanted-alert-base-styles;
 }
 
-enchanted-multiple-select-chip {
+#{$component-prefix}enchanted-multiple-select-chip {
   @include enchanted-multiple-select-chip.enchanted-multiple-select-chip-base-styles;
   @include enchanted-chip.enchanted-chip-base-styles;
   @include enchanted-select.enchanted-select-base-styles;
 
 }
 
-enchanted-toggle-button {
+#{$component-prefix}enchanted-toggle-button {
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
   @include enchanted-toggle-button.enchanted-toggle-button-base-styles;
 }
 
-enchanted-popover {
+#{$component-prefix}enchanted-popover {
   @include enchanted-popover.enchanted-popover-base-styles;
 }
 
-enchanted-badge {
+#{$component-prefix}enchanted-badge {
   @include enchanted-badge.enchanted-badge-base-styles;
 }

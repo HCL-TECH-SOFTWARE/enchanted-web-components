@@ -13,7 +13,8 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html, render } from 'lit';
+import { nothing, render } from 'lit';
+import { html } from 'lit/static-html.js';
 import { $, expect } from '@wdio/globals';
 
 // Component imports
@@ -21,6 +22,7 @@ import '../../../components/atomic-component/enchanted-header';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_HEADER_TAG, ENCHANTED_HEADER_TAG_NAME } from '../../../components/tags';
 
 const localization: Map<string, string> = new Map<string, string>();
 localization.set('header.authoring.search', 'Authoring search');
@@ -28,83 +30,79 @@ localization.set('header.enduser.search.center.title', 'Search Center');
 localization.set('header.enduser.search.placeholder', 'Enter keyword...');
 localization.set('header.enduser.search', 'Search');
 
-describe('EnchantedHeader component testing', () => {
+describe(`${ENCHANTED_HEADER_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedHeader - should render without crashing', async () => {
-    let component = document.createElement('enchanted-header');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_HEADER_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     document.body.removeChild(component);
     component.remove();
   });
 
-  it('EnchantedHeader - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-header');
+  it('removes component from document body and validates removal', async () => {
+    let component = document.createElement(ENCHANTED_HEADER_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedHeader - should render component and validate attribute back button', async () => {
+  it('should render component and validate attribute back button', async () => {
     render(
       html`
-        <enchanted-header .localization=${localization} variant="header-authoring" showBackIcon=true />
+        <${ENCHANTED_HEADER_TAG} .localization=${localization} variant="header-authoring" showBackIcon=true />
       `,
       document.body
     );
-    let component = await $('enchanted-header').getElement();
+    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let imgElement = await component.$('>>>enchanted-button[data-testid="enchanted-back-button"]').getElement();
+    let imgElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-back-button"]`).getElement();
     await expect(imgElement).toBeExisting();
   });
 
-  it('EnchantedHeader - should render component and validate attribute filter button', async () => {
+  it('should render component and validate attribute filter button', async () => {
     render(
       html`
-        <enchanted-header .localization=${localization} variant="header-authoring-modal" showBackIcon=true />
+        <${ENCHANTED_HEADER_TAG} .localization=${localization} variant="header-authoring-modal" showBackIcon=true />
       `,
       document.body
     );
-    let component = await $('enchanted-header').getElement();
+    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let imgElement = await component.$('>>>enchanted-button[data-testid="enchanted-filter-button"]').getElement();
+    let imgElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-filter-button"]`).getElement();
     await expect(imgElement).toBeExisting();
   });
 
-  it('EnchantedHeader - should render component and validate attribute showBackIcon', async () => {
+  it('should render component and validate attribute showBackIcon', async () => {
     render(
       html`
-        <enchanted-header .localization=${localization} variant="header-endUser" ?showBackIcon=${true} />
+        <${ENCHANTED_HEADER_TAG} .localization=${localization} variant="header-endUser" ?showBackIcon=${true} />
       `,
       document.body
     );
-    let component = await $('enchanted-header').getElement();
+    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
-    let imgElement = await component.$('>>>enchanted-button[data-testid="enchanted-back-button"]').getElement();
+    let imgElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-back-button"]`).getElement();
     await expect(imgElement).toBeExisting();
   });
 
-  it('EnchantedHeader - should render component and validate attributes - authoring', async () => {
+  it('should render component and validate attributes - authoring', async () => {
     render(
       html`
-        <enchanted-header .localization=${localization} headerTitle="Search Center" variant="header-authoring" ?showBackIcon=${true} ?isSideNavOpen=${false} ?disabled=${false} />
+        <${ENCHANTED_HEADER_TAG} .localization=${localization} headerTitle="Search Center" variant="header-authoring" ?showBackIcon=${true} ?isSideNavOpen=${false} ?disabled=${false} />
       `,
       document.body
     );
-    let component = await $('enchanted-header').getElement();
+    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     expect(component).toHaveElementProperty('color', 'rgba(0, 0, 0, .32)');
     expect(component).toHaveText('Search Center');
@@ -114,14 +112,14 @@ describe('EnchantedHeader component testing', () => {
     expect(component).toBeDisabled;
   });
 
-  it('EnchantedHeader - should render component and validate attributes - endUser', async () => {
+  it('should render component and validate attributes - endUser', async () => {
     render(
       html`
-        <enchanted-header .localization=${localization} headerTitle="Search Center" variant="header-endUser" ?showBackIcon=${true} ?isSideNavOpen=${false} ?disabled=${false} />
+        <${ENCHANTED_HEADER_TAG} .localization=${localization} headerTitle="Search Center" variant="header-endUser" ?showBackIcon=${true} ?isSideNavOpen=${false} ?disabled=${false} />
       `,
       document.body
     );
-    let component = await $('enchanted-header').getElement();
+    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     expect(component).toHaveElementProperty('color', 'rgba(0, 0, 0, .32)');
     expect(component).toHaveText('Search Center');
@@ -131,14 +129,14 @@ describe('EnchantedHeader component testing', () => {
     expect(component).toBeDisabled;
   });
 
-  it('EnchantedHeader - should render component and validate attributes - authoring', async () => {
+  it('should render component and validate attributes - authoring', async () => {
     render(
       html`
-        <enchanted-header .localization=${localization} headerTitle="Search Center" variant="header-authoring-modal" ?showBackIcon=${true} ?isSideNavOpen=${false} ?disabled=${false} />
+        <${ENCHANTED_HEADER_TAG} .localization=${localization} headerTitle="Search Center" variant="header-authoring-modal" ?showBackIcon=${true} ?isSideNavOpen=${false} ?disabled=${false} />
       `,
       document.body
     );
-    let component = await $('enchanted-header').getElement();
+    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     expect(component).toHaveElementProperty('color', 'rgba(0, 0, 0, .32)');
     expect(component).toHaveText('Search Center');

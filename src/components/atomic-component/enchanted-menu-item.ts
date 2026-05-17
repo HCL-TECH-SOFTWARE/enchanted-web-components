@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit/static-html.js';
+import { property } from 'lit/decorators.js';
 import { localized } from '@lit/localize';
+import createDebug from 'debug';
 
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
@@ -23,8 +24,10 @@ import './enchanted-list-item';
 
 // Helper imports
 import { LIST_ITEM_PARTS, MENU_ITEM_PARTS } from '../../types/cssClassEnums';
+import { ENCHANTED_LIST_ITEM_TAG, ENCHANTED_MENU_ITEM_TAG_NAME } from '../tags';
 
-@customElement('enchanted-menu-item')
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-menu-item.ts');
+
 @localized()
 export class EnchantedMenuItem extends EnchantedAcBaseElement {
   @property({ type: String })
@@ -69,7 +72,7 @@ export class EnchantedMenuItem extends EnchantedAcBaseElement {
   
   render() {
     return html`
-      <enchanted-list-item
+      <${ENCHANTED_LIST_ITEM_TAG}
         role="menuitem"
         cascading="0"
         exportparts="${Object.values(LIST_ITEM_PARTS).join(',')}"
@@ -80,14 +83,13 @@ export class EnchantedMenuItem extends EnchantedAcBaseElement {
         <div @mouseenter=${(evt: MouseEvent) => {return this.handleMenuItemTooltip(evt);}} part=${MENU_ITEM_PARTS.TEXT_ROOT}>
           <span part=${MENU_ITEM_PARTS.TEXT}>${this.text}</span>
         </div>
-      </enchanted-list-item>
+      </${ENCHANTED_LIST_ITEM_TAG}>
     `;
   }
 }
 
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'enchanted-menu-item': EnchantedMenuItem
-  }
+if (!customElements.get(ENCHANTED_MENU_ITEM_TAG_NAME)) {
+  customElements.define(ENCHANTED_MENU_ITEM_TAG_NAME, EnchantedMenuItem);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_MENU_ITEM_TAG_NAME);
 }

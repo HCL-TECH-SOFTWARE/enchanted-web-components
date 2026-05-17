@@ -14,59 +14,57 @@
  * ======================================================================== */
 // External imports
 import { $, expect } from '@wdio/globals';
-import { html, render } from 'lit';
+import { render, nothing } from 'lit';
+import { html } from 'lit/static-html.js';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-switch';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { ENCHANTED_SWITCH_TAG, ENCHANTED_SWITCH_TAG_NAME } from '../../../components/tags';
 
-describe('EnchantedSwitch component testing', () => {
+describe(`${ENCHANTED_SWITCH_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
   afterEach(() => {
-    if (document.body.firstElementChild) {
-      document.body.removeChild(document.body.firstElementChild);
-    }
+    render(nothing, document.body);
   });
 
-  it('EnchantedSwitch - should render without crashing', async () => {
-    let component = document.createElement('enchanted-switch');
+  it('should render without crashing', async () => {
+    let component = document.createElement(ENCHANTED_SWITCH_TAG_NAME);
     document.body.appendChild(component);
     await expect(document.body.contains(component)).toBeTruthy();
     component.remove();
   });
 
-  it('EnchantedSwitch - removes component from document body and validates removal', async () => {
-    let component = document.createElement('enchanted-switch');
+  it('should remove component from document body and validate removal', async () => {
+    let component = document.createElement(ENCHANTED_SWITCH_TAG_NAME);
     document.body.appendChild(component);
     document.body.removeChild(component);
     await expect(document.body.contains(component)).toBeFalsy();
     component.remove();
   });
 
-  it('EnchantedSwitch - validate default value of attributes', async () => {
-    let component = document.createElement('enchanted-switch');
+  it('should validate default value of attributes', async () => {
+    let component = document.createElement(ENCHANTED_SWITCH_TAG_NAME);
     document.body.appendChild(component);
     await expect(component).toHaveElementProperty('isChecked', false);
     await expect(component).toHaveElementProperty('isDisabled', false);
     component.remove();
   });
 
-  it('EnchantedSwitch - should render enchanted-switch with label and input child element', async () => {
+  it('should render enchanted-switch with label and input child element', async () => {
     render(
       html`
-        <enchanted-switch id="enchanted-switch"/>
+        <${ENCHANTED_SWITCH_TAG} id="enchanted-switch"/>
       `,
       document.body
     );
-    let component = await $('enchanted-switch').getElement();
+    let component = await $(ENCHANTED_SWITCH_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('id', 'enchanted-switch');
     let labelElement = await component.$('>>>label[data-testid="enchanted-switch-label"]').getElement();
@@ -75,14 +73,14 @@ describe('EnchantedSwitch component testing', () => {
     await expect(inputElement).toHaveElementProperty('type', 'checkbox');
   });
 
-  it('EnchantedSwitch - should render enchanted-switch with checked state and validate css', async () => {
+  it('should render enchanted-switch with checked state and validate css', async () => {
     render(
       html`
-        <enchanted-switch ?isChecked=${true}></enchanted-switch>
+        <${ENCHANTED_SWITCH_TAG} ?isChecked=${true}></${ENCHANTED_SWITCH_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-switch').getElement();
+    let component = await $(ENCHANTED_SWITCH_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('isChecked', true);
     await expect(component).toHaveElementProperty('isDisabled', false);
@@ -99,14 +97,14 @@ describe('EnchantedSwitch component testing', () => {
     await expect(spanElement).toHaveAttribute('part', 'switch-slider-checked');
   });
 
-  it('EnchantedSwitch - should render enchanted-switch with disabled state and validate css', async () => {
+  it('should render enchanted-switch with disabled state and validate css', async () => {
     render(
       html`
-        <enchanted-switch ?isDisabled=${true}></enchanted-switch>
+        <${ENCHANTED_SWITCH_TAG} ?isDisabled=${true}></${ENCHANTED_SWITCH_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-switch').getElement();
+    let component = await $(ENCHANTED_SWITCH_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('isChecked', false);
     await expect(component).toHaveElementProperty('isDisabled', true);
@@ -123,14 +121,14 @@ describe('EnchantedSwitch component testing', () => {
     await expect(spanElement).toHaveAttribute('part', 'switch-slider-disabled');
   });
 
-  it('EnchantedSwitch - should be able to check and uncheck switch component', async () => {
+  it('should be able to check and uncheck switch component', async () => {
     render(
       html`
-        <enchanted-switch ?isChecked=${false}></enchanted-switch>
+        <${ENCHANTED_SWITCH_TAG} ?isChecked=${false}></${ENCHANTED_SWITCH_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-switch').getElement();
+    let component = await $(ENCHANTED_SWITCH_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('isChecked', false);
     await expect(component).toHaveElementProperty('isDisabled', false);
@@ -142,14 +140,15 @@ describe('EnchantedSwitch component testing', () => {
     labelElement.click();
     await expect(inputElement).toHaveElementProperty('checked', false); // After clicking once again switch must be unchecked
   });
-  it('EnchantedSwitch - should render switch with checked and disabled state and validate part attribute', async () => {
+
+  it('should render switch with checked and disabled state and validate part attribute', async () => {
     render(
       html`
-        <enchanted-switch ?isChecked=${true} ?isDisabled=${true}></enchanted-switch>
+        <${ENCHANTED_SWITCH_TAG} ?isChecked=${true} ?isDisabled=${true}></${ENCHANTED_SWITCH_TAG}>
       `,
       document.body
     );
-    let component = await $('enchanted-switch').getElement();
+    let component = await $(ENCHANTED_SWITCH_TAG_NAME).getElement();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('isChecked', true);
     await expect(component).toHaveElementProperty('isDisabled', true);
@@ -157,8 +156,8 @@ describe('EnchantedSwitch component testing', () => {
     let spanElement = await component.$('>>>span[data-testid="enchanted-switch-span"]').getElement();
     await expect(spanElement).toHaveAttribute('part', 'switch-slider-checked-disabled');
   });
-  it('EnchantedSwitch - should return the same part value for an unknown part in partAttributeDecider', async () => {
-    let component = document.createElement('enchanted-switch');
+  it('should return the same part value for an unknown part in partAttributeDecider', async () => {
+    let component = document.createElement(ENCHANTED_SWITCH_TAG_NAME);
     document.body.appendChild(component);
   
     // Type assertion: Convert `component` to an object type with `partAttributeDecider`
@@ -167,8 +166,5 @@ describe('EnchantedSwitch component testing', () => {
     
     await expect(result).toBe(unknownPart);
     component.remove();
-  });  
-  
-  
-  
+  });
 });

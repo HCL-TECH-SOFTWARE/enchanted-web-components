@@ -5,12 +5,47 @@
 ### Added
 
 ### Fixed
-- Fixed `enchanted-fab` label font styles and padding.
-- Fixed `enchanted-fab-ai` label color styles.
 
 ### Changed
 
 ### Breaking changes
+
+## 5.4.0
+
+### Added
+- Added `disableBackdropClick` property to `enchanted-dialog` component to disable closing dialog from backdrop click.
+
+### Changed
+- Changed `SHADOW_ROOT_MODE_KEY` constant value to `enchanted.useOpenAcShadowRoot` for consistency
+
+## 5.3.0
+
+### Added
+- Added `multiline` property to `enchanted-textfield` component for textarea support
+- Added `numberOfLines` property to `enchanted-textfield` component to cap visible textarea height with scrollable content
+- Added Shift+Enter key support in textarea allows line breaks without search trigger
+- Added paste event handling in `enchanted-textfield` component for multiline support
+
+## 5.2.1
+
+### Fixed
+ - Removed margin right and used gap in 'enchanted-alert'.
+ - Removed the unnecessary RTL styles for badge in 'enchanted-fab'.
+
+## 5.2.0
+
+### Added
+- Adding a scoping logic for all @hcl-software/enchanted-web-components components. Via the VITE_COMPONENT_PREFIX environment parameter the prefix will be applied.
+
+## 5.1.1
+
+### Fixed
+- Fixed `enchanted-fab` label font styles and padding.
+- Fixed `enchanted-fab-ai` label color styles.
+
+### Changed
+- Adding chromatic PR worklfow snapshot tests
+- Removing unused snapshot tests
 
 ## 5.1.0
 
@@ -24,7 +59,6 @@
 ### Changed
 - Updated `enchanted-fab` component to support optional icon - icon property can now be undefined, allowing extended FAB with label only.
 - Removing unused CSS badge parts
-- Adding chromatic PR worklfow snapshot tests
 
 ### Breaking changes
 

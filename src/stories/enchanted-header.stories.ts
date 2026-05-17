@@ -13,9 +13,10 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-header';
 import { HEADER_VARIANT } from '../types/cssClassEnums';
+import { ENCHANTED_HEADER_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Navigation/enchanted-header',
@@ -82,13 +83,13 @@ type Story = StoryObj<{
 export const EnchantedHeader: Story = {
   render: (args) => {
     return html`
-      <enchanted-header
+      <${ENCHANTED_HEADER_TAG}
         .headerTitle=${args.headerTitle}
         .variant=${args.variant}
         ?showBackIcon=${args.showBackIcon}
         ?isSideNavOpen=${args.isSideNavOpen}
         ?disabled=${args.disabled}
-      ></enchanted-header>
+      ></${ENCHANTED_HEADER_TAG}>
     `;
   },
   name: 'Default',
@@ -103,17 +104,17 @@ export const AllStates: StoryObj = {
           <div style="display: flex; flex-direction: column; gap: 20px;">
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Authoring Variant (with search input and filter)</p>
-              <enchanted-header .variant=${HEADER_VARIANT.HEADER_AUTHORING}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .variant=${HEADER_VARIANT.HEADER_AUTHORING}></${ENCHANTED_HEADER_TAG}>
             </div>
 
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Authoring Modal Close Variant (with search button)</p>
-              <enchanted-header .variant=${HEADER_VARIANT.HEADER_AUTHORING_MODAL_CLOSE}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .variant=${HEADER_VARIANT.HEADER_AUTHORING_MODAL_CLOSE}></${ENCHANTED_HEADER_TAG}>
             </div>
 
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">End-User Variant</p>
-              <enchanted-header .variant=${HEADER_VARIANT.HEADER_ENDUSER}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .variant=${HEADER_VARIANT.HEADER_ENDUSER}></${ENCHANTED_HEADER_TAG}>
             </div>
           </div>
         </div>
@@ -123,12 +124,12 @@ export const AllStates: StoryObj = {
           <div style="display: flex; flex-direction: column; gap: 20px;">
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Default Custom Title</p>
-              <enchanted-header .headerTitle=${'Custom Application Header'}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .headerTitle=${'Custom Application Header'}></${ENCHANTED_HEADER_TAG}>
             </div>
 
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Custom Title with Back Icon</p>
-              <enchanted-header .headerTitle=${'Settings'} ?showBackIcon=${true}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .headerTitle=${'Settings'} ?showBackIcon=${true}></${ENCHANTED_HEADER_TAG}>
             </div>
           </div>
         </div>
@@ -138,17 +139,17 @@ export const AllStates: StoryObj = {
           <div style="display: flex; flex-direction: column; gap: 20px;">
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">With Side Nav Open</p>
-              <enchanted-header .headerTitle=${'Side Nav Open'} ?isSideNavOpen=${true}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .headerTitle=${'Side Nav Open'} ?isSideNavOpen=${true}></${ENCHANTED_HEADER_TAG}>
             </div>
 
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Disabled State (Authoring Modal Close)</p>
-              <enchanted-header .variant=${HEADER_VARIANT.HEADER_AUTHORING_MODAL_CLOSE} ?disabled=${true}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .variant=${HEADER_VARIANT.HEADER_AUTHORING_MODAL_CLOSE} ?disabled=${true}></${ENCHANTED_HEADER_TAG}>
             </div>
 
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Back Icon + Side Nav Open</p>
-              <enchanted-header .headerTitle=${'Dashboard'} ?showBackIcon=${true} ?isSideNavOpen=${true}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .headerTitle=${'Dashboard'} ?showBackIcon=${true} ?isSideNavOpen=${true}></${ENCHANTED_HEADER_TAG}>
             </div>
           </div>
         </div>
@@ -158,12 +159,12 @@ export const AllStates: StoryObj = {
           <div style="display: flex; flex-direction: column; gap: 20px;">
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Authoring Variant + Disabled</p>
-              <enchanted-header .variant=${HEADER_VARIANT.HEADER_AUTHORING} ?disabled=${true}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .variant=${HEADER_VARIANT.HEADER_AUTHORING} ?disabled=${true}></${ENCHANTED_HEADER_TAG}>
             </div>
 
             <div>
               <p style="margin: 0 0 10px 0; font-weight: 600;">Custom Title + All States Active</p>
-              <enchanted-header .headerTitle=${'Profile Settings'} ?showBackIcon=${true} ?isSideNavOpen=${true}></enchanted-header>
+              <${ENCHANTED_HEADER_TAG} .headerTitle=${'Profile Settings'} ?showBackIcon=${true} ?isSideNavOpen=${true}></${ENCHANTED_HEADER_TAG}>
             </div>
           </div>
         </div>

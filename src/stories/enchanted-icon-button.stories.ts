@@ -13,10 +13,11 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-icon-button';
 import { ICON_BUTTON_SIZES } from '../types/cssClassEnums';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/search';
+import { generateIconTagName, ENCHANTED_ICON_BUTTON_TAG } from '../components/tags';
 
 /**
  * @interface EnchantedIconButtonProps
@@ -94,13 +95,13 @@ const meta: Meta<EnchantedIconButtonProps> = {
     size: ICON_BUTTON_SIZES.SMALL,
     withPadding: false,
     imgurl: 'https://cdn-icons-png.flaticon.com/512/61/61456.png',
-    icon: html`<icon-search></icon-search>`,
+    icon: html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`,
     disabled: false,
     inverseColor: false,
     ariaLabel: 'Search',
   },
   render: (args) => {return html`
-    <enchanted-icon-button
+    <${ENCHANTED_ICON_BUTTON_TAG}
       .size="${args.size}"
       ?withPadding=${args.withPadding}
       ?disabled=${args.disabled}
@@ -108,7 +109,7 @@ const meta: Meta<EnchantedIconButtonProps> = {
       .icon=${args.icon}
       ?inverseColor=${args.inverseColor}
       ariaLabel="${args.ariaLabel}"
-    ></enchanted-icon-button>
+    ></${ENCHANTED_ICON_BUTTON_TAG}>
   `;},
 };
 
@@ -139,93 +140,93 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Small Size (Default)</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.SMALL}"
-            .icon=${html`<icon-search></icon-search>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ariaLabel="Search"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Medium Size</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.MEDIUM}"
-            .icon=${html`<icon-search></icon-search>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ariaLabel="Search"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">FAB Size</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.FAB}"
-            .icon=${html`<icon-search></icon-search>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ariaLabel="Search"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">With Padding</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.SMALL}"
-            .icon=${html`<icon-search></icon-search>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?withPadding=${true}
             ariaLabel="Search with padding"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Disabled</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.SMALL}"
-            .icon=${html`<icon-search></icon-search>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?disabled=${true}
             ariaLabel="Search disabled"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Inverse Color</div>
           <div style="background-color: #333; padding: 12px; border-radius: 4px;">
-            <enchanted-icon-button
+            <${ENCHANTED_ICON_BUTTON_TAG}
               size="${ICON_BUTTON_SIZES.SMALL}"
-              .icon=${html`<icon-search></icon-search>`}
+              .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
               ?inverseColor=${true}
               ariaLabel="Search inverse"
-            ></enchanted-icon-button>
+            ></${ENCHANTED_ICON_BUTTON_TAG}>
           </div>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">FAB Inverse Color</div>
           <div style="background-color: #333; padding: 12px; border-radius: 4px;">
-            <enchanted-icon-button
+            <${ENCHANTED_ICON_BUTTON_TAG}
               size="${ICON_BUTTON_SIZES.FAB}"
-              .icon=${html`<icon-search></icon-search>`}
+              .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
               ?inverseColor=${true}
               ariaLabel="Primary action"
-            ></enchanted-icon-button>
+            ></${ENCHANTED_ICON_BUTTON_TAG}>
           </div>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Image URL Icon</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.SMALL}"
             imgurl="https://cdn-icons-png.flaticon.com/512/61/61456.png"
             ariaLabel="Settings"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Medium with Padding</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.MEDIUM}"
-            .icon=${html`<icon-search></icon-search>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?withPadding=${true}
             ariaLabel="Search medium"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
         <div>
           <div style="margin-bottom: 8px; font-weight: 500;">Medium Disabled</div>
-          <enchanted-icon-button
+          <${ENCHANTED_ICON_BUTTON_TAG}
             size="${ICON_BUTTON_SIZES.MEDIUM}"
-            .icon=${html`<icon-search></icon-search>`}
+            .icon=${html`<${generateIconTagName('icon-search')}></${generateIconTagName('icon-search')}>`}
             ?disabled=${true}
             ariaLabel="Search disabled"
-          ></enchanted-icon-button>
+          ></${ENCHANTED_ICON_BUTTON_TAG}>
         </div>
       </div>
     `;

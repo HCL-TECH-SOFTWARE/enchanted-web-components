@@ -13,13 +13,14 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-avatar';
 import { AVATAR_VARIANT, AVATAR_TYPE, AVATAR_COLOR } from '../types/cssClassEnums';
 
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/link';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/template';
 import testAvatarImageUrl from '../_tests_/assets/test-avatar-image.jpg';
+import { generateIconTagName, ENCHANTED_AVATAR_TAG } from '../components/tags';
 
 const meta: Meta = {
   title: 'Data display/enchanted-avatar',
@@ -103,9 +104,9 @@ const meta: Meta = {
     type: AVATAR_TYPE.AVATAR_ROUNDED,
     color: AVATAR_COLOR.AVATAR_DEFAULT_COLOR,
     imgUrl: testAvatarImageUrl,
-    iconUrl: html`<icon-link></icon-link>`,
+    iconUrl: html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`,
     avatarText: 'AB',
-    iconTemplate: html`<icon-template></icon-template>`,
+    iconTemplate: html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`,
   },
   parameters: {
     docs: {
@@ -133,7 +134,7 @@ type Story = StoryObj<{
 export const EnchantedAvatar: Story = {
   render: (args) => {
     return html`
-      <enchanted-avatar
+      <${ENCHANTED_AVATAR_TAG}
         .variant=${args.variant}
         .type=${args.type}
         .color=${args.color}
@@ -141,7 +142,7 @@ export const EnchantedAvatar: Story = {
         .iconUrl=${args.iconUrl}
         .avatarText=${args.avatarText}
         .iconTemplate=${args.iconTemplate}
-      ></enchanted-avatar>
+      ></${ENCHANTED_AVATAR_TAG}>
     `;
   },
   name: 'Default',
@@ -163,74 +164,97 @@ export const AllStates: Story = {
         <div>
           <h3>Letter Avatars - Rounded</h3>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'AB'}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'CD'} .color=${AVATAR_COLOR.AVATAR_RED}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'EF'} .color=${AVATAR_COLOR.AVATAR_ORANGE}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'GH'} .color=${AVATAR_COLOR.AVATAR_YELLOW}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'IJ'} .color=${AVATAR_COLOR.AVATAR_LIME}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'KL'} .color=${AVATAR_COLOR.AVATAR_GREEN}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'MN'} .color=${AVATAR_COLOR.AVATAR_TEAL}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'OP'} .color=${AVATAR_COLOR.AVATAR_BLUE}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'QR'} .color=${AVATAR_COLOR.AVATAR_INDIGO}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'ST'} .color=${AVATAR_COLOR.AVATAR_PURPLE}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'UV'} .color=${AVATAR_COLOR.AVATAR_PINK}></enchanted-avatar>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'AB'}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'CD'} .color=${AVATAR_COLOR.AVATAR_RED}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'EF'} .color=${AVATAR_COLOR.AVATAR_ORANGE}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'GH'} .color=${AVATAR_COLOR.AVATAR_YELLOW}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'IJ'} .color=${AVATAR_COLOR.AVATAR_LIME}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'KL'} .color=${AVATAR_COLOR.AVATAR_GREEN}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'MN'} .color=${AVATAR_COLOR.AVATAR_TEAL}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'OP'} .color=${AVATAR_COLOR.AVATAR_BLUE}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'QR'} .color=${AVATAR_COLOR.AVATAR_INDIGO}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'ST'} .color=${AVATAR_COLOR.AVATAR_PURPLE}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .avatarText=${'UV'} .color=${AVATAR_COLOR.AVATAR_PINK}></${ENCHANTED_AVATAR_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Letter Avatars - Circular</h3>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'AB'}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'CD'} .color=${AVATAR_COLOR.AVATAR_RED}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'EF'} .color=${AVATAR_COLOR.AVATAR_ORANGE}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'GH'} .color=${AVATAR_COLOR.AVATAR_YELLOW}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'IJ'} .color=${AVATAR_COLOR.AVATAR_LIME}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'KL'} .color=${AVATAR_COLOR.AVATAR_GREEN}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'MN'} .color=${AVATAR_COLOR.AVATAR_TEAL}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'OP'} .color=${AVATAR_COLOR.AVATAR_BLUE}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'QR'} .color=${AVATAR_COLOR.AVATAR_INDIGO}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'ST'} .color=${AVATAR_COLOR.AVATAR_PURPLE}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'UV'} .color=${AVATAR_COLOR.AVATAR_PINK}></enchanted-avatar>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'AB'}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'CD'} .color=${AVATAR_COLOR.AVATAR_RED}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'EF'} .color=${AVATAR_COLOR.AVATAR_ORANGE}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'GH'} .color=${AVATAR_COLOR.AVATAR_YELLOW}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'IJ'} .color=${AVATAR_COLOR.AVATAR_LIME}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'KL'} .color=${AVATAR_COLOR.AVATAR_GREEN}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'MN'} .color=${AVATAR_COLOR.AVATAR_TEAL}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'OP'} .color=${AVATAR_COLOR.AVATAR_BLUE}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'QR'} .color=${AVATAR_COLOR.AVATAR_INDIGO}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'ST'} .color=${AVATAR_COLOR.AVATAR_PURPLE}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_LETTER} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .avatarText=${'UV'} .color=${AVATAR_COLOR.AVATAR_PINK}></${ENCHANTED_AVATAR_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Icon Avatars</h3>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${html`<icon-link></icon-link>`}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconUrl=${html`<icon-link></icon-link>`}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconUrl=${html`<icon-link></icon-link>`} .color=${AVATAR_COLOR.AVATAR_BLUE}>
-            </enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconUrl=${html`<icon-link></icon-link>`} .color=${AVATAR_COLOR.AVATAR_BLUE}>
-            </enchanted-avatar>
+            <${ENCHANTED_AVATAR_TAG} 
+              .variant=${AVATAR_VARIANT.AVATAR_ICON}
+              .type=${AVATAR_TYPE.AVATAR_ROUNDED}
+              .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`}>
+            </${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG}
+              .variant=${AVATAR_VARIANT.AVATAR_ICON}
+              .type=${AVATAR_TYPE.AVATAR_CIRCULAR}
+              .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`}>
+            </${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG}
+              .variant=${AVATAR_VARIANT.AVATAR_ICON}
+              .type=${AVATAR_TYPE.AVATAR_ROUNDED}
+              .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`} .color=${AVATAR_COLOR.AVATAR_BLUE}>
+            </${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG}
+              .variant=${AVATAR_VARIANT.AVATAR_ICON}
+              .type=${AVATAR_TYPE.AVATAR_CIRCULAR}
+              .iconUrl=${html`<${generateIconTagName('icon-link')}></${generateIconTagName('icon-link')}>`}
+              .color=${AVATAR_COLOR.AVATAR_BLUE}>
+            </${ENCHANTED_AVATAR_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Icon Template Avatars</h3>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .iconTemplate=${html`<icon-template></icon-template>`}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .iconTemplate=${html`<icon-template></icon-template>`}></enchanted-avatar>
-            <enchanted-avatar
+            <${ENCHANTED_AVATAR_TAG}
               .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
               .type=${AVATAR_TYPE.AVATAR_ROUNDED}
-              .iconTemplate=${html`<icon-template></icon-template>`}
-              .color=${AVATAR_COLOR.AVATAR_GREEN}
-            ></enchanted-avatar>
-            <enchanted-avatar
+              .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}>
+            </${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG}
               .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
               .type=${AVATAR_TYPE.AVATAR_CIRCULAR}
-              .iconTemplate=${html`<icon-template></icon-template>`}
+              .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}>
+            </${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG}
+              .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
+              .type=${AVATAR_TYPE.AVATAR_ROUNDED}
+              .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}
               .color=${AVATAR_COLOR.AVATAR_GREEN}
-            ></enchanted-avatar>
+            ></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG}
+              .variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
+              .type=${AVATAR_TYPE.AVATAR_CIRCULAR}
+              .iconTemplate=${html`<${generateIconTagName('icon-template')}></${generateIconTagName('icon-template')}>`}
+              .color=${AVATAR_COLOR.AVATAR_GREEN}
+            ></${ENCHANTED_AVATAR_TAG}>
           </div>
         </div>
 
         <div>
           <h3>Image Avatars</h3>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_IMG} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .imgUrl=${testAvatarImageUrl}></enchanted-avatar>
-            <enchanted-avatar .variant=${AVATAR_VARIANT.AVATAR_IMG} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .imgUrl=${testAvatarImageUrl}></enchanted-avatar>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_IMG} .type=${AVATAR_TYPE.AVATAR_ROUNDED} .imgUrl=${testAvatarImageUrl}></${ENCHANTED_AVATAR_TAG}>
+            <${ENCHANTED_AVATAR_TAG} .variant=${AVATAR_VARIANT.AVATAR_IMG} .type=${AVATAR_TYPE.AVATAR_CIRCULAR} .imgUrl=${testAvatarImageUrl}></${ENCHANTED_AVATAR_TAG}>
           </div>
         </div>
       </div>
