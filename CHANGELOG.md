@@ -5,6 +5,7 @@
 ### Added
 
 ### Fixed
+- fix(enchanted-circular-progress): resolve animation not working due to `@keyframes` scope mismatch with Shadow DOM `::part()` selectors.
 
 ### Changed
 
