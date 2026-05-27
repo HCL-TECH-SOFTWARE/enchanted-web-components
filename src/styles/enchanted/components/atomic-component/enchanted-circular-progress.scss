@@ -21,8 +21,41 @@
  * Enchanted Circular Progress - Design Tokens
  * 
  * These CSS custom properties centralize non-animated tokens (colors, spacing, typography).
- * Note: @keyframes animations must remain in the component's inline styles due to Shadow DOM.
+ * @keyframes are defined here so they exist in the same scope as the ::part() animation rules.
  */
+@keyframes enchanted-circular-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes enchanted-circular-dash {
+  0% {
+    stroke-dasharray: var(--stroke-dasharray-start);
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: var(--stroke-dasharray-mid);
+    stroke-dashoffset: var(--stroke-dashoffset-mid);
+  }
+  100% {
+    stroke-dasharray: var(--stroke-dasharray-end);
+    stroke-dashoffset: var(--stroke-dashoffset-end);
+  }
+}
+
+@keyframes enchanted-label-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: var(--enchanted-circular-progress-pulse-opacity-min, 0.5);
+  }
+}
+
 @mixin enchanted-circular-progress-base-styles {
   // Color tokens
   --enchanted-circular-progress-track-color: #{map.get(themeMap.$enchantedPalette, NG200)};
