@@ -32,7 +32,7 @@
     "prepare-for-publish": "cp ./package.json ./dist/package.json && cp ./README.md ./dist/README.md && cp ./LICENSE.txt ./dist/LICENSE.txt && cp ./enchanted.css ./dist/enchanted.css && cp -r ./src/styles ./dist && cp -r ./src/eslint ./dist && rm -rf ./dist/_tests_ && rm -rf ./dist/stories",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
-    "test": "ls -all /tmp/chromedriver/linux-149.0.7827.22/ && rm -rf /tmp/chromedriver/linux-149.0.7827.22 && ls -all /tmp/chromedriver/linux-149.0.7827.22/ && npm run test-unit && VITE_COMPONENT_PREFIX=prefix- npm run test-unit",
+    "test": "npm run test-unit && VITE_COMPONENT_PREFIX=prefix- npm run test-unit",
     "test-unit": "wdio run ./wdio.unit.conf.ts",
     "compile-enchanted-css": "rm -f ./enchanted.css && sass --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
     "watch-enchanted-css": "rm -f ./enchanted.css && sass --watch --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
