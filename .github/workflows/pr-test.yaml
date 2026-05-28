@@ -28,7 +28,12 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - uses: actions/checkout@v4
       - run: npm ci
+      - run: mkdir -p /tmp/chromedriver/linux-148.0.7778.216/chromedriver-linux64
+      - run: mkdir -p /tmp/chrome/linux-148.0.7778.216/chrome-linux64
       - run: curl https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.216/linux64/chrome-linux64.zip -o /tmp/chrome-linux64.zip
       - run: curl https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.216/linux64/chromedriver-linux64.zip -o /tmp/chromedriver-linux64.zip
-      - run: ls -all /tmp/
+      - run: unzip -o /tmp/chrome-linux64.zip -d /tmp/chrome/linux-148.0.7778.216/chrome-linux64
+      - run: unzip -o /tmp/chromedriver-linux64.zip -d /tmp/chromedriver/linux-148.0.7778.216/chromedriver-linux64
+      - run: ls -all /tmp/chromedriver/linux-148.0.7778.216/chromedriver-linux64/
+      - run: ls -all /tmp/chrome/linux-148.0.7778.216/chrome-linux64/
       - run: npm run test
