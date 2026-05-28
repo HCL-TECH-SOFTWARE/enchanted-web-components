@@ -3,12 +3,20 @@
 ## Unreleased
 
 ### Added
+
+### Fixed
+
+### Changed
+
+### Breaking changes
+
+## 6.0.0
+
+### Added
 - FocusIn and FocusOut behaviour for popover component.
 
 ### Fixed
-- fix(enchanted-circular-progress): resolve animation not working due to `@keyframes` scope mismatch with Shadow DOM `::part()` selectors.
-
-### Changed
+- Fix `enchanted-circular-progress` - resolve animation not working due to `@keyframes` scope mismatch with Shadow DOM `::part()` selectors.
 
 ### Breaking changes
 - Changed Enchanted-Popover property from `disableHover` to `disablePopover`.
