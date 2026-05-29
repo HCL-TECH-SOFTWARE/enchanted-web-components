@@ -1,0 +1,225 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+ 
+@use "sass:map";
+@use "../../common";
+@use "../../common/palette";
+@use "../../common/themeMap.module";
+@use "../../common/typography";
+
+@mixin enchanted-header-base-styles {
+  &::part(div) {
+    width: 100%;
+    position: relative;
+  }
+
+  &::part(label) {
+    @include typography.font-default;
+    width: 100%;
+    margin-bottom: 10px;
+    display: block;
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
+  }
+
+  &::part(icon-start) {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 8px;
+    left: 8px;
+  }
+
+  &::part(icon-end) {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 8px;
+    right: 8px;
+  }
+
+  &::part(icon-start-with-label) {
+    top: 34px;
+  }
+
+  &::part(icon-end-with-label) {
+    top: 34px;
+  }
+
+  &::part(input-icon-start) {
+    padding-left: 24px;
+    width: calc(100% - 34px);
+  }
+
+  &::part(input-icon-end) {
+    padding-right: 24px;
+    width: calc(100% - 34px);
+  }
+
+  &::part(input-icon-both) {
+    padding-right: 24px;
+    width: calc(100% - 50px);
+  }
+
+  &::part(button) {
+    @include common.button;
+  }
+
+  &::part(button-disabled) {
+    @include common.button;
+    background-color: lightgray;
+    color: darkgray;
+    cursor: not-allowed;
+  }
+
+  &::part(button-outlined) {
+    @include common.button;
+    outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) solid 1px;
+  }
+
+  &::part(button-outlined-focused) {
+    @include common.button;
+    outline: palette.$outline-color solid 1px;
+    border-radius: 4px;
+  }
+
+  &::part(button-outlined-disabled) {
+    @include common.button;
+    @include common.button-disabled;
+    outline: darkgray solid 1px;
+  }
+
+  &::part(button-end-icon) {
+    color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    height: 16px;
+    margin-right: 4px;
+    width: 16px;
+    display:flex;
+    justify-content: space-between;
+  }
+
+  &::part(button-start-icon-no-margin) {
+    color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    height: 16px;
+    width: 16px;
+  }
+
+  &::part(button-text) {
+    font-size: 16px;
+    line-height: 1;
+    overflow: hidden;
+  }
+
+  &::part(badge) {
+    background-color:none;
+    color: blue;
+    padding: 0px 0px 0px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  &::part(button-start-icon-rtl-margin) {
+    color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    height: 16px;
+    margin-left: 4px;
+    width: 16px;
+  }
+
+  &::part(button-start-icon) {
+    color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    height: 16px;
+    margin-right: 4px;
+    width: 16px;
+  }
+
+  &::part(h6) {
+    @include typography.h6;
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
+  }
+
+  &::part(button-outlined) {
+    @include common.button;
+    outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) solid 1px;
+  }
+
+  &::part(input) {
+    @include typography.font-default;
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
+    background-color: map.get(themeMap.$enchantedPalette, WHITE100P);
+    display: block;
+    width: 90%;
+    border: 1px solid map.get(themeMap.$enchantedPalette, BLACK38P);
+    padding: 7px 8px;
+    height: 16px;
+  }
+  &::part(input)::placeholder {
+    @include typography.font-default;
+    color: map.get(themeMap.$enchantedPalette, BLACK60P);
+  }
+
+  &::part(icon-start) {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 8px;
+    left: 8px;
+  }
+
+  &::part(icon-end) {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 8px;
+    right: 8px;
+  }
+
+  &::part(header) {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    width: 100%;
+    justify-content:space-between;
+  }
+
+  &::part(sub-header-start) {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    width: 100%;
+  }
+
+  &::part(sub-header-end) {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    width: 312px;
+    justify-content:flex-end;
+  }
+
+  &::part(header-spacing-start) {
+    padding-left: 0px; //  for authoring 16px
+    padding-right: 0px; //  for authoring 8px
+  }
+
+  &::part(header-spacing-start-hamburger) {
+    padding-left: 68px;
+    padding-right: 8px;
+  }
+
+  &::part(header-spacing-end) {
+    display: flex;
+    padding-left: 8px;
+    padding-right: 16px;
+  }
+}

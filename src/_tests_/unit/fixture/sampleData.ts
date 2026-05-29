@@ -41,3 +41,47 @@ export const sampleData = {
     hits: generateHits(50)
   }
 };
+
+export const sampleDamData = {
+  hits: {
+    total: {
+      value: 4,
+      relation: 'eq'
+    },
+    max_score: 0,
+    hits: [
+      {
+        title: 'Test Collection 1',
+        description: 'This is a test description 1',
+        subtitle: 'Empty Collection',
+        type: 'collection',
+        tags: ['tag1', 'collection'],
+        updated: Date.now() - 1 * 1000,
+      },
+      {
+        title: 'Test Collection 2',
+        description: 'This is a test description 2',
+        subtitle: '1 Asset',
+        type: 'collection',
+        tags: ['tag2', 'collection'],
+        updated: Date.now() - 2 * 1000,
+      },
+      {
+        title: 'Test Collection 3',
+        description: 'This is a test description 3',
+        subtitle: '1 Collection',
+        type: 'collection',
+        tags: ['tag3', 'collection'],
+        updated: Date.now() - 3 * 1000,
+      },
+      {
+        title: 'Test Collection 4',
+        description: 'This is a test description 4',
+        subtitle: '2 Collections, 2 Assets',
+        type: 'collection',
+        tags: ['tag4', 'collection'],
+        updated: Date.now() - 4 * 1000,
+      },
+    ]
+  }
+};
