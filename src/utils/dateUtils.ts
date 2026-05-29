@@ -1,14 +1,17 @@
-/*
- ********************************************************************
- * Licensed Materials - Property of HCL                             *
- *                                                                  *
- * Copyright HCL Technologies Ltd. 2025. All Rights Reserved.       *
- *                                                                  *
- * Note to US Government Users Restricted Rights:                   *
- *                                                                  *
- * Use, duplication or disclosure restricted by GSA ADP Schedule    *
- ********************************************************************
-*/
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
 /* eslint-why better safe than sorry */
 /* eslint-disable no-useless-escape */
 
@@ -16,6 +19,9 @@ import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import localeData from 'dayjs/plugin/localeData';
 import utc from 'dayjs/plugin/utc';
+import createDebug from 'debug';
+
+const debug = createDebug('enchanted-web-components:utils:dateUtils.ts');
 
 dayjs.extend(localizedFormat);
 dayjs.extend(localeData);
@@ -53,7 +59,7 @@ import 'dayjs/locale/tr';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/zh';
 import 'dayjs/locale/zh-tw';
-import { DEFAULT_DATE_FORMAT, DEFAULT_CALENDAR_LOCALE, FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP } from '../types/dx-datepicker';
+import { DEFAULT_DATE_FORMAT, DEFAULT_CALENDAR_LOCALE, FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP } from '../types/enchanted-datepicker';
 import { SUPPORTED_LOCALES } from '../components/constants';
 
 
@@ -125,9 +131,7 @@ export const getLocalizedDays = (locale: string = DEFAULT_CALENDAR_LOCALE): stri
       });
     } else if (locale === 'ar') {
       localizedDays = localizedDays.map((day, index) => {
-        // eslint-why - Enchanted-logger could not be used, later we should switch to the debug package
-        // eslint-disable-next-line no-console
-        console.debug(`Mapping day string: ${day}, with index: ${index}`);
+        debug('Mapping day string: %s, with index: %d', day, index);
         if (index === 0) {
           return day.slice(4, 5); // For Monday: Align with Enchanted React DatePicker implementation
         }
@@ -459,12 +463,8 @@ export const correctDateEndForDatePickerFilter = (dateEnd: string): string => {
       newDateEnd = getUnixTimestampMilliseconds(`${String(Number(year) + 1).padStart(4, '0')}-01-01`).toString();
     }
 
-    // eslint-why - Enchanted-logger could not be used, later we should switch to the debug package
-    // eslint-disable-next-line no-console
-    console.log(`The dateEnd passed to the util is: ${formatDate(Number(dateEnd), FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP)}`);
-    // eslint-why - Enchanted-logger could not be used, later we should switch to the debug package
-    // eslint-disable-next-line no-console
-    console.log(`The newDateEnd calculated is: ${formatDate(Number(newDateEnd), FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP)}`);
+    debug('The dateEnd passed to the util is: %s', formatDate(Number(dateEnd), FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP));
+    debug('The newDateEnd calculated is: %s', formatDate(Number(newDateEnd), FORMAT_FOR_CONVERTING_TO_UNIX_TIMESTAMP));
   }
 
   return newDateEnd;

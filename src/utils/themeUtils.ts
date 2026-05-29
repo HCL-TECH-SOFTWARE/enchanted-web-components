@@ -1,16 +1,23 @@
-/*
- ********************************************************************
- * Licensed Materials - Property of HCL                             *
- *                                                                  *
- * Copyright HCL Technologies Ltd. 2025. All Rights Reserved.       *
- *                                                                  *
- * Note to US Government Users Restricted Rights:                   *
- *                                                                  *
- * Use, duplication or disclosure restricted by GSA ADP Schedule    *
- ********************************************************************
- */
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+import createDebug from 'debug';
 
 import themeMap from '../styles/enchanted/common/themeMap.module.scss';
+
+const debug = createDebug('enchanted-web-components:utils:themeUtils.ts');
 
 export const {
   palettenoShadow,
@@ -35,11 +42,13 @@ export const {
   paletteBLUE100,
   paletteBLUE200,
   paletteBLUE300,
+  paletteBLUE300_DARK,
   paletteBLUE400,
   paletteBLUE500,
   paletteBLUE600,
   paletteBLUE700,
   paletteBLUE800,
+  paletteBLUE800_DARK,
   paletteBLUE900,
   paletteBLUE1000,
   paletteCG100,
@@ -58,11 +67,13 @@ export const {
   paletteGREEN100,
   paletteGREEN200,
   paletteGREEN300,
+  paletteGREEN300_DARK,
   paletteGREEN400,
   paletteGREEN500,
   paletteGREEN600,
   paletteGREEN700,
   paletteGREEN800,
+  paletteGREEN800_DARK,
   paletteGREEN900,
   paletteGREEN1000,
   paletteHCLSOFTWAREBLUE01,
@@ -75,11 +86,13 @@ export const {
   paletteHCLSOFTWAREBLUE07_20,
   paletteHCLSOFTWAREBLUE07_12,
   paletteHCLSOFTWAREBLUE07_8,
+  paletteHCLSOFTWAREBLUE07_DARK,
   paletteHCLSOFTWAREBLUE08,
   paletteHCLSOFTWAREBLUE09,
   paletteHCLSOFTWAREBLUE09_20,
   paletteHCLSOFTWAREBLUE09_12,
   paletteHCLSOFTWAREBLUE09_8,
+  paletteHCLSOFTWAREBLUE09_DARK,
   paletteINDIGO100,
   paletteINDIGO200,
   paletteINDIGO300,
@@ -116,11 +129,13 @@ export const {
   paletteORANGE100,
   paletteORANGE200,
   paletteORANGE300,
+  paletteORANGE300_DARK,
   paletteORANGE400,
   paletteORANGE500,
   paletteORANGE600,
   paletteORANGE700,
   paletteORANGE800,
+  paletteORANGE800_DARK,
   paletteORANGE900,
   paletteORANGE1000,
   palettePINK100,
@@ -146,11 +161,13 @@ export const {
   paletteRED100,
   paletteRED200,
   paletteRED300,
+  paletteRED300_DARK,
   paletteRED400,
   paletteRED500,
   paletteRED600,
   paletteRED700,
   paletteRED800,
+  paletteRED800_DARK,
   paletteRED900,
   paletteRED1000,
   paletteTEAL100,
@@ -308,9 +325,7 @@ export const {
   themeZZZdarkZZZactionZZZfocusInverse,
 } = themeMap;
 
-// eslint-why - Enchanted-logger could not be used, later we should switch to the debug package
-// eslint-disable-next-line no-console
-console.debug(JSON.stringify(themeMap));
+debug('themeMap: %O', themeMap);
 type Keys = keyof typeof themeMap;
 type Values = typeof themeMap[Keys];
 export type ThemeType = { [key: Keys]: Values };

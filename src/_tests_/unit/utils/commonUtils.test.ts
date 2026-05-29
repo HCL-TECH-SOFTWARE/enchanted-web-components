@@ -1,19 +1,22 @@
-/*
- ********************************************************************
- * Licensed Materials - Property of HCL                             *
- *                                                                  *
- * Copyright HCL Technologies Ltd. 2025. All Rights Reserved.       *
- *                                                                  *
- * Note to US Government Users Restricted Rights:                   *
- *                                                                  *
- * Use, duplication or disclosure restricted by GSA ADP Schedule    *
- ********************************************************************
- */
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
 // External imports
 import { expect } from '@wdio/globals';
 
 // Helper imports
-import { DxDataGridColDef } from '../../../types/dx-data-grid';
+import { EnchantedDataGridColDef } from '../../../types/enchanted-data-grid';
 import { getActionLink, getFilteredOverflowList, getMenuItemCount, getObjectValue, getOverflowItemProperty, isValidJsonObject } from '../../../utils/commonUtils';
 import { isLTR, setCurrentDirection } from '../../../components/localization';
 
@@ -184,7 +187,7 @@ describe('Common Utils', () => {
   });
 
   it('getOverflowItemProperty - should return an empty string when overflowList is undefined', () => {
-    const header = { overflowList: undefined } as DxDataGridColDef;
+    const header = { overflowList: undefined } as EnchantedDataGridColDef;
     const data = {};
     const property = 'name';
     const result = getOverflowItemProperty(specialFields, header, data, property);
@@ -192,7 +195,7 @@ describe('Common Utils', () => {
   });
 
   it('getOverflowItemProperty - should return an empty string when overflowList is empty', () => {
-    const header = { overflowList: [] } as unknown as DxDataGridColDef;
+    const header = { overflowList: [] } as unknown as EnchantedDataGridColDef;
     const data = {};
     const property = 'name';
     const result = getOverflowItemProperty(specialFields, header, data, property);
@@ -205,7 +208,7 @@ describe('Common Utils', () => {
         { name: 'Item1', field: 'field1' },
         { name: 'Item2', field: 'field2' },
       ],
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const data = { field1: 'value1' };
     const property = 'name';
     const result = getOverflowItemProperty(specialFields, header, data, property);
@@ -218,7 +221,7 @@ describe('Common Utils', () => {
         { name: 'Item1', field: 'field1' },
         { name: 'Item2', field: 'field2' },
       ],
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const data = { field3: 'value3' };
     const property = 'name';
     const result = getOverflowItemProperty(specialFields, header, data, property);
@@ -231,7 +234,7 @@ describe('Common Utils', () => {
         { name: 'Item1', field: 'field1' },
         { name: 'Item2', field: 'field2' },
       ],
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const data = { field1: 'value1' };
     const property = 'nonExistentProperty';
     const result = getOverflowItemProperty(specialFields, header, data, property);
@@ -239,14 +242,14 @@ describe('Common Utils', () => {
   });
 
   it('should return undefined when overflowList is undefined', () => {
-    const header = { overflowList: undefined } as DxDataGridColDef;
+    const header = { overflowList: undefined } as EnchantedDataGridColDef;
     const data = {};
     const result = getActionLink(specialFields, data, header);
     expect(result).toBeUndefined();
   });
 
   it('should return undefined when overflowList is empty', () => {
-    const header = { overflowList: [] } as unknown as DxDataGridColDef;
+    const header = { overflowList: [] } as unknown as EnchantedDataGridColDef;
     const data = {};
     const result = getActionLink(specialFields, data, header);
     expect(result).toBeUndefined();
@@ -259,7 +262,7 @@ describe('Common Utils', () => {
         { name: 'Item2', field: 'field2' },
       ],
       keyForStringify: 'key',
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const data = { field1: 'value1' };
     const result = getActionLink(specialFields, data, header);
     expect(result).toBe('value1');
@@ -271,7 +274,7 @@ describe('Common Utils', () => {
         { name: 'Item1', field: 'field1' },
         { name: 'Item2', field: 'field2' },
       ],
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const data = { field3: 'value3' };
     const result = getActionLink(specialFields, data, header);
     expect(result).toBeUndefined();
@@ -284,7 +287,7 @@ describe('Common Utils', () => {
         { name: 'Item2', field: 'field2' },
       ],
       keyForStringify: 'key',
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const data = { field2: 'value2' };
     const result = getActionLink(specialFields, data, header);
     expect(result).toBe('value2');
@@ -303,7 +306,7 @@ describe('Common Utils', () => {
     const emptyHeader = {
       overflowList: [],
       keyForStringify: 'key',
-    } as unknown as DxDataGridColDef;
+    } as unknown as EnchantedDataGridColDef;
     expect(getFilteredOverflowList(specialFields, testMenuItemData, emptyHeader)).toEqual([]);
   });
 
@@ -315,7 +318,7 @@ describe('Common Utils', () => {
         { field: 'nested.field3', name: 'C' }
       ],
       keyForStringify: 'key',
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const result = getFilteredOverflowList(specialFields, testMenuItemData, header);
     expect(result).toEqual([
       { field: 'field1', name: 'A' },
@@ -330,7 +333,7 @@ describe('Common Utils', () => {
         { field: 'arr', name: 'Array' }
       ],
       keyForStringify: 'key',
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     const result = getFilteredOverflowList(['special'], testMenuItemData, header);
     expect(result).toEqual([
       { field: 'special', name: 'Special' },
@@ -345,7 +348,7 @@ describe('Common Utils', () => {
         { field: 'field2', name: 'Empty' }
       ],
       keyForStringify: 'key',
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     expect(getFilteredOverflowList(specialFields, testMenuItemData, header)).toEqual([]);
   });
 
@@ -356,7 +359,7 @@ describe('Common Utils', () => {
         { field: 'nested.field3', name: 'B' }
       ],
       keyForStringify: 'key',
-    } as DxDataGridColDef;
+    } as EnchantedDataGridColDef;
     expect(getFilteredOverflowList(specialFields, testMenuItemData, header)).toEqual(header.overflowList);
   });
 });

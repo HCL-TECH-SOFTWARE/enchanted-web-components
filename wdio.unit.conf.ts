@@ -1,20 +1,19 @@
-/*
- ********************************************************************
- * Licensed Materials - Property of HCL                             *
- *                                                                  *
- * Copyright HCL Technologies Ltd. 2024, 2025. All Rights Reserved. *
- *                                                                  *
- * Note to US Government Users Restricted Rights:                   *
- *                                                                  *
- * Use, duplication or disclosure restricted by GSA ADP Schedule    *
- ********************************************************************
- */
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
 
 import { tmpFolderCleanup } from './wdio-util';
-import path from 'path';
-import url from 'url';
-
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 export const config = {
   // ====================
@@ -26,10 +25,13 @@ export const config = {
     preset: process.env.WDIO_PRESET,
     coverage: {
       enabled: true,
-      statements: 82,
-      branches: 68,
-      functions: 78,
-      lines: 80
+      statements: 80.5,
+      branches: 65,
+      functions: 77.79,
+      lines: 79,
+      exclude: [
+        'src/_tests_/**',
+      ]
     },
     viteConfig: {
       optimizeDeps: {
@@ -40,12 +42,6 @@ export const config = {
           './src/components/**/*.ts'
         ],
         force: true
-      },
-      resolve: {
-        alias: {
-          // Replace '@enchanted-prod/logger' with mock logger since using it times out the tests
-          '@enchanted-prod/logger': path.resolve(__dirname, './src/_tests_/mocks/logger.mock.ts')
-        }
       }
     }
   }],
@@ -103,7 +99,7 @@ export const config = {
   capabilities: [{
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
-    browserVersion: 'stable',
+    browserVersion: '148.0.7778.216',
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [

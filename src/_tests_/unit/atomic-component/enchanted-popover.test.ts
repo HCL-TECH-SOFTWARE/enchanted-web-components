@@ -1,0 +1,347 @@
+/*
+ ********************************************************************
+ * Licensed Materials - Property of HCL                             *
+ *                                                                  *
+ * Copyright HCL Technologies Ltd. 2025. All Rights Reserved.       *
+ *                                                                  *
+ * Note to US Government Users Restricted Rights:                   *
+ *                                                                  *
+ * Use, duplication or disclosure restricted by GSA ADP Schedule    *
+ ********************************************************************
+ */
+// External imports
+import { html } from 'lit/static-html.js';
+import { expect, $, browser } from "@wdio/globals";
+
+// Helper import
+import { initSessionStorage, renderComponent } from "../../utils";
+import  { EnchantedPopoverArrowPosition } from '../../../types/enchanted-popover';
+
+// Component import
+import "../../../components/atomic-component/enchanted-popover";
+import { ENCHANTED_POPOVER_TAG, ENCHANTED_POPOVER_TAG_NAME } from '../../../components/tags';
+
+describe(`${ENCHANTED_POPOVER_TAG_NAME} component test`, () => {
+  before(async () => {
+    await initSessionStorage();
+    document.body.innerHTML = '';
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  it("should render popover with label and text", async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+        showText
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    expect(await $(ENCHANTED_POPOVER_TAG_NAME)).toBeExisting();
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    expect(await popover.getAttribute("label")).toBe("Label");
+    expect(await popover.getAttribute("text")).toBe("Text");
+  });
+
+  it('should hide label, text and closeIcon when showLabel, showText and showCloseIcon are false ', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const labelPart = await popover.shadow$("div[part='label']");
+    const textPart = await popover.shadow$("div[part='text']");
+    const closeIcon =  await popover.shadow$("button[part='close-icon']");
+    expect(await closeIcon.isExisting()).toBe(false);
+    expect(await labelPart.isExisting()).toBe(false);
+    expect(await textPart.isExisting()).toBe(false);
+  });
+
+  it('should show label and text when showLabel and showText are true ', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+        showText
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const labelPart = await popover.shadow$("div[part='label']");
+    const textPart = await popover.shadow$("div[part='text']");
+    expect(await labelPart.isExisting()).toBe(true);
+    expect(await textPart.isExisting()).toBe(true);
+  });
+  
+  it('should render only label when showLabel is true and showText is false ', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const labelPart = await popover.shadow$("div[part='label']");
+    const textPart = await popover.shadow$("div[part='text']");
+    expect(await labelPart.isExisting()).toBe(true);
+    expect(await textPart.isExisting()).toBe(false);
+  });
+
+  it('should not show arrow when arrow attribute is set to ""  ', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+        showText
+        arrow="${EnchantedPopoverArrowPosition.NONE}"
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const arrowPart = await popover.shadow$("div[part='arrow']");
+    expect(await arrowPart.isExisting()).toBe(false);
+    const wrapperPart = await popover.shadow$("div[part='wrapper']");
+    expect(await wrapperPart.isExisting()).toBe(true);
+  });
+
+  it('should open popover without arrow when arrow attribute is not set ', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+        showText
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const arrowPart = await popover.shadow$("div[part='arrow']");
+    expect(await arrowPart.isExisting()).toBe(false);
+    const wrapperPart = await popover.shadow$("div[part='wrapper']");
+    expect(await wrapperPart.isExisting()).toBe(true);
+  });
+
+  it('should close popover on close icon click ', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+        showText
+        showCloseIcon
+        arrow="${EnchantedPopoverArrowPosition.BOTTOM_LEFT}"
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const trigger = await $("#popover-parent");
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const closeIcon =  await popover.shadow$("button[part='close-icon']");
+    await trigger.moveTo();
+    await popover.waitForDisplayed({ timeout: 300 });
+    await closeIcon.click();
+    expect(await popover.getProperty("open")).toBe(false);
+  });
+
+  it('should apply correct theme when  theme ="dark" attribute', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+        showText
+        theme="dark"
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    expect(await popover.getAttribute("theme")).toBe("dark");
+  });
+
+  it('should show arrow in correct position based on arrow attribute', async () => {
+    renderComponent (html`
+      <${ENCHANTED_POPOVER_TAG}
+        label="Label"
+        text="Text"
+        showLabel
+        showText
+        arrow="${EnchantedPopoverArrowPosition.BOTTOM_LEFT}"
+      >
+        <button slot="target" id="popover-parent">Hover me</button>
+      </${ENCHANTED_POPOVER_TAG}>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    expect(await popover.getAttribute("arrow")).toBe(EnchantedPopoverArrowPosition.BOTTOM_LEFT);
+  });
+
+  it('should only show popover for element with slot="target" in parent div', async () => {
+    renderComponent (html`
+      <div id="parent-div">
+        <${ENCHANTED_POPOVER_TAG}
+          label="Label"
+          text="Text"
+          showLabel
+          showText
+        >
+          <button slot="target" id="popover-parent">Hover me</button>
+        </${ENCHANTED_POPOVER_TAG}>
+        <button id="btn-1">Button 1</button>
+        <button id="btn-2">Button 2</button>
+      </div>
+    `);
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const targetButton = await $("#popover-parent");
+    const btn1 = await $("#btn-1");
+    const btn2 = await $("#btn-2");
+   
+    const popoverWrapper = await popover.shadow$("div[part='wrapper']");
+    await targetButton.moveTo();
+    await popoverWrapper.waitForDisplayed({ timeout: 300 });
+    expect(await popover.getProperty("open")).toBe(true);
+
+    await btn1.moveTo();
+    await browser.waitUntil (async () => {
+      return (await popover.getProperty("open")) === false;
+    }, { 
+      timeout: 300, timeoutMsg: 'expected popover to be closed after 300ms'
+    });
+    expect(await popover.getProperty("open")).toBe(false);
+
+    await btn2.moveTo();
+    await browser.waitUntil (async () => {
+      return (await popover.getProperty("open")) === false;
+    }, { 
+      timeout: 300, timeoutMsg: 'expected popover to be closed after 300ms'
+    });
+    expect(await popover.getProperty("open")).toBe(false);
+  });
+
+  it('should not open or close on focus and hover events when disablePopover is true', async () => {
+    renderComponent (html`
+      <div>
+        <${ENCHANTED_POPOVER_TAG}
+          label="Label"
+          text="Text"
+          showLabel
+          showText
+          disablePopover
+        >
+          <button slot="target" id="popover-parent">Hover me</button>
+        </${ENCHANTED_POPOVER_TAG}>
+        <button id="outside-button">Outside</button>
+      </div>
+    `);
+
+    const popover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const target = await $("#popover-parent");
+
+    // _onFocusIn and hover (_showPopover): popover should remain closed.
+    await target.click();
+    expect(await popover.getProperty('open')).toBe(false);
+
+    await target.moveTo();
+    expect(await popover.getProperty('open')).toBe(false);
+
+    // Start from open=true to validate _onFocusOut and hover leave (_hidePopover).
+    renderComponent (html`
+      <div>
+        <${ENCHANTED_POPOVER_TAG}
+          label="Label"
+          text="Text"
+          showLabel
+          showText
+          disablePopover
+          open
+        >
+          <button slot="target" id="popover-parent-open">Hover me</button>
+        </${ENCHANTED_POPOVER_TAG}>
+        <button id="outside-button-open">Outside</button>
+      </div>
+    `);
+
+    const openPopover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const openTarget = await $("#popover-parent-open");
+    const openOutsideButton = await $("#outside-button-open");
+
+    expect(await openPopover.getProperty('open')).toBe(true);
+
+    await openTarget.click();
+    await openOutsideButton.click();
+    expect(await openPopover.getProperty('open')).toBe(true);
+
+    await openTarget.moveTo();
+    await openOutsideButton.moveTo();
+    expect(await openPopover.getProperty('open')).toBe(true);
+
+    // Render an enabled popover to exercise the non-disabled focus/hover paths.
+    renderComponent (html`
+      <div>
+        <${ENCHANTED_POPOVER_TAG}
+          label="Label"
+          text="Text"
+          showLabel
+          showText
+        >
+          <button slot="target" id="popover-parent-enabled">Hover me</button>
+        </${ENCHANTED_POPOVER_TAG}>
+        <button id="outside-button-enabled">Outside</button>
+      </div>
+    `);
+
+    const enabledPopover = await $(ENCHANTED_POPOVER_TAG_NAME);
+    const enabledTarget = await $("#popover-parent-enabled");
+    const enabledOutsideButton = await $("#outside-button-enabled");
+
+    await enabledTarget.click();
+    expect(await enabledPopover.getProperty('open')).toBe(true);
+
+    await enabledOutsideButton.click();
+    await browser.waitUntil(async () => {
+      return (await enabledPopover.getProperty('open')) === false;
+    }, {
+      timeout: 300,
+      timeoutMsg: 'expected enabled popover to be closed after focusout'
+    });
+    expect(await enabledPopover.getProperty('open')).toBe(false);
+
+    await enabledTarget.moveTo();
+    expect(await enabledPopover.getProperty('open')).toBe(true);
+
+    await enabledOutsideButton.moveTo();
+    await browser.waitUntil(async () => {
+      return (await enabledPopover.getProperty('open')) === false;
+    }, {
+      timeout: 300,
+      timeoutMsg: 'expected enabled popover to be closed after pointerleave'
+    });
+    expect(await enabledPopover.getProperty('open')).toBe(false);
+
+    // Re-import module with cache-busting query to execute registration else-branch.
+    await browser.executeAsync(async (tagName, done) => {
+      try {
+        await import(`/src/components/atomic-component/enchanted-popover.ts?reimport=${Date.now()}`);
+        done(Boolean(customElements.get(tagName)));
+      } catch {
+        done(false);
+      }
+    }, ENCHANTED_POPOVER_TAG_NAME);
+  });
+});

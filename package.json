@@ -5,8 +5,7 @@
   "types": "dist/index.d.ts",
   "author": "Hanjo Hagemeier <hanjo.hagemeier@hcl.com>",
   "license": "Apache-2.0",
-  "private": true,
-  "version": "1.0.0",
+  "version": "6.0.0",
   "type": "module",
   "homepage": "https://github.com/HCL-TECH-SOFTWARE/enchanted-web-components#readme",
   "repository": {
@@ -29,19 +28,19 @@
   ],
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf ./dist",
-    "build": "tsc",
-    "build-complete": "cp -r enchanted.css ./dist/ && cp -r src/styles ./dist/ && cp -r src/static/assets/*.svg ./dist/static/assets && cp -r src/static/assets/*.jpg ./dist/static/assets && cp -r src/static/assets/SearchIconsv2 ./dist/static/assets",
+    "build": "npm run compile-enchanted-css && tsc",
+    "prepare-for-publish": "cp ./package.json ./dist/package.json && cp ./README.md ./dist/README.md && cp ./LICENSE.txt ./dist/LICENSE.txt && cp ./enchanted.css ./dist/enchanted.css && cp -r ./src/styles ./dist && cp -r ./src/eslint ./dist && rm -rf ./dist/_tests_ && rm -rf ./dist/stories",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
+    "test": "npm run test-unit && VITE_COMPONENT_PREFIX=prefix- npm run test-unit",
     "test-unit": "wdio run ./wdio.unit.conf.ts",
-    "test-snapshot": "wdio run ./wdio.snapshot.conf.ts",
     "compile-enchanted-css": "rm -f ./enchanted.css && sass --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
     "watch-enchanted-css": "rm -f ./enchanted.css && sass --watch --no-source-map ./src/styles/enchanted/enchanted.scss:enchanted.css",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_f299987ece7d70a"
   },
   "devDependencies": {
-    "@enchanted-prod/logger": "^2.0.2",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
     "@lit/context": "^1.1.2",
@@ -59,6 +58,7 @@
     "@wdio/mocha-framework": "^9.20.0",
     "@wdio/spec-reporter": "^9.20.0",
     "@wdio/visual-service": "^9.0.0",
+    "chromatic": "^15.1.1",
     "eslint": "^9.18.0",
     "eslint-plugin-lit": "^1.14.0",
     "eslint-plugin-storybook": "^9.1.16",
@@ -72,15 +72,14 @@
     "sass": "^1.93.2",
     "storybook": "^9.1.16",
     "typescript": "~5.8.3",
-    "uuid": "^11.0.3",
+    "uuid": "^14.0.0",
     "wdio-json-html-reporter": "^1.5.14"
   },
   "dependencies": {
-    "@hcl-software/enchanted-icons-web-component": "github:nhickogarachicohcl/enchanted-icons-web-component",
-    "dayjs": "^1.11.13"
-  },
-  "engines": {
-    "node": ">=20.X"
+    "@hcl-software/enchanted-icons-web-component": "^1.9.0",
+    "@types/debug": "^4.1.12",
+    "dayjs": "^1.11.13",
+    "debug": "^4.4.3"
   },
   "overrides": {
     "glob": "^10.2.2",
