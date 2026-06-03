@@ -1,0 +1,355 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+// External imports
+import { html, nothing, TemplateResult } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { localized } from '@lit/localize';
+import { debounce } from 'lodash';
+import createDebug from 'debug';
+
+// Component imports
+import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
+
+// Helper imports
+import { getCurrentDirection } from '../localization';
+import { LOCALE_DIRECTIONS } from '../constants';
+import { EnchantedInputFieldType } from '../../types/enchanted-select';
+import { INPUT_TEXTFIELD_PARTS } from '../../types/cssClassEnums';
+import { AutoCompleteTextfieldEnum } from '../../types/enchanted-textfield';
+import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
+import { ENCHANTED_TEXTFIELD_TAG_NAME } from '../tags';
+
+const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-textfield.ts');
+
+/**
+ * Textfield component.
+ */
+@localized()
+export class EnchantedInputTextfield extends EnchantedAcBaseElement {
+  static override shadowRootOptions = {
+    ...EnchantedAcBaseElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+  
+  @property({ type: String })
+  value = '';
+
+  @property({ type: String })
+  type = 'text';
+
+  @property({ type: String })
+  label: string | undefined;
+
+  @property({ type: String })
+  placeholder = '';
+
+  @property({ type: Boolean })
+  disabled = false;
+
+  @property()
+  clearIcon?: TemplateResult;
+
+  @property()
+  actionIcon?: TemplateResult;
+
+  @property()
+  field: EnchantedInputFieldType | string = '';
+
+  @property({ type: Boolean })
+  hassearchedbefore = false;
+
+  @property({ type: String })
+  autocomplete: AutoCompleteTextfieldEnum = AutoCompleteTextfieldEnum.ON;
+
+  @property({ type: String, attribute: 'aria-label' })
+  override ariaLabel: string | null = null;
+
+  @property({ type: Boolean, reflect: true })
+  multiline = false;
+
+  @property({ type: Number }) 
+  numberOfLines: number | null = null;
+
+  @state()
+  private isRTL = getCurrentDirection() === LOCALE_DIRECTIONS.RTL;
+
+  private get hasClear(): boolean {
+    return !!this.clearIcon;
+  }
+
+  private get hasAction(): boolean {
+    return !!this.actionIcon;
+  }
+  
+  connectedCallback(): void {
+    super.connectedCallback();
+  }
+
+  private adjustTextareaRows(): void {
+    if (!this.multiline) return;
+    const textarea = this.renderRoot.querySelector('textarea') as HTMLTextAreaElement;
+    if (!textarea) return;
+    // Reset to 1 row to get accurate scrollHeight
+    textarea.rows = 1;
+    const style = window.getComputedStyle(textarea);
+    const paddingTop = parseFloat(style.paddingTop);
+    const paddingBottom = parseFloat(style.paddingBottom);
+    const lineHeight = parseFloat(style.lineHeight) || 16;
+    const contentHeight = textarea.scrollHeight - paddingTop - paddingBottom;
+    const calculatedRows = Math.max(1, Math.ceil(contentHeight / lineHeight));
+    // Cap at numberOfLines if set, allowing scroll beyond that
+    textarea.rows = this.numberOfLines ? Math.min(calculatedRows, this.numberOfLines) : calculatedRows;
+  }
+
+  override updated(): void {
+    this.adjustTextareaRows();
+  }
+
+  private textareaRows(): number {
+    if (!this.multiline) return 1;
+    return 1; // auto-grow handled by adjustTextareaRows in updated()
+  }
+
+  private handleInput(event: KeyboardEvent) {
+    event.stopPropagation();
+    debug('Input event in %s: %s', this.tagName, (event.target as HTMLInputElement).value);
+    this.value = (event.target as HTMLInputElement).value;
+    this.requestUpdate();
+
+    const stateChange = new CustomEvent('change', { 
+      detail: {
+        value: this.value,
+        type: this.field,
+        triggerSearch: false,
+      }
+    });
+    this.dispatchEvent(stateChange);
+  }
+
+  private handleEnter(event: KeyboardEvent) {
+    event.stopPropagation();
+    debug('Enter event in %s: %s', this.tagName, this.value);
+    if (event.key === KeyboardInputKeys.ENTER) {
+      const stateChange = new CustomEvent('change', { 
+        detail: {
+          value: this.value,
+          type: this.field,
+          triggerSearch: true,
+        }
+      });
+      this.dispatchEvent(stateChange);
+      this.hassearchedbefore = true;
+    }
+  }
+
+  private handleClear(event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    debug('Clear event in %s: %s', this.tagName, this.value);
+    this.value = '';
+    const input = this.renderRoot.querySelector(`#${`input-${this.field}`}`) as HTMLInputElement;
+    if (input) {
+      input.focus();
+    }
+    const stateChange = new CustomEvent('change', { 
+      detail: {
+        type: EnchantedInputFieldType.CLEAR_QUERY,
+      }
+    });
+    this.dispatchEvent(stateChange);
+  }
+
+  private handleClearEnter(event: KeyboardEvent) {
+    event.stopPropagation();
+    debug('Clear Enter event in %s: %s', this.tagName, this.value);
+    if (event.key === KeyboardInputKeys.ENTER || event.key === KeyboardInputKeys.SPACE) {
+      this.handleClear(event as unknown as MouseEvent);
+    }
+  }
+
+  private handleTextareaKeydown(event: KeyboardEvent) {
+    if (event.key !== KeyboardInputKeys.ENTER ) return;
+    if (event.shiftKey) return;
+    event.preventDefault();
+    this.dispatchEvent(new CustomEvent('change', {
+      detail: {
+        value: this.value,
+        type: this.field,
+        triggerSearch: true,
+      }
+    }));
+    this.hassearchedbefore = true;
+  }
+
+  private handlePaste() {
+    // Allow paste freely; numberOfLines only controls visible height, content scrolls beyond it
+    this.requestUpdate();
+  }
+
+  private handleBlur(event: FocusEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    debug('Blur event in %s: %s', this.tagName, this.value);
+    if (this.value === '') {
+      const stateChange = new CustomEvent('change', {
+        detail: {
+          value: this.value,
+          type: this.field,
+        }
+      });
+      this.dispatchEvent(stateChange);
+    }
+  }
+
+  private handleEnterSearch(event: KeyboardEvent) {
+    event.stopPropagation();
+    debug('Search by Enter Key event in %s: %s', this.tagName, this.value);
+    if (event.key === KeyboardInputKeys.ENTER) {
+      event.stopPropagation();
+      this.handleSearch(event as unknown as MouseEvent);
+    }
+  }
+
+  private handleSearch(event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    debug('Search by Mouse Click event in %s: %s', this.tagName, this.value);
+    const stateChange = new CustomEvent('change', {
+      detail: {
+        value: this.value,
+        type: this.field,
+        triggerSearch: true,
+      }
+    });
+    this.dispatchEvent(stateChange);
+    this.hassearchedbefore = true;
+  }
+
+  private getInputParts(type: string) {
+    let part = '';
+    switch (type) {
+      case INPUT_TEXTFIELD_PARTS.INPUT:
+        part = INPUT_TEXTFIELD_PARTS.INPUT;
+        if (this.disabled) part = `${INPUT_TEXTFIELD_PARTS.INPUT} ${INPUT_TEXTFIELD_PARTS.INPUT_DISABLED}`;
+        if (this.hasClear || this.hasAction) part = `${part} ${this.isRTL
+          ? INPUT_TEXTFIELD_PARTS.INPUT_ICON_CLEAR_RTL
+          : INPUT_TEXTFIELD_PARTS.INPUT_ICON_CLEAR}`;
+        if (this.hasClear && this.hasAction) {part = `${part} ${this.isRTL
+          ? INPUT_TEXTFIELD_PARTS.INPUT_ICON_BOTH_RTL
+          : INPUT_TEXTFIELD_PARTS.INPUT_ICON_BOTH}`;
+        }
+        break;
+      case INPUT_TEXTFIELD_PARTS.ICON_CLEAR:
+        part = `${this.isRTL ? INPUT_TEXTFIELD_PARTS.ICON_CLEAR_RTL : INPUT_TEXTFIELD_PARTS.ICON_CLEAR}${
+          this.label ? ` ${INPUT_TEXTFIELD_PARTS.ICON_CLEAR_WITH_LABEL}` : ''}`;
+        if (this.disabled) part = `${part} ${INPUT_TEXTFIELD_PARTS.ICON_CLEAR_DISABLED}`;
+        break;
+      case INPUT_TEXTFIELD_PARTS.ICON_ACTION:
+        part = `${this.isRTL ? INPUT_TEXTFIELD_PARTS.ICON_ACTION_RTL : INPUT_TEXTFIELD_PARTS.ICON_ACTION}${
+          this.label ? ` ${INPUT_TEXTFIELD_PARTS.ICON_ACTION_WITH_LABEL}` : ''}`;
+
+        if (this.disabled) part = `${part} ${INPUT_TEXTFIELD_PARTS.ICON_ACTION_DISABLED}`;
+        break;
+      case INPUT_TEXTFIELD_PARTS.LABEL:
+        part = this.disabled ? `${INPUT_TEXTFIELD_PARTS.LABEL} ${INPUT_TEXTFIELD_PARTS.LABEL_DISABLED}` : INPUT_TEXTFIELD_PARTS.LABEL;
+        break;
+      default:
+        break;
+    }    
+    return part;
+  }
+
+  render() {
+    debug('Rendering %s: value - %s, disabled - %s, has searched before - %s', this.tagName, this.value, this.disabled, this.hassearchedbefore);
+    return html`
+      <div part="div">
+        ${this.label
+          ? html`<label data-testid="enchanted-textfield-label" for=${`input-${this.field}`} part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.LABEL)}">${this.label}</label>`
+          : nothing }
+          ${this.multiline
+          ? html`
+            <textarea
+              data-testid="enchanted-textfield-textarea"
+              part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.INPUT)}"
+              rows=${this.textareaRows()}
+              .value=${this.value}
+              ?disabled=${this.disabled}
+              placeholder="${this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}"
+              @input=${this.handleInput}
+              @keydown=${this.handleTextareaKeydown}
+              @blur=${this.handleBlur}
+              @paste=${this.handlePaste}
+              id=${`input-${this.field}`}
+              autocomplete=${this.autocomplete}
+              aria-label=${this.ariaLabel || this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}
+            ></textarea>
+          `
+          : html`
+        <input
+          tabIndex=0
+          data-testid="enchanted-textfield-input"
+          type="${this.type}"
+          part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.INPUT)}"
+          part-attributes="selected"
+          placeholder="${this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}"
+          @input=${this.handleInput}
+          @keydown=${debounce(this.handleEnter, 500)}
+          @blur=${this.handleBlur}
+          id=${`input-${this.field}`}
+          .value=${this.value}
+          ?disabled=${this.disabled}
+          autocomplete=${this.autocomplete}
+          aria-label=${this.ariaLabel || this.placeholder || this.getMessage('input.textfield.placeholder.type.to.search')}
+        />
+          `}
+        <!-- This icon will take color from the parent component as useCurrentColor set to true -->
+        ${this.hasClear
+          ? html`
+          <div
+            tabindex=${this.disabled ? -1 : 0}
+            @click=${this.handleClear}
+            @keydown=${this.handleClearEnter}
+            data-testid="enchanted-clear-icon"
+            aria-label=${this.getMessage('input.textfield.clear')}
+            part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.ICON_CLEAR)}"
+            role="button"
+          >
+            ${this.clearIcon }
+          </div>`
+          : nothing}
+        ${this.hasAction
+          ? html`
+          <div
+            @click=${this.handleSearch}
+            @keydown=${this.handleEnterSearch}
+            data-testid="enchanted-action-icon"
+            aria-label=${this.getMessage('input.textfield.action')}
+            part="${this.getInputParts(INPUT_TEXTFIELD_PARTS.ICON_ACTION)}"
+            role="button"
+            tabindex=${this.disabled ? -1 : 0}
+          >
+            ${this.actionIcon}
+          </div>`
+          : nothing}
+      </div>
+    `;
+  }
+}
+
+if (!customElements.get(ENCHANTED_TEXTFIELD_TAG_NAME)) {
+  customElements.define(ENCHANTED_TEXTFIELD_TAG_NAME, EnchantedInputTextfield);
+} else {
+  debug('Component (%s) is currently registered and not possible to registrate again.', ENCHANTED_TEXTFIELD_TAG_NAME);
+}

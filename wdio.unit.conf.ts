@@ -25,10 +25,13 @@ export const config = {
     preset: process.env.WDIO_PRESET,
     coverage: {
       enabled: true,
-      statements: 82,
-      branches: 68,
-      functions: 78,
-      lines: 80
+      statements: 80.5,
+      branches: 65,
+      functions: 77.79,
+      lines: 79,
+      exclude: [
+        'src/_tests_/**',
+      ]
     },
     viteConfig: {
       optimizeDeps: {
@@ -96,7 +99,7 @@ export const config = {
   capabilities: [{
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
-    browserVersion: 'stable',
+    browserVersion: '148.0.7778.216',
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [

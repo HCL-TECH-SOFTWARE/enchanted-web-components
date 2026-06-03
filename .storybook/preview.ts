@@ -1,4 +1,4 @@
-import '../src/styles/enchanted/ac.scss';
+import '../src/styles/enchanted/atomic-component.scss';
 import '../src/styles/enchanted/common.scss';
 import type { Preview } from '@storybook/web-components-vite';
 
