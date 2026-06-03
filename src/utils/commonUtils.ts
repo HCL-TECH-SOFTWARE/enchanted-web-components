@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-import { DxDataGridColDef, OverflowList } from '../types/dx-data-grid';
+import { EnchantedDataGridColDef, OverflowList } from '../types/enchanted-data-grid';
 
 /**
  * @param {string[]} specialFields: ...
@@ -86,12 +86,12 @@ export const getMenuItemCount = (specialFields: string[], overflowList: Overflow
  *
  * @param {string[]} specialFields: ...
  * @param {any} data - The data object used to evaluate the validity of items in the `overflowList`.
- * @param {DxDataGridColDef} header - The header object containing the `overflowList`.
+ * @param {EnchantedDataGridColDef} header - The header object containing the `overflowList`.
  * @returns {string | undefined} - The action link from the valid item, or `undefined` if no valid item is found.
  */
 // eslint-why: The function needs to accept any object structure for generic action link extraction.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getActionLink = (specialFields: string[], data: any, header: DxDataGridColDef): string | undefined => {
+export const getActionLink = (specialFields: string[], data: any, header: EnchantedDataGridColDef): string | undefined => {
   const overflowList = header.overflowList;
   if (!overflowList || overflowList.length === 0) {
     return undefined;
@@ -124,14 +124,14 @@ export function isValidJsonObject(str: string): boolean {
  * item is found, the specified property value is returned; otherwise, an empty string is returned.
  *
  * @param specialFields: ...
- * @param {DxDataGridColDef} header - The header object containing the `overflowList`.
+ * @param {EnchantedDataGridColDef} header - The header object containing the `overflowList`.
  * @param {any} data - The data object used to evaluate the validity of items in the `overflowList`.
  * @param {string} property - The property name to retrieve from the valid item.
  * @returns {string} - The value of the specified property from the valid item, or an empty string if no valid item is found.
  */
 // eslint-why: The function needs to accept any object structure for generic overflow item property extraction.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getOverflowItemProperty = (specialFields: string[], header: DxDataGridColDef, data: any, property: string): string => {
+export const getOverflowItemProperty = (specialFields: string[], header: EnchantedDataGridColDef, data: any, property: string): string => {
   if (!header.overflowList?.length) {
     return '';
   }
@@ -144,7 +144,7 @@ export const getOverflowItemProperty = (specialFields: string[], header: DxDataG
 export const getFilteredOverflowList = (
   specialFields: string[],
   data: unknown,
-  header: DxDataGridColDef
+  header: EnchantedDataGridColDef
 ): OverflowList[] => {
   if (!header.overflowList?.length) return [];
   return header.overflowList.filter((item: OverflowList) => { return Boolean(getObjectValue(specialFields, data, item.field)); }

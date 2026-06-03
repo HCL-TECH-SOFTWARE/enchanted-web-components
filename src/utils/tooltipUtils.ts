@@ -14,7 +14,7 @@
  * ======================================================================== */
 
 import { TOOLTIP_PLACEMENT } from "../types/cssClassEnums";
-import { Overflow, OverflowClassification, ViewportBox } from "../types/dx-tooltip";
+import { Overflow, OverflowClassification, ViewportBox } from "../types/enchanted-tooltip";
 
 const PLACEMENT_FALLBACK_MAP = new Map<TOOLTIP_PLACEMENT, TOOLTIP_PLACEMENT[]>([
   [
