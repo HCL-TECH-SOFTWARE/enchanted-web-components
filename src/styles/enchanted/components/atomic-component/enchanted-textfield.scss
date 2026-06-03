@@ -1,0 +1,162 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "sass:map";
+@use "../../common/palette";
+@use "../../common/themeMap.module";
+@use "../../common/typography";
+
+@mixin enchanted-textfield-base-styles {
+  & {
+    width: 100%;
+  }
+
+  &::part(label) {
+    @include typography.font-default;
+    margin-bottom: 4px;
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    font-style: normal;
+    color: palette.clr(light, text, secondary);
+  }
+
+  &::part(label-disabled) {
+    color: palette.clr(light, text, disabled);
+  }
+
+  &::part(input) {
+    @include typography.font-default;
+    color: palette.clr(light, text, primary);
+    background-color: palette.clr(light, background, paper);
+    display: block;
+    width: 100%;
+    border: 1px solid palette.clr(light, action, disabled);
+    border-radius: 2px;
+    padding: 6px 8px;
+    line-height: 16px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  &[multiline]::part(input){
+    resize: none;
+    overflow-y: auto;
+  }
+
+  &::part(input-disabled) {
+    background-color: palette.clr(light, action, disabledBackground);
+  }
+
+  &::part(input)::placeholder {
+    @include typography.font-default;
+    color: palette.clr(light, text, hint);
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  &::part(input):hover {
+    border-radius: 2px;
+    border: 1px solid palette.clr(light, action, active);
+    border-radius: 2px;
+  }
+  
+  &::part(input):focus {
+    border-radius: 4px;
+    border: 1px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    border-radius: 2px;
+    outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) 1px solid;  
+  }
+
+  &::part(div) {
+    width: 100%;
+    position: relative;
+  }
+
+  &::part(icon-clear),
+  &::part(icon-clear-rtl) {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 27px;
+    cursor: pointer;
+  }
+
+  &::part(icon-clear) {
+    right: 28px;
+  }
+
+  &::part(icon-clear-rtl) {
+    left: 28px;
+  }
+
+  &::part(icon-action),
+  &::part(icon-action-rtl) {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 27px;
+    cursor: pointer;
+  }
+
+  &::part(icon-action) {
+    right: 8px;
+  }
+
+  &::part(icon-action-rtl) {
+    left: 8px;
+  }
+
+  &::part(icon-action-disabled),
+  &::part(icon-clear-disabled) {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &[multiline]::part(icon-clear),
+  &[multiline]::part(icon-clear-rtl),
+  &[multiline]::part(icon-action),
+  &[multiline]::part(icon-action-rtl) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &[multiline]::part(icon-clear-with-label),
+  &[multiline]::part(icon-action-with-label) {
+    top: calc(50% + 10px);
+  }
+
+  &::part(input-icon-clear) {
+    width: calc(100% - 38px);
+    padding-right: 28px;
+  }
+
+  &::part(input-icon-clear-rtl) {
+    width: calc(100% - 38px);
+    padding-left: 28px;
+  }
+
+  &::part(input-icon-both) {
+    width: calc(100% - 62px);
+    padding-right: 52px;
+  }
+
+  &::part(input-icon-both-rtl) {
+    width: calc(100% - 62px);
+    padding-left: 52px;
+  }
+}

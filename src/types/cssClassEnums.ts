@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -109,9 +109,6 @@ export enum HEADER_VARIANT {
 }
 
 export enum HEADER_PARTS {
-  BADGE_TEXT = 'badge_text',
-  BADGE_TEXT_RTL = 'badge_text-rtl',
-  BADGE_DOT = 'badge_dot',
   H6 = 'h6',
   INPUT = 'input',
   HEADER = 'header',
@@ -134,12 +131,6 @@ export enum HEADER_LAYOUT_PARTS {
   HEADER_MIDDLE = 'header-middle',
   HEADER_END_CONTAINER = 'header-end-container',
   HEADER_END = 'header-end',
-}
-
-export enum BADGE_PARTS {
-  BADGE_DOT = 'badge_dot',
-  BADGE_TEXT = 'badge_text',
-  BADGE_TEXT_RTL = 'badge_text-rtl',
 }
 
 export enum AVATAR_VARIANT {
@@ -191,14 +182,27 @@ export enum SWITCH_PARTS {
   SWITCH_SLIDER_CHECKED_DISABLED = 'switch-slider-checked-disabled',
 }
 
+export enum CIRCULAR_PROGRESS_PARTS {
+  ROOT = 'circular-progress-root',
+  SVG = 'circular-progress-svg',
+  TRACK = 'circular-progress-track',
+  CIRCLE = 'circle',
+  CIRCLE_DISABLE_SHRINK = 'circle-disable-shrink',
+  LABEL = 'circular-progress-label',
+  SPINNER = 'circular-progress-spinner'
+}
+
 export enum DIALOG_PARTS {
   DIALOG_ROOT = 'dialog-root',
   DIALOG_ROOT_CHAT = 'dialog-root-chat',
   BACKDROP = 'backdrop',
   CONTAINER_XL = 'container-xl',
+  CONTAINER_XS = 'container-xs',
   PAPER_XL = 'paper-xl',
+  PAPER_XS = 'paper-xs',
   TITLE = 'title',
   TITLE_ROOT = 'title-root',
+  TITLE_ROOT_RTL = 'title-root-rtl',
   TITLE_TEXT = 'title-text',
   TITLE_TEXT_RTL = 'title-text-rtl',
   ICON_ROOT = 'icon-root',
@@ -217,10 +221,12 @@ export enum DIALOG_PARTS {
   CONTAINER_MD = 'container-md',
   CONTAINER_LG = 'container-lg',
   CONTENT_SM = 'content-sm',
+  CONTENT_XS = 'content-xs',
   CONTENT_CHAT = 'content-chat',
   CONTENT_MD = 'content-md',
   CONTENT_LG = 'content-lg',
   ACTION_NO_BORDER = 'action-no-border',
+  PAGINATION_XS = 'pagination-xs',
   PAGINATION_SM = 'pagination-sm',
   PAGINATION_MD = 'pagination-md',
   PAGINATION_LG = 'pagination-lg',
@@ -247,13 +253,6 @@ export enum MENU_ITEM_PARTS {
   TEXT = 'text',
 }
 
-export enum SEARCH_CENTER_LAYOUT_PARTS {
-  SEARCH_OUTPUT_CONTAINER = 'search-output-container',
-  SEARCH_OUTPUT_CONTAINER_NO_TAGS = 'search-output-container-no-tags',
-  TAG_CLOUD_CONTAINER = 'tag-cloud-container',
-  TAG_CLOUD_CONTAINER_HIDDEN = 'tag-cloud-container-hidden',
-}
-
 export enum INPUT_TEXTFIELD_PARTS {
   INPUT = 'input',
   INPUT_DISABLED = 'input-disabled',
@@ -261,6 +260,8 @@ export enum INPUT_TEXTFIELD_PARTS {
   INPUT_ICON_CLEAR_RTL = 'input-icon-clear-rtl',
   INPUT_ICON_BOTH = 'input-icon-both',
   INPUT_ICON_BOTH_RTL = 'input-icon-both-rtl',
+  LABEL = 'label',
+  LABEL_DISABLED = 'label-disabled',
   ICON = 'icon',
   ICON_CLEAR = 'icon-clear',
   ICON_CLEAR_RTL = 'icon-clear-rtl',
@@ -269,6 +270,8 @@ export enum INPUT_TEXTFIELD_PARTS {
   ICON_ACTION_RTL = 'icon-action-rtl',
   ICON_ACTION_WITH_LABEL = 'icon-action-with-label',
   ICON_ACTION_DISABLED = 'icon-action-disabled',
+  ICON_CLEAR_DISABLED = 'icon-clear-disabled',
+
 }
 
 export enum INPUT_SELECT_PARTS {
@@ -477,6 +480,7 @@ export enum PREVIEW_PARTS {
   PREVIEW_HEADER_TITLE = 'preview-header-title',
   PREVIEW_ITEM_CONTAINER = 'preview-item-container',
   PREVIEW_ITEM_IMAGE = 'preview-item-image',
+  PREVIEW_ITEM_IMAGE_WRAPPER = 'preview-item-image-wrapper',
   PREVIEW_ITEM_VIDEO_CONTAINER = 'preview-item-video-container',
   PREVIEW_ITEM_VIDEO = 'preview-item-video',
   PREVIEW_ITEM_CONTENT = 'preview-item-content',
@@ -521,6 +525,8 @@ export enum ALERT {
   ALERT_SVG_WARNING = 'alert-svg-warning',
   ALERT_SVG_INFO = 'alert-svg-info',
   ALERT_SVG_ERROR = 'alert-svg-error',
+  ALERT_CONTENT = 'alert-content',
+  ALERT_TITLE = 'alert-title',
 }
 
 export enum DATEPICKER_PARTS {
@@ -586,30 +592,30 @@ export enum ADVANCE_SEARCH_PARTS {
   ADVANCE_SEARCH_FILTER_REMOVE_SPAN_DISABLED = 'advance-search-filter-remove-span-disabled'
 }
 export enum ACCORDION_PARTS {
-  DX_ACCORDION_CONTAINER = 'container',
-  DX_ACCORDION_CONTAINER_RTL = 'container-rtl',
-  DX_ACCORDION_HEADER_SCSS = 'header-scss',
-  DX_ACCORDION_HEADER_SCSS_RTL = 'header-scss-rtl',
-  DX_ACCORDION_LABEL_COLUMN = 'label-column',
-  DX_ACCORDION_LABEL_COLUMN_RTL = 'label-column-rtl',
-  DX_ACCORDION_LABEL_TEXT = 'label-text',
-  DX_ACCORDION_LABEL_TEXT_RTL = 'label-text-rtl',
-  DX_ACCORDION_SECONDARY_TEXT = 'secondary-text',
-  DX_ACCORDION_SECONDARY_TEXT_RTL = 'secondary-text-rtl',
-  DX_ACCORDION_ARROW = 'arrow',
-  DX_ACCORDION_ARROW_RTL = 'arrow-rtl',
-  DX_ACCORDION_ARROW_ICON = 'arrow-icon',
-  DX_ACCORDION_ARROW_ICON_RTL = 'arrow-icon-rtl',
-  DX_ACCORDION_CONTENT = 'accordion-content',
-  DX_ACCORDION_CONTENT_RTL = 'accordion-content-rtl'
+  ENCHANTED_ACCORDION_CONTAINER = 'container',
+  ENCHANTED_ACCORDION_CONTAINER_RTL = 'container-rtl',
+  ENCHANTED_ACCORDION_HEADER_SCSS = 'header-scss',
+  ENCHANTED_ACCORDION_HEADER_SCSS_RTL = 'header-scss-rtl',
+  ENCHANTED_ACCORDION_LABEL_COLUMN = 'label-column',
+  ENCHANTED_ACCORDION_LABEL_COLUMN_RTL = 'label-column-rtl',
+  ENCHANTED_ACCORDION_LABEL_TEXT = 'label-text',
+  ENCHANTED_ACCORDION_LABEL_TEXT_RTL = 'label-text-rtl',
+  ENCHANTED_ACCORDION_SECONDARY_TEXT = 'secondary-text',
+  ENCHANTED_ACCORDION_SECONDARY_TEXT_RTL = 'secondary-text-rtl',
+  ENCHANTED_ACCORDION_ARROW = 'arrow',
+  ENCHANTED_ACCORDION_ARROW_RTL = 'arrow-rtl',
+  ENCHANTED_ACCORDION_ARROW_ICON = 'arrow-icon',
+  ENCHANTED_ACCORDION_ARROW_ICON_RTL = 'arrow-icon-rtl',
+  ENCHANTED_ACCORDION_CONTENT = 'accordion-content',
+  ENCHANTED_ACCORDION_CONTENT_RTL = 'accordion-content-rtl'
 }
 export enum ACCORDION_SUMMARY_PARTS {
-  DX_ACCORDION_SUMMARY = 'summary',
-  DX_ACCORDION_SUMMARY_RTL = 'summary-rtl',
-  DX_ACCORDION_LABEL = 'label',
-  DX_ACCORDION_LABEL_RTL = 'label-rtl',
-  DX_ACCORDION_SECONDARY = 'secondary',
-  DX_ACCORDION_SECONDARY_RTL = 'secondary-rtl'
+  ENCHANTED_ACCORDION_SUMMARY = 'summary',
+  ENCHANTED_ACCORDION_SUMMARY_RTL = 'summary-rtl',
+  ENCHANTED_ACCORDION_LABEL = 'label',
+  ENCHANTED_ACCORDION_LABEL_RTL = 'label-rtl',
+  ENCHANTED_ACCORDION_SECONDARY = 'secondary',
+  ENCHANTED_ACCORDION_SECONDARY_RTL = 'secondary-rtl'
 }
 
 export enum POPOVER_PARTS {
@@ -623,4 +629,58 @@ export enum POPOVER_PARTS {
   POPOVER_CLOSE_ICON = 'close-icon',
   POPOVER_CLOSE_ICON_RTL = 'close-icon-rtl',
   POPOVER_TARGET = 'target'
+}
+
+export enum FAB_PARTS {
+  FAB = 'fab',
+  FAB_RTL = 'fab-rtl',
+  LABEL = 'label',
+  LABEL_RTL = 'label-rtl',
+  ICON= 'icon',
+}
+
+export enum EnchantedFabType {
+  CONTAINED = 'contained',
+  OUTLINED = 'outlined',
+}
+
+export enum EnchantedBadgeColor {
+  PRIMARY = 'primary',
+  ERROR = 'error',
+  ERROR_INVERSE = 'error-inverse',
+  PRIMARY_INVERSE = 'primary-inverse',
+}
+
+export enum EnchantedBadgeBorder {
+  PAPER = 'paper',
+  DEFAULT = 'default',
+  SECONDARY = 'secondary',
+  TERTIARY = 'tertiary',
+  DARK = 'dark',
+  DARKER = 'darker',
+  NONE = 'none',
+}
+
+export enum EnchantedBadgeParts{
+  BADGE_TEXT = 'badge-text',
+  BADGE_DOT = 'badge-dot',
+  BADGE_TEXT_RTL = 'badge-text-rtl'
+}
+
+export enum EnchantedBadgeType {
+  TEXT = 'text',
+  DOT = 'dot',
+}
+
+// ARIA ROLES to be used for accessibility attributes, add more as needed
+export enum ARIA_ROLES {
+  BUTTON = 'button',
+  LINK = 'link',
+  TAB = 'tab',
+  MENUITEM = 'menuitem',
+  CHECKBOX = 'checkbox',
+  RADIO = 'radio',
+  SWITCH = 'switch',
+  PRESENTATION = 'presentation',
+  NONE = 'none',
 }

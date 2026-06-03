@@ -5,11 +5,264 @@
 ### Added
 
 ### Fixed
-- Fixed `dx-breadcrumbs` component list styling by adding `list-style-type: none` to ensure proper rendering
 
 ### Changed
 
 ### Breaking changes
+
+## 6.0.0
+
+### Added
+- FocusIn and FocusOut behaviour for popover component.
+
+### Fixed
+- Fix `enchanted-circular-progress` - resolve animation not working due to `@keyframes` scope mismatch with Shadow DOM `::part()` selectors.
+
+### Breaking changes
+- Changed Enchanted-Popover property from `disableHover` to `disablePopover`.
+
+## 5.4.0
+
+### Added
+- Added `disableBackdropClick` property to `enchanted-dialog` component to disable closing dialog from backdrop click.
+
+### Changed
+- Changed `SHADOW_ROOT_MODE_KEY` constant value to `enchanted.useOpenAcShadowRoot` for consistency
+
+## 5.3.0
+
+### Added
+- Added `multiline` property to `enchanted-textfield` component for textarea support
+- Added `numberOfLines` property to `enchanted-textfield` component to cap visible textarea height with scrollable content
+- Added Shift+Enter key support in textarea allows line breaks without search trigger
+- Added paste event handling in `enchanted-textfield` component for multiline support
+
+## 5.2.1
+
+### Fixed
+ - Removed margin right and used gap in 'enchanted-alert'.
+ - Removed the unnecessary RTL styles for badge in 'enchanted-fab'.
+
+## 5.2.0
+
+### Added
+- Adding a scoping logic for all @hcl-software/enchanted-web-components components. Via the VITE_COMPONENT_PREFIX environment parameter the prefix will be applied.
+
+## 5.1.1
+
+### Fixed
+- Fixed `enchanted-fab` label font styles and padding.
+- Fixed `enchanted-fab-ai` label color styles.
+
+### Changed
+- Adding chromatic PR worklfow snapshot tests
+- Removing unused snapshot tests
+
+## 5.1.0
+
+### Added
+- Added new `enchanted-fab-ai` component with unit-test and storybook.
+- Added a new property to enable adding a label, such as the text 'Thinking,' after the circular progress in `enchanted-circular-progress`.
+
+### Fixed
+- Fixed `enchanted-fab` extended mode layout to properly center label text when no icon is selected, resolving spacing issue caused by flexbox gap.
+
+### Changed
+- Updated `enchanted-fab` component to support optional icon - icon property can now be undefined, allowing extended FAB with label only.
+- Removing unused CSS badge parts
+
+### Breaking changes
+
+## 5.0.0
+
+### Added
+- Added new `enchanted-fab` component with support for badges and AI icons, accompanied by comprehensive unit tests, snapshots, and Storybook documentation.
+- Added story for `enchanted-badge`
+- Added a new property alertTitle to `enchanted-alert`.
+
+### Fixed
+- Enhanced accessibility for `enchanted-button` and `enchanted-icon-button` components by adding default aria-labels, roles, and keyboard event handling.
+- Trigger date-change event of the `enchanted-datepicker` component during a year switch
+
+### Breaking changes
+- Adjust `enchanted-badge` interface, the `badge` property was renamed to `text`.
+
+## 4.0.1
+
+### Fixed
+- Fixed the alignment issue of the action and clear icons in the enchanted-textfield component.
+
+## 4.0.0
+
+### Added
+- Added `enchanted-popover-closed` custom event to `enchanted-popover` for tracking close-icon clicks vs. other dismissals.
+
+### Fixed
+- Fixed `enchanted-circular-progress` indeterminant variant style and story.
+- Fixed `enchanted-preview` image zoom to properly scale down large images on first load using zoom-to-fit calculation.
+- Fixed `enchanted-preview` image centering and scrolling behavior when zoomed - images now remain centered while allowing full scrollability to all edges when larger than container.
+- Fixed `enchanted-preview` zoom state detection to check actual image dimensions vs container size instead of just zoom percentage, ensuring scrollbars appear when needed.
+
+### Changed
+- Enhanced `enchanted-badge` to improve accessibility and styling consistency.
+- Added new property `color, border, badge, text` for `enchanted-badge`
+
+### Breaking changes
+- Removing the `tempValueHolder` logic from the `enchanted-textfield`
+
+## 3.0.0
+
+### Breaking changes
+
+- Type Renaming
+
+    All type, enum and interface have been renamed from `Dx*` prefix to `Enchanted*` prefix:
+
+    | **Old Name (Dx)** | **New Name (Enchanted)** |
+    |-------------------|---------------------------|
+    | DxDataGridColDef | EnchantedDataGridColDef |
+    | DxMenuPlacement | EnchantedMenuPlacement |
+    | DxMenuSize | EnchantedMenuSize |
+
+- Folder Restructuring
+
+    Refactored folder structure: renamed `ac` directories to `atomic-component` across the codebase.
+
+- SCSS File and Styling Prefix Renaming
+
+    All SCSS files in `src/styles/enchanted/components/atomic-component/` have been renamed from `dx-*.scss` to `enchanted-*.scss`:
+
+    - Renamed all component SCSS files to use `enchanted-` prefix instead of `dx-` prefix
+    - Updated all mixin names from `dx-*-base-styles` to `enchanted-*-base-styles` across all component stylesheets
+    - Updated all CSS part selectors and class references to use `enchanted-` prefix for consistency
+
+    **Examples:**
+    - `dx-button.scss` → `enchanted-button.scss` with mixin `enchanted-button-base-styles`
+    - `dx-preview.scss` → `enchanted-preview.scss` with mixin `enchanted-preview-base-styles`
+    - `dx-select.scss` → `enchanted-select.scss` with mixin `enchanted-select-base-styles`
+
+- Web Component Renaming
+
+    All web components have been renamed from `dx-*` prefix to `enchanted-*` prefix:
+
+    | **Old Name (dx-)** | **New Name (enchanted-)** |
+    |-------------------|---------------------------|
+    | dx-ac-base-element | enchanted-ac-base-element |
+    | dx-accordion | enchanted-accordion |
+    | dx-accordion-summary | enchanted-accordion-summary |
+    | dx-alert | enchanted-alert |
+    | dx-anchor | enchanted-link |
+    | dx-avatar | enchanted-avatar |
+    | dx-badge | enchanted-badge |
+    | dx-breadcrumbs | enchanted-breadcrumbs |
+    | dx-breadcrumbs-item | enchanted-breadcrumbs-item |
+    | dx-button | enchanted-button |
+    | dx-chip | enchanted-chip |
+    | dx-circular-progress | enchanted-circular-progress |
+    | dx-data-grid | enchanted-data-grid |
+    | dx-data-grid-generic | enchanted-data-grid-generic |
+    | dx-datepicker | enchanted-datepicker |
+    | dx-dialog | enchanted-dialog |
+    | dx-header | enchanted-header |
+    | dx-header-layout | enchanted-header-layout |
+    | dx-icon-button | enchanted-icon-button |
+    | dx-input-select | enchanted-select |
+    | dx-input-textfield | enchanted-textfield |
+    | dx-item-type-avatar | enchanted-item-type-avatar |
+    | dx-list | enchanted-list |
+    | dx-list-item | enchanted-list-item |
+    | dx-menu | enchanted-menu |
+    | dx-menu-item | enchanted-menu-item |
+    | dx-multiple-select-chip | enchanted-multiple-select-chip |
+    | dx-panel | enchanted-panel |
+    | dx-popover | enchanted-popover |
+    | dx-preview | enchanted-preview |
+    | dx-search-center-layout | enchanted-search-center-layout |
+    | dx-snackbar | enchanted-snackbar |
+    | dx-svg-icon | enchanted-svg-icon |
+    | dx-switch | enchanted-switch |
+    | dx-table-pagination | enchanted-table-pagination |
+    | dx-theme-inspector | enchanted-theme-inspector |
+    | dx-toggle-button | enchanted-toggle-button |
+    | dx-tooltip | enchanted-tooltip |
+
+## 2.0.0
+
+### Added
+- Added new `placement` and `size` property for `dx-menu` component.
+- Added `icons` property to `dx-toggle-button` component to support enchanted-icons (TemplateResult array) alongside existing `iconUrls` (string array) for dual-button mode.
+- Added `clearIcon` and `actionIcon` properties to `dx-input-textfield` component to support enchanted-icons (TemplateResult) for icon rendering.
+- Added `dx-data-grid-generic` storybook story
+- Added `icon` property to the `dx-chip` component
+- Added a new storybook for the theme inspector and also added some new color tokens.
+- Added comprehensive accessibility focus tests for `dx-dialog` component.
+- Added RTL support for `dx-dialog` default title layout.
+
+### Fixed
+- Fixed `dx-preview` image zoom functionality to enable scrolling on all sides when zoomed beyond 100%.
+- Fixed the `XS` size of the `dx-dialog` component
+- Fixed the `disabled` state for the `dx-header` component
+- Fixed `dx-dialog` close button positioning.
+- Fixed truncated title text in `dx-dialog` if overflowing.
+
+### Changed
+- Refactored menu placement logic using a switch statement for clarity and maintainability.
+- Updated `dx-toggle-button` component to support both enchanted-icons via `icons` property and static SVG URLs via `iconUrls` property with fallback logic (`icons[0] || iconUrls[0]`).
+- Updated `dx-input-textfield` component to use `clearIcon` and `actionIcon` properties (TemplateResult) instead of URL-based icons.
+- Updated `dx-input-textfield` storybook to use enchanted-icons (`icon-close`, `icon-search`) from `@hcl-software/enchanted-icons-web-component`.
+- Checked and reworked all storybook stories
+- Adjusted `dx-chip` stylings
+- Adjusted `dx-datepicker` stylings
+- Adjusted `dx-input-select` stylings
+- Adjusted `dx-input-textfield` stylings
+- Adjusted `dx-multiple-select-chip` stylings
+- Adjusted `dx-snackbar` stylings
+
+### Breaking changes
+- Removed `clearIconUrl` and `actionIconUrl` properties from `dx-input-textfield` component. Use `clearIcon` and `actionIcon` properties instead, which accept TemplateResult for enchanted-icons rendering.
+- Removed unused `error` property from the `dx-multiple-select-chip` component
+- Removed unused `color` property from the `dx-header` component
+- Changed `dx-data-grid-generic` interface property types (isLoading, hasMiddlewareError, hasContentSourceAvailable, checkboxSelection)
+- Removed `dx-search-center-layout` component
+- Removed the `ignoreDisable` property from the `dx-input-textfield` component
+- Removed useless `open` property from `dx-menu` component
+- Changed `dx-dialog` focus behavior to immediately focus the first focusable element (prioritizing slotted content) instead of focusing the dialog element first.
+
+## 1.4.0
+
+### Added
+- Added new `placement` and `size` property for `dx-menu` component.
+
+### Changed
+- Refactored menu placement logic using a switch statement for clarity and maintainability.
+
+## 1.3.0
+
+### Added
+- Added a new storybook component for `dx-popover`.
+- Added new property for disabling popover on hover in `dx-popover`.
+- Prevent dropdown closing when dragging scrollbar inside `<dx-input-select>`.
+
+
+### Fixed
+- Fixed the disabled state bug of `dx-icon-button`.
+
+### Changed
+- Changed `dx-dialog` live region styling from a CSS class selector to a `part` attribute with `::part()` selector, ensuring proper accessibility and visual hiding inside shadow DOM. This resolves issues with screen reader announcements and visible text flashes on dialog open.
+
+## 1.2.1
+
+### Fixed
+- Refactored `dx-dialog` component to use reactive state properties (`@state()`) for ARIA attributes instead of direct DOM manipulation, improving maintainability and alignment with Lit's reactive programming model
+- Fixed `dx-dialog` test for auto-focus behavior to properly check dialog element focus state
+- Fixed `dx-breadcrumbs` component list styling by adding `list-style-type: none` to ensure proper rendering
+- Fixed the icon bug for sorting of `dx-data-grid`.
+- Fixed the style bug for filter button in `dx-toggle-button`.
+
+### Changed
+- Changed `dx-dialog` accessibility implementation to use Lit reactive state for `role`, `aria-label`, `tabindex`, and content visibility management
+- Updated `dx-dialog` live region to be part of the template instead of dynamically created
+- Set the correct border and outline color on the `dx-avatar` component
 
 ## 1.2.0
 
