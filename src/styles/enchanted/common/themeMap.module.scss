@@ -40,11 +40,13 @@ $enchantedPalette: (
   BLUE100: #D9F9FF,
   BLUE200: #AFEBF9,
   BLUE300: #71D9F3,
+  BLUE300_DARK: #A7FFFF,
   BLUE400: #2ABDEA,
   BLUE500: #14A1DE,
   BLUE600: #0780C7,
   BLUE700: #0066B0,
   BLUE800: #01539B,
+  BLUE800_DARK: #002B6C,
   BLUE900: #06396D,
   BLUE1000: #092B51,
 
@@ -65,11 +67,13 @@ $enchantedPalette: (
   GREEN100: #E4FDED,
   GREEN200: #92F7BA,
   GREEN300: #41E287,
+  GREEN300_DARK: #7EFFB8,
   GREEN400: #15D36E,
   GREEN500: #05BE62,
   GREEN600: #029C54,
   GREEN700: #007744,
   GREEN800: #04633D,
+  GREEN800_DARK: #003816,
   GREEN900: #054D33,
   GREEN1000: #07432F,
 
@@ -88,6 +92,8 @@ $enchantedPalette: (
   HCLSOFTWAREBLUE09_20: rgba(179, 217, 248, .20),
   HCLSOFTWAREBLUE09_12: rgba(179, 217, 248, .12),
   HCLSOFTWAREBLUE09_8: rgba(179, 217, 248, .08),
+  HCLSOFTWAREBLUE07_DARK: #0029A9,
+  HCLSOFTWAREBLUE09_DARK: #E6FFFF,
 
   INDIGO100: #EDF5FF,
   INDIGO200: #C8DFFF,
@@ -128,11 +134,13 @@ $enchantedPalette: (
   ORANGE100: #FFF6E2,
   ORANGE200: #FFE1A6,
   ORANGE300: #FFC766,
+  ORANGE300_DARK: #FFFA96,
   ORANGE400: #FFAF38,
   ORANGE500: #FF8A00,
   ORANGE600: #E26A00,
   ORANGE700: #C95000,
   ORANGE800: #AE3D04,
+  ORANGE800_DARK: #780500,
   ORANGE900: #882E07,
   ORANGE1000: #691E08,
 
@@ -161,11 +169,13 @@ $enchantedPalette: (
   RED100: #FFF2F2,
   RED200: #FFCECE,
   RED300: #FFADAD,
+  RED300_DARK: #FFDFDF,
   RED400: #FF7A7A,
   RED500: #F95454,
   RED600: #F52929,
   RED700: #EB0909,
   RED800: #C10C0D,
+  RED800_DARK: #890000,
   RED900: #A00C0C,
   RED1000: #720C0C,
 
@@ -208,33 +218,33 @@ $enchantedTheme: (
   light: (
     primary: (
       main: map.get($enchantedPalette, HCLSOFTWAREBLUE07),
-      dark: #0029A9, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, HCLSOFTWAREBLUE07_DARK),
       inverse: map.get($enchantedPalette, HCLSOFTWAREBLUE09),
-      darkInverse: #E6FFFF,
+      darkInverse: map.get($enchantedPalette, HCLSOFTWAREBLUE09_DARK),
     ),
     error: (
       main: map.get($enchantedPalette, RED800),
-      dark: #890000, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, RED800_DARK),
       inverse: map.get($enchantedPalette, RED300),
-      darkInverse: #FFDFDF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, RED300_DARK),
     ),
     warning: (
       main: map.get($enchantedPalette, ORANGE800),
-      dark: #780500, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, ORANGE800_DARK),
       inverse: map.get($enchantedPalette, ORANGE300),
-      darkInverse: #FFFA96, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, ORANGE300_DARK),
     ),
     info: (
       main: map.get($enchantedPalette, BLUE800),
-      dark: #002B6C, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, BLUE800_DARK),
       inverse: map.get($enchantedPalette, BLUE300),
-      darkInverse: #A7FFFF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, BLUE300_DARK),
     ),
     success: (
       main: map.get($enchantedPalette, GREEN800),
-      dark: #003816, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, GREEN800_DARK),
       inverse: map.get($enchantedPalette, GREEN300),
-      darkInverse: #7EFFB8, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, GREEN300_DARK),
     ),
     background: (
       default: map.get($enchantedPalette, NG100),
@@ -289,33 +299,33 @@ $enchantedTheme: (
   dark: (
     primary: (
       main: map.get($enchantedPalette, HCLSOFTWAREBLUE09),
-      dark: #E6FFFF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, HCLSOFTWAREBLUE09_DARK),
       inverse: map.get($enchantedPalette, HCLSOFTWAREBLUE09),
-      darkInverse: #E6FFFF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, HCLSOFTWAREBLUE09_DARK),
     ),
     error: (
       main: map.get($enchantedPalette, RED300),
-      dark: #FFDFDF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, RED300_DARK),
       inverse: map.get($enchantedPalette, RED300),
-      darkInverse: #FFDFDF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, RED300_DARK),
     ),
     warning: (
       main: map.get($enchantedPalette, ORANGE300),
-      dark: #FFFA96, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, ORANGE300_DARK),
       inverse: map.get($enchantedPalette, ORANGE300),
-      darkInverse: #FFFA96, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, ORANGE300_DARK),
     ),
     info: (
       main: map.get($enchantedPalette, BLUE300),
-      dark: #A7FFFF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, BLUE300_DARK),
       inverse: map.get($enchantedPalette, BLUE300),
-      darkInverse: #A7FFFF, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, BLUE300_DARK),
     ),
     success: (
       main: map.get($enchantedPalette, GREEN300),
-      dark: #7EFFB8, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      dark: map.get($enchantedPalette, GREEN300_DARK),
       inverse: map.get($enchantedPalette, GREEN300),
-      darkInverse: #7EFFB8, //To-do: Follow up with UIUX correct token https://jira.cwp.pnp-hcl.com/browse/DXQ-41204
+      darkInverse: map.get($enchantedPalette, GREEN300_DARK),
     ),
     background: (
       default: map.get($enchantedPalette, NG1000),

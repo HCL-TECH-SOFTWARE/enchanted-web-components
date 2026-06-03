@@ -1,0 +1,310 @@
+/* ======================================================================== *
+ * Copyright 2025 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
+
+@use "../../common/palette";
+@use "../../common/typography";
+
+@mixin enchanted-data-grid-styles {
+  &::-webkit-scrollbar {
+    width: 8px;
+    -webkit-appearance: none;
+  }
+  &::-webkit-scrollbar-track {
+    background: palette.clr(light, background, paper);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  &::part(table-body-container) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+  }
+  
+  &::part(table-container) {
+    display: block;
+    width: 100%;
+    border-collapse: collapse;
+    position: relative;
+  }
+  
+  &::part(table-row-header-container) {
+    height: 47px;
+    width: 100%;
+    box-shadow: 0px 1px rgba(0, 0, 0, 0.32);
+    @include typography.subtitle2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    top: 0px;
+    background-color: palette.clr(light, background, paper);
+    z-index: 1;
+    border-bottom: none !important;
+  }
+
+  &::part(table-row-body-container) {
+    height: 37px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.32);
+    @include typography.body2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+  
+  &::part(table-row-body-container):focus {
+    outline: 1px solid palette.clr(light, action, focus) !important;
+    outline-offset: -1px;
+  }
+
+  &::part(table-row-body-container-hovered) {
+    height: 37px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.32);
+    @include typography.body2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    background-color: palette.clr(light, action, hover);
+    display: flex;
+    align-items: center;
+  }
+  
+  &::part(table-cell-container) {
+    display: inline-flex;
+    min-width: 0px;
+    flex: 1 1 0%;
+  }
+  
+  &::part(table-header-container) {
+    display: inline-flex;
+    padding-top: 10px;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 37px;
+  }
+  
+  &::part(table-header-container):focus, &::part(table-header-container-rtl):focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &::part(table-header-container):focus-visible, &::part(table-header-container-rtl):focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  &::part(table-cell-text) {
+    display: inline;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  &::part(table-header-container-child) {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    min-width: 0px;
+    flex: 1 1 0%;
+  }
+
+  &::part(table-header-text-parent) {
+    overflow: hidden;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  &::part(table-header-text) {
+    margin-left: 12px;
+    margin-right: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  &::part(table-result-label) {
+    @include typography.body1bold;
+    margin: 20px 0 4px 0;
+    font-size: 16px;
+  }
+  
+  &::part(table--result-description) {
+    @include typography.font-default;
+    margin: 0;
+  }
+  
+  &::part(table-loading-text) {
+    @include typography.overline;
+  }
+  
+  &::part(table-column-separator) {
+    align-items: center;
+  }
+
+  &::part(table-header-asc-sort-button-hidden) {
+    display: none;
+  }
+
+  &::part(table-header-desc-sort-button-hidden) {
+    display: none;
+  }
+
+  &::part(table-select-checkbox) {
+    display: none;
+  }
+
+  &::part(table-action-icon-button) {
+    display: none;
+  }
+
+  &::part(table-select-checkbox-container), &::part(table-select-all-checkbox) {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 20px;
+  }
+  
+  &::part(table-column-separator-hr) {
+    margin: 0px;
+    flex-shrink: 0;
+    border-width: 0px thin 0px 0px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.32);
+    height: 16px;
+  }
+  
+  // styling  only for authoring use case
+  // minus 64px is based on dialog paper width
+  &::part(table-column-authoring-0) {
+    width: 20%;
+    max-width: 20%;
+  }
+
+  &::part(table-column-authoring-1) {
+    width: 20%;
+    max-width: 20%;
+  }
+
+  &::part(table-column-authoring-2) {
+    width: 10%;
+    max-width: 10%;
+  }
+
+  &::part(table-column-authoring-3) {
+    width: 10%;
+    max-width: 10%;
+  }
+
+  &::part(table-column-authoring-4) {
+    width: 10%;
+    max-width: 10%;
+  }
+
+  &::part(table-column-authoring-5) {
+    width: 30%;
+    max-width: 30%;
+  }
+
+  &::part(table-column-authoring-0-div),
+  &::part(table-column-authoring-1-div),
+  &::part(table-column-authoring-2-div),
+  &::part(table-column-authoring-3-div),
+  &::part(table-column-authoring-4-div),
+  &::part(table-column-authoring-5-div) {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0px;
+    align-items: center;
+  }
+
+  &::part(table-column-authoring-0-div-1) {
+    width: 95%;
+    padding-right: 8px;
+    padding: 0px;
+    display: flex;
+  }
+
+  &::part(table-column-authoring-0-div-2) {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 40%;
+    padding: 0px;
+  }
+  
+  &::part(table-column-authoring-0-div-3) {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    padding: 0px;
+  }
+
+  &::part(table-column-authoring-0-div-4) {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+    padding: 0px;
+  }
+
+  &::part(table-column-authoring-0-div-1),
+  &::part(table-column-authoring-1-div-1), 
+  &::part(table-column-authoring-2-div-1),
+  &::part(table-column-authoring-3-div-1),
+  &::part(table-column-authoring-4-div-1),
+  &::part(table-column-authoring-5-div-1) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &::part(button-contained), &::part(button-contained-focused) {
+    border: none;
+    background-color: palette.clr(light, background, paper);
+    padding: 0;
+  } 
+
+  &::part(table-header-icon-button):focus {
+    border: none;
+    outline: 1px solid palette.clr(light, action, focus) !important;
+    border-radius: 2px;
+  }
+
+  &::part(table-cell-icon-button) {
+    border: none;
+    border-radius: 2px;
+    padding: 6px;
+  }
+
+  &::part(table-header-menu-item):focus {
+    border: none;
+    outline: 1px solid palette.clr(light, action, focus) !important;
+    outline-offset: -1px;
+    display: block;
+  }
+}
