@@ -92,7 +92,7 @@ const PREVIEW_ITEMS: PreviewItem[] = [
 const meta: Meta<EnchantedPreviewProps> = {
   title: 'Overlay/enchanted-preview',
   component: 'enchanted-preview',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   parameters: {
     docs: {
       description: {

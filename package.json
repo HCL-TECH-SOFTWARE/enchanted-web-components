@@ -45,6 +45,7 @@
     "@eslint/js": "^9.18.0",
     "@lit/context": "^1.1.2",
     "@lit/localize": "^0.12.1",
+    "@storybook/addon-a11y": "^9.1.20",
     "@storybook/web-components-vite": "^9.1.16",
     "@testing-library/webdriverio": "3.2.1",
     "@types/lodash": "^4.17.5",

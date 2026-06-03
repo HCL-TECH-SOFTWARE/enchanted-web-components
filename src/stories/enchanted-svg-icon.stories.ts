@@ -37,7 +37,7 @@ export interface EnchantedSvgIconProps {
 const meta: Meta<EnchantedSvgIconProps> = {
   title: 'Icon/enchanted-svg-icon',
   component: 'enchanted-svg-icon',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   parameters: {
     docs: {
       description: {

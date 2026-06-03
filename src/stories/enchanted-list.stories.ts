@@ -30,7 +30,7 @@ export interface EnchantedListProps {
 
 const meta: Meta<EnchantedListProps> = {
   title: 'Data Display/enchanted-list',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     role: {
       control: { type: 'text' },

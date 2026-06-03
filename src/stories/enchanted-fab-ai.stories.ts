@@ -57,7 +57,7 @@ export interface EnchantedFabAiProps {
 
 const meta: Meta<EnchantedFabAiProps> = {
   title: 'Input/enchanted-fab-ai',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     badge: {
       control: { type: 'boolean' },

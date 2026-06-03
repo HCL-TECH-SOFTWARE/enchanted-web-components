@@ -32,7 +32,7 @@ export interface EnchantedItemTypeAvatarProps {
 
 const meta: Meta<EnchantedItemTypeAvatarProps> = {
   title: 'Data Display/enchanted-item-type-avatar',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     itemType: {
       control: { type: 'select' },

@@ -53,7 +53,7 @@ export interface EnchantedPopoverProps {
 const meta: Meta<EnchantedPopoverProps> = {
   title: 'Display/enchanted-popover',
   component: 'enchanted-popover',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   parameters: {
     docs: {
       description: {

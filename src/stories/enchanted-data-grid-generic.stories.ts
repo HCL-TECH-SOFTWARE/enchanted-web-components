@@ -89,7 +89,7 @@ const sampleData: EnchantedDataGridContextType = {
 const meta: Meta<EnchantedDataGridGenericProps> = {
   title: 'Data display/enchanted-data-grid-generic',
   component: 'enchanted-data-grid-generic',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     isLoading: {
       control: { type: 'boolean' },

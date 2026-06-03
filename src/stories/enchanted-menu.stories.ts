@@ -49,7 +49,7 @@ export interface EnchantedMenuProps {
 
 const meta: Meta<EnchantedMenuProps> = {
   title: 'Navigation/enchanted-menu',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     items: {
       control: { type: 'object' },

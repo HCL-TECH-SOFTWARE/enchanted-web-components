@@ -21,7 +21,7 @@ import { ENCHANTED_DATEPICKER_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Input/enchanted-datepicker',
   component: 'enchanted-datepicker',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     name: {
       control: { type: 'text' },

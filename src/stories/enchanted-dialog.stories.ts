@@ -21,7 +21,7 @@ import { ENCHANTED_DIALOG_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Feedback/enchanted-dialog',
   component: 'enchanted-dialog',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     dialogTitle: {
       control: { type: 'text' },

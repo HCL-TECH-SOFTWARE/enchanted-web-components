@@ -21,7 +21,7 @@ import { ENCHANTED_HEADER_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Navigation/enchanted-header',
   component: 'enchanted-header',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   argTypes: {
     headerTitle: {
       control: { type: 'text' },

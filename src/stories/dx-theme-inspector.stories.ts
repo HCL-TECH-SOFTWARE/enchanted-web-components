@@ -21,7 +21,7 @@ import { ENCHANTED_THEME_INSPECTOR_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Utilities/enchanted-theme-inspector',
   component: 'enchanted-theme-inspector',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'a11y-addon'],
   parameters: {
     docs: {
       description: {
