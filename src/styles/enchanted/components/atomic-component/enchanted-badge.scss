@@ -48,7 +48,7 @@
     line-height: 14px;
     min-width: 15px;
     height: 15px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px map.get(themeMap.$enchantedPalette, BLACK20P);
     text-align: start;
   }
 
@@ -67,7 +67,7 @@
     border-radius: 10px;
     height: 8px;
     width: 8px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px map.get(themeMap.$enchantedPalette, BLACK20P);
   }
 
   // Color variants using palette tokens (no hardcoded values)

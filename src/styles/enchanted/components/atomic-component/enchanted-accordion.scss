@@ -58,7 +58,7 @@ $icon-gap: 8px;
     min-height: 10px;
     background-color: transparent;
     @include typography.body2;
-    color: rgba(0, 0, 0, 0.6);
+    color: map.get(themeMap.$enchantedPalette, BLACK60P);
   }
 
   &[disabled]::part(label-text),
@@ -66,13 +66,13 @@ $icon-gap: 8px;
   &[disabled]::part(arrow-icon-rtl),
   &[disabled]::part(label-text-rtl) {
     @include typography.body2;
-    color: rgba(0, 0, 0, 0.6);
+    color: map.get(themeMap.$enchantedPalette, BLACK60P);
   }
 
   &[disabled]::part(secondary-text),
   &[disabled]::part(secondary-text-rtl) {
     @include typography.body2;
-    color: rgba(0, 0, 0, 0.38);
+    color: map.get(themeMap.$enchantedPalette, BLACK38P);
   }
 
   &::part(header-scss),
@@ -110,7 +110,7 @@ $icon-gap: 8px;
   &::part(label-text),
   &::part(label-text-rtl) {
     @include typography.body2;
-    color: rgba(0, 0, 0, 0.87);
+    color: map.get(themeMap.$enchantedPalette, BLACK87P);
   }
 
   &::part(arrow-icon),

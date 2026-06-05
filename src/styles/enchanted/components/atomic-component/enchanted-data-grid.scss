@@ -25,11 +25,11 @@
     background: palette.clr(light, background, paper);
   }
   &::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: palette.clr(light, action, active);
     border-radius: 4px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: palette.clr(light, action, active);
   }
   
   &::part(table-body-container) {
@@ -51,7 +51,7 @@
   &::part(table-row-header-container) {
     height: 47px;
     width: 100%;
-    box-shadow: 0px 1px rgba(0, 0, 0, 0.32);
+    box-shadow: 0px 1px map.get(themeMap.$enchantedPalette, BLACK32P);
     @include typography.subtitle2;
     white-space: nowrap;
     overflow: hidden;
@@ -68,7 +68,7 @@
   &::part(table-row-body-container) {
     height: 37px;
     width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.32);
+    border-bottom: 1px solid map.get(themeMap.$enchantedPalette, BLACK32P);
     @include typography.body2;
     white-space: nowrap;
     overflow: hidden;
@@ -85,7 +85,7 @@
   &::part(table-row-body-container-hovered) {
     height: 37px;
     width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.32);
+    border-bottom: 1px solid map.get(themeMap.$enchantedPalette, BLACK32P);
     @include typography.body2;
     white-space: nowrap;
     overflow: hidden;
@@ -194,7 +194,7 @@
     flex-shrink: 0;
     border-width: 0px thin 0px 0px;
     border-style: solid;
-    border-color: rgba(0, 0, 0, 0.32);
+    border-color: map.get(themeMap.$enchantedPalette, BLACK32P);
     height: 16px;
   }
   

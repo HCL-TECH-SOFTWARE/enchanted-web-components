@@ -111,7 +111,7 @@
 
     &[type="outlined"]::part(fab):hover,
     &[type="outlined"]::part(fab-rtl):hover{
-        background: rgba(0,0,0,0.04);
+        background: palette.clr(light, action, hover);
         border-color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
         color: map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE07_DARK");
     }
@@ -126,7 +126,7 @@
 
     &[type="outlined"]::part(fab):hover:focus,
     &[type="outlined"]::part(fab-rtl):hover:focus{
-        background: rgba(0,0,0,0.04);
+        background: palette.clr(light, action, hover);
         outline: 2px solid map.get(themeMap.$enchantedPalette, "HCLSOFTWAREBLUE06");
         outline-offset: 1px;
         border-radius: 7px;

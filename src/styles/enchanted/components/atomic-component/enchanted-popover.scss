@@ -53,7 +53,7 @@
 
     // Dark theme (when inverse is true)
     &[inverse]::part(wrapper) {
-        background: rgb(56, 56, 56, 1);
+        background: palette.clr(dark, background, secondary);
         color: map.get(themeMap.$enchantedPalette, WHITE100P);
         box-shadow: 
             0px 4px 16px rgba(0, 0, 0, 0.12),
@@ -61,7 +61,7 @@
     }
     
     &[inverse]::part(arrow) {
-        background: rgb(56, 56, 56, 1);
+        background: palette.clr(dark, background, secondary);
         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     }
 
