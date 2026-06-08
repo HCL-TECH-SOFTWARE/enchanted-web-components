@@ -7,6 +7,7 @@
 ### Fixed
 
 ### Changed
+- Refactored SCSS color usage to shared theme/palette tokens (including shadow token mapping where applicable), replacing hardcoded `rgba`/hex literals across: `enchanted-accordion`, `enchanted-badge`, `enchanted-data-grid`, `enchanted-data-grid-generic`, `enchanted-datepicker`, `enchanted-fab`, `enchanted-multiple-select-chip`, and `enchanted-popover`.
 
 ### Breaking changes
 
