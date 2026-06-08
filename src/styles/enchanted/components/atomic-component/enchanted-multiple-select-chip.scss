@@ -12,8 +12,9 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-
+@use "sass:map";
 @use "../../common/palette";
+@use "../../common/themeMap.module";
 @use "../../common/typography";
 
 @mixin enchanted-multiple-select-chip-base-styles(
@@ -120,7 +121,7 @@
     z-index: 99 !important;
     width: inherit !important;
     border: none !important;
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: #{map.get(themeMap.$enchantedPalette, shadows6)};
     margin-top: 2px !important;
     // position: relative !important;
   }
