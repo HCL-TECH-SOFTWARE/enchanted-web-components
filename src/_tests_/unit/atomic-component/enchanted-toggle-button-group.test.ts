@@ -66,17 +66,9 @@ const getGroup = (): EnchantedToggleButtonGroup => {
 };
 
 const getButtons = async (): Promise<EnchantedToggleButton[]> => {
-  console.log('get buttons called');
-  await browser.waitUntil(async () => {
-    const buttons = document.querySelectorAll(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
-    console.log(`Found ${buttons.length} buttons`);
-    return buttons.length > 0;
-  });
-
-  const buttons = Array.from(document.querySelectorAll(ENCHANTED_TOGGLE_BUTTON_TAG_NAME)) as EnchantedToggleButton[];
-  console.log(`Found ${buttons.length} buttons after wait`);
-  await Promise.all(buttons.map(button => { button.updateComplete; }));
-  return buttons;
+  const group = getGroup();
+  await group.updateComplete;
+  return group.toggleItems;
 };
 
 const clickButtonAt = async (index: number): Promise<void> => {
