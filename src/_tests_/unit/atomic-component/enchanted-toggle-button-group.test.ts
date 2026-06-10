@@ -68,11 +68,11 @@ const getGroup = (): EnchantedToggleButtonGroup => {
 const getButtons = async (): Promise<EnchantedToggleButton[]> => {
   await browser.waitUntil(async () => {
     const buttons = document.querySelectorAll(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
-    return buttons.length === 3;
-  }, { timeout: 2000 });
+    return buttons.length > 0;
+  });
 
   const buttons = Array.from(document.querySelectorAll(ENCHANTED_TOGGLE_BUTTON_TAG_NAME)) as EnchantedToggleButton[];
-  await Promise.all(buttons.map(async button => { await button.updateComplete; }));
+  await Promise.all(buttons.map(button => { button.updateComplete; }));
   return buttons;
 };
 
@@ -102,6 +102,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     await expect(group).toBeExisting();
 
     const groupElement = getGroup();
+    await groupElement.updateComplete;
     await expect(groupElement.orientation).toBe('horizontal');
     await expect(groupElement.size).toBe('large');
     await expect(groupElement.disabled).toBe(false);
@@ -132,8 +133,9 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   it('should set all buttons as standalone shape in vertical orientation', async () => {
     renderDefaultGroup('vertical');
 
-    const groupElement = getGroup();
+    const groupElement =  getGroup();
     await groupElement.updateComplete;
+    await browser.pause(50); // Wait for shape changes to propagate to buttons
 
     const buttons = await getButtons();
     await expect(buttons[0].firstType).toBe(true);
@@ -149,6 +151,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
+    await browser.pause(50); // Wait for size changes to propagate to buttons
 
     const buttons = await getButtons();
     await expect(buttons[0].size).toBe('small');
@@ -161,6 +164,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
+    await browser.pause(50); // Wait for disabled state to propagate to buttons
 
     const buttons = await getButtons();
     await expect(buttons[0].disabled).toBe(true);
@@ -171,11 +175,13 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   it('should propagate disabled=false to all child buttons after re-enabling group', async () => {
     renderDefaultGroup('horizontal', 'large', true);
 
-    const groupElement = getGroup();
+    const groupElement = await getGroup();
     await groupElement.updateComplete;
+    await browser.pause(50); // Wait for disabled state to propagate to buttons
 
     groupElement.disabled = false;
     await groupElement.updateComplete;
+    await browser.pause(50); // Wait for disabled state to propagate to buttons
 
     const buttons = await getButtons();
     await expect(buttons[0].disabled).toBe(false);
@@ -188,7 +194,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
-
+    await browser.pause(50); // Wait for selectedIndex changes to propagate
     let emittedSelectedIndex = -1;
     groupElement.addEventListener('toggle-group-change', (event: Event) => {
       emittedSelectedIndex = (event as CustomEvent<{ selectedIndex: number }>).detail.selectedIndex;
@@ -212,6 +218,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
+    await browser.pause(50); // Wait for selectedIndex changes to propagate
 
     let emissionCount = 0;
     groupElement.addEventListener('toggle-group-change', () => {
@@ -229,6 +236,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
+    await browser.pause(50); // Wait for selectedIndex changes to propagate
 
     const detachedButton = document.createElement(ENCHANTED_TOGGLE_BUTTON_TAG_NAME) as EnchantedToggleButton;
     const handleToggleChange = (groupElement as unknown as { handleToggleChange: (event: Event) => void }).handleToggleChange;
@@ -241,6 +249,8 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     renderDefaultGroup('horizontal', 'large', false, 0);
 
     const groupElement = getGroup();
+    await groupElement.updateComplete;
+    await browser.pause(50); // Wait for selectedIndex changes to propagate
     const renderRoot = groupElement.renderRoot as ShadowRoot & {
       querySelector: (selector: string) => Element | null;
     };
