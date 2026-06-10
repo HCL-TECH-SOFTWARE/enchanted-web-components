@@ -14,7 +14,7 @@
  * ======================================================================== */
 
 import { html } from 'lit/static-html.js';
-import { expect, $, browser, $$ } from '@wdio/globals';
+import { expect, $, browser } from '@wdio/globals';
 
 import { initSessionStorage, renderComponent } from '../../utils';
 import '../../../components/atomic-component/enchanted-toggle-button-group';
@@ -65,8 +65,29 @@ const getGroup = (): EnchantedToggleButtonGroup => {
   return document.querySelector(ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME) as EnchantedToggleButtonGroup;
 };
 
-const getButtons = (): EnchantedToggleButton[] => {
-  return Array.from(document.querySelectorAll(ENCHANTED_TOGGLE_BUTTON_TAG_NAME)) as EnchantedToggleButton[];
+const getButtons = async (): Promise<EnchantedToggleButton[]> => {
+  await browser.waitUntil(async () => {
+    const buttons = document.querySelectorAll(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
+    return buttons.length === 3;
+  }, { timeout: 2000 });
+
+  const buttons = Array.from(document.querySelectorAll(ENCHANTED_TOGGLE_BUTTON_TAG_NAME)) as EnchantedToggleButton[];
+  await Promise.all(buttons.map(async button => { await button.updateComplete; }));
+  return buttons;
+};
+
+const clickButtonAt = async (index: number): Promise<void> => {
+  const buttons = await getButtons();
+  const button = buttons[index];
+  const innerButton = button.renderRoot.querySelector('button[data-testid="enchanted-toggle-single-button"]') as HTMLButtonElement | null;
+
+  if (!innerButton) {
+    throw new Error(`Unable to find inner toggle button for index ${index}`);
+  }
+
+  innerButton.click();
+  await button.updateComplete;
+  await getGroup().updateComplete;
 };
 
 describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
@@ -93,10 +114,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     const groupElement = getGroup();
     await groupElement.updateComplete;
 
-    const buttons = getButtons();
-    await browser.waitUntil(async () => {
-      return buttons.length === 3;
-    }, { timeout: 1000 });
+    const buttons = await getButtons();
 
     await expect(buttons[0].firstType).toBe(true);
     await expect(buttons[0].lastType).toBe(false);
@@ -117,7 +135,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     const groupElement = getGroup();
     await groupElement.updateComplete;
 
-    const buttons = getButtons();
+    const buttons = await getButtons();
     await expect(buttons[0].firstType).toBe(true);
     await expect(buttons[0].lastType).toBe(true);
     await expect(buttons[1].firstType).toBe(true);
@@ -132,7 +150,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     const groupElement = getGroup();
     await groupElement.updateComplete;
 
-    const buttons = getButtons();
+    const buttons = await getButtons();
     await expect(buttons[0].size).toBe('small');
     await expect(buttons[1].size).toBe('small');
     await expect(buttons[2].size).toBe('small');
@@ -144,7 +162,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     const groupElement = getGroup();
     await groupElement.updateComplete;
 
-    const buttons = getButtons();
+    const buttons = await getButtons();
     await expect(buttons[0].disabled).toBe(true);
     await expect(buttons[1].disabled).toBe(true);
     await expect(buttons[2].disabled).toBe(true);
@@ -159,7 +177,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     groupElement.disabled = false;
     await groupElement.updateComplete;
 
-    const buttons = getButtons();
+    const buttons = await getButtons();
     await expect(buttons[0].disabled).toBe(false);
     await expect(buttons[1].disabled).toBe(false);
     await expect(buttons[2].disabled).toBe(false);
@@ -176,15 +194,13 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
       emittedSelectedIndex = (event as CustomEvent<{ selectedIndex: number }>).detail.selectedIndex;
     });
 
-    const buttonHosts = await $$(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
-    const secondButtonInner = await buttonHosts[1].$('>>>button[data-testid="enchanted-toggle-single-button"]');
-    await browser.execute((el: HTMLElement) => { el.click(); }, secondButtonInner);
+    await clickButtonAt(1);
 
     await browser.waitUntil(async () => {
       return getGroup().selectedIndex === 1;
     }, { timeout: 1000 });
 
-    const buttons = getButtons();
+    const buttons = await getButtons();
     await expect(buttons[0].toggleOn).toBe(false);
     await expect(buttons[1].toggleOn).toBe(true);
     await expect(buttons[2].toggleOn).toBe(false);
@@ -202,9 +218,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
       emissionCount += 1;
     });
 
-    const buttonHosts = await $$(ENCHANTED_TOGGLE_BUTTON_TAG_NAME);
-    const alreadySelectedInner = await buttonHosts[1].$('>>>button[data-testid="enchanted-toggle-single-button"]');
-    await browser.execute((el: HTMLElement) => { el.click(); }, alreadySelectedInner);
+    await clickButtonAt(1);
 
     await expect(getGroup().selectedIndex).toBe(1);
     await expect(emissionCount).toBe(0);
