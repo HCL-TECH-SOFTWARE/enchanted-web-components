@@ -68,21 +68,26 @@ const getGroup = (): EnchantedToggleButtonGroup => {
 const getButtons = async (): Promise<EnchantedToggleButton[]> => {
   const group = getGroup();
   await group.updateComplete;
-  return group.toggleItems;
+  const buttons = group.toggleItems;
+  await Promise.all(buttons.map(button => button.updateComplete));
+  return buttons;
 };
 
 const clickButtonAt = async (index: number): Promise<void> => {
   const buttons = await getButtons();
   const button = buttons[index];
+  if (!button) {
+    throw new Error(`Unable to find toggle button at index ${index}`);
+  }
+  await button.updateComplete;
   const innerButton = button.renderRoot.querySelector('button[data-testid="enchanted-toggle-single-button"]') as HTMLButtonElement | null;
 
   if (!innerButton) {
     throw new Error(`Unable to find inner toggle button for index ${index}`);
   }
 
-  innerButton.click();
+  (innerButton as HTMLButtonElement).click();
   await button.updateComplete;
-  await getGroup().updateComplete;
 };
 
 describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
