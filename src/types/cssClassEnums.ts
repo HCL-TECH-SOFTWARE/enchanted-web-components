@@ -86,8 +86,6 @@ export enum TOGGLE_BUTTON_PARTS {
   TOGGLE_BUTTON_DIV = 'toggle-button-div',
   TOGGLE_BUTTON_ICON = 'toggle-button-icon',
   TOGGLE_SINGLE_BUTTON = 'toggle-single-button',
-
-// new additions for size parts
   TOGGLE_BUTTON_SMALL = 'toggle-button-small',
   TOGGLE_BUTTON_LARGE = 'toggle-button-large',
   TOGGLE_BUTTON_WITH_PADDING = 'toggle-button-with-padding',
