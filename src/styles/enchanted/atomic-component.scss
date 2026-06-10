@@ -49,6 +49,7 @@
 @use 'components/atomic-component/enchanted-popover.scss';
 @use 'components/atomic-component/enchanted-fab.scss';
 @use 'components/atomic-component/enchanted-badge.scss';
+@use 'components/atomic-component/enchanted-toggle-button-group.scss';
 @use 'common/typography';
 
 $component-prefix: '' !default;
@@ -265,7 +266,12 @@ $component-prefix: '' !default;
 }
 
 #{$component-prefix}enchanted-toggle-button {
-  @include enchanted-icon-button.enchanted-icon-button-base-styles;
+  @include enchanted-tooltip.enchanted-tooltip-base-styles;
+  @include enchanted-toggle-button.enchanted-toggle-button-base-styles;
+}
+
+#{$component-prefix}enchanted-toggle-button-group {
+  @include enchanted-toggle-button-group.enchanted-toggle-button-group-base-styles;
   @include enchanted-toggle-button.enchanted-toggle-button-base-styles;
 }
 
