@@ -90,6 +90,18 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
   ariaLabel = '';
 
   private ignoreNextFocusOut = false;
+
+  private focusListItem(listItem: HTMLElement | undefined) {
+    if (!listItem) return;
+
+    const listItemElement = listItem as HTMLElement & { focusListItem?: () => void };
+    if (typeof listItemElement.focusListItem === 'function') {
+      listItemElement.focusListItem();
+      return;
+    }
+
+    listItemElement.focus();
+  }
   
   connectedCallback(): void {
     super.connectedCallback();
@@ -216,27 +228,27 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
 
   private async handleDropdownNav(event: KeyboardEvent) {
     if (!this.toggleDropDown || !this.listItems) return;
-    if (this.currentFocusedItem) this.currentFocusedItem.focus();
+    this.focusListItem(this.currentFocusedItem);
   
     switch (event.key) {
       case 'ArrowDown':{
         event.preventDefault(); 
-        if (this.currentFocusedItem) this.currentFocusedItem.focus();
+        this.focusListItem(this.currentFocusedItem);
         const currentIndex = this.currentFocusedItem ? Array.from(this.listItems).indexOf(this.currentFocusedItem) : -1;
         if (currentIndex < this.listItems.length - 1) {
           this.currentFocusedItem =  Array.from(this.listItems)[currentIndex + 1];
-          this.currentFocusedItem.focus();
+          this.focusListItem(this.currentFocusedItem);
           this.toggleDropDown = true;
         }
         break;
       }
       case 'ArrowUp': {
         event.preventDefault(); 
-        if (this.currentFocusedItem) this.currentFocusedItem.focus();
+        this.focusListItem(this.currentFocusedItem);
         const currentIndex = this.currentFocusedItem ? Array.from(this.listItems).indexOf(this.currentFocusedItem) : -1;
         if (currentIndex > 0) {
           this.currentFocusedItem =  Array.from(this.listItems)[currentIndex - 1];
-          this.currentFocusedItem.focus();
+          this.focusListItem(this.currentFocusedItem);
           this.toggleDropDown = true;
         }
         break;

@@ -245,4 +245,37 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
     const btnTextAfterSelection = await buttonElement.getText();
     expect(btnTextAfterSelection).toBe('title');
   });
+
+  it('should focus the shadow li when navigating select options with ArrowDown', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field=${EnchantedInputFieldType.DOCUMENT_OBJECT_TYPE}
+          .options=${SEARCH_COMMON_FIELDS}
+          label="Select input"
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+
+    await buttonElement.click();
+    await browser.pause(300);
+    await browser.keys(Key.ArrowDown);
+    await browser.pause(300);
+
+    const listItems = await component.$$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`).getElements();
+    await expect(listItems.length).toBeGreaterThan(0);
+
+    const isShadowLiFocused = await browser.execute((element) => {
+      const listItemElement = element as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const li = listItemElement.shadowRoot?.querySelector('li[data-testid="enchanted-list-item-list"]');
+      return Boolean(li && listItemElement.shadowRoot?.activeElement === li);
+    }, listItems[0]);
+
+    expect(isShadowLiFocused).toBe(true);
+  });
 });

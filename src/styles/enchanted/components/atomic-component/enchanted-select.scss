@@ -168,6 +168,17 @@
     color: palette.clr(light, background, paper);
   }
 
+
+  &::part(list-item):focus,
+  &::part(list-item-selected):focus,
+  &::part(list-item):focus-visible,
+  &::part(list-item-selected):focus-visible {
+    border-radius: 4px;
+    border: 1px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+    border-radius: 2px;
+    outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) 1px solid;  
+  }
+
   &::part(list-item):hover {
     background-color: palette.clr(light, action, activeOpacity);
     color: map.get(themeMap.$enchantedPalette, BLACK100P);

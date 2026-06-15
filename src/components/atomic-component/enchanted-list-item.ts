@@ -45,6 +45,15 @@ export class EnchantedListItem extends EnchantedAcBaseElement {
     return LIST_ITEM_PARTS.LIST_ITEM;
   }
 
+  public focusListItem() {
+    const listItem = this.renderRoot.querySelector('li');
+    if (listItem instanceof HTMLElement) {
+      listItem.focus();
+      return;
+    }
+    this.focus();
+  }
+
   render() {
     return html`
       <li

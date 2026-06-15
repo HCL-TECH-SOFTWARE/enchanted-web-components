@@ -7,6 +7,8 @@
 - added automated WCAG 2.1 AA accessibility audits via @storybook/addon-a11y and Chromatic CI.
 
 ### Fixed
+- Updated `enchanted-list-item` to refocus its internal shadow `li` element through a dedicated focus helper, improving keyboard focus behavior for parent dropdown components.
+- Updated keyboard focus handling in `enchanted-select` and `enchanted-multiple-select-chip` so dropdown navigation targets the internal shadow `li` element consistently.
 
 ### Changed
 - Refactored SCSS color usage to shared theme/palette tokens (including shadow token mapping where applicable), replacing hardcoded `rgba`/hex literals across: `enchanted-accordion`, `enchanted-badge`, `enchanted-data-grid`, `enchanted-data-grid-generic`, `enchanted-datepicker`, `enchanted-fab`, `enchanted-multiple-select-chip`, and `enchanted-popover`.

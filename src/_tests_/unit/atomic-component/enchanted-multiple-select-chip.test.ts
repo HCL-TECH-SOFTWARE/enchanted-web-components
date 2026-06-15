@@ -417,4 +417,39 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
       type: 'test'
     });
   });
+
+  it('should focus the shadow li when navigating dropdown options with ArrowDown', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME).getElement();
+    const input = await component.shadow$('input#input-field').getElement();
+
+    await input.click();
+    await browser.keys('ArrowDown');
+    await browser.pause(300);
+
+    const listItems = await component.shadow$$(`${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-multi-select-listitem"]`);
+    await expect(listItems).toHaveLength(3);
+
+    const isShadowLiFocused = await browser.execute((element) => {
+      const listItemElement = element as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const li = listItemElement.shadowRoot?.querySelector('li[data-testid="enchanted-list-item-list"]');
+      return Boolean(li && listItemElement.shadowRoot?.activeElement === li);
+    }, listItems[0]);
+
+    expect(isShadowLiFocused).toBe(true);
+  });
 });

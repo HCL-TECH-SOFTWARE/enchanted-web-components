@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { $, expect } from '@wdio/globals';
+import { $, expect, browser } from '@wdio/globals';
 import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
 
@@ -71,5 +71,27 @@ describe(`${ENCHANTED_LIST_ITEM_TAG_NAME} component testing`, () => {
     await expect(component).toBeDisplayed();
     let listElement = await component.$('>>>li[data-testid="enchanted-list-item-list"]').getElement();
     await expect(listElement).toHaveAttribute('key', 'test_key');
+  });
+
+  it('should focus shadow li when focusListItem is called', async () => {
+    render(
+      html`<${ENCHANTED_LIST_ITEM_TAG}>Item 1</${ENCHANTED_LIST_ITEM_TAG}>`,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_LIST_ITEM_TAG_NAME).getElement();
+
+    await browser.execute((element) => {
+      const listItemElement = element as HTMLElement & { focusListItem?: () => void };
+      listItemElement.focusListItem?.();
+    }, component);
+
+    const isShadowLiFocused = await browser.execute((element) => {
+      const listItemElement = element as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const li = listItemElement.shadowRoot?.querySelector('li[data-testid="enchanted-list-item-list"]');
+      return Boolean(li && listItemElement.shadowRoot?.activeElement === li);
+    }, component);
+
+    expect(isShadowLiFocused).toBe(true);
   });
 });
