@@ -5,6 +5,7 @@
 ### Added
 
 - added automated WCAG 2.1 AA accessibility audits via @storybook/addon-a11y and Chromatic CI.
+- added `enchanted-toggle-button-group` component along with story-book 
 
 ### Fixed
 
@@ -12,6 +13,7 @@
 - Refactored SCSS color usage to shared theme/palette tokens (including shadow token mapping where applicable), replacing hardcoded `rgba`/hex literals across: `enchanted-accordion`, `enchanted-badge`, `enchanted-data-grid`, `enchanted-data-grid-generic`, `enchanted-datepicker`, `enchanted-fab`, `enchanted-multiple-select-chip`, and `enchanted-popover`.
 
 ### Breaking changes
+- Refactored `enchanted-toggle-button` component and replaced singleButton, outlined, selectedValue, iconUrls, singleButtonTitle, singleButtonAria properties  with padding, iconSize, tooltipText, lastType, firstType, ariaLabel properties.
 
 ## 6.0.0
 

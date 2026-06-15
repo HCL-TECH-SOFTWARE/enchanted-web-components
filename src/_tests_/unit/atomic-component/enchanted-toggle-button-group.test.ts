@@ -69,24 +69,30 @@ const getButtons = async (): Promise<EnchantedToggleButton[]> => {
   const group = getGroup();
   await group.updateComplete;
   const buttons = group.toggleItems;
-  await Promise.all(buttons.map(button => { button.updateComplete; }));
+  await Promise.all(buttons.map(button => {return button.updateComplete;}));
   return buttons;
 };
 
 const clickButtonAt = async (index: number): Promise<void> => {
-  const buttons = await getButtons();
-  const button = buttons[index];
-  if (!button) {
+  const buttonPosition = index + 1;
+  const buttonHost = await $(
+    `${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} > ${ENCHANTED_TOGGLE_BUTTON_TAG_NAME}:nth-of-type(${buttonPosition})`
+  );
+
+  if (!(await buttonHost.isExisting())) {
     throw new Error(`Unable to find toggle button at index ${index}`);
   }
-  await button.updateComplete;
-  const innerButton = button.shadowRoot?.querySelector('button[data-testid="enchanted-toggle-single-button"]') as HTMLButtonElement | null;
-  if (!innerButton) {
+
+  const innerButton = await buttonHost.$('>>>button[data-testid="enchanted-toggle-single-button"]');
+  if (!(await innerButton.isExisting())) {
     throw new Error(`Unable to find inner toggle button for index ${index}`);
   }
 
-  innerButton.click();
-  await button.updateComplete;
+  await browser.execute((element: HTMLElement) => {
+    element.click();
+  }, innerButton);
+
+  await browser.pause(20); // Allow event dispatch/update cycle to flush in browser-runner tests
 };
 
 describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
