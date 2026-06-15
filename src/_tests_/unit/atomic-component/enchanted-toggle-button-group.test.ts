@@ -74,24 +74,18 @@ const getButtons = async (): Promise<EnchantedToggleButton[]> => {
 };
 
 const clickButtonAt = async (index: number): Promise<void> => {
-  const buttonPosition = index + 1;
-  const buttonHost = await $(
-    `${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} > ${ENCHANTED_TOGGLE_BUTTON_TAG_NAME}:nth-of-type(${buttonPosition})`
-  );
-
-  if (!(await buttonHost.isExisting())) {
+  const buttons = await getButtons();
+  const button = buttons[index];
+  if (!button) {
     throw new Error(`Unable to find toggle button at index ${index}`);
   }
 
-  const innerButton = await buttonHost.$('>>>button[data-testid="enchanted-toggle-single-button"]');
-  if (!(await innerButton.isExisting())) {
-    throw new Error(`Unable to find inner toggle button for index ${index}`);
-  }
-
-  await browser.execute((element: HTMLElement) => {
-    element.click();
-  }, innerButton);
-
+  // Drive the group via the child's public event contract, not button internals.
+  button.dispatchEvent(new CustomEvent('toggle-change', {
+    detail: { toggleOn: true },
+    bubbles: true,
+    composed: true,
+  }));
   await browser.pause(20); // Allow event dispatch/update cycle to flush in browser-runner tests
 };
 

@@ -17,15 +17,21 @@
     display: inline-flex;
 
     &::part(toggle-button-group-container) {
-        display: flex;
-        gap: 0px;
+        display: inline-flex;
     }
 
-    &[orientation='horizontal']::part(toggle-button-group-container) {
+    &::part(toggle-button-group-slot) {
+        display: inline-flex;
+        gap: 0px;
+        line-height: 0;
+    }
+
+    &[orientation='horizontal']::part(toggle-button-group-slot) {
         flex-direction: row;
     }
 
-    &[orientation='vertical']::part(toggle-button-group-container) {
+    &[orientation='vertical']::part(toggle-button-group-slot) {
         flex-direction: column;
+        align-items: flex-start;
     }
 }
