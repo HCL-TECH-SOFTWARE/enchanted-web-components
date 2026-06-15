@@ -90,6 +90,7 @@ export enum TOGGLE_BUTTON_PARTS {
   TOGGLE_BUTTON_LARGE = 'toggle-button-large',
   TOGGLE_BUTTON_WITH_PADDING = 'toggle-button-with-padding',
   TOGGLE_BUTTON_GROUP_CONTAINER = 'toggle-button-group-container',
+  TOGGLE_BUTTON_GROUP_SLOT = 'toggle-button-group-slot',
 }
 
 export enum TAG_CLOUD_PARTS {

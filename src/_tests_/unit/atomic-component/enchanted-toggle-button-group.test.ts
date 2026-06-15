@@ -80,13 +80,13 @@ const clickButtonAt = async (index: number): Promise<void> => {
     throw new Error(`Unable to find toggle button at index ${index}`);
   }
 
+  // Drive the group via the child's public event contract, not button internals.
   button.dispatchEvent(new CustomEvent('toggle-change', {
     detail: { toggleOn: true },
     bubbles: true,
-    composed: true
+    composed: true,
   }));
-  await browser.pause(50); // Wait for event to propagate and be handled
-
+  await browser.pause(20); // Allow event dispatch/update cycle to flush in browser-runner tests
 };
 
 describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {

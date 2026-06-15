@@ -90,7 +90,7 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
   render() {
     return html`
         <div part=${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_GROUP_CONTAINER} data-testid="enchanted-toggle-button-group-div">
-            <slot @slotchange=${this.handleSlotChange}></slot>
+            <slot part=${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_GROUP_SLOT} @slotchange=${this.handleSlotChange}></slot>
         </div>
     `;
   }
