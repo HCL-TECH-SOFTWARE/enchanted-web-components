@@ -272,3 +272,72 @@ export const AllStates: Story = {
     },
   },
 };
+
+/**
+ * ⚠️ INTENTIONAL ACCESSIBILITY BUG STORY — for Chromatic a11y testing validation.
+ *
+ * This story deliberately introduces two WCAG violations so the Chromatic
+ * Accessibility addon surfaces them as failures:
+ *
+ * 1. **button-name (WCAG 4.1.2)** — A <button> with no accessible name
+ *    (no text content, no aria-label, no title).
+ *    axe rule: `button-name`
+ *
+ * 2. **color-contrast (WCAG 1.4.3)** — Text rendered in #cccccc on a #ffffff
+ *    background gives a contrast ratio of ~1.6:1, well below the 4.5:1 minimum
+ *    required for normal text.
+ *    axe rule: `color-contrast`
+ *
+ * Remove or fix this story once the Chromatic a11y pipeline is verified.
+ */
+export const WithA11yBugs: Story = {
+  render: () => {
+    return html`
+      <div style="display: flex; flex-direction: column; gap: 24px; padding: 16px;">
+
+        <!-- BUG 1: button-name violation — button has no accessible label -->
+        <div>
+          <p style="margin: 0 0 8px; font-weight: bold;">Bug 1 — Nameless button (button-name)</p>
+          <${ENCHANTED_ACCORDION_TAG}
+            type="outlined"
+            label="Accordion with inaccessible action button"
+            ?open=${true}
+          >
+            <div slot="accordion-items" style="display: flex; align-items: center; gap: 8px;">
+              Accordion content
+              <!-- ❌ No text, no aria-label, no title → axe: button-name -->
+              <button style="width: 32px; height: 32px; cursor: pointer;"></button>
+            </div>
+          </${ENCHANTED_ACCORDION_TAG}>
+        </div>
+
+        <!-- BUG 2: color-contrast violation — near-white text on white background -->
+        <div>
+          <p style="margin: 0 0 8px; font-weight: bold;">Bug 2 — Insufficient color contrast (color-contrast)</p>
+          <${ENCHANTED_ACCORDION_TAG}
+            type="outlined"
+            label="Accordion with low-contrast content text"
+            ?open=${true}
+          >
+            <!-- ❌ #cccccc on #ffffff → contrast ratio ≈ 1.6:1 (min required: 4.5:1) -->
+            <div slot="accordion-items" style="color: #cccccc; background-color: #ffffff; padding: 8px;">
+              This text has insufficient color contrast and will fail WCAG 1.4.3.
+            </div>
+          </${ENCHANTED_ACCORDION_TAG}>
+        </div>
+
+      </div>
+    `;
+  },
+  name: 'WithA11yBugs (intentional — Chromatic validation)',
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ **Intentional a11y violations** added to validate the Chromatic Accessibility pipeline. '
+          + 'This story contains a nameless `<button>` (axe: `button-name`) and low-contrast text '
+          + '(axe: `color-contrast`). Both should appear as failures in the Chromatic a11y report. '
+          + 'Remove this story once the pipeline is confirmed working.',
+      },
+    },
+  },
+};
