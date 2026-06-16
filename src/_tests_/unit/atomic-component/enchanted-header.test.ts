@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -15,7 +15,7 @@
 // External imports
 import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
-import { $, expect } from '@wdio/globals';
+import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-header';
@@ -36,7 +36,9 @@ describe(`${ENCHANTED_HEADER_TAG_NAME} component testing`, () => {
     render(nothing, document.body);
   });
 
-  afterEach(() => {
+
+  afterEach(async () => {
+    await browser.pause(300);
     render(nothing, document.body);
   });
 
@@ -63,9 +65,9 @@ describe(`${ENCHANTED_HEADER_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
+    const component = $(ENCHANTED_HEADER_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let imgElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-back-button"]`).getElement();
+    const imgElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-back-button"]`);
     await expect(imgElement).toBeExisting();
   });
 
@@ -76,9 +78,9 @@ describe(`${ENCHANTED_HEADER_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
+    const component = $(ENCHANTED_HEADER_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let imgElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-filter-button"]`).getElement();
+    const imgElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-filter-button"]`);
     await expect(imgElement).toBeExisting();
   });
 
@@ -89,9 +91,9 @@ describe(`${ENCHANTED_HEADER_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
+    const component = $(ENCHANTED_HEADER_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let imgElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-back-button"]`).getElement();
+    const imgElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-back-button"]`);
     await expect(imgElement).toBeExisting();
   });
 
@@ -102,14 +104,12 @@ describe(`${ENCHANTED_HEADER_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
+    const component = $(ENCHANTED_HEADER_TAG_NAME);
     await expect(component).toBeDisplayed();
-    expect(component).toHaveElementProperty('color', 'rgba(0, 0, 0, .32)');
-    expect(component).toHaveText('Search Center');
-    expect(component).toHaveElementProperty('variant', 'header-authoring');
-    expect(component).toHaveElementProperty('showBackIcon', true);
-    expect(component).toHaveElementProperty('isSideNavOpen', false);
-    expect(component).toBeDisabled;
+    await expect(component).toHaveElementProperty('variant', 'header-authoring');
+    await expect(component).toHaveElementProperty('showBackIcon', true);
+    await expect(component).toHaveElementProperty('isSideNavOpen', false);
+    await expect(component).toHaveElementProperty('disabled', false);
   });
 
   it('should render component and validate attributes - endUser', async () => {
@@ -119,30 +119,28 @@ describe(`${ENCHANTED_HEADER_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
+    const component = $(ENCHANTED_HEADER_TAG_NAME);
     await expect(component).toBeDisplayed();
-    expect(component).toHaveElementProperty('color', 'rgba(0, 0, 0, .32)');
-    expect(component).toHaveText('Search Center');
-    expect(component).toHaveElementProperty('variant', 'header-endUser');
-    expect(component).toHaveElementProperty('showBackIcon', true);
-    expect(component).toHaveElementProperty('isSideNavOpen', false);
-    expect(component).toBeDisabled;
+    await expect(component).toHaveText('Search Center');
+    await expect(component).toHaveElementProperty('variant', 'header-endUser');
+    await expect(component).toHaveElementProperty('showBackIcon', true);
+    await expect(component).toHaveElementProperty('isSideNavOpen', false);
+    await expect(component).toHaveElementProperty('disabled', false);
   });
 
-  it('should render component and validate attributes - authoring', async () => {
+  it('should render component and validate attributes - authoring modal', async () => {
     render(
       html`
         <${ENCHANTED_HEADER_TAG} .localization=${localization} headerTitle="Search Center" variant="header-authoring-modal" ?showBackIcon=${true} ?isSideNavOpen=${false} ?disabled=${false} />
       `,
       document.body
     );
-    let component = await $(ENCHANTED_HEADER_TAG_NAME).getElement();
+    const component = $(ENCHANTED_HEADER_TAG_NAME);
     await expect(component).toBeDisplayed();
-    expect(component).toHaveElementProperty('color', 'rgba(0, 0, 0, .32)');
-    expect(component).toHaveText('Search Center');
-    expect(component).toHaveElementProperty('variant', 'header-authoring-modal');
-    expect(component).toHaveElementProperty('showBackIcon', true);
-    expect(component).toHaveElementProperty('isSideNavOpen', false);
-    expect(component).toBeDisabled;
+    await expect(component).toHaveText('Authoring search');
+    await expect(component).toHaveElementProperty('variant', 'header-authoring-modal');
+    await expect(component).toHaveElementProperty('showBackIcon', true);
+    await expect(component).toHaveElementProperty('isSideNavOpen', false);
+    await expect(component).toHaveElementProperty('disabled', false);
   });
 });

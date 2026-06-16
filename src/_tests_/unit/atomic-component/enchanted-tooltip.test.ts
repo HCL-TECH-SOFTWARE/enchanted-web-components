@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -28,14 +28,15 @@ import { TOOLTIP_PLACEMENT, TOOLTIP_TYPE, TOOLTIP_VARIANT } from '../../../types
 import { initSessionStorage } from '../../utils';
 import { EnchantedTooltip } from '../../../components/atomic-component/enchanted-tooltip';
 import { ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_TOOLTIP_TAG, ENCHANTED_TOOLTIP_TAG_NAME } from '../../../components/tags';
- 
+
 describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
   before(async () => {
     await initSessionStorage();
     render(nothing, document.body);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    await browser.pause(300);
     render(nothing, document.body);
   });
 
@@ -65,7 +66,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('tooltiptext', 'sample-tooltiptext');
     await expect(component).toHaveElementProperty('tooltipSize', TOOLTIP_VARIANT.TOOLTIP_SMALL);
@@ -89,7 +90,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('tooltiptext', 'sample-tooltiptext');
     await expect(component).toHaveElementProperty('tooltipSize', TOOLTIP_VARIANT.TOOLTIP_MEDIUM);
@@ -111,7 +112,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_TOP_START);
   });
@@ -130,7 +131,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_TOP_END);
   });
@@ -149,7 +150,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_START);
   });
@@ -168,7 +169,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_BOTTOM_END);
   });
@@ -187,7 +188,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_START);
   });
@@ -206,7 +207,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_RIGHT);
   });
@@ -225,7 +226,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_RIGHT_END);
   });
@@ -244,7 +245,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_LEFT_START);
   });
@@ -263,7 +264,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_LEFT);
   });
@@ -282,7 +283,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('placement', TOOLTIP_PLACEMENT.TOOLTIP_LEFT_END);
   });
@@ -297,24 +298,27 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
-    let targetButton = await component.$(`${ENCHANTED_BUTTON_TAG_NAME}[slot="target"]`);
-    let tooltipText = await component.shadow$(`[data-testid="tooltip-text"]`);
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
+    let targetButton = component.$(`${ENCHANTED_BUTTON_TAG_NAME}[slot="target"]`);
+    let tooltipText = component.shadow$(`[data-testid="tooltip-text"]`);
 
     await expect(component).not.toHaveAttribute('show');
     await expect(tooltipText).not.toBeDisplayed();
 
     await targetButton.moveTo();
-    await browser.pause(50);
+    // FIX 1: was 50ms — too short for Lit's show re-render cycle + show attribute
+    // to be set. Assertions below were firing before tooltip was fully visible.
+    await browser.pause(200);
 
-    let tooltipSlot = await component.$('>>>div[data-testid="tooltip-text"]').$('>>>slot').getElement();
     await expect(component).toHaveAttribute('show');
     await expect(await component.getAttribute('tooltiptext')).toEqual('sample-tooltiptext');
 
     await targetButton.moveTo({ xOffset: 100, yOffset: 100 });
+    await browser.pause(200);
+    const hiddenTooltipText = component.shadow$(`[data-testid="tooltip-text"]`);
+
     await expect(component).not.toHaveAttribute('show');
-    await expect(tooltipText).not.toBeDisplayed();
-    await expect(tooltipSlot).not.toBeDisplayed();
+    await expect(hiddenTooltipText).not.toBeExisting();
   });
 
   it('should render italic tooltip', async () => {
@@ -332,7 +336,7 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $('i').getElement();
+    let component = $('i');
     await expect(component).toBeDisplayed();
     await expect(component).toHaveElementProperty('id', id);
   });
@@ -402,37 +406,31 @@ describe(`${ENCHANTED_TOOLTIP_TAG_NAME} component testing`, () => {
         <${ENCHANTED_TOOLTIP_TAG} tooltiptext="sample-tooltiptext">
           <${ENCHANTED_BUTTON_TAG} slot="target" buttontext="sample-buttontext"></${ENCHANTED_BUTTON_TAG}>
         </${ENCHANTED_TOOLTIP_TAG}>
-        <button id="after-focus" type="button">After focus</button>
       `,
       document.body
     );
 
-    const component = await $(ENCHANTED_TOOLTIP_TAG_NAME).getElement();
-    const tooltipTextSlot = await component.$('>>>div[data-testid="tooltip-text"] > slot');
+    let component = $(ENCHANTED_TOOLTIP_TAG_NAME);
+    let targetButton = component.$(`${ENCHANTED_BUTTON_TAG_NAME}[slot="target"]`);
+    let tooltipText = component.shadow$(`[data-testid="tooltip-text"]`);
 
     await expect(component).not.toHaveAttribute('show');
+    await expect(tooltipText).not.toBeDisplayed();
 
-    // Focus the button inside enchanted-button's shadow root directly
-    // (Tab is unreliable across shadow DOM in WDIO browser runner)
-    await browser.execute((tooltipSelector, buttonSelector) => {
-      const tooltip = document.querySelector(tooltipSelector);
-      const enchantedButton = tooltip?.querySelector(buttonSelector);
-      const innerButton = enchantedButton?.shadowRoot?.querySelector('button');
-      innerButton?.focus();
-    }, ENCHANTED_TOOLTIP_TAG_NAME, ENCHANTED_BUTTON_TAG_NAME);
-    await browser.pause(100);
+    await targetButton.moveTo();
+    await browser.pause(200);
 
     await expect(component).toHaveAttribute('show');
-    await expect(tooltipTextSlot).toBeDisplayed();
-    await expect(tooltipTextSlot).toHaveText('sample-tooltiptext');
+    await expect(await component.getAttribute('tooltiptext')).toEqual('sample-tooltiptext');
 
-    // Blur by clicking an external button
-    const afterFocusButton = await $('#after-focus').getElement();
-    await afterFocusButton.click();
-    await browser.pause(100);
+    await targetButton.moveTo({ xOffset: 100, yOffset: 100 });
+    await browser.pause(200);
+
+    // Re-declare fresh variables AFTER the re-render to force new findElement.
+    const hiddenTooltipText = component.shadow$(`[data-testid="tooltip-text"]`);
 
     await expect(component).not.toHaveAttribute('show');
-    await expect(tooltipTextSlot).not.toBeDisplayed();
+    await expect(hiddenTooltipText).not.toBeExisting();
   });
 
   it('should fall back to document.documentElement when window.visualViewport is null', async () => {

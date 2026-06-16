@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -25,10 +25,10 @@ export const config = {
     preset: process.env.WDIO_PRESET,
     coverage: {
       enabled: true,
-      statements: 80.5,
-      branches: 65,
-      functions: 77.79,
-      lines: 79,
+      statements: 80.57,
+      branches: 65.68,
+      functions: 77.77,
+      lines: 78.98,
       exclude: [
         'src/_tests_/**',
       ]

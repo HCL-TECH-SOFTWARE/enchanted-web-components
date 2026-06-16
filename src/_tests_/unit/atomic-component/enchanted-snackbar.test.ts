@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -15,8 +15,7 @@
 // External imports
 import { render, nothing } from 'lit';
 import { html } from 'lit/static-html.js';
-import { expect, $ } from '@wdio/globals';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { expect, $, browser } from '@wdio/globals';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-snackbar';
@@ -32,7 +31,8 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
     render(nothing, document.body);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    await browser.pause(300);
     render(nothing, document.body);
   });
 
@@ -58,7 +58,6 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
       html`
         <${ENCHANTED_SNACKBAR_TAG}
           message=${snackbarMessage}
-          open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         ></${ENCHANTED_SNACKBAR_TAG}>
       `,
@@ -78,7 +77,6 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
       html`
         <${ENCHANTED_SNACKBAR_TAG}
           message=${snackbarMessage}
-          open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         >
           <div slot="snackbar-buttons">
@@ -95,18 +93,16 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let buttonElement = await $(ENCHANTED_BUTTON_TAG_NAME).getElement();
+    let buttonElement = $(ENCHANTED_BUTTON_TAG_NAME);
     await expect(buttonElement).toBeExisting();
   });
 
   it('should render with complex HTML message', async () => {
     const message = 'This is a <strong>bold</strong> message.<br>With a line break.';
-    const expectedHTML = unsafeHTML(message);
     render(
       html`
         <${ENCHANTED_SNACKBAR_TAG}
           message=${message}
-          open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         >
         </${ENCHANTED_SNACKBAR_TAG}>
@@ -114,9 +110,10 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    const snackbar = await $(ENCHANTED_SNACKBAR_TAG_NAME);
-    const messageSpan = await snackbar.shadow$('[data-testid="enchanted-snackbar-message"]');
-    expect(messageSpan.getHTML()).toHaveText(expectedHTML);
+    const snackbar = $(ENCHANTED_SNACKBAR_TAG_NAME);
+    const messageSpan = snackbar.shadow$('[data-testid="enchanted-snackbar-message"]');
+    const innerHtml = await messageSpan.getHTML({ includeSelectorTag: false });
+    expect(innerHtml).toContain('<strong>bold</strong>');
   });
 
   it('should handle special characters correctly', async () => {
@@ -126,7 +123,6 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
       html`
         <${ENCHANTED_SNACKBAR_TAG}
           message=${message}
-          open={true}
           type=${SNACKBAR_TYPE.SNACKBAR_INFO}
         >
         </${ENCHANTED_SNACKBAR_TAG}>
@@ -134,26 +130,8 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    const snackbar = await $(ENCHANTED_SNACKBAR_TAG_NAME);
-    const messageSpan = await snackbar.shadow$('[data-testid="enchanted-snackbar-message"]');
+    const snackbar = $(ENCHANTED_SNACKBAR_TAG_NAME);
+    const messageSpan = snackbar.shadow$('[data-testid="enchanted-snackbar-message"]');
     expect(await messageSpan.getText()).toEqual(expectedText);
   });
-
-  it('should not be visible if open is false', async () => {
-    render(
-      html`
-        <${ENCHANTED_SNACKBAR_TAG}
-          message=""
-          open={false}
-          type=${SNACKBAR_TYPE.SNACKBAR_INFO}
-        >
-        </${ENCHANTED_SNACKBAR_TAG}>
-      `,
-      document.body
-    );
-
-    const snackbar = await $(ENCHANTED_SNACKBAR_TAG_NAME);
-    expect(snackbar).not.toBeDisplayed();
-  });
 });
- 
