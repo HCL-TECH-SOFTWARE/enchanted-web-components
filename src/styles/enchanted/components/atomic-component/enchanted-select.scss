@@ -190,9 +190,14 @@
   }
   &::part(#{$part-button}):focus,
   &::part(#{$part-button-outlined}):focus,
-  &::part(#{$part-button-outlined-focused}):focus{
+  &::part(#{$part-button-outlined-focused}):focus {
     border-radius: 2px;
-    border: 2px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06); 
+    border: 2px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
+  }
+
+  &::part(#{$part-button-contained-focused}) {
+    border-radius: 2px;
+    border: 2px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
   }
 
   &::part(div):focus-within &::part(label) {
