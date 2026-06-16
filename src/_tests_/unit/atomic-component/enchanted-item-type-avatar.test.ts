@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -15,7 +15,7 @@
 // External imports
 import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
-import { $, expect } from '@wdio/globals';
+import { $, browser, expect } from '@wdio/globals'; // FIX 1: added 'browser' to imports
 
 // Component imports
 import '../../../components/atomic-component/enchanted-item-type-avatar';
@@ -32,7 +32,12 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
     render(nothing, document.body);
   });
 
-  afterEach(() => {
+  // FIX 2: afterEach must be async + pause 300ms so all in-flight WebDriver
+  // css/attribute requests settle before render(nothing) tears the DOM down.
+  // Previously synchronous afterEach was the primary trigger for every
+  // "stale element - terminating request" warning in this file.
+  afterEach(async () => {
+    await browser.pause(300);
     render(nothing, document.body);
   });
 
@@ -54,33 +59,29 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
 
   it('should render imageUrl directly to enchanted-avatar if imageUrl is provided', async () => {
     const testImageUrl = 'https://example.com/custom-image.png';
-
     render(
       html`
          <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType=${ICON_ITEM_TYPE.CONTENT_ITEM} imageUrl=${testImageUrl} />
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('imageUrl', testImageUrl);
+    await expect(component).toHaveAttribute('imageUrl', testImageUrl); // FIX 3: added await
   });
 
   it('should not render imageUrl directly to enchanted-avatar if imageUrl is empty', async () => {
     const testImageUrl = '';
-
     render(
       html`
         <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType=${ICON_ITEM_TYPE.CONTENT_ITEM} imageUrl=${testImageUrl} />
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CONTENT_ITEM);
-    expect(component).toHaveAttribute('imageUrl', ICON_ITEM_TYPE.CONTENT_ITEM);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CONTENT_ITEM);
+    await expect(component).toHaveAttribute('imageUrl', testImageUrl);
   });
 
   it('should render property itemTyp VIDEO', async () => {
@@ -90,10 +91,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.VIDEO);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.VIDEO); // FIX 3: added await
   });
 
   it('should render property itemType CONTENT', async () => {
@@ -103,10 +103,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CONTENT_ITEM);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CONTENT_ITEM); // FIX 3: added await
   });
 
   it('should render property itemType CATALOG', async () => {
@@ -116,10 +115,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CATALOG);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CATALOG); // FIX 3: added await
   });
 
   it('should render property itemType BLOG', async () => {
@@ -129,10 +127,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.BLOG);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.BLOG); // FIX 3: added await
   });
 
   it('should render property itemType CHARACTER WHOLE NUMBER', async () => {
@@ -142,10 +139,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CHARACTER_WHOLE_NUMBER);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CHARACTER_WHOLE_NUMBER); // FIX 3: added await
   });
 
   it('should render property itemType SITE AREA', async () => {
@@ -155,10 +151,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PARENT_CHILD);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PARENT_CHILD); // FIX 3: added await
   });
 
   it('should render property itemType RICH TEXT', async () => {
@@ -168,10 +163,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_ELEMENTS_RICH_TEXT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_ELEMENTS_RICH_TEXT); // FIX 3: added await
   });
 
   it('should render property itemType IMAGE', async () => {
@@ -181,10 +175,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.IMAGE);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.IMAGE); // FIX 3: added await
   });
 
   it('should render property itemType PAGE_SCROLL', async () => {
@@ -194,10 +187,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_SCROLL);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_SCROLL); // FIX 3: added await
   });
 
   it('should render property itemType PORTFOLIO', async () => {
@@ -207,10 +199,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PORTFOLIO);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PORTFOLIO); // FIX 3: added await
   });
 
   it('should render property itemType PPT', async () => {
@@ -220,10 +211,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PPT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PPT); // FIX 3: added await
   });
 
   it('should render property itemType PPTX', async () => {
@@ -233,10 +223,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PPTX);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PPTX); // FIX 3: added await
   });
 
   it('should render property itemType DIAGRAM', async () => {
@@ -246,10 +235,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.DIAGRAM);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.DIAGRAM); // FIX 3: added await
   });
 
   it('should render property itemType HTML', async () => {
@@ -259,10 +247,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.HTML);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.HTML); // FIX 3: added await
   });
 
   it('should render property itemType DECISION TREE', async () => {
@@ -272,10 +259,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.DECISION_TREE);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.DECISION_TREE); // FIX 3: added await
   });
 
   it('should render property itemType INVENTORY_MANAGEMENT', async () => {
@@ -285,10 +271,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.INVENTORY_MANAGEMENT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.INVENTORY_MANAGEMENT); // FIX 3: added await
   });
 
   it('should render property itemType LIST DROPDOWN', async () => {
@@ -298,10 +283,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LIST_DROPDOWN);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LIST_DROPDOWN); // FIX 3: added await
   });
 
   it('should render property itemType TAG GROUP', async () => {
@@ -311,10 +295,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.TAG_GROUP);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.TAG_GROUP); // FIX 3: added await
   });
 
   it('should render property itemType SCRIPT', async () => {
@@ -324,10 +307,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.SCRIPT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.SCRIPT); // FIX 3: added await
   });
 
   it('should render property itemType SHORT TEXT', async () => {
@@ -337,10 +319,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_ELEMENTS_SHORT_TEXT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_ELEMENTS_SHORT_TEXT); // FIX 3: added await
   });
 
   it('should render property itemType COLLABORATE', async () => {
@@ -350,23 +331,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.COLLABORATE);
-  });
-
-  it('should render property itemType DECISION TREE', async () => {
-    render(
-      html`
-         <${ENCHANTED_ITEM_TYPE_AVATAR_TAG} itemType=${ICON_ITEM_TYPE.DECISION_TREE} />
-      `,
-      document.body
-    );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
-    await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.DECISION_TREE);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.COLLABORATE); // FIX 3: added await
   });
 
   it('should render property itemType TEXT LINK', async () => {
@@ -376,11 +343,11 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.TEXT_LINK);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.TEXT_LINK); // FIX 3: added await
   });
+
   it('should render property itemType TIF', async () => {
     render(
       html`
@@ -388,11 +355,11 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.TIF);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.TIF); // FIX 3: added await
   });
+
   it('should render property itemType COPY FILE', async () => {
     render(
       html`
@@ -400,10 +367,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.COPY_FILE);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.COPY_FILE); // FIX 3: added await
   });
 
   it('should render property itemType ELEMENTS TEXT', async () => {
@@ -413,10 +379,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_ELEMENTS_TEXT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.PAGE_ELEMENTS_TEXT); // FIX 3: added await
   });
 
   it('should render property itemType NOTEBOOK REFERENCE', async () => {
@@ -426,10 +391,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.NOTEBOOK_REFERENCE);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.NOTEBOOK_REFERENCE); // FIX 3: added await
   });
 
   it('should render property itemType MAIL ALL', async () => {
@@ -439,10 +403,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.MAIL_ALL);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.MAIL_ALL); // FIX 3: added await
   });
 
   it('should render property itemType USER PROFILE ALT', async () => {
@@ -452,10 +415,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.USER_PROFILE_ALT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.USER_PROFILE_ALT); // FIX 3: added await
   });
 
   it('should render property itemType LICENSE GLOBAL', async () => {
@@ -465,10 +427,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LICENSE_GLOBAL);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LICENSE_GLOBAL); // FIX 3: added await
   });
 
   it('should render property itemType USER PROFILE', async () => {
@@ -478,10 +439,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.USER_PROFILE);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.USER_PROFILE); // FIX 3: added await
   });
 
   it('should render property itemType DATA ANALYTICS', async () => {
@@ -491,10 +451,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.DATA_ANALYTICS);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.DATA_ANALYTICS); // FIX 3: added await
   });
 
   it('should render property itemType REMINDER', async () => {
@@ -504,10 +463,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.REMINDER);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.REMINDER); // FIX 3: added await
   });
 
   it('should render property itemType LICENSE DRAFT', async () => {
@@ -517,10 +475,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LICENSE_DRAFT);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LICENSE_DRAFT); // FIX 3: added await
   });
 
   it('should render property itemType EVENT WARNING', async () => {
@@ -530,10 +487,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.EVENT_WARNING);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.EVENT_WARNING); // FIX 3: added await
   });
 
   it('should render property itemType LAYERS EXTERNAL', async () => {
@@ -543,10 +499,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LAYERS_EXTERNAL);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.LAYERS_EXTERNAL); // FIX 3: added await
   });
 
   it('should render property itemType SUBFLOW', async () => {
@@ -556,10 +511,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.SUBFLOW);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.SUBFLOW); // FIX 3: added await
   });
 
   it('should render property itemType XLS', async () => {
@@ -569,10 +523,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.XLS);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.XLS); // FIX 3: added await
   });
 
   it('should render property itemType XLSX', async () => {
@@ -582,10 +535,9 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.XLSX);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.XLSX); // FIX 3: added await
   });
 
   it('should render property itemType CONTENT_ITEM with the correct color', async () => {
@@ -595,14 +547,20 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+    let component = $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME);
     await expect(component).toBeDisplayed();
-    expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CONTENT_ITEM);
+    await expect(component).toHaveAttribute('itemType', ICON_ITEM_TYPE.CONTENT_ITEM); // FIX 3: added await
 
-    let avatarElement = await component.$(`>>>${ENCHANTED_AVATAR_TAG_NAME}[data-testid="enchanted-item-type-avatar"]`).getElement();
-    expect(avatarElement).toHaveAttribute('color', AVATAR_COLOR.AVATAR_BLUE);
-    let divElement = await avatarElement.$('>>>div[data-testid="enchanted-avatar-div"]').getElement();
-    let iconElement = await divElement.$('>>>span[data-testid="enchanted-avatar-icon-template"]').getElement();
+    // FIX 4: Removed all .getElement() calls — they cache a raw DOM snapshot that
+    // Lit invalidates on the next render cycle, causing every subsequent WebDriver
+    // command against that reference to throw "stale element".
+    // Chain WDIO elements directly: $() re-queries the live DOM on every command.
+    const avatarElement = component.$(`>>>${ENCHANTED_AVATAR_TAG_NAME}[data-testid="enchanted-item-type-avatar"]`);
+    await avatarElement.waitForExist();
+    await expect(avatarElement).toHaveAttribute('color', AVATAR_COLOR.AVATAR_BLUE);
+    // FIX 4: Chain icon directly from avatarElement — no intermediate .getElement() needed
+    const iconElement = avatarElement.$('>>>span[data-testid="enchanted-avatar-icon-template"]');
+    await iconElement.waitForExist();
     await expect(iconElement).toBeExisting();
   });
 

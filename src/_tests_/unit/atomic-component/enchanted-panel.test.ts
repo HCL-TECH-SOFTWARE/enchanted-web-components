@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -15,7 +15,7 @@
 // External imports
 import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
-import { expect, $ } from '@wdio/globals';
+import { expect, $, browser } from '@wdio/globals';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-panel';
@@ -30,7 +30,8 @@ describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
     render(nothing, document.body);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    await browser.pause(300);
     render(nothing, document.body);
   });
 
@@ -53,7 +54,7 @@ describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
   it('should render component with title and content', async () => {
     let panelContent = html`
       <div data-testid="content-slot-wrapper">
-        <h2>Sample content</h2>
+        <h2>Sample Content</h2>
         <p>This is a sample text.</p>
       </div>
     `;
@@ -72,10 +73,10 @@ describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
+    let component = $(ENCHANTED_PANEL_TAG_NAME);
     await expect(component).toBeDisplayed();
-    expect(component).toHaveText('Sample Content');
-    const contentWrapper = await $('[data-testid="content-slot-wrapper"]');
+    await expect(component).toHaveText(['Sample Content' + '\n' +'This is a sample text.']);
+    const contentWrapper = $('[data-testid="content-slot-wrapper"]');
     await expect(contentWrapper).toBeDisplayed();
   });
 
@@ -93,15 +94,16 @@ describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
+    let component = $(ENCHANTED_PANEL_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let panelContainer = await component.shadow$('[part="panel-container"]').getElement();
 
     // Click on the close button
-    let closeButton = await component.shadow$('[part="panel-close-button"]').getElement();
+    let closeButton = component.shadow$('[part="panel-close-button"]');
     await closeButton.isExisting();
     await closeButton.click();
+    await browser.pause(300);
 
+    let panelContainer = component.shadow$('[part="panel-container"]');
     const ariaHiddenValue = await panelContainer.getAttribute('aria-hidden');
     expect(ariaHiddenValue).toBe('true');
   });
@@ -113,8 +115,8 @@ describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
-    let panelContainer = await component.shadow$('[part="panel-container"]').getElement();
+    let component = $(ENCHANTED_PANEL_TAG_NAME);
+    let panelContainer = component.shadow$('[part="panel-container"]');
     const ariaHiddenValue = await panelContainer.getAttribute('aria-hidden');
     expect(ariaHiddenValue).toBe('true');
   });
@@ -126,8 +128,8 @@ describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
-    let panelContainer = await component.shadow$('[part="panel-container"]').getElement();
+    let component = $(ENCHANTED_PANEL_TAG_NAME);
+    let panelContainer = component.shadow$('[part="panel-container"]');
     const ariaHiddenValue = await panelContainer.getAttribute('tabindex');
     expect(ariaHiddenValue).toBe('0');
   });
