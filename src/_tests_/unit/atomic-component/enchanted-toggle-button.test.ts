@@ -55,8 +55,8 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
     await expect(toggleButton.padding).toBe(false);
     await expect(toggleButton.iconSize).toBe('16');
     await expect(toggleButton.tooltipText).toBe('');
-    await expect(toggleButton.firstType).toBe(true);
-    await expect(toggleButton.lastType).toBe(true);
+    await expect(toggleButton.firstType).toBe(false);
+    await expect(toggleButton.lastType).toBe(false);
     await expect(toggleButton.ariaLabel).toBe('');
   });
 

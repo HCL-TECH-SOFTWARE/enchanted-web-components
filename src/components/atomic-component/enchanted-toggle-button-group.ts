@@ -30,7 +30,7 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
   orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   @property({ type: String })
-  size: 'small' | 'large' = 'large';
+  size: '16' | '20' = '20';
 
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -60,11 +60,12 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
       return;
     }
     const isHorizontal = this.orientation === 'horizontal';
+    const resolvedSize: '16' | '20' = this.size === '16' ? '16' : '20';
     this.toggleItems.forEach((button, index) => {
       button.firstType = isHorizontal ? index === 0 : true;
       button.lastType = isHorizontal ? index === this.toggleItems.length - 1 : true;
       button.toggleOn = index === this.selectedIndex;
-      button.iconSize = this.size === 'small' ? '16' : '20';
+      button.iconSize = resolvedSize;
       button.disabled = this.disabled;
       button.removeEventListener('toggle-change', this.handleToggleChange);
       button.addEventListener('toggle-change', this.handleToggleChange);

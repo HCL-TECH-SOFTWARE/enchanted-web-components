@@ -53,10 +53,10 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   tooltipText = '';
 
   @property({ type: Boolean, reflect: true })
-  firstType = true;
+  firstType = false;
 
   @property({ type: Boolean, reflect: true })
-  lastType = true;
+  lastType = false;
 
   @property({ type: String })
   ariaLabel = '';
