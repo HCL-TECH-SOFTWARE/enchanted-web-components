@@ -153,9 +153,9 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     await browser.pause(50); // Wait for size changes to propagate to buttons
 
     const buttons = await getButtons();
-    await expect(buttons[0].size).toBe('small');
-    await expect(buttons[1].size).toBe('small');
-    await expect(buttons[2].size).toBe('small');
+    await expect(buttons[0].iconSize).toBe('16');
+    await expect(buttons[1].iconSize).toBe('16');
+    await expect(buttons[2].iconSize).toBe('16');
   });
 
   it('should propagate disabled=true to all child buttons', async () => {

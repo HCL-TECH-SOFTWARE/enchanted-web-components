@@ -109,12 +109,14 @@
   &[border="paper"]::part(badge-text-rtl),
   &[border="paper"]::part(badge-dot) {
     border: 2px solid map.get(themeMap.$enchantedPalette, WHITE100P);
+    box-shadow: none;
   }
 
   &[border="default"]::part(badge-text),
   &[border="default"]::part(badge-text-rtl),
   &[border="default"]::part(badge-dot) {
     border: 2px solid map.get(themeMap.$enchantedPalette, NG100);
+    box-shadow: none;
   }
 
   &[border="secondary"]::part(badge-text),

@@ -26,10 +26,21 @@
     position: relative;
   }
 
+  &::part(toggle-button-badge-wrapper) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+  }
+
   &::part(toggle-single-button) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     background-color: transparent;
     border-radius: 2px;
     padding: 2px;
@@ -139,6 +150,12 @@
   /* -------------*/
   /* Grouped Button Styles */
   /* -------------*/
+
+  // Keep separator overlap stable between non-last grouped buttons.
+  &[firstType]:not([lastType])::part(toggle-single-button),
+  &:not([firstType]):not([lastType])::part(toggle-single-button) {
+    margin-right: -1px;
+  }
   
   // firstType=true, lastType=false when toggleOn=true.
   &[firstType][toggleOn]:not([lastType])::part(toggle-single-button) {
@@ -147,7 +164,6 @@
   }
   // firstType=true, lastType=false when toggleOn=false.
   &[firstType]:not([lastType]):not([toggleOn])::part(toggle-single-button) {
-    border-right: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
@@ -159,7 +175,6 @@
 
   // firstType=false, lastType=false when toggleOn=false.
   &:not([firstType]):not([lastType]):not([toggleOn])::part(toggle-single-button) {
-    border-right: none;
     border-radius: 0;
   }
 
@@ -168,13 +183,6 @@
   &:not([firstType])[lastType]:not([toggleOn])::part(toggle-single-button) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-  }
-
-  // firstType=false, lastType=false when toggleOn=false.
-  &:not([firstType]):not([lastType]):not([toggleOn])::part(toggle-single-button) {
-    border-right: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
   }
 
 }

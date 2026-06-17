@@ -32,7 +32,6 @@ import { ENCHANTED_TOGGLE_BUTTON_TAG, generateIconTagName } from '../components/
  * @property showBadge - Show badge slot
  * @property disabled - Disabled state
  * @property padding - Adds icon button padding
- * @property size - Icon button size
  * @property singleButtonTitle - Title used to render tooltip slot
  * @property singleButtonAria - Aria label for the button
  * @property tooltiptext - Tooltip text
@@ -47,7 +46,6 @@ export interface EnchantedToggleButtonProps {
   showBadge?: boolean;
   disabled?: boolean;
   padding?: boolean;
-  size?: 'small' | 'large';
   iconSize?: '16' | '20';
   tooltipText?: string;
   ariaLabel?: string;
@@ -64,12 +62,6 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     showBadge: { control: 'boolean', description: 'Show badge slot', table: { defaultValue: { summary: 'false' } } },
     disabled: { control: 'boolean', description: 'Disabled', table: { defaultValue: { summary: 'false' } } },
     padding: { control: 'boolean', description: 'Adds icon button padding', table: { defaultValue: { summary: 'false' } } },
-    size: {
-      control: { type: 'select' },
-      options: ['small', 'large'],
-      description: 'Icon button size',
-      table: { defaultValue: { summary: 'small' } },
-    },
     tooltipText: { control: 'text', description: 'Tooltip text', table: { defaultValue: { summary: '' } } },
     ariaLabel: { control: 'text', description: 'Aria label for the button', table: { defaultValue: { summary: '' } } },
     iconSize: {
@@ -86,7 +78,6 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     showBadge: false,
     disabled: false,
     padding: false,
-    size: 'small',
     iconSize: '16',
     tooltipText: '',
     ariaLabel: 'Toggle',
@@ -108,7 +99,6 @@ const meta: Meta<EnchantedToggleButtonProps> = {
         ?disabled=${args.disabled}
         tooltipText=${args.tooltipText}
         ?padding=${args.padding}
-        size=${args.size}
         ?firstType=${args.firstType}
         ?lastType=${args.lastType}
         iconSize=${args.iconSize}
@@ -119,7 +109,7 @@ const meta: Meta<EnchantedToggleButtonProps> = {
           slot="badge"
           badge=${EnchantedBadgeType.DOT}
           color=${EnchantedBadgeColor.PRIMARY}
-          border=${EnchantedBadgeBorder.NONE}
+          border=${EnchantedBadgeBorder.PAPER}
         ></enchanted-badge>
         <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
 
@@ -168,10 +158,9 @@ export const AllStates: Story = {
             <${iconTag} slot="icon"></${iconTag}>
             <enchanted-badge
               slot="badge"
-              badge=${EnchantedBadgeType.TEXT}
-              text="5"
+              badge=${EnchantedBadgeType.DOT}
               color=${EnchantedBadgeColor.PRIMARY}
-              border=${EnchantedBadgeBorder.NONE}
+              border=${EnchantedBadgeBorder.PAPER}
             ></enchanted-badge>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>

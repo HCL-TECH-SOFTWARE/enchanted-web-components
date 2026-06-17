@@ -40,21 +40,18 @@ interface EnchantedToggleButtonGroupStoryArgs {
   button1TooltipText: string;
   button1ShowBadge: boolean;
   button1Padding: boolean;
-  button1IconSize: '16' | '20';
 
   // Button 2 (Edit) props
   button2AriaLabel: string;
   button2TooltipText: string;
   button2ShowBadge: boolean;
   button2Padding: boolean;
-  button2IconSize: '16' | '20';
 
   // Button 3 (Delete) props
   button3AriaLabel: string;
   button3TooltipText: string;
   button3ShowBadge: boolean;
   button3Padding: boolean;
-  button3IconSize: '16' | '20';
 }
 
 const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
@@ -106,12 +103,6 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
       description: 'Add extra padding inside Button 1',
       table: { category: 'Button 1 (Add)', defaultValue: { summary: 'false' } },
     },
-    button1IconSize: {
-      control: { type: 'select' },
-      options: ['16', '20'],
-      description: 'Icon size for Button 1',
-      table: { category: 'Button 1 (Add)', defaultValue: { summary: '20' } },
-    },
 
     // ── Button 2 ──────────────────────────────────────────────
     button2AriaLabel: {
@@ -133,12 +124,6 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
       control: 'boolean',
       description: 'Add extra padding inside Button 2',
       table: { category: 'Button 2 (Edit)', defaultValue: { summary: 'false' } },
-    },
-    button2IconSize: {
-      control: { type: 'select' },
-      options: ['16', '20'],
-      description: 'Icon size for Button 2',
-      table: { category: 'Button 2 (Edit)', defaultValue: { summary: '20' } },
     },
 
     // ── Button 3 ──────────────────────────────────────────────
@@ -162,12 +147,6 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
       description: 'Add extra padding inside Button 3',
       table: { category: 'Button 3 (Delete)', defaultValue: { summary: 'false' } },
     },
-    button3IconSize: {
-      control: { type: 'select' },
-      options: ['16', '20'],
-      description: 'Icon size for Button 3',
-      table: { category: 'Button 3 (Delete)', defaultValue: { summary: '20' } },
-    },
   },
   args: {
     orientation: 'horizontal',
@@ -179,19 +158,16 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
     button1TooltipText: 'Add',
     button1ShowBadge: false,
     button1Padding: false,
-    button1IconSize: '20',
 
     button2AriaLabel: 'Edit',
     button2TooltipText: 'Edit',
     button2ShowBadge: false,
     button2Padding: false,
-    button2IconSize: '20',
 
     button3AriaLabel: 'Delete',
     button3TooltipText: 'Delete',
     button3ShowBadge: true,
     button3Padding: false,
-    button3IconSize: '20',
   },
 
   render: (args) => {
@@ -207,7 +183,6 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
             tooltipText=${args.button1TooltipText}
             ?showBadge=${args.button1ShowBadge}
             ?padding=${args.button1Padding}
-            .iconSize=${args.button1IconSize}
           >
             <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
             ${args.button1ShowBadge ? html`<enchanted-badge slot="badge" badge="dot"></enchanted-badge>` : ''}
@@ -217,7 +192,6 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
             tooltipText=${args.button2TooltipText}
             ?showBadge=${args.button2ShowBadge}
             ?padding=${args.button2Padding}
-            .iconSize=${args.button2IconSize}
           >
             <${generateIconTagName('icon-edit')} slot="icon"></${generateIconTagName('icon-edit')}>
             ${args.button2ShowBadge ? html`<enchanted-badge slot="badge" badge="dot"></enchanted-badge>` : ''}
@@ -227,7 +201,6 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
             tooltipText=${args.button3TooltipText}
             ?showBadge=${args.button3ShowBadge}
             ?padding=${args.button3Padding}
-            .iconSize=${args.button3IconSize}
           >
             <${generateIconTagName('icon-delete')} slot="icon"></${generateIconTagName('icon-delete')}>
             ${args.button3ShowBadge ? html`<enchanted-badge slot="badge" badge="dot"></enchanted-badge>` : ''}

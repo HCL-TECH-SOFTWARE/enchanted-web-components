@@ -47,9 +47,6 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   padding = false;
 
   @property({ type: String })
-  size: 'small' | 'large' = 'large';
-
-  @property({ type: String })
   iconSize: '16' | '20' = '16';
 
   @property({ type: String })
@@ -93,7 +90,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   // }
 
   private getSizepart(): string {
-    return this.size === 'small' ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL : TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE;
+    return this.iconSize === '16' ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL : TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE;
   }
 
   private getPaddingPart(): string {
@@ -102,7 +99,9 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
 
   private renderBadge() {
     return this.showBadge ? html`
-    <slot name="badge"></slot>
+    <div part="${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE_WRAPPER}">
+      <slot name="badge"></slot>
+    </div>
     ` : nothing;
   }
 

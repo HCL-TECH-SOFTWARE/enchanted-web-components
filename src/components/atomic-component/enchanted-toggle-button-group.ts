@@ -64,7 +64,7 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
       button.firstType = isHorizontal ? index === 0 : true;
       button.lastType = isHorizontal ? index === this.toggleItems.length - 1 : true;
       button.toggleOn = index === this.selectedIndex;
-      button.size = this.size === 'small' ? 'small' : 'large';
+      button.iconSize = this.size === 'small' ? '16' : '20';
       button.disabled = this.disabled;
       button.removeEventListener('toggle-change', this.handleToggleChange);
       button.addEventListener('toggle-change', this.handleToggleChange);

@@ -84,6 +84,7 @@ export enum CHIP_PARTS {
 export enum TOGGLE_BUTTON_PARTS {
   TOGGLE_BUTTON_DISABLED = 'toggle-button-disabled',
   TOGGLE_BUTTON_DIV = 'toggle-button-div',
+  TOGGLE_BUTTON_BADGE_WRAPPER = 'toggle-button-badge-wrapper',
   TOGGLE_BUTTON_ICON = 'toggle-button-icon',
   TOGGLE_SINGLE_BUTTON = 'toggle-single-button',
   TOGGLE_BUTTON_SMALL = 'toggle-button-small',
