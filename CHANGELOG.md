@@ -5,6 +5,7 @@
 ### Added
 
 - added automated WCAG 2.1 AA accessibility audits via @storybook/addon-a11y and Chromatic CI.
+- added `@storybook/addon-docs` to enable documents for all `enchanted-components`
 
 ### Fixed
 - Reduced WebdriverIO (wdio) console warnings across unit tests by removing deprecated synchronous .getElement() chaining and refactoring async/await element handling.
