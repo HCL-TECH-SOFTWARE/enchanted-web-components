@@ -99,7 +99,7 @@ export const config = {
   capabilities: [{
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
-    // browserVersion: 'latest',
+    browserVersion: '125.0.6422.141',
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [
@@ -109,6 +109,10 @@ export const config = {
         '--disable-gpu',
       ]
     },
+    // Isolate the download cache path away from the global /tmp folder
+    'wdio:driverOptions': {
+      cacheDir: './.wdio-cache'
+    }
   }],
 
   //
