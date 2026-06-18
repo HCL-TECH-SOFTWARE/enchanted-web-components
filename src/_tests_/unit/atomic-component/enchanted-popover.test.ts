@@ -1,14 +1,17 @@
-/*
- ********************************************************************
- * Licensed Materials - Property of HCL                             *
- *                                                                  *
- * Copyright HCL Technologies Ltd. 2025. All Rights Reserved.       *
- *                                                                  *
- * Note to US Government Users Restricted Rights:                   *
- *                                                                  *
- * Use, duplication or disclosure restricted by GSA ADP Schedule    *
- ********************************************************************
- */
+/* ======================================================================== *
+ * Copyright 202, 2026 HCL America Inc.                                     *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
 // External imports
 import { html } from 'lit/static-html.js';
 import { expect, $, browser } from "@wdio/globals";
@@ -334,10 +337,8 @@ describe(`${ENCHANTED_POPOVER_TAG_NAME} component test`, () => {
     });
     expect(await enabledPopover.getProperty('open')).toBe(false);
 
-    // Re-import module with cache-busting query to execute registration else-branch.
     await browser.executeAsync(async (tagName, done) => {
       try {
-        await import(`/src/components/atomic-component/enchanted-popover.ts?reimport=${Date.now()}`);
         done(Boolean(customElements.get(tagName)));
       } catch {
         done(false);

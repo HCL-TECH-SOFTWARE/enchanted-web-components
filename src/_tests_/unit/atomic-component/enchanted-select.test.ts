@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -42,7 +42,8 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
     render(nothing, document.body);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    await browser.pause(300);
     render(nothing, document.body);
   });
 
@@ -95,9 +96,9 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
-    const labelElement = await component.shadow$('label[data-testid="enchanted-select-label"]').getElement();
-    const buttonElement = await component.shadow$(ENCHANTED_BUTTON_TAG_NAME).getElement();
+    const component = $(ENCHANTED_SELECT_TAG_NAME);
+    const labelElement = component.shadow$('label[data-testid="enchanted-select-label"]');
+    const buttonElement = component.shadow$(ENCHANTED_BUTTON_TAG_NAME);
 
     await expect(labelElement).toHaveText('Test Label');
     await expect(buttonElement).toHaveAttribute('buttontext', 'Option 1');
@@ -116,11 +117,11 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    let component = $(ENCHANTED_SELECT_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let labelElement = await component.$('>>>label[data-testid="enchanted-select-label"]').getElement();
+    let labelElement = component.$('>>>label[data-testid="enchanted-select-label"]');
     await expect(labelElement).toHaveText('Select input');
-    let buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+    let buttonElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`);
     await expect(buttonElement).toHaveAttribute('buttontext', DEFAULT_DOCUMENT_OBJECT_TYPE);
   });
 
@@ -139,16 +140,16 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    let component = $(ENCHANTED_SELECT_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let labelElement = await component.$('>>>label[data-testid="enchanted-select-label"]').getElement();
+    let labelElement = component.$('>>>label[data-testid="enchanted-select-label"]');
     await expect(labelElement).toHaveText('Select input');
-    let buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+    let buttonElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`);
     await expect(buttonElement).toHaveAttribute('buttontext', 'Select an option');
     await buttonElement.click();
-    let listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`).getElement();
+    let listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`);
     await expect(listElement).toBeTruthy();
-    const listItem = await component.$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`).getElement();
+    const listItem = await component.$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`);
     const listItemText = await listItem.getText();
     if (listItemText === 'title') {
       await listItem.click();
@@ -170,16 +171,16 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    let component = $(ENCHANTED_SELECT_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let labelElement = await component.$('>>>label[data-testid="enchanted-select-label"]').getElement();
+    let labelElement = component.$('>>>label[data-testid="enchanted-select-label"]');
     await expect(labelElement).toHaveText('Select input');
-    let buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+    let buttonElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`);
     await expect(buttonElement).toHaveAttribute('buttontext', 'Select an option');
     await buttonElement.click();
-    let listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`).getElement();
+    let listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`);
     await expect(listElement).toBeTruthy();
-    const listItem = await component.$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`).getElement();
+    const listItem = await component.$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`);
     const listItemText = await listItem.getText();
     if (listItemText === 'title') {
       await listItem.click();
@@ -200,13 +201,13 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    let component = $(ENCHANTED_SELECT_TAG_NAME);
     await expect(component).toBeDisplayed();
-    let buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+    let buttonElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`);
     await buttonElement.click();
-    let listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`).getElement();
+    let listElement = component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`);
     await expect(listElement).toBeTruthy();
-    const listItem = await component.$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`).getElement();
+    const listItem = component.$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`);
     const listItemText = await listItem.getText();
     if (listItemText === 'title') {
       await listItem.click();
@@ -229,17 +230,17 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
       document.body
     );
 
-    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
-    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+    const component = $(ENCHANTED_SELECT_TAG_NAME);
+    const buttonElement = component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`);
     await buttonElement.click();
     await browser.pause(500);
     const btnText = await buttonElement.getText();
     expect(btnText).toBe(DEFAULT_DOCUMENT_OBJECT_TYPE);
 
-    const listElement = await component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`).getElement();
+    const listElement = component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`);
     await expect(listElement).toBeTruthy();
 
-    const listItems = await component.$$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`).getElements();
+    const listItems = component.$$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`);
     await expect((await listItems).length).toBeGreaterThan(0);
     await browser.keys([Key.ArrowDown, Key.ArrowUp, Key.Enter]);
     const btnTextAfterSelection = await buttonElement.getText();

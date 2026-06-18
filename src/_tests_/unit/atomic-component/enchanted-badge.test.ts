@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -15,7 +15,7 @@
 // External imports
 import { nothing, render } from 'lit';
 import { html } from 'lit/static-html.js';
-import { $, expect } from '@wdio/globals';
+import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-badge';
@@ -31,7 +31,8 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
     render(nothing, document.body);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    await browser.pause(300);
     render(nothing, document.body);
   });
 
@@ -58,9 +59,9 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_BADGE_TAG_NAME).getElement();
+    const component = $(ENCHANTED_BADGE_TAG_NAME);
     await expect(component).toBeDisplayed();
-    expect(component).toHaveText('');
+    await expect(component).toHaveText('');
   });
 
   it('should render property badge', async () => {
@@ -70,10 +71,9 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
       `,
       document.body
     );
-    let component = await $(ENCHANTED_BADGE_TAG_NAME).getElement();
+    const component = $(ENCHANTED_BADGE_TAG_NAME);
     await expect(component).toBeDisplayed();
-
-    expect(component).toHaveText('20');
+    await expect(component).toHaveText('20');
   });
 
   it('should render with default properties', async () => {
@@ -81,7 +81,7 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
       html`<${ENCHANTED_BADGE_TAG}></${ENCHANTED_BADGE_TAG}>`,
       document.body
     );
-    const component = await $(ENCHANTED_BADGE_TAG_NAME);
+    const component = $(ENCHANTED_BADGE_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('badge', EnchantedBadgeType.TEXT);
     await expect(component).toHaveAttribute('color', EnchantedBadgeColor.PRIMARY);
@@ -93,7 +93,7 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
       html`<${ENCHANTED_BADGE_TAG} badge="${EnchantedBadgeType.TEXT}" text="99"></${ENCHANTED_BADGE_TAG}>`,
       document.body
     );
-    const component = await $(ENCHANTED_BADGE_TAG_NAME);
+    const component = $(ENCHANTED_BADGE_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveText('99');
   });
@@ -103,7 +103,7 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
       html`<${ENCHANTED_BADGE_TAG} badge="${EnchantedBadgeType.DOT}"></${ENCHANTED_BADGE_TAG}>`,
       document.body
     );
-    const component = await $(ENCHANTED_BADGE_TAG_NAME);
+    const component = $(ENCHANTED_BADGE_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).not.toHaveText();
   });
@@ -113,23 +113,27 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
       html`<${ENCHANTED_BADGE_TAG} color="${EnchantedBadgeColor.ERROR}" border="${EnchantedBadgeBorder.DARK}"></${ENCHANTED_BADGE_TAG}>`,
       document.body
     );
-    const component = await $(ENCHANTED_BADGE_TAG_NAME);
+    const component = $(ENCHANTED_BADGE_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('color', EnchantedBadgeColor.ERROR);
     await expect(component).toHaveAttribute('border', EnchantedBadgeBorder.DARK);
   });
 
   it('should render with correct properties', async () => {
-    const component = document.createElement(ENCHANTED_BADGE_TAG_NAME);
-    component.setAttribute('badge', EnchantedBadgeType.TEXT);
-    component.setAttribute('color', EnchantedBadgeColor.PRIMARY);
-    component.setAttribute('border', EnchantedBadgeBorder.DEFAULT);
-
-    document.body.appendChild(component);
-
-    const badge = await $(component);
-    expect(badge).toHaveAttribute('badge', EnchantedBadgeType.TEXT);
-    expect(badge).toHaveAttribute('color', EnchantedBadgeColor.PRIMARY);
-    expect(badge).toHaveAttribute('border', EnchantedBadgeBorder.DEFAULT);
+    render(
+      html`
+        <${ENCHANTED_BADGE_TAG}
+          badge="${EnchantedBadgeType.TEXT}"
+          color="${EnchantedBadgeColor.PRIMARY}"
+          border="${EnchantedBadgeBorder.DEFAULT}"
+        ></${ENCHANTED_BADGE_TAG}>
+      `,
+      document.body
+    );
+    const badge = $(ENCHANTED_BADGE_TAG_NAME);
+    await expect(badge).toBeDisplayed();
+    await expect(badge).toHaveAttribute('badge', EnchantedBadgeType.TEXT);   // FIX 3: added await
+    await expect(badge).toHaveAttribute('color', EnchantedBadgeColor.PRIMARY); // FIX 3: added await
+    await expect(badge).toHaveAttribute('border', EnchantedBadgeBorder.DEFAULT); // FIX 3: added await
   });
 });
