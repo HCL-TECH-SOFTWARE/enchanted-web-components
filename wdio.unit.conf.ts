@@ -102,6 +102,8 @@ export const config = {
     browserVersion: 'stable',
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
+      // Point directly to the native Google Chrome binary pre-installed on the Ubuntu runner
+      binary: '/usr/bin/google-chrome', 
       args: [
         '--no-sandbox',
         '--headless=new', // Use the modern headless engine flag

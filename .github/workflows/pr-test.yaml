@@ -32,8 +32,10 @@ jobs:
         run: npm ci
       - name: Execute unit tests
         run: |
+          # Purge any remaining corrupted files from previous failed actions
           rm -rf /tmp/chromedriver /tmp/chrome ./.wdio-cache
+          
+          # This will now safely trigger both sequential runs with a single worker process each
           npm run test
         env:
-          # Define the missing compiler preset required by your runner configuration
-          WDIO_PRESET: 'lit'
+          WDIO_PRESET: lit
