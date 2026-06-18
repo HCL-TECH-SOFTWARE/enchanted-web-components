@@ -31,10 +31,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Execute unit tests
-        run: |
-          rm -rf /tmp/chromedriver /tmp/chrome ./.wdio-cache
-          
-          # Wrap the execution in xvfb-run to provide an isolated virtual display server
-          xvfb-run --auto-servernum npx wdio run ./wdio.unit.conf.ts
-        env:
-          WDIO_PRESET: lit
+        run: npm run test

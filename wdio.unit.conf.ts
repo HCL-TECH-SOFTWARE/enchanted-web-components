@@ -16,9 +16,6 @@
 import { tmpFolderCleanup } from './wdio-util';
 
 export const config = {
-  // 1. Move cacheDir to the ROOT level so WDIO actually respects it
-  cacheDir: './.wdio-cache',
-
   // ====================
   // Runner Configuration
   // ====================
@@ -44,8 +41,7 @@ export const config = {
           './src/_tests_/unit/**/*.test.ts',
           './src/components/**/*.ts'
         ],
-        // Set to false to avoid aggressive caching write collisions in CI
-        force: false
+        force: true
       }
     }
   }],
@@ -73,8 +69,7 @@ export const config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    // Wrapping the glob string in an inner array forces all 42 files into exactly ONE worker queue
-    ['./src/_tests_/unit/**/*.test.ts']
+    './src/_tests_/unit/**/*.test.ts'
   ],
   // Patterns to exclude.
   exclude: [
@@ -104,15 +99,13 @@ export const config = {
   capabilities: [{
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
-    // browserVersion: 'stable',
-    'wdio:enforceWebDriverClassic': false,
+    browserVersion: 'stable',
+    'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
-        '--headless=new', // Use the modern headless engine flag
+        '--headless',
         '--disable-dev-shm-usage',
-        '--disable-gpu',
-        '--remote-allow-origins=*' // Prevents WebSocket connection rejections in CI
       ]
     },
   }],
@@ -124,7 +117,7 @@ export const config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'debug',
+  logLevel: 'error',
   //
   // Set specific log levels per logger
   // loggers:
@@ -163,7 +156,7 @@ export const config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: [],
+  services: ['visual'],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
