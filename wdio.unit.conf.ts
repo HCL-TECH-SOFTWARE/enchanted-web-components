@@ -99,7 +99,7 @@ export const config = {
   capabilities: [{
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
-    browserVersion: 'stable',
+    browserVersion: '148.0.7778.216',
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [
