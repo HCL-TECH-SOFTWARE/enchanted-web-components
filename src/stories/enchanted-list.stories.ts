@@ -80,8 +80,8 @@ export const AllStates: Story = {
         </div>
 
         <div>
-          <h3 style="margin-top: 0;">List with role="listbox"</h3>
-          <${ENCHANTED_LIST_TAG} role="listbox">
+          <h3 style="margin-top: 0;" id="listbox-label">List with role="listbox"</h3>
+          <${ENCHANTED_LIST_TAG} role="listbox" aria-labelledby="listbox-label">
             <${ENCHANTED_LIST_ITEM_TAG} role="option">Option A</${ENCHANTED_LIST_ITEM_TAG}>
             <${ENCHANTED_LIST_ITEM_TAG} role="option">Option B</${ENCHANTED_LIST_ITEM_TAG}>
             <${ENCHANTED_LIST_ITEM_TAG} role="option">Option C</${ENCHANTED_LIST_ITEM_TAG}>
@@ -89,8 +89,8 @@ export const AllStates: Story = {
         </div>
 
         <div>
-          <h3 style="margin-top: 0;">List with role="menu"</h3>
-          <${ENCHANTED_LIST_TAG} role="menu">
+          <h3 style="margin-top: 0;" id="menu-label">List with role="menu"</h3>
+          <${ENCHANTED_LIST_TAG} role="menu" aria-labelledby="menu-label">
             <${ENCHANTED_LIST_ITEM_TAG} role="menuitem">Menu Item 1</${ENCHANTED_LIST_ITEM_TAG}>
             <${ENCHANTED_LIST_ITEM_TAG} role="menuitem">Menu Item 2</${ENCHANTED_LIST_ITEM_TAG}>
             <${ENCHANTED_LIST_ITEM_TAG} role="menuitem">Menu Item 3</${ENCHANTED_LIST_ITEM_TAG}>
