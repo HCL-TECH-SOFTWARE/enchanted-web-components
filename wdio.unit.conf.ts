@@ -14,6 +14,7 @@
  * ======================================================================== */
 
 import { tmpFolderCleanup } from './wdio-util';
+import path from 'path';
 
 export const config = {
   // ====================
@@ -75,6 +76,10 @@ export const config = {
   exclude: [
     // 'path/to/excluded/files'
   ],
+
+  // Tell WDIO to cache browsers in the project workspace instead of /tmp
+  cacheDir: path.join(__dirname, '.wdio-browser-cache'),
+
   //
   // ============
   // Capabilities
@@ -106,6 +111,7 @@ export const config = {
         '--no-sandbox',
         '--headless',
         '--disable-dev-shm-usage',
+        '--disable-gpu',
       ]
     },
   }],

@@ -17,6 +17,7 @@ coverage
 .vscode/*
 !.vscode/extensions.json
 .idea
+.wdio-browser-cache
 .DS_Store
 *.suo
 *.ntvs*
