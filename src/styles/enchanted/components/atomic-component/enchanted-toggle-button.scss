@@ -160,7 +160,7 @@
   // firstType=true, lastType=false when toggleOn=false.
   &[firstType]:not([lastType]):not([toggleOn])::part(toggle-single-button) {
     border-top-right-radius: 0;
-    border-right: none;
+    border-right: 1px solid transparent;
     border-bottom-right-radius: 0;
   }
 
@@ -171,7 +171,7 @@
 
   // firstType=false, lastType=false when toggleOn=false.
   &:not([firstType]):not([lastType]):not([toggleOn])::part(toggle-single-button) {
-    border-right: none;
+    border-right: 1px solid transparent;
     border-radius: 0;
   }
 
@@ -182,9 +182,9 @@
     border-bottom-left-radius: 0;
   }
 
-   &:not([firstType]):not([lastType]):not([toggleOn])::part(toggle-single-button) {
-    border-right: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+
+  &[firstType]:not([lastType])::part(toggle-single-button),
+  &:not([firstType]):not([lastType])::part(toggle-single-button) {
+    margin-right: -1px;
   }
 }
