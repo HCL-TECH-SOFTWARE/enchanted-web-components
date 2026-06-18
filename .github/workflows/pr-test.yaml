@@ -33,4 +33,7 @@ jobs:
       - name: Execute unit tests
         run: |
           rm -rf /tmp/chromedriver /tmp/chrome ./.wdio-cache
-          npx wdio run ./wdio.unit.conf.ts --maxInstances=1
+          npm run test
+        env:
+          # Define the missing compiler preset required by your runner configuration
+          WDIO_PRESET: 'lit'

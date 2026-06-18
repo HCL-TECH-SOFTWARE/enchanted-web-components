@@ -107,6 +107,7 @@ export const config = {
         '--headless=new', // Use the modern headless engine flag
         '--disable-dev-shm-usage',
         '--disable-gpu',
+        '--remote-allow-origins=*' // Prevents WebSocket connection rejections in CI
       ]
     },
     // Isolate the download cache path away from the global /tmp folder
