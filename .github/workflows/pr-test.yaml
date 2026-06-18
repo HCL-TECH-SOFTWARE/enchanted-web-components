@@ -32,10 +32,9 @@ jobs:
         run: npm ci
       - name: Execute unit tests
         run: |
-          # Safe cleanup of legacy temporary directory locks
           rm -rf /tmp/chromedriver /tmp/chrome ./.wdio-cache
           
-          # Run the unit configurations cleanly
-          npx wdio run ./wdio.unit.conf.ts
+          # Wrap the execution in xvfb-run to provide an isolated virtual display server
+          xvfb-run --auto-servernum npx wdio run ./wdio.unit.conf.ts
         env:
           WDIO_PRESET: lit

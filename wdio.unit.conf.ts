@@ -44,7 +44,8 @@ export const config = {
           './src/_tests_/unit/**/*.test.ts',
           './src/components/**/*.ts'
         ],
-        force: true
+        // Set to false to avoid aggressive caching write collisions in CI
+        force: false
       }
     }
   }],
@@ -103,8 +104,8 @@ export const config = {
   capabilities: [{
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
-    browserVersion: 'stable',
-    'wdio:enforceWebDriverClassic': true,
+    // browserVersion: 'stable',
+    'wdio:enforceWebDriverClassic': false,
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
