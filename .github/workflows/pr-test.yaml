@@ -36,6 +36,6 @@ jobs:
           rm -rf /tmp/chromedriver /tmp/chrome ./.wdio-cache
           
           # This will now safely trigger both sequential runs with a single worker process each
-          npm run test
+          npx wdio run ./wdio.unit.conf.ts --maxInstances=1
         env:
           WDIO_PRESET: lit
