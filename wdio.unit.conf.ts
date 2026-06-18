@@ -104,7 +104,7 @@ export const config = {
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
-        '--headless',
+        '--headless=new', // Use the modern headless engine flag
         '--disable-dev-shm-usage',
         '--disable-gpu',
       ]
@@ -122,7 +122,7 @@ export const config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'error',
+  logLevel: 'debug',
   //
   // Set specific log levels per logger
   // loggers:
