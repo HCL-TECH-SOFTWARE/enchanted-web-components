@@ -69,7 +69,7 @@ export const config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    ['./src/_tests_/unit/**/*.test.ts']
+    './src/_tests_/unit/**/*.test.ts'
   ],
   // Patterns to exclude.
   exclude: [
@@ -99,7 +99,7 @@ export const config = {
   capabilities: [{
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
-    browserVersion: '148.0.7778.216',
+    browserVersion: 'stable',
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [
