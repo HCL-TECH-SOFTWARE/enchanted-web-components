@@ -106,7 +106,7 @@ export const config = {
     maxInstances: 1, 
     'goog:chromeOptions': {
       args: [
-        '--headless=new',
+        '--headless',
         '--no-sandbox',
         '--disable-dev-shm-usage',
         '--disable-gpu'
