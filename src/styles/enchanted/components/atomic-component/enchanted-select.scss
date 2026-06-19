@@ -130,10 +130,10 @@
   &::part(unordered-list) {
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 4px 0 4px 0;
     background-color: palette.clr(light, background, paper);
-    border: 1px solid palette.clr(light, action, disabled);
-    border-radius: 2px;
+    box-shadow: #{map.get(themeMap.$enchantedPalette, shadows6)};
+    border-radius: 4px;
     list-style: none;
     position:absolute;
     z-index: 10; // TODO - we need z-index layout ... I don't know if this z-index is correct
@@ -173,9 +173,8 @@
   &::part(list-item-selected):focus,
   &::part(list-item):focus-visible,
   &::part(list-item-selected):focus-visible {
-    border: 1px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
-    border-radius: 2px;
-    outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) 1px solid;  
+    outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) 2px solid;
+    outline-offset: -2px;
   }
 
   &::part(list-item):hover {

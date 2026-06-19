@@ -91,6 +91,7 @@
   }
 
   &::part(top-container-div) {
+    position: relative;
     display: flex;
     flex-direction: column;
   }
@@ -119,7 +120,7 @@
   &::part(unordered-list) {
     display: block;
     z-index: 99 !important;
-    width: inherit !important;
+    // width: inherit !important;
     border: none !important;
     box-shadow: #{map.get(themeMap.$enchantedPalette, shadows6)};
     margin-top: 2px !important;
@@ -136,9 +137,8 @@
   &::part(list-item-selected):focus,
   &::part(list-item):focus-visible,
   &::part(list-item-selected):focus-visible {
-    border-radius: 4px;
-    border: 1px solid map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06);
     outline: map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06) 1px solid;  
+    outline-offset: -2px;
   }
 
 
@@ -147,17 +147,23 @@
     background-color: palette.clr(light, action, hover) !important;
   }
 
-  &::part(list-items) {
-    flex: 1 1 95%;
-    padding-left: 4px;
-  }
+  // &::part(list-items) {
+  //   flex: 1 1 95%;
+  //   padding-left: 4px;
+  // }
 
-  &::part(checkmark),
-  &::part(checkmark-placeholder) {
-    flex: 0 0 5%;
+  &::part(checkmark) {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 8px;
+  }
+
+  &::part(checkmark-placeholder) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 24px;
   }
 
   &::part(clear-all-icon),
