@@ -103,15 +103,13 @@ export const config = {
   // https://saucelabs.com/platform/platform-configurator
   capabilities: [{
     browserName: 'chrome', 
-    maxInstances: 1,
+    maxInstances: 1, 
     'goog:chromeOptions': {
-      // Force WDIO to use the system-installed Chrome
-      // binary: process.env.CHROME_BIN || '/usr/bin/google-chrome',
       args: [
+        '--headless=new',
         '--no-sandbox',
-        '--headless',
         '--disable-dev-shm-usage',
-        '--disable-gpu',
+        '--disable-gpu'
       ]
     },
   }],
