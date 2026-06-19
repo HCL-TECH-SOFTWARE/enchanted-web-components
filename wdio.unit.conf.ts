@@ -100,12 +100,11 @@ export const config = {
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
   // https://saucelabs.com/platform/platform-configurator
   capabilities: [{
-    // capabilities for local browser web tests
-    browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
+    browserName: 'chrome', 
     maxInstances: 1,
-    browserVersion: 'latest', // <--- Let WDIO natively download the matching pair
-    // 'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
+      // Point directly to the environment variable we mapped in the YAML
+      binary: process.env.CHROME_BIN,
       // Force WDIO to use the system-installed Chrome
       // binary: process.env.CHROME_BIN || '/usr/bin/google-chrome',
       args: [

@@ -30,8 +30,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
           
-      # CRITICAL: This installs the missing Linux OS libraries so Chrome doesn't crash!
+      # 1. Add an ID so we can capture the installation path
       - name: Setup Chrome
+        id: setup-chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
@@ -42,4 +43,6 @@ jobs:
       - name: Execute unit tests
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
+          # 2. Dynamically capture the Chrome path and pass it to WDIO!
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: npm run test
