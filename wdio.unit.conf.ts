@@ -105,7 +105,7 @@ export const config = {
     // 'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       // Force WDIO to use the system-installed Chrome
-      binary: process.env.CHROME_BIN || '/usr/bin/google-chrome',
+      // binary: process.env.CHROME_BIN || '/usr/bin/google-chrome',
       args: [
         '--no-sandbox',
         '--headless',
@@ -122,7 +122,7 @@ export const config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'error',
+  logLevel: 'debug',
   //
   // Set specific log levels per logger
   // loggers:
