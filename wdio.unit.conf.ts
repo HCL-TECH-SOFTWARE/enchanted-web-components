@@ -16,6 +16,8 @@
 import { tmpFolderCleanup } from './wdio-util';
 
 export const config = {
+  // 1. Force WDIO to download and unzip Chrome onto the main SSD, avoiding the /tmp crash!
+  cacheDir: process.cwd() + '/.wdio-cache',
   // ====================
   // Runner Configuration
   // ====================
