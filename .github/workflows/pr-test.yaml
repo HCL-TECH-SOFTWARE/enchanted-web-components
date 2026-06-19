@@ -20,7 +20,6 @@ on:
 jobs:
   build:
     name: PR check test
-    # FIXED: Pinned to 22.04 to bypass all the new Ubuntu 24.04 security crashes
     runs-on: ubuntu-22.04 
     steps:
       - uses: actions/setup-node@v4
@@ -30,6 +29,12 @@ jobs:
           
       - name: Checkout code
         uses: actions/checkout@v4
+          
+      # NEW: Install Chromium and Chromedriver directly from Ubuntu via apt-get
+      - name: Install System Browser and Driver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-chromedriver xvfb
           
       - name: Install dependencies
         run: npm ci

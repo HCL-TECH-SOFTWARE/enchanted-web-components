@@ -103,8 +103,14 @@ export const config = {
   // https://saucelabs.com/platform/platform-configurator
   capabilities: [{
     browserName: 'chrome', 
-    maxInstances: 1, 
+    maxInstances: 1,
+    // 1. Point to the local Chromedriver we will install
+    'wdio:chromedriverOptions': {
+      binary: '/usr/bin/chromedriver'
+    },
     'goog:chromeOptions': {
+      // 2. Point to the local Chromium browser we will install
+      binary: '/usr/bin/chromium-browser',
       args: [
         '--headless',
         '--no-sandbox',
