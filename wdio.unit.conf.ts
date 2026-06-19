@@ -104,7 +104,6 @@ export const config = {
   capabilities: [{
     browserName: 'chrome', 
     maxInstances: 1,
-    browserVersion: 'latest',
     'goog:chromeOptions': {
       // Force WDIO to use the system-installed Chrome
       // binary: process.env.CHROME_BIN || '/usr/bin/google-chrome',

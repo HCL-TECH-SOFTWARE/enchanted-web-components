@@ -33,9 +33,9 @@ jobs:
       - name: Install Linux dependencies for Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y libnss3 libxss1 libasound2t64 libatk-bridge2.0-0 libgtk-3-0 libgbm1
+          # Added xvfb to the installation list to prevent fallback crashes
+          sudo apt-get install -y xvfb libnss3 libxss1 libasound2t64 libatk-bridge2.0-0 libgtk-3-0 libgbm1
           
-      # THE SILVER BULLET: Disable Ubuntu 24.04 AppArmor namespace restrictions
       - name: Disable AppArmor
         run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           
