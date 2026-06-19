@@ -30,12 +30,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
           
-      # 1. Add an ID so we can capture the installation path
-      - name: Setup Chrome
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
+      # 1. REMOVE the setup-chrome action entirely.
+      # 2. ADD THIS: Install the raw OS libraries Chrome needs to run headlessly.
+      - name: Install Linux dependencies for Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libgbm1
           
       - name: Install dependencies
         run: npm ci
@@ -43,6 +43,5 @@ jobs:
       - name: Execute unit tests
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-          # 2. Dynamically capture the Chrome path and pass it to WDIO!
-          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+          # REMOVE the CHROME_BIN environment variable here
         run: npm run test

@@ -102,9 +102,8 @@ export const config = {
   capabilities: [{
     browserName: 'chrome', 
     maxInstances: 1,
+    browserVersion: 'latest',
     'goog:chromeOptions': {
-      // Point directly to the environment variable we mapped in the YAML
-      binary: process.env.CHROME_BIN,
       // Force WDIO to use the system-installed Chrome
       // binary: process.env.CHROME_BIN || '/usr/bin/google-chrome',
       args: [
