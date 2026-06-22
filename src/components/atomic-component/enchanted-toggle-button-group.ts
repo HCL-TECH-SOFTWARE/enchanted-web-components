@@ -74,8 +74,20 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
 
   private handleToggleChange = (event: Event) => {
     const clickedButton = event.target as EnchantedToggleButton;
+    const toggleEvent = event as CustomEvent<{ toggleOn?: boolean }>;
+    const nextToggleOn = typeof toggleEvent.detail?.toggleOn === 'boolean'
+      ? toggleEvent.detail.toggleOn
+      : clickedButton.toggleOn;
     const index = this.toggleItems.indexOf(clickedButton);
-    if (index < 0 || index === this.selectedIndex) {
+    if (index < 0) {
+      return;
+    }
+    if (!nextToggleOn) {
+      this.selectedIndex = -1;
+      this.updateButtons();
+      return;
+    }
+    if (index === this.selectedIndex) {
       return;
     }
     this.selectedIndex = index;
