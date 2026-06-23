@@ -169,6 +169,80 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
     await expect(component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`)).not.toBeDisplayed();
   });
 
+  it('should open dropdown when pressing Enter on toggle button', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+
+    await browser.execute((el) => {
+      const element = el as HTMLElement;
+      element.focus();
+      const keydownEvent = new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        composed: true,
+        cancelable: true
+      });
+      element.dispatchEvent(keydownEvent);
+      element.click();
+    }, await button);
+
+    await browser.pause(500);
+    await expect(component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`)).toBeDisplayed();
+  });
+
+  it('should not immediately close dropdown after single Enter key press on toggle button', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+
+    await browser.execute((el) => {
+      const element = el as HTMLElement;
+      element.focus();
+      const keydownEvent = new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        composed: true,
+        cancelable: true
+      });
+      element.dispatchEvent(keydownEvent);
+      element.click();
+    }, await button);
+
+    await browser.pause(200);
+    const list = component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`);
+    await expect(list).toBeDisplayed();
+    await expect(component.shadow$('div[role="combobox"]')).toHaveAttribute('aria-expanded', 'true');
+  });
+
   it('should filter options based on input', async () => {
     render(
       html`

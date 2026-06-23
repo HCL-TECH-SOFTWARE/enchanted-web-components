@@ -278,6 +278,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
 
   private async handleButtonClick(event: Event) {
     event.stopPropagation();
+    event.preventDefault();
     if (this.disabled) return;
     this.toggleDropDown = !this.toggleDropDown;
     if (await this.updateComplete && this.toggleDropDown) {
@@ -285,9 +286,10 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
       if (this.listItems.length > 0) {
         this.currentFocusedItem = this.listItems[0];
         this.focusListItem(this.currentFocusedItem);
-      }
+      } 
     }
   }
+  
   private handleInputContainerClick(event: Event) {
     event.stopPropagation();
     const inputField = this.renderRoot.querySelector(`#${INPUT_MULTI_SELECT_PARTS.INPUT_FIELD}`) as HTMLInputElement;
@@ -397,7 +399,6 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
         }
       }}
       exportparts="${Object.values(LIST_ITEM_PARTS).join(',')}"
-      tabindex="0"
       data-testid="enchanted-multi-select-listitem"
       role="option"
       aria-selected="${this.selectedValues.some((v) => { return v.id === id; })}"
@@ -530,23 +531,35 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
           this.handleInputContainerClick(event); 
         }}
         @keydown=${(e: KeyboardEvent) => {
-        if ((e.key === KeyboardInputKeys.ENTER || e.key === KeyboardInputKeys.SPACE) && !this.disabled) {
-          e.preventDefault();
-          this.toggleDropDown = !this.toggleDropDown;
-          if (this.toggleDropDown) {
-            this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_TAG_NAME));
-            if (this.listItems.length > 0) {
-              this.currentFocusedItem = this.listItems[0];
-              this.focusListItem(this.currentFocusedItem);
+          const eventPath = e.composedPath();
+          const fromToggleButton = eventPath.some((node) => {
+            return (node as HTMLElement)?.getAttribute?.('data-testid') === 'enchanted-multi-select-button';
+          });
+          const fromClearAllButton = eventPath.some((node) => {
+            return (node as HTMLElement)?.getAttribute?.('data-testid') === 'enchanted-multi-select-clear-all-button';
+          });
+
+          if (fromToggleButton || fromClearAllButton) {
+            return;
+          }
+
+          if ((e.key === KeyboardInputKeys.ENTER || e.key === KeyboardInputKeys.SPACE) && !this.disabled) {
+            e.preventDefault();
+            this.toggleDropDown = !this.toggleDropDown;
+            if (this.toggleDropDown) {
+              this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_TAG_NAME));
+              if (this.listItems.length > 0) {
+                this.currentFocusedItem = this.listItems[0];
+                this.focusListItem(this.currentFocusedItem);
+              }
             }
+            const inputField = this.renderRoot.querySelector(`#${INPUT_MULTI_SELECT_PARTS.INPUT_FIELD}`) as HTMLInputElement;
+            if (inputField) {
+              inputField.focus();
+            }
+            this.requestUpdate();
           }
-          const inputField = this.renderRoot.querySelector(`#${INPUT_MULTI_SELECT_PARTS.INPUT_FIELD}`) as HTMLInputElement;
-          if (inputField) {
-            inputField.focus();
-          }
-          this.requestUpdate();
-        }
-      }}
+        }}
       >
         <div
           part="${INPUT_MULTI_SELECT_PARTS.CHIP_AND_INPUT_CONTAINER}"
@@ -620,7 +633,7 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
             }}
           
             @keydown=${(e: KeyboardEvent) => {
-              if (e.key === KeyboardInputKeys.ENTER || e.key === KeyboardInputKeys.SPACE) {
+              if (e.key === KeyboardInputKeys.SPACE) {
                 e.preventDefault();
                 this.handleButtonClick(e);
               }

@@ -171,7 +171,6 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
       <${ENCHANTED_LIST_ITEM_TAG}
         @pointerdown=${this.handleListItemClick}
         exportparts="${Object.values(LIST_ITEM_PARTS).join(',')}" 
-        tabindex=0
         data-testid="enchanted-select-listitem"
         .isSelected=${typeof option === 'string' ? this.selectedValue === option : this.selectedId === (option as OptionData)?.id}
         key="${uuid()}"
@@ -361,7 +360,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
         >
         </${ENCHANTED_BUTTON_TAG}>
         ${!this.disabled && this.toggleDropDown ? html `
-          <${ENCHANTED_LIST_TAG} exportparts=${LIST_PARTS.UNORDERED_LIST} tabindex=0 data-testid="enchanted-select-list" id="list-${this.field}" role="listbox"
+          <${ENCHANTED_LIST_TAG} exportparts=${LIST_PARTS.UNORDERED_LIST} data-testid="enchanted-select-list" id="list-${this.field}" role="listbox"
             @mousedown=${() => { this.ignoreNextFocusOut = true; }}>
             ${options.map((option: string | OptionData) => {return this.getSelectedOption(option);})}
           </${ENCHANTED_LIST_TAG}>
