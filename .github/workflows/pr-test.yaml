@@ -28,6 +28,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
       - name: Install dependencies
         run: npm ci
       - name: Execute unit tests
