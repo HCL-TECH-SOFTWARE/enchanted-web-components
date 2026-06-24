@@ -34,4 +34,12 @@
         flex-direction: column;
         align-items: flex-start;
     }
+    & enchanted-toggle-button {
+        --_toggle-button-focus-outline-offset: 0px;
+    }
+
+    & enchanted-toggle-button[firstType]:not([lastType])[disabled]::part(toggle-single-button),
+    & enchanted-toggle-button:not([firstType]):not([lastType])[disabled]::part(toggle-single-button) {
+        border-right-color: transparent;
+    }
 }
