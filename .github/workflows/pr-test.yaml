@@ -30,15 +30,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
-      - name: Workaround to fix chrome and chromedriver download
-        run: |
-          mkdir -p /tmp/chromedriver/linux-148.0.7778.216
-          mkdir -p /tmp/chrome/linux-148.0.7778.216
-          curl https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.216/linux64/chrome-linux64.zip -o /tmp/chrome-linux64.zip
-          curl https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.216/linux64/chromedriver-linux64.zip -o /tmp/chromedriver-linux64.zip
-          unzip -o /tmp/chrome-linux64.zip -d /tmp/chrome/linux-148.0.7778.216
-          unzip -o /tmp/chromedriver-linux64.zip -d /tmp/chromedriver/linux-148.0.7778.216
-          ls -all /tmp/chromedriver/linux-148.0.7778.216/chromedriver-linux64/
-          ls -all /tmp/chrome/linux-148.0.7778.216/chrome-linux64/
       - name: Execute unit tests
         run: npm run test
