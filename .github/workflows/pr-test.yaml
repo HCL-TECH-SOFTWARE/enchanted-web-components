@@ -36,4 +36,7 @@ jobs:
       - name: Clean up temporary browser cache
         run: rm -rf /tmp/chrome /tmp/chromedriver
       - name: Execute unit tests
+        env:
+          # Explicitly limit Node's heap memory so it doesn't cause the host container to panic
+          NODE_OPTIONS: "--max-old-space-size=4096"
         run: npm run test-unit

@@ -42,6 +42,10 @@ export const config = {
           './src/components/**/*.ts'
         ],
         // force: true
+        // Force Vite to run on a single worker thread during dependency scanning
+        esbuildOptions: {
+          workers: 1 
+        }
       }
     }
   }],
