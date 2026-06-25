@@ -98,14 +98,20 @@ export const config = {
   // https://saucelabs.com/platform/platform-configurator
   capabilities: [{
     browserName: 'chrome',
-    'wdio:chromedriverOptions': {
-      binary: process.env.CHROMEDRIVER_PATH, // prevents @wdio/utils from downloading its own
-    },
+    // CI only: skip WDIO's internal ChromeDriver download; locally WDIO manages it automatically
+    ...(process.env.CHROMEDRIVER_PATH ? {
+      'wdio:chromedriverOptions': {
+        binary: process.env.CHROMEDRIVER_PATH,
+      },
+    } : {}),
     'goog:chromeOptions': {
-      binary: process.env.PUPPETEER_EXECUTABLE_PATH,
+      // CI only: use pre-installed Chrome; locally omit so WDIO resolves it
+      ...(process.env.PUPPETEER_EXECUTABLE_PATH ? {
+        binary: process.env.PUPPETEER_EXECUTABLE_PATH,
+      } : {}),
       args: [
         '--headless',
-        '--no-sandbox',           // required on GitHub Actions (no root sandbox)
+        '--no-sandbox',            // required on GitHub Actions (no root sandbox)
         '--disable-dev-shm-usage', // prevents /dev/shm OOM crashes in CI
         '--disable-gpu',
       ],
