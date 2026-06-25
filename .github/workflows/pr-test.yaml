@@ -33,6 +33,12 @@ jobs:
         env:
           PUPPETEER_SKIP_DOWNLOAD: "true"
         run: npm ci
+      - name: Isolate Node Extraction Test
+        # NODE_DEBUG exposes the raw file util and decompression logs of the downloader
+        env: 
+          NODE_DEBUG: "puppeteer:browsers:fileUtil,puppeteer:browsers:install"
+        run: |
+          npx @puppeteer/browsers install chrome@150.0.7871.24 --cacheDir /tmp
       - name: Clean up temporary browser cache
         run: rm -rf /tmp/chrome /tmp/chromedriver
       - name: Execute unit tests
