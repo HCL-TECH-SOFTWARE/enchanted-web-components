@@ -581,7 +581,7 @@ describe(`${ENCHANTED_PREVIEW_TAG_NAME} component testing`, () => {
     const initialZoom = await zoomPercentageButton.getText();
     const initialZoomValue = parseInt(initialZoom);
 
-    let style = await img.getAttribute('style');
+    let style = (await img.getAttribute('style')) ?? '';
     await expect(style.replace(/\s+/g, '')).toContain('width:');
     await expect(style.replace(/\s+/g, '')).toContain('height:');
 
@@ -596,7 +596,7 @@ describe(`${ENCHANTED_PREVIEW_TAG_NAME} component testing`, () => {
     // Verify zoom increased by 25%
     await expect(newZoomValue).toBe(initialZoomValue + 25);
 
-    style = await img.getAttribute('style');
+    style = (await img.getAttribute('style')) ?? '';
     await expect(style.replace(/\s+/g, '')).toContain('width:');
     await expect(style.replace(/\s+/g, '')).toContain('height:');
   });
@@ -620,7 +620,7 @@ describe(`${ENCHANTED_PREVIEW_TAG_NAME} component testing`, () => {
     const initialZoom = await zoomPercentageButton.getText();
     const initialZoomValue = parseInt(initialZoom);
 
-    let style = await img.getAttribute('style');
+    let style = (await img.getAttribute('style')) ?? '';
     await expect(style.replace(/\s+/g, '')).toContain('width:');
     await expect(style.replace(/\s+/g, '')).toContain('height:');
 
@@ -635,7 +635,7 @@ describe(`${ENCHANTED_PREVIEW_TAG_NAME} component testing`, () => {
     // Verify zoom decreased
     await expect(newZoomValue).toBeLessThan(initialZoomValue);
 
-    style = await img.getAttribute('style');
+    style = (await img.getAttribute('style')) ?? '';
     await expect(style.replace(/\s+/g, '')).toContain('width:');
     await expect(style.replace(/\s+/g, '')).toContain('height:');
   });

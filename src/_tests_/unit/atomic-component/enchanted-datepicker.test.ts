@@ -248,6 +248,9 @@ describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
     const daysInToBeSelectedMonth = new Date(toBeSelectedYearString, monthNow + 1, 0).getDate();
     const calendarDays = await calendarDiv.shadow$$(`button[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_BUTTON}]`).getElements();
     const calendarBtnId = await calendarDays[0].getAttribute('data-testid');
+    if (!calendarBtnId) {
+      throw new Error('Missing data-testid on calendar day button');
+    }
     const dateToSelect = Math.floor(daysInToBeSelectedMonth / 2);
     const calendarBtnSelectedId = calendarBtnId.replace(/-[^-]+$/, `-${dateToSelect}`);
     const calendarBtnSelected = await calendarDiv.shadow$(`button[data-testid=${calendarBtnSelectedId}]`).getElement();
