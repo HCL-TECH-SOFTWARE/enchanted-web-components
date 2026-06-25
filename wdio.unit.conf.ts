@@ -21,7 +21,7 @@ export const config = {
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
   // runner: 'browser',
-  runner: ['local', {
+  runner: ['browser', {
     preset: process.env.WDIO_PRESET,
     coverage: {
       enabled: true,
@@ -52,6 +52,8 @@ export const config = {
       transpileOnly: true
     }
   },
+  // Add this line to completely disable the hidden default Xvfb wrapper
+  autoXvfb: false,
 
   //
   // ==================
@@ -157,7 +159,7 @@ export const config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  // services: ['visual'],
+  services: ['visual'],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
