@@ -13,6 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import { userEvent, within } from 'storybook/test';
 import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-menu';
 import '../components/atomic-component/enchanted-menu-item';
@@ -91,6 +92,10 @@ const meta: Meta<EnchantedMenuProps> = {
   },
   parameters: {
     docs: {
+      story: {
+        inline: false,
+        iframeHeight: 300,
+      },
       description: {
         component: 'Menu component that displays a dropdown list of menu items anchored to a target element. ' +
           'Supports customizable placement, size variants, delay timing, and automatic positioning with viewport awareness. ' +
@@ -107,7 +112,7 @@ const meta: Meta<EnchantedMenuProps> = {
           placement=${args.placement}
           size=${args.size}
         >
-          <${ENCHANTED_BUTTON_TAG} slot="target-anchor" variant="contained" size="large" buttontext="Menu"></${ENCHANTED_BUTTON_TAG}>
+          <${ENCHANTED_BUTTON_TAG} data-testid="menu-trigger" slot="target-anchor" variant="contained" size="large" buttontext="Menu"></${ENCHANTED_BUTTON_TAG}>
           ${args.items && args.items.map((item) => { return html`
             <${ENCHANTED_MENU_ITEM_TAG} slot="menu-items" text="${item.text}" value="${item.value}"></${ENCHANTED_MENU_ITEM_TAG}>
           `; })}
@@ -120,7 +125,15 @@ const meta: Meta<EnchantedMenuProps> = {
 export default meta;
 type Story = StoryObj<EnchantedMenuProps>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement, viewMode }: { canvasElement: HTMLElement; viewMode: 'docs' | 'story' }) => {
+    if (viewMode === 'docs') {
+      return;
+    }
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByTestId('menu-trigger'));
+  },
+};
 
 export const AllStates: Story = {
   render: () => {

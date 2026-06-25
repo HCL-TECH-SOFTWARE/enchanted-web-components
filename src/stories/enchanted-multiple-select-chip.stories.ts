@@ -74,6 +74,16 @@ const meta: Meta<EnchantedMultipleSelectChipProps> = {
   title: 'Input/Enchanted Multiple Select Chip',
   component: 'enchanted-multiple-select-chip',
   tags: ['autodocs', 'a11y-addon'],
+  decorators: [
+    (Story) => {return html`
+    <div 
+    style="
+    display: flex;
+    justify-content: center; 
+    min-height: 150px;">
+      ${Story()}
+    </div>`;},
+  ],
   parameters: {
     docs: {
       description: {
