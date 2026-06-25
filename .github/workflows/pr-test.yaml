@@ -32,7 +32,3 @@ jobs:
         run: npm ci
       - name: Execute unit tests
         run: npm run test
-        env:
-          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
-          PUPPETEER_SKIP_DOWNLOAD: "true"
-          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}  # direct step output, no $GITHUB_ENV timing issues
