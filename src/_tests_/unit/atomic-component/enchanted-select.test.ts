@@ -279,4 +279,134 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
 
     expect(isShadowLiFocused).toBe(true);
   });
+
+  it('should move focus to next list item when pressing Tab', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field=${EnchantedInputFieldType.DOCUMENT_OBJECT_TYPE}
+          .options=${SEARCH_COMMON_FIELDS}
+          label="Select input"
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+
+    await buttonElement.click();
+    await browser.pause(300);
+    await browser.keys(Key.ArrowDown);
+    await browser.pause(300);
+    await browser.keys(Key.Tab);
+    await browser.pause(300);
+
+    const listItems = await component.$$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`).getElements();
+    await expect(listItems.length).toBeGreaterThan(1);
+
+    const isSecondShadowLiFocused = await browser.execute((element) => {
+      const listItemElement = element as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const li = listItemElement.shadowRoot?.querySelector('li[data-testid="enchanted-list-item-list"]');
+      return Boolean(li && listItemElement.shadowRoot?.activeElement === li);
+    }, listItems[1]);
+
+    expect(isSecondShadowLiFocused).toBe(true);
+  });
+
+  it('should focus underlying native button when pressing Shift+Tab on first list item', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field=${EnchantedInputFieldType.DOCUMENT_OBJECT_TYPE}
+          .options=${SEARCH_COMMON_FIELDS}
+          label="Select input"
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+
+    await buttonElement.click();
+    await browser.pause(300);
+    await browser.keys(Key.ArrowDown);
+    await browser.pause(300);
+    await browser.keys(['Shift', 'Tab']);
+    await browser.pause(300);
+
+    const isUnderlyingButtonFocused = await browser.execute((element) => {
+      const selectElement = element as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const selectButtonHost = selectElement.shadowRoot?.querySelector('[data-testid="enchanted-select-button"]') as
+        (HTMLElement & { shadowRoot?: ShadowRoot | null }) | null;
+      const nativeButton = selectButtonHost?.shadowRoot?.querySelector('button[data-testid="enchanted-button"]');
+
+      return Boolean(nativeButton && selectButtonHost?.shadowRoot?.activeElement === nativeButton);
+    }, component);
+
+    expect(isUnderlyingButtonFocused).toBe(true);
+  });
+
+  it('should close dropdown on Escape via handleDropdownNav', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field=${EnchantedInputFieldType.DOCUMENT_OBJECT_TYPE}
+          .options=${SEARCH_COMMON_FIELDS}
+          label="Select input"
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+
+    await buttonElement.click();
+    await browser.pause(300);
+    await browser.keys(Key.ArrowDown);
+    await browser.pause(200);
+    await browser.keys(Key.Escape);
+    await browser.pause(300);
+
+    await expect(component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`)).not.toBeDisplayed();
+    await expect(component).toHaveElementProperty('toggleDropDown', false);
+  });
+
+  it('should select focused option on Enter via handleDropdownNav', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field=${EnchantedInputFieldType.DOCUMENT_OBJECT_TYPE}
+          .options=${SEARCH_COMMON_FIELDS}
+          label="Select input"
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+
+    await buttonElement.click();
+    await browser.pause(300);
+
+    const listItems = await component.$$(`>>>${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-select-listitem"]`).getElements();
+    await expect(listItems.length).toBeGreaterThan(0);
+    const firstOptionText = await listItems[0].getText();
+
+    await browser.keys(Key.ArrowDown);
+    await browser.pause(200);
+    await browser.keys(Key.Enter);
+    await browser.pause(300);
+
+    await expect(component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`)).not.toBeDisplayed();
+    await expect(component).toHaveElementProperty('toggleDropDown', false);
+    await expect(buttonElement).toHaveAttribute('buttontext', firstOptionText);
+  });
 });

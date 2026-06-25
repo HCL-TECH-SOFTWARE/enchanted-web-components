@@ -349,6 +349,17 @@ export class EnchantedMultipleSelectChip extends EnchantedAcBaseElement {
         }
         break;
       }
+      case KeyboardInputKeys.TAB: {
+        this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_TAG_NAME));
+        const currentIndex = this.currentFocusedItem
+          ? this.listItems.indexOf(this.currentFocusedItem)
+          : -1;
+        if (currentIndex === 0) {
+          this.toggleDropDown = false;
+          this.requestUpdate();
+        }
+        break;
+      }
       default:
         break;
     }

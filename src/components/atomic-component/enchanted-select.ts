@@ -102,6 +102,49 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
 
     listItemElement.focus();
   }
+
+  private focusSelectButton() {
+    const buttonElement = this.renderRoot.querySelector('[data-testid="enchanted-select-button"]') as
+      (HTMLElement & { _focusButton?: () => void }) | null;
+
+    if (!buttonElement) return;
+
+    if (typeof buttonElement._focusButton === 'function') {
+      buttonElement._focusButton();
+      return;
+    }
+
+    buttonElement.focus();
+  }
+
+  private getCurrentFocusedIndex() {
+    return this.currentFocusedItem ? Array.from(this.listItems || []).indexOf(this.currentFocusedItem) : -1;
+  }
+
+  private focusNextListItem() {
+    const currentIndex = this.getCurrentFocusedIndex();
+    if (!this.listItems || currentIndex >= this.listItems.length - 1) {
+      return;
+    }
+
+    this.currentFocusedItem = this.listItems[currentIndex + 1];
+    this.focusListItem(this.currentFocusedItem);
+    this.toggleDropDown = true;
+  }
+
+  private focusPreviousListItem() {
+    const currentIndex = this.getCurrentFocusedIndex();
+    if (currentIndex > 0 && this.listItems) {
+      this.currentFocusedItem = this.listItems[currentIndex - 1];
+      this.focusListItem(this.currentFocusedItem);
+      this.toggleDropDown = true;
+      return;
+    }
+
+    if (currentIndex === 0) {
+      this.focusSelectButton();
+    }
+  }
   
   connectedCallback(): void {
     super.connectedCallback();
@@ -190,6 +233,13 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
     }
   }
 
+  private async handleButtonKeyDown(event: KeyboardEvent) {
+    if (event.key === KeyboardInputKeys.ESCAPE) {
+      event.preventDefault();
+      this.toggleDropDown = false;
+    }
+  }
+
   private handleFocusOut(event: FocusEvent) {
     if (this.ignoreNextFocusOut) {
       this.ignoreNextFocusOut = false;
@@ -230,29 +280,34 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
     this.focusListItem(this.currentFocusedItem);
   
     switch (event.key) {
-      case 'ArrowDown':{
-        event.preventDefault(); 
-        this.focusListItem(this.currentFocusedItem);
-        const currentIndex = this.currentFocusedItem ? Array.from(this.listItems).indexOf(this.currentFocusedItem) : -1;
-        if (currentIndex < this.listItems.length - 1) {
-          this.currentFocusedItem =  Array.from(this.listItems)[currentIndex + 1];
-          this.focusListItem(this.currentFocusedItem);
-          this.toggleDropDown = true;
+      case KeyboardInputKeys.ESCAPE: {
+        event.preventDefault();
+        this.focusSelectButton();
+        this.toggleDropDown = false;
+        break;
+      }
+      case KeyboardInputKeys.TAB: {
+        if (event.shiftKey) {
+          event.preventDefault(); 
+          this.focusPreviousListItem();
+          break;
+        } else {
+          event.preventDefault();
+          this.focusNextListItem();
         }
         break;
       }
-      case 'ArrowUp': {
+      case KeyboardInputKeys.ARROW_DOWN:{
         event.preventDefault(); 
-        this.focusListItem(this.currentFocusedItem);
-        const currentIndex = this.currentFocusedItem ? Array.from(this.listItems).indexOf(this.currentFocusedItem) : -1;
-        if (currentIndex > 0) {
-          this.currentFocusedItem =  Array.from(this.listItems)[currentIndex - 1];
-          this.focusListItem(this.currentFocusedItem);
-          this.toggleDropDown = true;
-        }
+        this.focusNextListItem();
         break;
       }
-      case 'Enter':
+      case KeyboardInputKeys.ARROW_UP: {
+        event.preventDefault(); 
+        this.focusPreviousListItem();
+        break;
+      }
+      case KeyboardInputKeys.ENTER:
         event.preventDefault(); 
         if (await this.updateComplete) {
           this.listItems = Array.from(this.renderRoot.querySelectorAll(ENCHANTED_LIST_ITEM_TAG_NAME));
@@ -347,6 +402,7 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
         <${ENCHANTED_BUTTON_TAG} 
           buttontext=${buttonText}
           @click=${debounce(this.handleButtonClick, 300)}
+          @keydown=${this.handleButtonKeyDown}
           exportparts="${Object.values(BUTTON_PARTS).join(',')}"
           data-testid="enchanted-select-button"
           variant="button"
@@ -361,7 +417,8 @@ export class EnchantedInputSelect extends EnchantedAcBaseElement {
         </${ENCHANTED_BUTTON_TAG}>
         ${!this.disabled && this.toggleDropDown ? html `
           <${ENCHANTED_LIST_TAG} exportparts=${LIST_PARTS.UNORDERED_LIST} data-testid="enchanted-select-list" id="list-${this.field}" role="listbox"
-            @mousedown=${() => { this.ignoreNextFocusOut = true; }}>
+            @mousedown=${() => { this.ignoreNextFocusOut = true; }}
+            >
             ${options.map((option: string | OptionData) => {return this.getSelectedOption(option);})}
           </${ENCHANTED_LIST_TAG}>
         ` : nothing}

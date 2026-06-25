@@ -189,16 +189,18 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
     const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
 
     await browser.execute((el) => {
-      const element = el as HTMLElement;
-      element.focus();
+      const element = el as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const nativeButton = element.shadowRoot?.querySelector('button[data-testid="enchanted-button"]') as HTMLButtonElement | null;
+      if (!nativeButton) return;
+
+      nativeButton.focus();
       const keydownEvent = new KeyboardEvent('keydown', {
         key: 'Enter',
         bubbles: true,
         composed: true,
         cancelable: true
       });
-      element.dispatchEvent(keydownEvent);
-      element.click();
+      nativeButton.dispatchEvent(keydownEvent);
     }, await button);
 
     await browser.pause(500);
@@ -225,16 +227,18 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
     const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
 
     await browser.execute((el) => {
-      const element = el as HTMLElement;
-      element.focus();
+      const element = el as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const nativeButton = element.shadowRoot?.querySelector('button[data-testid="enchanted-button"]') as HTMLButtonElement | null;
+      if (!nativeButton) return;
+
+      nativeButton.focus();
       const keydownEvent = new KeyboardEvent('keydown', {
         key: 'Enter',
         bubbles: true,
         composed: true,
         cancelable: true
       });
-      element.dispatchEvent(keydownEvent);
-      element.click();
+      nativeButton.dispatchEvent(keydownEvent);
     }, await button);
 
     await browser.pause(200);
@@ -505,5 +509,226 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
     }, listItems[0]);
 
     expect(isShadowLiFocused).toBe(true);
+  });
+
+  it('should select focused option and close dropdown on Enter via handleDropdownNav', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        field="test"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+    await button.click();
+    await browser.pause(300);
+
+    await browser.execute((el) => {
+      const componentElement = el as HTMLElement & {
+        listItems?: HTMLElement[];
+        currentFocusedItem?: HTMLElement;
+      };
+      const listItems = Array.from(componentElement.shadowRoot?.querySelectorAll('[data-testid="enchanted-multi-select-listitem"]') || []) as HTMLElement[];
+      if (listItems.length === 0) return;
+      componentElement.listItems = listItems;
+      componentElement.currentFocusedItem = listItems[0];
+      const focusedItem = listItems[0];
+      focusedItem.click = () => {
+        focusedItem.dispatchEvent(new PointerEvent('pointerdown', {
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+        }));
+      };
+      componentElement.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+    }, await component);
+
+    await browser.pause(300);
+    const selectedValues = await component.getProperty('selectedValues') as Array<unknown>;
+    await expect(selectedValues.length).toBe(1);
+    await expect(component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`)).not.toBeDisplayed();
+  });
+
+  it('should close dropdown on Escape via handleDropdownNav', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+    await button.click();
+    await browser.pause(300);
+
+    await browser.execute((el) => {
+      const componentElement = el as HTMLElement;
+      componentElement.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+    }, await component);
+
+    await browser.pause(300);
+    await expect(component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`)).not.toBeDisplayed();
+  });
+
+  it('should close dropdown on Tab from first focused item via handleDropdownNav', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+    await button.click();
+    await browser.pause(300);
+
+    const isClosed = await browser.execute((el) => {
+      const componentElement = el as HTMLElement & {
+        listItems?: HTMLElement[];
+        currentFocusedItem?: HTMLElement;
+        toggleDropDown?: boolean;
+      };
+
+      const listItems = Array.from(componentElement.shadowRoot?.querySelectorAll('[data-testid="enchanted-multi-select-listitem"]') || []) as HTMLElement[];
+      componentElement.listItems = listItems;
+      componentElement.currentFocusedItem = listItems[0];
+
+      componentElement.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Tab',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+
+      return componentElement.toggleDropDown === false;
+    }, await component);
+
+    expect(isClosed).toBe(true);
+  });
+
+  it('should move focus to next list item on ArrowDown via handleDropdownNav', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+    await button.click();
+    await browser.pause(300);
+
+    const focusedItemId = await browser.execute((el) => {
+      const componentElement = el as HTMLElement & {
+        listItems?: HTMLElement[];
+        currentFocusedItem?: HTMLElement;
+      };
+
+      const listItems = Array.from(componentElement.shadowRoot?.querySelectorAll('[data-testid="enchanted-multi-select-listitem"]') || []) as HTMLElement[];
+      componentElement.listItems = listItems;
+      componentElement.currentFocusedItem = listItems[0];
+
+      componentElement.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'ArrowDown',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+
+      return componentElement.currentFocusedItem?.getAttribute('id');
+    }, await component);
+
+    expect(focusedItemId).toBe('2');
+  });
+
+  it('should move focus to previous list item on ArrowUp via handleDropdownNav', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        label="Test Label"
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' },
+          { id: '3', name: 'Option 3', value: 'Option 3' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const button = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+    await button.click();
+    await browser.pause(300);
+
+    const focusedItemId = await browser.execute((el) => {
+      const componentElement = el as HTMLElement & {
+        listItems?: HTMLElement[];
+        currentFocusedItem?: HTMLElement;
+      };
+
+      const listItems = Array.from(componentElement.shadowRoot?.querySelectorAll('[data-testid="enchanted-multi-select-listitem"]') || []) as HTMLElement[];
+      componentElement.listItems = listItems;
+      componentElement.currentFocusedItem = listItems[1];
+
+      componentElement.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'ArrowUp',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+
+      return componentElement.currentFocusedItem?.getAttribute('id');
+    }, await component);
+
+    expect(focusedItemId).toBe('1');
   });
 });
