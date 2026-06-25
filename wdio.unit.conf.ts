@@ -102,11 +102,11 @@ export const config = {
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
     browserVersion: 'stable',
-    'wdio:enforceWebDriverClassic': true,
+    // 'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
-        '--headless',
+        '--headless=new', // <-- Update this argument
         '--disable-gpu',
         '--disable-dev-shm-usage',
       ]
@@ -159,7 +159,7 @@ export const config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ['visual'],
+  services: [],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
