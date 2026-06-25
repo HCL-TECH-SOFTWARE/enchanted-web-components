@@ -33,5 +33,7 @@ jobs:
         env:
           PUPPETEER_SKIP_DOWNLOAD: "true"
         run: npm ci
+      - name: Clean up temporary browser cache
+        run: rm -rf /tmp/chrome /tmp/chromedriver
       - name: Execute unit tests
-        run: npm run test
+        run: npm run test-unit
