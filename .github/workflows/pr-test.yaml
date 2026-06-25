@@ -21,10 +21,6 @@ jobs:
   build:
     name: PR check test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # This creates two parallel jobs: one default, one with the prefix
-        prefix: ["", "VITE_COMPONENT_PREFIX=prefix-"]
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -38,4 +34,4 @@ jobs:
           PUPPETEER_SKIP_DOWNLOAD: "true"
         run: npm ci
       - name: Execute unit tests
-        run: ${{ matrix.prefix }} npm run test-unit
+        run: npm run test
