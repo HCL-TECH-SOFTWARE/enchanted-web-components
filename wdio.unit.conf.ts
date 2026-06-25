@@ -105,6 +105,7 @@ export const config = {
       args: [
         '--no-sandbox',
         '--headless',
+        '--disable-gpu',
         '--disable-dev-shm-usage',
       ]
     },
