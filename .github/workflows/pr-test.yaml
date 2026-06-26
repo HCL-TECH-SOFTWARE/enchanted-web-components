@@ -45,4 +45,7 @@ jobs:
           ls -all /tmp/chromedriver/linux-148.0.7778.216/chromedriver-linux64/
           ls -all /tmp/chrome/linux-148.0.7778.216/chrome-linux64/
       - name: Execute unit tests
+        env:
+          CHROME_BIN: /opt/hostedtoolcache/setup-chrome/chromium/stable/x64/chrome
+          CHROMEDRIVER_PATH: /opt/hostedtoolcache/setup-chrome/chromedriver/stable/x64/chromedriver
         run: npm run test
