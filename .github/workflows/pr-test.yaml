@@ -30,5 +30,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
+      - name: Clear Corrupted Cache
+        run: rm -rf /tmp/chrome /tmp/chromedriver
       - name: Execute unit tests
         run: npm run test

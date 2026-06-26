@@ -41,7 +41,11 @@ export const config = {
           './src/_tests_/unit/**/*.test.ts',
           './src/components/**/*.ts'
         ],
-        force: true
+        // NATIVE FIX: Force Vite's compiler to run on a single thread on startup.
+        // This stops it from choking the CPU so the browser can unzip safely.
+        esbuildOptions: {
+          workers: 1 
+        }
       }
     }
   }],
@@ -75,7 +79,8 @@ export const config = {
   exclude: [
     // 'path/to/excluded/files'
   ],
-  //
+  // Keep this false to disable the unnecessary display wrapper
+  autoXvfb: false,
   // ============
   // Capabilities
   // ============
