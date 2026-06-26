@@ -46,7 +46,7 @@ export const config = {
     }
   }],
   autoCompileOpts: {
-    autoCompile: true,
+    autoCompile: false,
     tsNodeOpts: {
       project: './tsconfig.json',
       transpileOnly: true
