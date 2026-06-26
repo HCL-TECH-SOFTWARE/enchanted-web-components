@@ -75,6 +75,8 @@ export const config = {
   exclude: [
     // 'path/to/excluded/files'
   ],
+  // Add this directly to the root of your configuration object
+  autoXvfb: false,
   //
   // ============
   // Capabilities
