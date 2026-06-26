@@ -1,5 +1,7 @@
 name: Pure Infrastructure Test
-on: workflow_dispatch # Allows you to click a button in GitHub to run it manually
+on:
+  workflow_dispatch:
+  pull_request: # Allows you to click a button in GitHub to run it manually
 
 jobs:
   test:
