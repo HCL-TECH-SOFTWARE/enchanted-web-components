@@ -101,6 +101,9 @@ export const config = {
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
     browserVersion: 'stable',
     'wdio:enforceWebDriverClassic': true,
+    // 2. FORCE IT NATIVELY HERE: Guarantees workers queue up one-by-one 
+    // so they never collide on the shared /tmp directory structure
+    maxInstances: 1,
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
