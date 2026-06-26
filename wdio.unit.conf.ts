@@ -46,7 +46,7 @@ export const config = {
     }
   }],
   autoCompileOpts: {
-    autoCompile: false,
+    autoCompile: true,
     tsNodeOpts: {
       project: './tsconfig.json',
       transpileOnly: true
@@ -75,8 +75,6 @@ export const config = {
   exclude: [
     // 'path/to/excluded/files'
   ],
-  // Add this directly to the root of your configuration object
-  autoXvfb: false,
   //
   // ============
   // Capabilities
@@ -103,9 +101,6 @@ export const config = {
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
     browserVersion: 'stable',
     'wdio:enforceWebDriverClassic': true,
-    // 2. FORCE IT NATIVELY HERE: Guarantees workers queue up one-by-one 
-    // so they never collide on the shared /tmp directory structure
-    maxInstances: 1,
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
