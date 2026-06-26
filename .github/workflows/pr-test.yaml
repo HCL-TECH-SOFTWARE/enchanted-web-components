@@ -19,6 +19,7 @@ on:
 
 jobs:
   build:
+    name: PR check test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v4
