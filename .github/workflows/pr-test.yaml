@@ -29,14 +29,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install dependencies
-        # Add the environment variable here to stop post-install download glitches
-        env:
-          PUPPETEER_SKIP_DOWNLOAD: "true"
         run: npm ci
-      - name: Clean up temporary browser cache
-        run: rm -rf /tmp/chrome /tmp/chromedriver
       - name: Execute unit tests
-        env:
-          # Explicitly limit Node's heap memory so it doesn't cause the host container to panic
-          NODE_OPTIONS: "--max-old-space-size=4096"
-        run: npm run test-unit
+        run: npm run test

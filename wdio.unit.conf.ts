@@ -41,11 +41,7 @@ export const config = {
           './src/_tests_/unit/**/*.test.ts',
           './src/components/**/*.ts'
         ],
-        // force: true
-        // Force Vite to run on a single worker thread during dependency scanning
-        esbuildOptions: {
-          workers: 1 
-        }
+        force: true
       }
     }
   }],
@@ -56,8 +52,6 @@ export const config = {
       transpileOnly: true
     }
   },
-  // Add this line to completely disable the hidden default Xvfb wrapper
-  autoXvfb: false,
 
   //
   // ==================
@@ -75,7 +69,7 @@ export const config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    './src/_tests_/unit/**/enchanted-alert.test.ts'
+    './src/_tests_/unit/**/*.test.ts'
   ],
   // Patterns to exclude.
   exclude: [
@@ -106,11 +100,11 @@ export const config = {
     // capabilities for local browser web tests
     browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
     browserVersion: 'stable',
-    // 'wdio:enforceWebDriverClassic': true,
+    'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
       args: [
         '--no-sandbox',
-        '--headless=new', // <-- Update this argument
+        '--headless',
         '--disable-gpu',
         '--disable-dev-shm-usage',
       ]
@@ -124,7 +118,7 @@ export const config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'trace',
+  logLevel: 'error',
   //
   // Set specific log levels per logger
   // loggers:
@@ -154,7 +148,7 @@ export const config = {
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
-  connectionRetryTimeout: 180000,
+  connectionRetryTimeout: 120000,
   //
   // Default request retries count
   connectionRetryCount: 3,
@@ -163,7 +157,7 @@ export const config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: [],
+  services: ['visual'],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
