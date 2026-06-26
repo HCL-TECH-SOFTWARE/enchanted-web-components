@@ -1,0 +1,20 @@
+name: Pure Infrastructure Test
+on: workflow_dispatch # Allows you to click a button in GitHub to run it manually
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          
+      - name: Install Default WebdriverIO from Scratch
+        # We don't pull your repo, we just install a completely blank default app
+        run: |
+          mkdir test-env && cd test-env
+          npm init -y
+          npm i @wdio/cli
+          # Run the native installer utility to download a vanilla browser binary
+          npx @puppeteer/browsers install chrome@stable --cacheDir ./cache
