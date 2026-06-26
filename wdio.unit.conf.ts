@@ -15,16 +15,6 @@
 
 import { tmpFolderCleanup } from './wdio-util';
 
-type EnvMap = Record<string, string | undefined>;
-const env: EnvMap = ((globalThis as { process?: { env?: EnvMap } }).process?.env ?? {});
-
-const chromeBinaryPath = env.CHROME_BIN ?? '/opt/hostedtoolcache/setup-chrome/chromium/stable/x64/chrome';
-const chromeDriverPath = env.CHROMEDRIVER_PATH ?? '/opt/hostedtoolcache/setup-chrome/chromedriver/stable/x64/chromedriver';
-
-if (!env.CHROMEDRIVER_PATH) {
-  env.CHROMEDRIVER_PATH = chromeDriverPath;
-}
-
 export const config = {
   // ====================
   // Runner Configuration
@@ -32,7 +22,7 @@ export const config = {
   // WebdriverIO supports running e2e tests as well as unit and component tests.
   // runner: 'browser',
   runner: ['browser', {
-    preset: env.WDIO_PRESET,
+    preset: process.WDIO_PRESET,
     coverage: {
       enabled: true,
       statements: 80.57,
@@ -112,7 +102,6 @@ export const config = {
     browserVersion: 'stable',
     'wdio:enforceWebDriverClassic': true,
     'goog:chromeOptions': {
-      binary: chromeBinaryPath,
       args: [
         '--no-sandbox',
         '--headless',
