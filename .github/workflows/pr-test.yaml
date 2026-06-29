@@ -32,10 +32,12 @@ jobs:
         run: rm -rf /tmp/chrome /tmp/chromedriver
       - name: Install dependencies
         run: npm ci
-      # Run the primary test suite cleanly by itself
+      - name: Clear Corrupted Cache
+        run: rm -rf /tmp/chrome /tmp/chromedriver
+
       - name: Run Primary Unit Tests
         run: npm run test-unit
-      # Run the prefixed suite only if the first one actually passes
+
       - name: Run Prefixed Component Tests
         env:
           VITE_COMPONENT_PREFIX: "prefix-"
