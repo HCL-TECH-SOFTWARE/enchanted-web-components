@@ -1,5 +1,5 @@
 # ======================================================================== #
-# Copyright 2024 HCL America Inc.                                          #
+# Copyright 2024, 2026 HCL America Inc.                                    #
 # Licensed under the Apache License, Version 2.0 (the "License");          #
 # you may not use this file except in compliance with the License.         #
 # You may obtain a copy of the License at                                  #
@@ -24,21 +24,14 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: '24.x'
+          # Using stable Long-Term Support to prevent high-concurrency event loop choking on Node 24.
+          # Node 24's strict V8 microtask rules cause thread starvation on 2-core runners
+          # when executing heavy Vite dependency scanning and browser extraction simultaneously.
+          node-version: '22'
           registry-url: 'https://registry.npmjs.org'
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
-      - name: Workaround to fix chrome and chromedriver download
-        run: |
-          mkdir -p /tmp/chromedriver/linux-148.0.7778.216
-          mkdir -p /tmp/chrome/linux-148.0.7778.216
-          curl https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.216/linux64/chrome-linux64.zip -o /tmp/chrome-linux64.zip
-          curl https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.216/linux64/chromedriver-linux64.zip -o /tmp/chromedriver-linux64.zip
-          unzip -o /tmp/chrome-linux64.zip -d /tmp/chrome/linux-148.0.7778.216
-          unzip -o /tmp/chromedriver-linux64.zip -d /tmp/chromedriver/linux-148.0.7778.216
-          ls -all /tmp/chromedriver/linux-148.0.7778.216/chromedriver-linux64/
-          ls -all /tmp/chrome/linux-148.0.7778.216/chrome-linux64/
       - name: Execute unit tests
         run: npm run test
