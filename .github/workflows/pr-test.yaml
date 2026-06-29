@@ -28,14 +28,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Check System Logs for Out-Of-Memory (OOM) Killer
-        if: always() # Guarantees this runs even if the tests fail/crash
-        run: |
-          echo "=== Checking Linux Kernel Logs for Memory Crashes ==="
-          sudo dmesg | grep -i -E 'oom|kill|out of memory' || echo "No OS-level memory termination events found."
+      - name: Clear Cache
+        run: rm -rf /tmp/chrome /tmp/chromedriver
       - name: Install dependencies
         run: npm ci
-      - name: Clear Corrupted Cache
-        run: rm -rf /tmp/chrome /tmp/chromedriver
-      - name: Execute unit tests
-        run: npm run test
+      # Run the primary test suite cleanly by itself
+      - name: Run Primary Unit Tests
+        run: npm run test-unit
+      # Run the prefixed suite only if the first one actually passes
+      - name: Run Prefixed Component Tests
+        env:
+          VITE_COMPONENT_PREFIX: "prefix-"
+        run: npm run test-unit
