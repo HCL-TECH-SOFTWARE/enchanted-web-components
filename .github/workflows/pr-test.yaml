@@ -28,6 +28,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Check System Logs for Out-Of-Memory (OOM) Killer
+        if: always() # Guarantees this runs even if the tests fail/crash
+        run: |
+          echo "=== Checking Linux Kernel Logs for Memory Crashes ==="
+          sudo dmesg | grep -i -E 'oom|kill|out of memory' || echo "No OS-level memory termination events found."
       - name: Install dependencies
         run: npm ci
       - name: Clear Corrupted Cache
