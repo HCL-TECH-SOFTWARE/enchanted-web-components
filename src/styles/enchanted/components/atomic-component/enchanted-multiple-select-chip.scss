@@ -120,11 +120,9 @@
   &::part(unordered-list) {
     display: block;
     z-index: 99 !important;
-    // width: inherit !important;
     border: none !important;
     box-shadow: #{map.get(themeMap.$enchantedPalette, shadows6)};
     margin-top: 2px !important;
-    // position: relative !important;
   }
 
   &::part(list-item-selected) {
@@ -146,11 +144,6 @@
   &::part(list-item):hover {
     background-color: palette.clr(light, action, hover) !important;
   }
-
-  // &::part(list-items) {
-  //   flex: 1 1 95%;
-  //   padding-left: 4px;
-  // }
 
   &::part(checkmark) {
     display: flex;
