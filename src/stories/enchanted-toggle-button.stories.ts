@@ -133,13 +133,13 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-end;">
         <div>
           <div>Default</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Default">
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Default"  firstType lastType>
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>Toggle On</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="On" toggleOn>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="On" toggleOn firstType lastType>
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
@@ -148,13 +148,15 @@ export const AllStates: Story = {
           <${ENCHANTED_TOGGLE_BUTTON_TAG}
             ariaLabel="Tooltip"
             tooltipText="Toggle tooltip"
+            firstType
+            lastType
           >
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>With Badge Slot</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Badge" showBadge>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Badge" showBadge firstType lastType>
             <${iconTag} slot="icon"></${iconTag}>
             <enchanted-badge
               slot="badge"
@@ -166,7 +168,21 @@ export const AllStates: Story = {
         </div>
         <div>
           <div>Disabled</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Disabled" disabled>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Disabled" disabled firstType lastType>
+            <${iconTag} slot="icon"></${iconTag}>
+          </${ENCHANTED_TOGGLE_BUTTON_TAG}>
+        </div>
+
+        <div>
+          <div>First/middle button</div>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="FirstType" firstType>
+            <${iconTag} slot="icon"></${iconTag}>
+          </${ENCHANTED_TOGGLE_BUTTON_TAG}>
+        </div>
+
+        <div>
+          <div>LastButton</div>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="LastButton" lastType>
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
