@@ -81,8 +81,8 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     iconSize: '16',
     tooltipText: '',
     ariaLabel: 'Toggle',
-    firstType: false,
-    lastType: false,
+    firstType: true,
+    lastType: true,
   },
 
   render: (args) => {
