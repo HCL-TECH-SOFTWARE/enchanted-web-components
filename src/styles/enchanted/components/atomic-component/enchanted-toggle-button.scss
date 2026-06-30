@@ -90,6 +90,7 @@
   &::part(toggle-single-button):hover {
     background-color: rgba(0, 0, 0, 0.07);
   }
+
   &[toggleOn]::part(toggle-single-button):hover {
     background: rgba(5, 80, 220, 0.20);
     border: 1px solid var(--primary-dark, #0029A9);
@@ -100,7 +101,7 @@
     outline: none;
   }
 
-    /* -------------*/
+  /* -------------*/
   /* Focus Ring */
   /* -------------*/
   &::part(focus-ring) {
@@ -112,18 +113,19 @@
     transition: border-color 0.2s ease;
   }
 
-    &:focus-within::part(focus-ring) {
-      border-color: var(--actions-focus, #0550DC);
-    }
+  &:focus-within::part(focus-ring) {
+    border-color: var(--actions-focus, #0550DC);
+  }
 
-    &[toggleOn]:focus-within::part(focus-ring) {
-      border-color: var(--primary-dark, #0550DC);
-    }
+  &[toggleOn]:focus-within::part(focus-ring) {
+    border-color: var(--primary-dark, #0550DC);
+  }
   
   //hover + focus state
   &::part(toggle-single-button):hover:focus-visible {
     background: var(--actions-hover, rgba(0, 0, 0, 0.07));
   }
+
   &[toggleOn]::part(toggle-single-button):hover:focus-visible {
     background: rgba(5, 80, 220, 0.20);
     // border: 1px solid var(--primary-dark, #0029A9);
@@ -133,6 +135,7 @@
     background-color: transparent;
     border: 1px solid var(--border-secondary, rgba(0, 0, 0, 0.20));
   }
+
   &[toggleOn][disabled]::part(toggle-single-button) {
     background: rgba(0, 0, 0, 0.08);
     border: 1px solid var(--border-secondary, rgba(0, 0, 0, 0.20));
@@ -142,7 +145,7 @@
   /* Icon */
   /* -------------*/
   &::part(toggle-button-icon) {
-  --_icon-instance-color: rgba(0, 0, 0, 0.60);
+    --_icon-instance-color: rgba(0, 0, 0, 0.60);
   }
 
   &[disabled]::part(toggle-button-icon),
@@ -162,12 +165,12 @@
   /* Grouped Button Styles */
   /* -------------*/
 
-  
   // firstType=true, lastType=false when toggleOn=true.
   &[firstType][toggleOn]:not([lastType])::part(toggle-single-button) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+
   // firstType=true, lastType=false when toggleOn=false.
   &[firstType]:not([lastType]):not([toggleOn])::part(toggle-single-button) {
     border-top-right-radius: 0;
