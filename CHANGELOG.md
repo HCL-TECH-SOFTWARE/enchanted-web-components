@@ -4,9 +4,18 @@
 
 ### Added
 
-- added automated WCAG 2.1 AA accessibility audits via @storybook/addon-a11y and Chromatic CI.
-- added `enchanted-toggle-button-group` component along with story-book 
-- added `@storybook/addon-docs` to enable documents for all `enchanted-components`
+### Fixed
+
+### Changed
+
+### Breaking changes
+
+## 7.0.0
+
+### Added
+- Added automated WCAG 2.1 AA accessibility audits via @storybook/addon-a11y and Chromatic CI.
+- Added `enchanted-toggle-button-group` component along with story-book 
+- Added `@storybook/addon-docs` to enable documents for all `enchanted-components`
 
 ### Fixed
 - Updated `enchanted-list-item` to refocus its internal shadow `li` element through a dedicated focus helper, improving keyboard focus behavior for parent dropdown components.
