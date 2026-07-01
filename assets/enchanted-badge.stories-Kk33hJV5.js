@@ -1,4 +1,4 @@
-import{k as t,u as a}from"./tags-GuWqQq8Q.js";import"./enchanted-badge-B982anGm.js";import{E as n,g as o,h as r}from"./cssClassEnums-BAuKGcJP.js";import"./iframe-DIZdwA76.js";import"./preload-helper-C1FmrZbK.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./localization-CViIwzVj.js";const A={title:"Data display/Enchanted Badge",component:"enchanted-badge",tags:["autodocs","a11y-addon"],decorators:[e=>a`
+import{k as t,u as a}from"./tags-GuWqQq8Q.js";import"./enchanted-badge-B982anGm.js";import{E as n,g as o,h as r}from"./cssClassEnums-BAuKGcJP.js";import"./iframe-DIZdwA76.js";import"./preload-helper-C1FmrZbK.js";import"./commonjsHelpers-Cpj98o6Y.js";import"./localization-CViIwzVj.js";const A={title:"Data display/Enchanted Badge",component:"enchanted-badge",tags:["autodocs","a11y-addon"],decorators:[e=>a`
     <div 
     style="
     display: flex; 
