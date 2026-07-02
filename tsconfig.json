@@ -6,8 +6,9 @@
     "module": "esnext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "rootDir": "./src",
     "outDir": "./dist",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
 
     "isolatedModules": true,
     "resolveJsonModule": true,
