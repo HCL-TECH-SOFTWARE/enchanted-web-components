@@ -27,8 +27,7 @@
     "dist"
   ],
   "include": [
-    "src",
-    "custom.d.ts"
+    "src"
   ],
   "typeRoots": ["src/@types", "node_modules/@types"]
 }
