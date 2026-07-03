@@ -27,7 +27,7 @@ jobs:
           # Using stable Long-Term Support to prevent high-concurrency event loop choking on Node 24.
           # Node 24's strict V8 microtask rules cause thread starvation on 2-core runners
           # when executing heavy Vite dependency scanning and browser extraction simultaneously.
-          node-version: '22'
+          node-version: '24.18.0'
           registry-url: 'https://registry.npmjs.org'
       - name: Checkout code
         uses: actions/checkout@v4
