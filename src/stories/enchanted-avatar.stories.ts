@@ -25,7 +25,7 @@ import { generateIconTagName, ENCHANTED_AVATAR_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Data display/Enchanted Avatar',
   component: 'enchanted-avatar',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   argTypes: {
     variant: {
       control: { type: 'radio' },

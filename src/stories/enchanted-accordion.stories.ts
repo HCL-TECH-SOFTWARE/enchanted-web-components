@@ -20,7 +20,7 @@ import { ENCHANTED_ACCORDION_SUMMARY_TAG, ENCHANTED_ACCORDION_TAG } from '../com
 const meta: Meta = {
   title: 'Navigation/Enchanted Accordion',
   component: 'enchanted-accordion',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   argTypes: {
     type: {
       control: { type: 'radio' },

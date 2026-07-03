@@ -21,7 +21,7 @@ import { ENCHANTED_ALERT_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Feedback/Enchanted Alert',
   component: 'enchanted-alert',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   argTypes: {
     severity: {
       control: { type: 'radio' },

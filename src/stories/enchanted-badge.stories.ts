@@ -25,7 +25,7 @@ import { ENCHANTED_BADGE_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Data display/Enchanted Badge',
   component: 'enchanted-badge',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   decorators: [
     (Story) => {return html`
     <div 
