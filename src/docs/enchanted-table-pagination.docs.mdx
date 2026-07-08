@@ -1,0 +1,56 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedTablePaginationStories from '../stories/enchanted-table-pagination.stories';
+import { TABLE_PAGINATION_PARTS } from '../types/cssClassEnums';
+
+
+export const TABLE_PAGINATION_PARTS_METADATA = new Map([
+  [TABLE_PAGINATION_PARTS.CONTAINER,'Styles pagination container.'],
+  [TABLE_PAGINATION_PARTS.ROWS_SECTION,'Styles section containing the rows-per-page selector.'],
+  [TABLE_PAGINATION_PARTS.PAGES_SECTION,'Styles section containing page navigation controls.'],
+  [TABLE_PAGINATION_PARTS.ROWS_DESCRIPTION,'Styles text describing the current rows selection.'],
+  [TABLE_PAGINATION_PARTS.PAGES_DESCRIPTION,'Styles text describing the current page selection.'],
+  [TABLE_PAGINATION_PARTS.PAGES_NAV_BUTTON,'Styles navigation button for pages.'],
+]);
+
+export const CSSPARTS = Object.values(TABLE_PAGINATION_PARTS).map((part) => ({
+    name: part,
+    description: TABLE_PAGINATION_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedTablePaginationStories} />
+
+<Title />
+
+The `enchanted-table-pagination` provides navigation controls for paginated data tables with first/last page buttons, previous/next navigation, and adjustable rows per page dropdown. Use for efficient data browsing in large datasets.
+
+## Interactive example
+
+<Canvas of={EnchantedTablePaginationStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedTablePaginationStories.Default} />
+
+## CSS Parts
+
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+
+- `default` - custom pagination content

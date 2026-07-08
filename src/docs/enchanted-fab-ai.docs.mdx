@@ -1,0 +1,54 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedFabAiStories from '../stories/enchanted-fab-ai.stories';
+import { FAB_PARTS } from '../types/cssClassEnums';
+
+export const FAB_PART_METADATA = new Map([
+  [FAB_PARTS.FAB, 'Main floating action button part.'],
+  [FAB_PARTS.FAB_RTL, 'RTL fab styling.'],
+  [FAB_PARTS.LABEL, 'Label text inside an extended fab.'],
+  [FAB_PARTS.LABEL_RTL, 'RTL label styling.'],
+  [FAB_PARTS.ICON, 'Icon container inside the fab.'],
+]);
+
+export const CSSPARTS = Object.values(FAB_PARTS).map((part) => ({
+    name: part,
+    description: FAB_PART_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedFabAiStories} />
+
+<Title />
+
+The `enchanted-fab-ai` is a specialized floating action button for AI-related operations. Features prominent placement with icon support and optional badge for notifications.
+
+## Interactive example
+
+<Canvas of={EnchantedFabAiStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedFabAiStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+
+- `icon` - icon content
+- `badge` - badge component

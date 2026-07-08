@@ -1,0 +1,99 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedDatepickerStories from '../stories/enchanted-datepicker.stories';
+import { DATEPICKER_PARTS } from '../types/cssClassEnums';
+
+export const DATEPICKER_PART_METADATA = new Map([
+  [DATEPICKER_PARTS.DATEPICKER_ROOT, 'Styles the datepicker root container.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_LABEL_AND_ACTION, 'Styles the label and action container.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_LABEL, 'Styles the label container.'],
+  [DATEPICKER_PARTS.DATEPICKER_LABEL_TEXT, 'Styles the label text.'],
+  [DATEPICKER_PARTS.DATEPICKER_LABEL_TEXT_DISABLED, 'Styles the label text in the disabled state.'],
+  [DATEPICKER_PARTS.DATEPICKER_LABEL_TEXT_INVALID, 'Styles the label text in the invalid state.'],
+  [DATEPICKER_PARTS.DATEPICKER_LABEL_ICON, 'Styles the label icon.'],
+  [DATEPICKER_PARTS.DATEPICKER_LABEL_REQUIRED, 'Styles the required indicator.'],
+  [DATEPICKER_PARTS.DATEPICKER_REMOVE_LABEL, 'Styles the remove label action.'],
+  [DATEPICKER_PARTS.DATEPICKER_REMOVE_LABEL_DISABLED, 'Styles the remove label action in the disabled state.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_FORM, 'Styles the form container.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_INPUT, 'Styles the input container.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_INPUT_DISABLED, 'Styles the input container in the disabled state.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_INPUT_INVALID, 'Styles the input container in the invalid state.'],
+  [DATEPICKER_PARTS.DATEPICKER_INPUT, 'Styles the input element.'],
+  [DATEPICKER_PARTS.DATEPICKER_INPUT_RTL, 'Styles the input element in the RTL state.'],
+  [DATEPICKER_PARTS.DATEPICKER_INVALID_TEXT, 'Styles the invalid helper text.'],
+  [DATEPICKER_PARTS.DATEPICKER_HELP_TEXT, 'Styles the help text.'],
+  [DATEPICKER_PARTS.DATEPICKER_INVALID_TEXT_RTL, 'Styles the invalid helper text in the RTL state.'],
+  [DATEPICKER_PARTS.DATEPICKER_HELP_TEXT_RTL, 'Styles the help text in the RTL state.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_ICON, 'Styles the icon container.'],
+  [DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON, 'Styles the calendar button container.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR, 'Styles the calendar container.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_HEADER, 'Styles the calendar header.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DAYS, 'Styles the weekday row container.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DAY_LABEL, 'Styles a weekday label.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES, 'Styles the date grid container.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATE_SPAN, 'Styles the date span content.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_EMPTY_DIV, 'Styles an empty date placeholder cell.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_BUTTON, ' Styles a date button.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATE_LABEL, 'Styles a date label.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_BUTTON_SELECTED, 'Styles a date button in the selected state.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_TODAY_SPAN, 'Styles the today indicator. '],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_TODAY_SPAN_RTL, 'Styles the today indicator in the RTL state.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DIV_YEAR, 'Styles the year selector container.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DIV_YEAR_SPAN, 'Styles the year selector label.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_YEAR_VIEW_BUTTON, 'Styles the year view button.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_YEAR_VIEW_BUTTON_RTL, 'Styles the year view button in the RTL state.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_DIV_MONTH, ' Styles the month selector container.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_MONTH_PREV, 'Styles the previous month button.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_MONTH_NEXT, 'Styles the next month button.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_MONTH_PREV_RTL, 'Styles the previous month button in the RTL state.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_MONTH_NEXT_RTL, 'Styles the next month button in the RTL state.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_FOOTER, 'Styles the calendar footer.'],
+  [DATEPICKER_PARTS.DATEPICKER_CALENDAR_FOOTER_BUTTON, 'Styles a calendar footer button.'],
+  [DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION, 'Styles the year selection container.'],
+  [DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION_YEARS, 'Styles the year selection list.'],
+  [DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION_YEAR_DIV, 'Styles the year selection item container.'],
+  [DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION_YEAR_BUTTON, 'Styles a year selection button.'],
+  [DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION_YEAR_BUTTON_SELECTED, 'Styles a year selection button in the selected state.'],
+]);
+
+export const CSSPARTS = Object.values(DATEPICKER_PARTS).map((part) => ({
+    name: part,
+    description: DATEPICKER_PART_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedDatepickerStories} />
+
+<Title />
+
+The `enchanted-datepicker` provides a calendar-based date selection component with localized formatting, keyboard navigation, and optional helper icons. Supports multiple locales and includes validation styling with customizable appearance.
+
+## Interactive example
+
+<Canvas of={EnchantedDatepickerStories.EnchantedDatepicker} />
+
+## Properties
+
+<Controls of={EnchantedDatepickerStories.EnchantedDatepicker} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+
+- `helper-icon` - custom helper icon
+- `input-action` - action element in input

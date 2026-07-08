@@ -1,0 +1,94 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedDataGridGenericStories from '../stories/enchanted-data-grid-generic.stories';
+import { DATA_GRID_PARTS } from '../types/cssClassEnums';
+
+export const DATA_GRID_PART_METADATA = new Map([
+  [DATA_GRID_PARTS.TABLE_CONTAINER, 'Styles the data grid container.'],
+  [DATA_GRID_PARTS.TABLE_LOADING_TEXT, 'Styles the loading text.'],
+  [DATA_GRID_PARTS.TABLE_ACTION_BUTTONS_CONTAINER, 'Styles the row action buttons container.'],
+  [DATA_GRID_PARTS.TABLE_ACTION_ICON_BUTTON, 'Styles a row action icon button.'],
+  [DATA_GRID_PARTS.TABLE_ACTION_ICON_BUTTON_MENU, 'Styles a row action icon button in the menu state.'],
+  [DATA_GRID_PARTS.TABLE_ACTION_ICON_BUTTON_HIDDEN, 'Styles a row action icon button in the hidden state.'],
+  [DATA_GRID_PARTS.TABLE_SELECT_CHECKBOX_CONTAINER, 'Styles the row checkbox container.'],
+  [DATA_GRID_PARTS.TABLE_SELECT_CHECKBOX, 'Styles a row checkbox.'],
+  [DATA_GRID_PARTS.TABLE_SELECT_ALL_CHECKBOX, 'Styles the header select-all checkbox.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_CONTAINER, 'Styles a header cell container.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_CONTAINER_RTL, 'Styles a header cell container in the RTL state.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_CONTAINER_CHILD, 'Styles the inner header container.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_TEXT_PARENT, 'Styles the header text wrapper.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_TEXT, 'Styles the header text.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_TEXT_RTL, 'Styles the header text in the RTL state.'],
+  [DATA_GRID_PARTS.TABLE_BODY_CONTAINER, 'Styles the table body container.'],
+  [DATA_GRID_PARTS.TABLE_ROW_HEADER_CONTAINER, 'Styles the header row container.'],
+  [DATA_GRID_PARTS.TABLE_ROW_BODY_CONTAINER, 'Styles a body row container.'],
+  [DATA_GRID_PARTS.TABLE_ROW_BODY_CONTAINER_SELECTED, 'Styles a body row in the selected state.'],
+  [DATA_GRID_PARTS.TABLE_ROW_BODY_CONTAINER_HOVERED, 'Styles a body row in the hovered state.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_SEPARATOR, 'Styles the column separator container.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_SEPARATOR_RTL, 'Styles the column separator in the RTL state.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_SEPARATOR_HR, 'Styles the separator line.'],
+  [DATA_GRID_PARTS.TABLE_CELL_CONTAINER, 'Styles a table cell container.'],
+  [DATA_GRID_PARTS.TABLE_CELL_CONTAINER_MULTI_LINES, 'Styles a table cell container in the multi-lines state.'],
+  [DATA_GRID_PARTS.TABLE_CELL_CONTAINER_RTL, 'Styles a table cell container in the RTL state.'],
+  [DATA_GRID_PARTS.TABLE_CELL_TEXT, 'Styles table cell text.'],
+  [DATA_GRID_PARTS.TABLE_CELL_SUBTITLE, 'Styles table cell subtitle text.'],
+  [DATA_GRID_PARTS.TABLE_CELL_LINK, 'Styles a linked table cell.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING, 'Styles an authoring column by index.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV, 'Styles the authoring column wrapper by index.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_0, 'Styles authoring column level 0 by index.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_1, 'Styles authoring column level 1 by index.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_2, 'Styles authoring column level 2 by index.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_3, 'Styles authoring column level 3 by index.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_AUTHORING_DIV_4, 'Styles authoring column level 4 by index.'],
+  [DATA_GRID_PARTS.TABLE_COLUMN_PICKER, 'Styles a column picker entry by index.'],
+  [DATA_GRID_PARTS.TABLE_RESULT_LABEL, 'Styles the result label.'],
+  [DATA_GRID_PARTS.TABLE_RESULT_DESCRIPTION, 'Styles the result description.'],
+  [DATA_GRID_PARTS.TABLE_SORT_BUTTON_CONTAINER, 'Styles the sort button container.'],
+  [DATA_GRID_PARTS.TABLE_SORT_BUTTON_CONTAINER_RTL, 'Styles the sort button container in the RTL state.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_ASC_SORT_BUTTON, 'Styles the ascending sort button state.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_DESC_SORT_BUTTON, 'Styles the descending sort button state.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_ICON_BUTTON, 'Styles a header icon button.'],
+  [DATA_GRID_PARTS.TABLE_CELL_ICON_BUTTON, 'Styles a cell icon button.'],
+  [DATA_GRID_PARTS.TABLE_CELL_TEXT_ACTION, 'Styles action text in a table cell.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_MENU_ITEM, 'Styles a header menu item.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_ASC_SORT_BUTTON_HIDDEN, 'Styles the ascending sort button in the hidden state.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_DESC_SORT_BUTTON_HIDDEN, 'Styles the descending sort button in the hidden state.'],
+  [DATA_GRID_PARTS.TABLE_HEADER_SORT_BUTTON, 'Styles the generic header sort button.'],
+]);
+
+export const CSSPARTS = Object.values(DATA_GRID_PARTS).map((part) => ({
+    name: part,
+    description: DATA_GRID_PART_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedDataGridGenericStories} />
+
+<Title />
+
+The `enchanted-data-grid-generic` displays tabular data with support for sorting, filtering, and pagination. Features responsive column layouts with customizable cell rendering and optional action columns.
+
+## Interactive example
+
+<Canvas of={EnchantedDataGridGenericStories.EnchantedDataGridGeneric} />
+
+## Properties
+
+<Controls of={EnchantedDataGridGenericStories.EnchantedDataGridGeneric} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>

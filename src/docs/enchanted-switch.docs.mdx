@@ -1,0 +1,53 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedSwitchStories from '../stories/enchanted-switch.stories';
+import { SWITCH_PARTS } from '../types/cssClassEnums';
+
+
+export const SWITCH_PARTS_METADATA = new Map([
+  [SWITCH_PARTS.SWITCH_LABEL,'Styles label wrapper around the switch control.'],
+  [SWITCH_PARTS.SWITCH_LABEL_DISABLED,'Styles disabled label.'],
+  [SWITCH_PARTS.SWITCH_INPUT,'Styles checkbox input element.'],
+  [SWITCH_PARTS.SWITCH_SLIDER,'Styles switch visual track.'],
+  [SWITCH_PARTS.SWITCH_SLIDER_CHECKED,'Styles checked switch track.'],
+  [SWITCH_PARTS.SWITCH_SLIDER_DISABLED,'Styles disabled switch track.'],
+  [SWITCH_PARTS.SWITCH_SLIDER_CHECKED_DISABLED,'Styles checked and disabled switch track.'],
+]);
+
+export const CSSPARTS = Object.values(SWITCH_PARTS).map((part) => ({
+    name: part,
+    description: SWITCH_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedSwitchStories} />
+
+<Title />
+
+The `enchanted-switch` provides a toggle control for binary on/off states with keyboard navigation support (Enter/Space keys). Use switches for immediate actions where changes take effect instantly without requiring save or submit.
+
+## Interactive example
+
+<Canvas of={EnchantedSwitchStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedSwitchStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+

@@ -1,0 +1,56 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedAvatarStories from '../stories/enchanted-avatar.stories';
+import { AVATAR_PARTS } from '../types/cssClassEnums';
+
+export const AVATAR_PARTS_METADATA = new Map([
+  [AVATAR_PARTS.AVATAR_DIV , 'root container for rounded avatars.'],
+  [AVATAR_PARTS.AVATAR_DIV_CIRCULAR , 'root container for circular avatars.'],
+  [AVATAR_PARTS.AVATAR_SPAN_CIRCULAR , 'circular text-based avatar content.'],
+  [AVATAR_PARTS.AVATAR_SPAN_ROUNDED , 'rounded text-based avatar content.'],
+  [AVATAR_PARTS.AVATAR_ICON_CIRCULAR , 'circular icon avatar content.'],
+  [AVATAR_PARTS.AVATAR_ICON_ROUNDED , 'rounded icon avatar content.'],
+  [AVATAR_PARTS.AVATAR_ICON_TEMPLATE_CIRCULAR , 'circular avatar content rendered from a template.'],
+  [AVATAR_PARTS.AVATAR_ICON_TEMPLATE_ROUNDED , 'rounded avatar content rendered from a template.'],
+  [AVATAR_PARTS.AVATAR_IMAGE_CIRCULAR , 'circular image-based avatar content.'],
+  [AVATAR_PARTS.AVATAR_IMAGE_ROUNDED , 'rounded image-based avatar content.'],
+]);
+
+export const CSSPARTS = Object.values(AVATAR_PARTS).map((part) => ({
+    name: part,
+    description: AVATAR_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedAvatarStories} />
+
+<Title />
+
+The `enchanted-avatar` displays user or entity representations as letters, icons, or images with rounded or circular shapes. Supports multiple background colors for visual distinction and identity representation.
+
+## Interactive example
+
+<Canvas of={EnchantedAvatarStories.EnchantedAvatar} />
+
+## Properties
+
+<Controls of={EnchantedAvatarStories.EnchantedAvatar} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+

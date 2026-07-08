@@ -1,0 +1,67 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedTextfieldStories from '../stories/enchanted-textfield.stories';
+import { INPUT_TEXTFIELD_PARTS } from '../types/cssClassEnums';
+
+
+export const INPUT_TEXTFIELD_PARTS_METADATA = new Map([
+  [INPUT_TEXTFIELD_PARTS.INPUT,'Styles text input or textarea element.'],
+  [INPUT_TEXTFIELD_PARTS.INPUT_DISABLED,'Styles disabled input.'],
+  [INPUT_TEXTFIELD_PARTS.INPUT_ICON_CLEAR,'Styles clear icon state.'],
+  [INPUT_TEXTFIELD_PARTS.INPUT_ICON_CLEAR_RTL,'Styles RTL clear icon state.'],
+  [INPUT_TEXTFIELD_PARTS.INPUT_ICON_BOTH,'Styles combined icon state when both clear and action icons are present.'],
+  [INPUT_TEXTFIELD_PARTS.INPUT_ICON_BOTH_RTL,'Styles RTL combined icon state.'],
+  [INPUT_TEXTFIELD_PARTS.LABEL,'Styles visible label text.'],
+  [INPUT_TEXTFIELD_PARTS.LABEL_DISABLED,'Styles disabled label text.'],
+  [INPUT_TEXTFIELD_PARTS.ICON,'Styles icon.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_CLEAR,'Styles clear icon.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_CLEAR_RTL,'Styles RTL clear icon.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_CLEAR_WITH_LABEL,'Styles clear icon when a label is present.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_ACTION,'Styles action icon part.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_ACTION_RTL,'Styles RTL action icon part.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_ACTION_WITH_LABEL,'Styles action icon when a label is present.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_ACTION_DISABLED,'Styles disabled action icon.'],
+  [INPUT_TEXTFIELD_PARTS.ICON_CLEAR_DISABLED,'Styles disabled clear icon.'],
+]);
+
+export const CSSPARTS = Object.values(INPUT_TEXTFIELD_PARTS).map((part) => ({
+    name: part,
+    description: INPUT_TEXTFIELD_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedTextfieldStories} />
+
+<Title />
+
+The `enchanted-textfield` provides a flexible text input component supporting various HTML5 input types, labels, placeholder text, and optional action/clear icons. Use it for single-line text entry in forms, search fields, and data input interfaces with full RTL support.
+
+## Interactive example
+
+<Canvas of={EnchantedTextfieldStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedTextfieldStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+
+- `action-icon` - icon displayed at end of input field
+- `clear-icon` - clear button icon for removing text

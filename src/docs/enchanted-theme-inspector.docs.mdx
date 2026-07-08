@@ -1,0 +1,14 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as DxThemeInspectorStories from '../stories/dx-theme-inspector.stories';
+
+<Meta of={DxThemeInspectorStories} />
+
+<Title />
+
+The `dx-theme-inspector` is a development utility component for inspecting and previewing theme colors and design tokens. Use during development to verify color schemes and theme consistency.
+
+## Interactive example
+<Canvas of={DxThemeInspectorStories.ColorInspector} />
+
+## Properties
+<Controls of={DxThemeInspectorStories.ColorInspector} />

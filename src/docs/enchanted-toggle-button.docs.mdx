@@ -1,0 +1,62 @@
+import { Meta, Title, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as EnchantedToggleButtonStories from '../stories/enchanted-toggle-button.stories';
+import { TOGGLE_BUTTON_PARTS } from '../types/cssClassEnums';
+
+export const TOGGLE_BUTTON_PARTS_METADATA = new Map([
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_DISABLED,  'The disabled state of the toggle button.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_DIV,  'The wrapper around the toggle button.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE_WRAPPER,  'The badge wrapper slot of the toggle button.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_ICON,  'The icon slot of the toggle button.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_SINGLE_BUTTON,  ' Main toggle button element.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL,  ' Small toggle button size.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE,  'Large toggle button size.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_WITH_PADDING,  'Toggle button with padding.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_GROUP_CONTAINER,  'Container for a group of toggle buttons.' ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_GROUP_SLOT,  'Slot used for toggle-button children.', ],
+  [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_FOCUS_RING,  'Focus ring shown on the button.', ],
+]);
+
+export const CSSPARTS = Object.values(TOGGLE_BUTTON_PARTS).map((part) => ({
+    name: part,
+    description: TOGGLE_BUTTON_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedToggleButtonStories} />
+
+<Title />
+
+The `enchanted-toggle-button` is a compact icon-only toggle control for toolbar-style actions. Use it when a boolean state needs to be represented by an icon button with optional badge and tooltip support.
+
+## Interactive example
+
+<Canvas of={EnchantedToggleButtonStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedToggleButtonStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## slots
+
+| **Slot** | **Description** |
+|----------|-----------------|
+| `icon`   | Required icon slot. Place an icon component or SVG element here.|
+| `badge`  | Optional badge slot. Use this for status or notification badges.|

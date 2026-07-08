@@ -1,0 +1,52 @@
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedListStories from '../stories/enchanted-list.stories';
+import { LIST_PARTS, LIST_ITEM_PARTS } from '../types/cssClassEnums';
+
+export const LIST_PARTS_METADATA = new Map([
+  [LIST_PARTS.UNORDERED_LIST, 'Unordered list container.'],
+  [LIST_ITEM_PARTS.LIST_ITEM, 'Standard list item.'],
+  [LIST_ITEM_PARTS.LIST_ITEM_SELECTED, 'Selected list item state.'],
+  [LIST_ITEM_PARTS.MENU_ITEM, 'Menu-specific list item.'],
+]);
+
+export const CSSPARTS = [...Object.values(LIST_PARTS),...Object.values(LIST_ITEM_PARTS)].map((part) => ({
+    name: part,
+    description: LIST_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedListStories} />
+
+<Title />
+
+The `enchanted-list` is a container component for rendering unordered lists with support for ARIA roles and semantic HTML. Works with enchanted-list-item components to create accessible list structures with flexible styling.
+
+## Interactive example
+
+<Canvas of={EnchantedListStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedListStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+
+- `default` - list items content
