@@ -15,7 +15,6 @@ export const CSSPARTS = Object.values(FAB_PARTS).map((part) => ({
     description: FAB_PART_METADATA.get(part) ?? ''
 }));
 
-
 <Meta of={EnchantedFabStories} />
 
 <Title />
@@ -51,5 +50,7 @@ The `enchanted-fab` (Floating Action Button) is a prominent action button typica
 
 ## Slots
 
-- `icon` - icon content
-- `badge` - badge component
+| **Slot** | **Description** |
+|----------|-----------------|
+| `icon` | **Optional.** Used to provide a custom icon displayed inside the Floating Action Button. If omitted, the component renders the icon provided through the `icon` property. If neither is provided, no icon is displayed. |
+| `badge` | **Optional.** Used to provide badge content displayed alongside the Floating Action Button when `badge` is enabled. If omitted, no badge is rendered. |

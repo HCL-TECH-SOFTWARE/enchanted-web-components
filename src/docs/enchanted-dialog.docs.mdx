@@ -2,7 +2,6 @@ import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/bl
 import * as EnchantedDialogStories from '../stories/enchanted-dialog.stories';
 import { DIALOG_PARTS } from '../types/cssClassEnums';
 
-
 export const DIALOG_PART_METADATA = new Map([
   [DIALOG_PARTS.DIALOG_ROOT, 'Styles the root wrapper of the standard dialog.'],
   [DIALOG_PARTS.DIALOG_ROOT_CHAT, 'Styles the root wrapper of the chat dialog variant.'],
@@ -82,7 +81,9 @@ The `enchanted-dialog` is a modal component for displaying important content or 
 </table>
 
 ## Slots
-
-- `title` - 
-- `content` - 
-- `footer` - dialog footer area for action buttons
+| **Slot** | **Description** |
+|----------|-----------------|
+| `title` | **Optional.** Used to provide custom dialog header content when `overrideTitle` is enabled. If omitted, the component displays the value of the `dialogTitle` property. |
+| `content` | **Required.** Used to provide the primary content displayed inside the dialog. If omitted, the dialog is rendered without any body content. |
+| `pagination` | **Optional.** Used to provide pagination controls below the dialog content. If omitted, the pagination section remains empty.|
+| `footer` | **Optional.** Used to provide action buttons or other footer content. If omitted, the dialog is rendered without footer actions. |

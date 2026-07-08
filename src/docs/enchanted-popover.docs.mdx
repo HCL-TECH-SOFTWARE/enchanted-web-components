@@ -52,8 +52,10 @@ The `enchanted-popover` displays contextual content in a floating panel anchored
   ))}
   </tbody>
 </table>
-## Slots
 
-- `default` - custom popover content
-- `label` - custom header content
-- `text` - custom body content
+## Slots
+| **Slot** | **Description** |
+|----------|-----------------|
+| `target` | **Required.** Used to provide the element that triggers the popover on hover or keyboard focus. If omitted, the popover has no target and cannot be displayed. |
+| `label` | **Optional.** Used to provide custom label content when `showLabel` is enabled. If omitted, the component displays the value of the `label` property. |
+| `text` | **Optional.** Used to provide custom popover body content when `showText` is enabled. If omitted, the component displays the value of the `text` property.|

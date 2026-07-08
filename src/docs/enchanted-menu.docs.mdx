@@ -49,6 +49,7 @@ The `enchanted-menu` displays a dropdown list of menu items anchored to a target
 </table>
 
 ## Slots
-
-- `default` - menu items
-- `trigger` - menu anchor/trigger element
+| **Slot** | **Description** |
+|----------|-----------------|
+| `menu-items` | **Required.** Used to provide one or more `enchanted-menu-item` components displayed in the menu. If omitted, the menu opens without displaying any menu items. |
+| `target-anchor` | **Required.**  Used to provide the element that opens and anchors the menu, such as a button or icon. If omitted , the menu has no trigger and cannot be opened by the user.|

@@ -2,7 +2,6 @@ import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/bl
 import * as EnchantedAccordionStories from '../stories/enchanted-accordion.stories';
 import { ACCORDION_PARTS } from '../types/cssClassEnums';
 
-
 export const ACCORDION_PARTS_METADATA = new Map([
   [ACCORDION_PARTS.ENCHANTED_ACCORDION_CONTAINER, 'Styles the accordion container.'],
   [ACCORDION_PARTS.ENCHANTED_ACCORDION_CONTAINER_RTL, 'Styles the accordion container in the RTL state.'],
@@ -59,5 +58,8 @@ The `enchanted-accordion` is a collapsible content container supporting multiple
 </table>
 
 ## Slots
-- `header` - 
-- `secondary` -
+| **Slot** | **Description** |
+|----------|-----------------|
+| `header` | **Optional.** Used to provide custom content for the accordion header. If omitted, the component displays its default header text. | 
+| `secondary` | **Optional.** Used to provide custom secondary text displayed beneath or alongside the main header. If omitted, the component displays the value of the `secondaryText` property or its default localized secondary text when enabled. |
+| `accordion-items` | **Required.** Used to provide the accordion content that is displayed when the accordion is expanded. If omitted, the expanded accordion has no content to display. |

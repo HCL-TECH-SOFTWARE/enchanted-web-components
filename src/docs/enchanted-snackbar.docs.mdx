@@ -2,7 +2,6 @@ import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/bl
 import * as EnchantedSnackbarStories from '../stories/enchanted-snackbar.stories';
 import { SNACKBAR_PARTS } from '../types/cssClassEnums';
 
-
 export const SNACKBAR_PARTS_METADATA = new Map([
   [SNACKBAR_PARTS.SNACKBAR_CONTAINER,'Styles root snackbar container.'],
   [SNACKBAR_PARTS.SNACKBAR_MESSAGE,'Styles message text container.'],
@@ -52,5 +51,6 @@ The `enchanted-snackbar` displays brief temporary notifications at the bottom of
 </table>
 
 ## Slots
-
-- `snackbar-buttons` - action button container
+| **Slot** | **Description** |
+|----------|-----------------|
+| `snackbar-buttons` | **Optional.** Used to provide one or more action buttons displayed in the snackbar. If omitted, the snackbar is rendered without any action buttons. |
