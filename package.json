@@ -75,7 +75,8 @@
     "storybook": "^9.1.16",
     "typescript": "~6.0.3",
     "uuid": "^14.0.0",
-    "wdio-json-html-reporter": "^1.5.14"
+    "wdio-json-html-reporter": "^1.5.14",
+    "remark-gfm": "^4.0.1"
   },
   "dependencies": {
     "@hcl-software/enchanted-icons-web-component": "^1.9.0",

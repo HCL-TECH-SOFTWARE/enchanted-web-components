@@ -1,0 +1,105 @@
+{/*
+ * ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+*/}
+
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedDialogStories from '../stories/enchanted-dialog.stories';
+import { DIALOG_PARTS } from '../types/cssClassEnums';
+
+export const DIALOG_PART_METADATA = new Map([
+  [DIALOG_PARTS.DIALOG_ROOT, 'Styles the root wrapper of the standard dialog.'],
+  [DIALOG_PARTS.DIALOG_ROOT_CHAT, 'Styles the root wrapper of the chat dialog variant.'],
+  [DIALOG_PARTS.BACKDROP, 'Styles the overlay displayed behind the dialog.'],
+  [DIALOG_PARTS.CONTAINER_XL, 'Styles the outer container used to position an extra-large dialog.'],
+  [DIALOG_PARTS.CONTAINER_XS, 'Styles the outer container used to position an extra-small dialog.'],
+  [DIALOG_PARTS.PAPER_XL, 'Styles the main dialog surface for the extra-large dialog.'],
+  [DIALOG_PARTS.PAPER_XS, 'Styles the main dialog surface for the extra-small dialog.'],
+  [DIALOG_PARTS.TITLE, 'Styles the wrapper around the default dialog header.'],
+  [DIALOG_PARTS.TITLE_ROOT, 'Styles the layout container that holds the title and close button.'],
+  [DIALOG_PARTS.TITLE_ROOT_RTL, 'Styles the title and close button container in right-to-left layouts.'],
+  [DIALOG_PARTS.TITLE_TEXT, 'Styles the dialog title text.'],
+  [DIALOG_PARTS.TITLE_TEXT_RTL, 'Styles the dialog title text in right-to-left layouts.'],
+  [DIALOG_PARTS.ICON_ROOT, 'Styles the container around the close button.'],
+  [DIALOG_PARTS.ICON_CLOSE, 'Styles the close button icon.'],
+  [DIALOG_PARTS.CONTENT_XL, 'Styles the main content area of an extra-large dialog.'],
+  [DIALOG_PARTS.CONTENT_XL_NO_BORDER, 'Styles the content area of an extra-large dialog when the content border is removed.'],
+  [DIALOG_PARTS.PAGINATION_XL, 'Styles the pagination section of an extra-large dialog.'],
+  [DIALOG_PARTS.ACTION, 'Styles the footer section that contains dialog actions.'],
+  [DIALOG_PARTS.CHAT_ACTION, 'Styles the footer section of the chat dialog variant.'],
+  [DIALOG_PARTS.PAPER_SM, 'Styles the main dialog surface for the small dialog.'],
+  [DIALOG_PARTS.PAPER_CHAT, 'Styles the main dialog surface for the chat dialog variant.'],
+  [DIALOG_PARTS.PAPER_MD, 'Styles the main dialog surface for the medium dialog.'],
+  [DIALOG_PARTS.PAPER_LG, 'Styles the main dialog surface for the large dialog.'],
+  [DIALOG_PARTS.CONTAINER_SM, 'Styles the outer container used to position a small dialog.'],
+  [DIALOG_PARTS.CONTAINER_CHAT, 'Styles the outer container used to position a chat dialog.'],
+  [DIALOG_PARTS.CONTAINER_MD, 'Styles the outer container used to position a medium dialog.'],
+  [DIALOG_PARTS.CONTAINER_LG, 'Styles the outer container used to position a large dialog.'],
+  [DIALOG_PARTS.CONTENT_XS, 'Styles the main content area of a extra-small dialog.'],
+  [DIALOG_PARTS.CONTENT_SM, 'Styles the main content area of a small dialog.'],
+  [DIALOG_PARTS.CONTENT_CHAT, 'Styles the main content area of a chat dialog.'],
+  [DIALOG_PARTS.CONTENT_MD, 'Styles the main content area of a medium dialog.'],
+  [DIALOG_PARTS.CONTENT_LG, 'Styles the main content area of a large dialog.'],
+  [DIALOG_PARTS.ACTION_NO_BORDER, 'Styles the footer section when the dialog is displayed without a content border.'],
+  [DIALOG_PARTS.PAGINATION_XS, 'Styles the pagination section of an extra-small dialog.'],
+  [DIALOG_PARTS.PAGINATION_SM, 'Styles the pagination section of an small dialog.'],
+  [DIALOG_PARTS.PAGINATION_MD, 'Styles the pagination section of an medium dialog.'],
+  [DIALOG_PARTS.PAGINATION_LG, 'Styles the pagination section of an large dialog.'],
+]);
+
+export const CSSPARTS = Object.values(DIALOG_PARTS).map((part) => ({
+    name: part,
+    description: DIALOG_PART_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedDialogStories} />
+
+<Title />
+
+The `enchanted-dialog` is a modal component for displaying important content or actions that require user attention. It features multiple size variants, keyboard navigation support (Escape to close), and accessibility enhancements with focus management and ARIA announcements.
+
+## Interactive example
+
+<Canvas of={EnchantedDialogStories.EnchantedDialog} />
+
+## Properties
+
+<Controls of={EnchantedDialogStories.EnchantedDialog} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+| **Slot** | **Description** |
+|----------|-----------------|
+| `title` | **Optional.** Used to provide custom dialog header content when `overrideTitle` is enabled. If omitted, the component displays the value of the `dialogTitle` property. |
+| `content` | **Required.** Used to provide the primary content displayed inside the dialog. If omitted, the dialog is rendered without any body content. |
+| `pagination` | **Optional.** Used to provide pagination controls below the dialog content. If omitted, the pagination section remains empty.|
+| `footer` | **Optional.** Used to provide action buttons or other footer content. If omitted, the dialog is rendered without footer actions. |

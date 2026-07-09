@@ -32,7 +32,7 @@ export interface EnchantedItemTypeAvatarProps {
 
 const meta: Meta<EnchantedItemTypeAvatarProps> = {
   title: 'Data Display/Enchanted Item Type Avatar',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   parameters: {
     docs: {
       description: {

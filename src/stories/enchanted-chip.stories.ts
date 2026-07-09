@@ -22,7 +22,7 @@ import { generateIconTagName, ENCHANTED_CHIP_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Data display/Enchanted Chip',
   component: 'enchanted-chip',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   argTypes: {
     name: {
       control: { type: 'text' },

@@ -20,7 +20,7 @@ import { ENCHANTED_CIRCULAR_PROGRESS_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Feedback/Enchanted Circular Progress',
   component: 'enchanted-circular-progress',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   argTypes: {
     size: {
       control: { type: 'number', min: 20, max: 200, step: 1 },

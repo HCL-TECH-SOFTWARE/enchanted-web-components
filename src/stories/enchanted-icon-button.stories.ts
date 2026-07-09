@@ -43,7 +43,7 @@ export interface EnchantedIconButtonProps {
 
 const meta: Meta<EnchantedIconButtonProps> = {
   title: 'Input/Enchanted Icon Button',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   parameters: {
     docs: {
       description: {

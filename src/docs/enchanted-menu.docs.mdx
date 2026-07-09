@@ -1,0 +1,71 @@
+{/*
+ * ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+*/}
+
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedMenuStories from '../stories/enchanted-menu.stories';
+import { MENU_PARTS, MENU_ITEM_PARTS  } from '../types/cssClassEnums';
+
+export const MENU_PARTS_METADATA = new Map([
+  [MENU_PARTS.MENU_ROOT, 'Root container of the overlay menu.'],
+  [MENU_PARTS.BACKDROP, 'Backdrop behind the menu.'],
+  [MENU_PARTS.PAPER_ROOT, 'Menu paper/surface container.'],
+  [MENU_ITEM_PARTS.TEXT_ROOT, 'Wrapper around the menu item text.'],
+  [MENU_ITEM_PARTS.TEXT, 'The visible menu item label.'],
+]);
+
+export const CSSPARTS = [...Object.values(MENU_PARTS), ...Object.values(MENU_ITEM_PARTS)].map((part) => ({
+    name: part,
+    description: MENU_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedMenuStories} />
+
+<Title />
+
+The `enchanted-menu` displays a dropdown list of menu items anchored to a target element with keyboard navigation support. Supports multiple placement options and size variants for flexible positioning and layout.
+
+## Interactive example
+
+<Canvas of={EnchantedMenuStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedMenuStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+| **Slot** | **Description** |
+|----------|-----------------|
+| `menu-items` | **Required.** Used to provide one or more `enchanted-menu-item` components displayed in the menu. If omitted, the menu opens without displaying any menu items. |
+| `target-anchor` | **Required.**  Used to provide the element that opens and anchors the menu, such as a button or icon. If omitted , the menu has no trigger and cannot be opened by the user.|

@@ -20,7 +20,7 @@ import { ENCHANTED_BREADCRUMBS_TAG } from '../components/tags';
 const meta: Meta = {
   title: 'Navigation/Enchanted Breadcrumbs',
   component: 'enchanted-breadcrumbs',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   argTypes: {
     paths: {
       control: 'object',

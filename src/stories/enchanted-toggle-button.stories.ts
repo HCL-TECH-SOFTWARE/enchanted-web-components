@@ -56,7 +56,8 @@ export interface EnchantedToggleButtonProps {
 
 const meta: Meta<EnchantedToggleButtonProps> = {
   title: 'Input/Enchanted Toggle Button',
-  tags: ['autodocs', 'a11y-addon'],
+  component: 'enchanted-toggle-button',
+  tags: ['a11y-addon'],
   argTypes: {
     toggleOn: { control: 'boolean', description: 'Toggle state', table: { defaultValue: { summary: 'false' } } },
     showBadge: { control: 'boolean', description: 'Show badge slot', table: { defaultValue: { summary: 'false' } } },

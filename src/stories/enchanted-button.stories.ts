@@ -57,7 +57,7 @@ export interface EnchantedButtonProps {
 const meta: Meta<EnchantedButtonProps> = {
   title: 'Input/Enchanted Button',
   component: 'enchanted-button',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   argTypes: {
     variant: {
       control: { type: 'radio' },

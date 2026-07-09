@@ -1,0 +1,73 @@
+{/*
+ * ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+*/}
+
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedHeaderStories from '../stories/enchanted-header.stories';
+import { HEADER_PARTS } from '../types/cssClassEnums';
+
+export const HEADER_PARTS_METADATA = new Map([
+  [HEADER_PARTS.H6, 'Header title container.'],
+  [HEADER_PARTS.INPUT, 'Search input part exported to the inner textfield.'],
+  [HEADER_PARTS.HEADER, 'Root header container'],
+  [HEADER_PARTS.SUB_HEADER_START, 'Left-side header section.'],
+  [HEADER_PARTS.SUB_HEADER_END, 'Right-side header section.'],
+  [HEADER_PARTS.HEADER_SPACING_START, 'Spacing region before the title.'],
+  [HEADER_PARTS.HEADER_SPACING_START_HAMBURGER, 'Spacing region at the end of the header.'],
+  [HEADER_PARTS.HEADER_SPACING_END, 'Spacing region at the end of the header.'],
+  [HEADER_PARTS.HR_PART, 'Divider line under the header.'],
+]);
+
+export const CSSPARTS = Object.values(HEADER_PARTS).map((part) => ({
+    name: part,
+    description: HEADER_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedHeaderStories} />
+
+<Title />
+
+The `enchanted-header` is a navigation header component supporting multiple variants (authoring, authoring modal, end-user) with optional back navigation, search, and filter controls. Features responsive layout adjustments and side navigation integration.
+
+## Interactive example
+
+<Canvas of={EnchantedHeaderStories.EnchantedHeader} />
+
+## Properties
+
+<Controls of={EnchantedHeaderStories.EnchantedHeader} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+
+  This component does not expose any slots.

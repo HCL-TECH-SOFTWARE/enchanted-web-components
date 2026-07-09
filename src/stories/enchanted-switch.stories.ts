@@ -31,7 +31,7 @@ export interface EnchantedSwitchProps {
 
 const meta: Meta<EnchantedSwitchProps> = {
   title: 'Input/Enchanted Switch',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: [ 'a11y-addon'],
   parameters: {
     docs: {
       description: {

@@ -56,7 +56,6 @@ interface EnchantedToggleButtonGroupStoryArgs {
 
 const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
   title: 'Input/Enchanted Toggle Button Group',
-  tags: ['autodocs'],
   argTypes: {
     // ── Group ─────────────────────────────────────────────────
     orientation: {

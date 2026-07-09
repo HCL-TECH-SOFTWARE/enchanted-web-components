@@ -51,7 +51,7 @@ export interface EnchantedInputSelectProps {
 
 const meta: Meta<EnchantedInputSelectProps> = {
   title: 'Input/Enchanted Select',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   decorators: [
     (Story) => {return html`
     <div 

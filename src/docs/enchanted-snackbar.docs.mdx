@@ -1,0 +1,72 @@
+{/*
+ * ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+*/}
+
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedSnackbarStories from '../stories/enchanted-snackbar.stories';
+import { SNACKBAR_PARTS } from '../types/cssClassEnums';
+
+export const SNACKBAR_PARTS_METADATA = new Map([
+  [SNACKBAR_PARTS.SNACKBAR_CONTAINER,'Styles root snackbar container.'],
+  [SNACKBAR_PARTS.SNACKBAR_MESSAGE,'Styles message text container.'],
+  [SNACKBAR_PARTS.SNACKBAR_BUTTON_CONTAINER,'Styles wrapper for snackbar buttons.'],
+  [SNACKBAR_PARTS.SNACKBAR_BUTTONS,'Styles slot area for the snackbar message.'],
+  [SNACKBAR_PARTS.SNACKBAR_ICON,'Styles icon shown for the snackbar message.'],
+  [SNACKBAR_PARTS.SNACKBAR_PROGRESS,'Styles progress spinner container for progress snackbar.'],
+  [SNACKBAR_PARTS.SNACKBAR_ICON_CONTAINER,'Styles container around the snackbar icon.'],
+]);
+
+export const CSSPARTS = Object.values(SNACKBAR_PARTS).map((part) => ({
+    name: part,
+    description: SNACKBAR_PARTS_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedSnackbarStories} />
+
+<Title />
+
+The `enchanted-snackbar` displays brief temporary notifications at the bottom of the screen with five visual types (info, success, warning, error, progress). Supports HTML content and optional action buttons for user interactions.
+
+## Interactive example
+
+<Canvas of={EnchantedSnackbarStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedSnackbarStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+| **Slot** | **Description** |
+|----------|-----------------|
+| `snackbar-buttons` | **Optional.** Used to provide one or more action buttons displayed in the snackbar. If omitted, the snackbar is rendered without any action buttons. |

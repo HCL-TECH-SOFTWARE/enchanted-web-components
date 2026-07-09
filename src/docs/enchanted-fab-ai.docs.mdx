@@ -1,0 +1,70 @@
+{/*
+ * ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+*/}
+
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedFabAiStories from '../stories/enchanted-fab-ai.stories';
+import { FAB_PARTS } from '../types/cssClassEnums';
+
+export const FAB_PART_METADATA = new Map([
+  [FAB_PARTS.FAB, 'Main floating action button part.'],
+  [FAB_PARTS.FAB_RTL, 'RTL fab styling.'],
+  [FAB_PARTS.LABEL, 'Label text inside an extended fab.'],
+  [FAB_PARTS.LABEL_RTL, 'RTL label styling.'],
+  [FAB_PARTS.ICON, 'Icon container inside the fab.'],
+]);
+
+export const CSSPARTS = Object.values(FAB_PARTS).map((part) => ({
+    name: part,
+    description: FAB_PART_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedFabAiStories} />
+
+<Title />
+
+The `enchanted-fab-ai` is a specialized floating action button for AI-related operations. Features prominent placement with icon support and optional badge for notifications.
+
+## Interactive example
+
+<Canvas of={EnchantedFabAiStories.Default} />
+
+## Properties
+
+<Controls of={EnchantedFabAiStories.Default} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+| **Slot** | **Description** |
+|----------|-----------------|
+| `badge` | **Optional.** Used to provide badge content displayed alongside the Floating Action Button when `badge` is enabled. If omitted, no badge is rendered. |

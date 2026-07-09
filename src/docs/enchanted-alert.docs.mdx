@@ -1,0 +1,79 @@
+{/*
+ * ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+*/}
+
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedAlertStories from '../stories/enchanted-alert.stories';
+import { ALERT } from '../types/cssClassEnums';
+
+export const ALERT_PART_METADATA = new Map([
+  [ALERT.ALERT_DIV_ROOT, 'Styles the alert root container.'],
+  [ALERT.ALERT_CONTAINED_INFO, 'Styles the contained alert in the info state.'],
+  [ALERT.ALERT_CONTAINED_ERROR, 'Styles the contained alert in the error state.'],
+  [ALERT.ALERT_CONTAINED_SUCCESS, 'Styles the contained alert in the success state.'],
+  [ALERT.ALERT_CONTAINED_WARNING, 'Styles the contained alert in the warning state.'],
+  [ALERT.ALERT_OUTLINED_INFO, 'Styles the outlined alert in the info state.'],
+  [ALERT.ALERT_OUTLINED_ERROR, 'Styles the outlined alert in the error state.'],
+  [ALERT.ALERT_OUTLINED_SUCCESS, 'Styles the outlined alert in the success state.'],
+  [ALERT.ALERT_OUTLINED_WARNING, 'Styles the outlined alert in the warning state.'],
+  [ALERT.ALERT_SVG_SUCCESS, 'Styles the alert icon in the success state.'],
+  [ALERT.ALERT_SVG_WARNING, 'Styles the alert icon in the warning state.'],
+  [ALERT.ALERT_SVG_INFO, 'Styles the alert icon in the info state.'],
+  [ALERT.ALERT_SVG_ERROR, 'Styles the alert icon in the error state.'],
+  [ALERT.ALERT_CONTENT, 'Styles the alert content area.'],
+  [ALERT.ALERT_TITLE, 'Styles the alert title text.'],
+]);
+
+export const CSSPARTS = Object.values(ALERT).map((part) => ({
+    name: part,
+    description: ALERT_PART_METADATA.get(part) ?? ''
+}));
+
+<Meta of={EnchantedAlertStories} />
+
+<Title />
+
+The `enchanted-alert` displays important messages with multiple severity levels (info, success, warning, error) and visual variants (contained, outlined). Each severity has a corresponding icon and color scheme for visual feedback.
+
+## Interactive example
+
+<Canvas of={EnchantedAlertStories.EnchantedAlert} />
+
+## Properties
+
+<Controls of={EnchantedAlertStories.EnchantedAlert} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+
+This component does not expose any slots.

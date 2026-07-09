@@ -3,8 +3,11 @@
 ## Unreleased
 
 ### Added
+- Added custom Storybook MDX documentation pages.
+- Added remark-gfm support for Markdown tables.
 
 ### Fixed
+- Standardized storybook documentation by adding CSS Part descriptions and slot descriptions.
 
 ### Changed
 

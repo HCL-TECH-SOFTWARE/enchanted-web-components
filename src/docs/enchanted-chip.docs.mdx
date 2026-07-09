@@ -1,0 +1,72 @@
+{/*
+ * ======================================================================== *
+ * Copyright 2026 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+*/}
+
+import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as EnchantedChipStories from '../stories/enchanted-chip.stories';
+import { CHIP_PARTS } from '../types/cssClassEnums';
+
+export const CHIP_PART_METADATA = new Map([
+  [CHIP_PARTS.CHIP_DIV, 'Main chip container.'],
+  [CHIP_PARTS.CHIP_NAME, 'Chip label text.'],
+  [CHIP_PARTS.CHIP_AVATAR, 'Avatar area inside the chip.'],
+  [CHIP_PARTS.CHIP_COUNT, 'Count badge shown within the chip.'],
+  [CHIP_PARTS.CHIP_COUNT_RTL, 'RTL count badge styling.'],
+  [CHIP_PARTS.CHIP_DIV_DISABLED, 'Disabled chip appearance.'],
+]);
+
+export const CSSPARTS = Object.values(CHIP_PARTS).map((part) => ({
+    name: part,
+    description: CHIP_PART_METADATA.get(part) ?? ''
+}));
+
+
+<Meta of={EnchantedChipStories} />
+
+<Title />
+
+The `enchanted-chip` displays compact elements with optional avatar, count badge, and clear icon for dismissal. Use chips for tags, filters, or selected items with full RTL support and disabled state styling.
+
+## Interactive example
+
+<Canvas of={EnchantedChipStories.EnchantedChip} />
+
+## Properties
+
+<Controls of={EnchantedChipStories.EnchantedChip} />
+
+## CSS Parts
+
+<table>
+ <thead>
+   <tr>
+     <th> Part </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {CSSPARTS.map((part) => (
+    <tr key={part.name}>
+      <td><code>{part.name}</code></td>
+      <td>{part.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
+
+## Slots
+| **Slot** | **Description** |
+|----------|-----------------|
+| `clear-icon` | **Optional.** Used to provide a custom clear or remove icon displayed at the end of the chip when `clearIcon` is enabled. If omitted, no clear icon is rendered. |

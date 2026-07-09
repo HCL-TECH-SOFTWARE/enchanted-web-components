@@ -73,7 +73,7 @@ const OPTIONS: OptionData[] = [
 const meta: Meta<EnchantedMultipleSelectChipProps> = {
   title: 'Input/Enchanted Multiple Select Chip',
   component: 'enchanted-multiple-select-chip',
-  tags: ['autodocs', 'a11y-addon'],
+  tags: ['a11y-addon'],
   decorators: [
     (Story) => {return html`
     <div 
