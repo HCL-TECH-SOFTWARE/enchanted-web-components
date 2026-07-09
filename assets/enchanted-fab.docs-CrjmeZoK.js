@@ -1,0 +1,15 @@
+import{j as t,M as c,T as a,C as l,a as h}from"./blocks-8wSuGiO3.js";import{useMDXComponents as r}from"./index-BbMSz0O7.js";import{E as x,D as s}from"./enchanted-fab.stories-BRo-90m0.js";import{F as i}from"./cssClassEnums-B0FxBdGx.js";import"./preload-helper-C1FmrZbK.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./iframe-q8uLr7wl.js";import"./tags-CoVdckeD.js";import"./index-zE7OiFl-.js";import"./state-HmA1gIuo.js";import"./localization-BpntbVwP.js";import"./enchanted-badge-Df1lKWMF.js";import"./tags-Dsu22f7O.js";const p=new Map([[i.FAB,"Main floating action button part."],[i.FAB_RTL,"RTL fab styling."],[i.LABEL,"Label text inside an extended fab."],[i.LABEL_RTL,"RTL label styling."],[i.ICON,"Icon container inside the fab."]]),j=Object.values(i).map(n=>({name:n,description:p.get(n)??""}));function d(n){const e={code:"code",h2:"h2",p:"p",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",...r(),...n.components};return t.jsxs(t.Fragment,{children:[`
+`,`
+`,`
+`,`
+`,t.jsx(c,{of:x}),`
+`,t.jsx(a,{}),`
+`,t.jsxs(e.p,{children:["The ",t.jsx(e.code,{children:"enchanted-fab"})," (Floating Action Button) is a prominent action button typically positioned at the bottom-right of the screen. Supports contained and outlined variants with optional badge for notifications and extended label display."]}),`
+`,t.jsx(e.h2,{id:"interactive-example",children:"Interactive example"}),`
+`,t.jsx(l,{of:s}),`
+`,t.jsx(e.h2,{id:"properties",children:"Properties"}),`
+`,t.jsx(h,{of:s}),`
+`,t.jsx(e.h2,{id:"css-parts",children:"CSS Parts"}),`
+`,t.jsxs("table",{children:[t.jsx("thead",{children:t.jsxs("tr",{children:[t.jsx("th",{children:" Part "}),t.jsx("th",{children:" Description "})]})}),t.jsx("tbody",{children:j.map(o=>t.jsxs("tr",{children:[t.jsx("td",{children:t.jsx("code",{children:o.name})}),t.jsx("td",{children:o.description})]},o.name))})]}),`
+`,t.jsx(e.h2,{id:"slots",children:"Slots"}),`
+`,t.jsxs(e.table,{children:[t.jsx(e.thead,{children:t.jsxs(e.tr,{children:[t.jsx(e.th,{children:t.jsx(e.strong,{children:"Slot"})}),t.jsx(e.th,{children:t.jsx(e.strong,{children:"Description"})})]})}),t.jsxs(e.tbody,{children:[t.jsxs(e.tr,{children:[t.jsx(e.td,{children:t.jsx(e.code,{children:"icon"})}),t.jsxs(e.td,{children:[t.jsx(e.strong,{children:"Optional."})," Used to provide a custom icon displayed inside the Floating Action Button. If omitted, the component renders the icon provided through the ",t.jsx(e.code,{children:"icon"})," property. If neither is provided, no icon is displayed."]})]}),t.jsxs(e.tr,{children:[t.jsx(e.td,{children:t.jsx(e.code,{children:"badge"})}),t.jsxs(e.td,{children:[t.jsx(e.strong,{children:"Optional."})," Used to provide badge content displayed alongside the Floating Action Button when ",t.jsx(e.code,{children:"badge"})," is enabled. If omitted, no badge is rendered."]})]})]})]})]})}function C(n={}){const{wrapper:e}={...r(),...n.components};return e?t.jsx(e,{...n,children:t.jsx(d,{...n})}):d(n)}export{j as CSSPARTS,p as FAB_PART_METADATA,C as default};

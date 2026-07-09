@@ -1,0 +1,15 @@
+import{j as t,M as l,T as c,C as h,a}from"./blocks-8wSuGiO3.js";import{useMDXComponents as d}from"./index-BbMSz0O7.js";import{E as p,D as r}from"./enchanted-tooltip.stories-CMNESCn7.js";import{x as o}from"./cssClassEnums-B0FxBdGx.js";import"./preload-helper-C1FmrZbK.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./iframe-q8uLr7wl.js";import"./tags-CoVdckeD.js";import"./enchanted-tooltip-BpOrLM42.js";import"./state-HmA1gIuo.js";import"./query-BApjzB0v.js";import"./enchanted-button-D143v6g8.js";import"./localization-BpntbVwP.js";import"./keyboardEventKeys-BnoN8uA3.js";const x=new Map([[o.TOOLTIP_ROOT,"Styles root container for the tooltip wrapper."],[o.TOOLTIP_TEXT,"Styles tooltip bubble content."],[o.TOOLTIP_TEXT_HIDDEN,"Styles hidden tooltip text state."],[o.TOOLTIP_TARGET,"Styles target element that triggers the tooltip."]]),j=Object.values(o).map(n=>({name:n,description:x.get(n)??""}));function i(n){const e={code:"code",h2:"h2",p:"p",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",...d(),...n.components};return t.jsxs(t.Fragment,{children:[`
+`,`
+`,`
+`,`
+`,t.jsx(l,{of:p}),`
+`,t.jsx(c,{}),`
+`,t.jsxs(e.p,{children:["The ",t.jsx(e.code,{children:"enchanted-tooltip"})," displays contextual help or information text when hovering over a target element. Supports 12 placement positions with automatic viewport constraint adjustment and multiple size variants for flexible use cases."]}),`
+`,t.jsx(e.h2,{id:"interactive-example",children:"Interactive example"}),`
+`,t.jsx(h,{of:r}),`
+`,t.jsx(e.h2,{id:"properties",children:"Properties"}),`
+`,t.jsx(a,{of:r}),`
+`,t.jsx(e.h2,{id:"css-parts",children:"CSS Parts"}),`
+`,t.jsxs("table",{children:[t.jsx("thead",{children:t.jsxs("tr",{children:[t.jsx("th",{children:" Part "}),t.jsx("th",{children:" Description "})]})}),t.jsx("tbody",{children:j.map(s=>t.jsxs("tr",{children:[t.jsx("td",{children:t.jsx("code",{children:s.name})}),t.jsx("td",{children:s.description})]},s.name))})]}),`
+`,t.jsx(e.h2,{id:"slots",children:"Slots"}),`
+`,t.jsxs(e.table,{children:[t.jsx(e.thead,{children:t.jsxs(e.tr,{children:[t.jsx(e.th,{children:t.jsx(e.strong,{children:"Slot"})}),t.jsx(e.th,{children:t.jsx(e.strong,{children:"Description"})})]})}),t.jsxs(e.tbody,{children:[t.jsxs(e.tr,{children:[t.jsx(e.td,{children:t.jsx(e.code,{children:"tooltip"})}),t.jsxs(e.td,{children:[t.jsx(e.strong,{children:"Optional."})," Used to provide custom tooltip content. If omitted, the component displays the value of the ",t.jsx(e.code,{children:"tooltiptext"})," property."]})]}),t.jsxs(e.tr,{children:[t.jsx(e.td,{children:t.jsx(e.code,{children:"target"})}),t.jsxs(e.td,{children:[t.jsx(e.strong,{children:"Required."})," Used to provide the element that displays the tooltip when hovered or focused. If omitted, the tooltip has no target and cannot be shown."]})]})]})]})]})}function w(n={}){const{wrapper:e}={...d(),...n.components};return e?t.jsx(e,{...n,children:t.jsx(i,{...n})}):i(n)}export{j as CSSPARTS,x as TOOLTIP_PARTS_METADATA,w as default};

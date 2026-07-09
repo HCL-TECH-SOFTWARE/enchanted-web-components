@@ -1,0 +1,15 @@
+import{j as e,M as a,T as l,C as c,a as h}from"./blocks-8wSuGiO3.js";import{useMDXComponents as d}from"./index-BbMSz0O7.js";import{E as x,D as r}from"./enchanted-panel.stories-K6YdYB7t.js";import{P as s}from"./cssClassEnums-B0FxBdGx.js";import"./preload-helper-C1FmrZbK.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./iframe-q8uLr7wl.js";import"./tags-CoVdckeD.js";import"./enchanted-button-D143v6g8.js";import"./state-HmA1gIuo.js";import"./query-BApjzB0v.js";import"./localization-BpntbVwP.js";import"./keyboardEventKeys-BnoN8uA3.js";import"./index-Bv3ibheM.js";import"./index-CuTRIAwF.js";import"./tags-Dsu22f7O.js";const p=new Map([[s.PANEL_CONTAINER,"Styles main panel wrapper."],[s.PANEL_HEADER,"Styles header section with title."],[s.PANEL_TITLE,"Styles title text element."],[s.PANEL_CONTENT,"Styles main content area."],[s.PANEL_CLOSE_BUTTON,"Styles close/dismiss button."]]),m=Object.values(s).map(n=>({name:n,description:p.get(n)??""}));function o(n){const t={code:"code",h2:"h2",p:"p",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",...d(),...n.components};return e.jsxs(e.Fragment,{children:[`
+`,`
+`,`
+`,`
+`,e.jsx(a,{of:x}),`
+`,e.jsx(l,{}),`
+`,e.jsxs(t.p,{children:["The ",e.jsx(t.code,{children:"enchanted-panel"})," is a side panel or drawer component that slides in from left or right with customizable title and content areas. Use for supplementary navigation, settings, or detailed views without navigating away."]}),`
+`,e.jsx(t.h2,{id:"interactive-example",children:"Interactive example"}),`
+`,e.jsx(c,{of:r}),`
+`,e.jsx(t.h2,{id:"properties",children:"Properties"}),`
+`,e.jsx(h,{of:r}),`
+`,e.jsx(t.h2,{id:"css-parts",children:"CSS Parts"}),`
+`,e.jsxs("table",{children:[e.jsx("thead",{children:e.jsxs("tr",{children:[e.jsx("th",{children:" Part "}),e.jsx("th",{children:" Description "})]})}),e.jsx("tbody",{children:m.map(i=>e.jsxs("tr",{children:[e.jsx("td",{children:e.jsx("code",{children:i.name})}),e.jsx("td",{children:i.description})]},i.name))})]}),`
+`,e.jsx(t.h2,{id:"slots",children:"Slots"}),`
+`,e.jsxs(t.table,{children:[e.jsx(t.thead,{children:e.jsxs(t.tr,{children:[e.jsx(t.th,{children:e.jsx(t.strong,{children:"Slot"})}),e.jsx(t.th,{children:e.jsx(t.strong,{children:"Description"})})]})}),e.jsxs(t.tbody,{children:[e.jsxs(t.tr,{children:[e.jsx(t.td,{children:e.jsx(t.code,{children:"center-title-content"})}),e.jsxs(t.td,{children:[e.jsx(t.strong,{children:"Optional."})," Used to provide custom content in the center of the panel header, such as actions, indicators, or additional controls. If omitted, only the default header title and close button are displayed."]})]}),e.jsxs(t.tr,{children:[e.jsx(t.td,{children:e.jsx(t.code,{children:"content"})}),e.jsxs(t.td,{children:[e.jsx(t.strong,{children:"Required."})," Used to provide the main content displayed inside the panel. If omitted, the panel is rendered without any body content."]})]})]})]})]})}function v(n={}){const{wrapper:t}={...d(),...n.components};return t?e.jsx(t,{...n,children:e.jsx(o,{...n})}):o(n)}export{m as CSSPARTS,p as PANEL_PARTS_METADATA,v as default};

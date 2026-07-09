@@ -1,0 +1,15 @@
+import{j as e,M as c,T as h,C as l,a as m}from"./blocks-8wSuGiO3.js";import{useMDXComponents as a}from"./index-BbMSz0O7.js";import{E as p,D as i}from"./enchanted-menu.stories-B4N64LAW.js";import{M as s,h as o}from"./cssClassEnums-B0FxBdGx.js";import"./preload-helper-C1FmrZbK.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./iframe-q8uLr7wl.js";import"./tags-CoVdckeD.js";import"./enchanted-menu-item-DXVNKSDd.js";import"./state-HmA1gIuo.js";import"./lodash-CdDiHlzQ.js";import"./enchanted-list-item-4M1fmflT.js";import"./localization-BpntbVwP.js";import"./enchanted-button-D143v6g8.js";import"./query-BApjzB0v.js";import"./keyboardEventKeys-BnoN8uA3.js";const x=new Map([[s.MENU_ROOT,"Root container of the overlay menu."],[s.BACKDROP,"Backdrop behind the menu."],[s.PAPER_ROOT,"Menu paper/surface container."],[o.TEXT_ROOT,"Wrapper around the menu item text."],[o.TEXT,"The visible menu item label."]]),j=[...Object.values(s),...Object.values(o)].map(n=>({name:n,description:x.get(n)??""}));function d(n){const t={code:"code",h2:"h2",p:"p",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",...a(),...n.components};return e.jsxs(e.Fragment,{children:[`
+`,`
+`,`
+`,`
+`,e.jsx(c,{of:p}),`
+`,e.jsx(h,{}),`
+`,e.jsxs(t.p,{children:["The ",e.jsx(t.code,{children:"enchanted-menu"})," displays a dropdown list of menu items anchored to a target element with keyboard navigation support. Supports multiple placement options and size variants for flexible positioning and layout."]}),`
+`,e.jsx(t.h2,{id:"interactive-example",children:"Interactive example"}),`
+`,e.jsx(l,{of:i}),`
+`,e.jsx(t.h2,{id:"properties",children:"Properties"}),`
+`,e.jsx(m,{of:i}),`
+`,e.jsx(t.h2,{id:"css-parts",children:"CSS Parts"}),`
+`,e.jsxs("table",{children:[e.jsx("thead",{children:e.jsxs("tr",{children:[e.jsx("th",{children:" Part "}),e.jsx("th",{children:" Description "})]})}),e.jsx("tbody",{children:j.map(r=>e.jsxs("tr",{children:[e.jsx("td",{children:e.jsx("code",{children:r.name})}),e.jsx("td",{children:r.description})]},r.name))})]}),`
+`,e.jsx(t.h2,{id:"slots",children:"Slots"}),`
+`,e.jsxs(t.table,{children:[e.jsx(t.thead,{children:e.jsxs(t.tr,{children:[e.jsx(t.th,{children:e.jsx(t.strong,{children:"Slot"})}),e.jsx(t.th,{children:e.jsx(t.strong,{children:"Description"})})]})}),e.jsxs(t.tbody,{children:[e.jsxs(t.tr,{children:[e.jsx(t.td,{children:e.jsx(t.code,{children:"menu-items"})}),e.jsxs(t.td,{children:[e.jsx(t.strong,{children:"Required."})," Used to provide one or more ",e.jsx(t.code,{children:"enchanted-menu-item"})," components displayed in the menu. If omitted, the menu opens without displaying any menu items."]})]}),e.jsxs(t.tr,{children:[e.jsx(t.td,{children:e.jsx(t.code,{children:"target-anchor"})}),e.jsxs(t.td,{children:[e.jsx(t.strong,{children:"Required."}),"  Used to provide the element that opens and anchors the menu, such as a button or icon. If omitted , the menu has no trigger and cannot be opened by the user."]})]})]})]})]})}function O(n={}){const{wrapper:t}={...a(),...n.components};return t?e.jsx(t,{...n,children:e.jsx(d,{...n})}):d(n)}export{j as CSSPARTS,x as MENU_PARTS_METADATA,O as default};

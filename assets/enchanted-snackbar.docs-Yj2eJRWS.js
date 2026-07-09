@@ -1,0 +1,15 @@
+import{j as t,M as c,T as d,C as h,a as l}from"./blocks-8wSuGiO3.js";import{useMDXComponents as a}from"./index-BbMSz0O7.js";import{E as p,D as o}from"./enchanted-snackbar.stories-BJWskQun.js";import{S as s}from"./cssClassEnums-B0FxBdGx.js";import"./preload-helper-C1FmrZbK.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./iframe-q8uLr7wl.js";import"./tags-CoVdckeD.js";import"./enchanted-circular-progress-DVAC6kdd.js";import"./index-BHCkbqoI.js";import"./index-CuTRIAwF.js";import"./tags-Dsu22f7O.js";import"./index-Cu-SjR_S.js";import"./enchanted-button-D143v6g8.js";import"./state-HmA1gIuo.js";import"./query-BApjzB0v.js";import"./localization-BpntbVwP.js";import"./keyboardEventKeys-BnoN8uA3.js";const x=new Map([[s.SNACKBAR_CONTAINER,"Styles root snackbar container."],[s.SNACKBAR_MESSAGE,"Styles message text container."],[s.SNACKBAR_BUTTON_CONTAINER,"Styles wrapper for snackbar buttons."],[s.SNACKBAR_BUTTONS,"Styles slot area for the snackbar message."],[s.SNACKBAR_ICON,"Styles icon shown for the snackbar message."],[s.SNACKBAR_PROGRESS,"Styles progress spinner container for progress snackbar."],[s.SNACKBAR_ICON_CONTAINER,"Styles container around the snackbar icon."]]),m=Object.values(s).map(n=>({name:n,description:x.get(n)??""}));function i(n){const e={code:"code",h2:"h2",p:"p",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",...a(),...n.components};return t.jsxs(t.Fragment,{children:[`
+`,`
+`,`
+`,`
+`,t.jsx(c,{of:p}),`
+`,t.jsx(d,{}),`
+`,t.jsxs(e.p,{children:["The ",t.jsx(e.code,{children:"enchanted-snackbar"})," displays brief temporary notifications at the bottom of the screen with five visual types (info, success, warning, error, progress). Supports HTML content and optional action buttons for user interactions."]}),`
+`,t.jsx(e.h2,{id:"interactive-example",children:"Interactive example"}),`
+`,t.jsx(h,{of:o}),`
+`,t.jsx(e.h2,{id:"properties",children:"Properties"}),`
+`,t.jsx(l,{of:o}),`
+`,t.jsx(e.h2,{id:"css-parts",children:"CSS Parts"}),`
+`,t.jsxs("table",{children:[t.jsx("thead",{children:t.jsxs("tr",{children:[t.jsx("th",{children:" Part "}),t.jsx("th",{children:" Description "})]})}),t.jsx("tbody",{children:m.map(r=>t.jsxs("tr",{children:[t.jsx("td",{children:t.jsx("code",{children:r.name})}),t.jsx("td",{children:r.description})]},r.name))})]}),`
+`,t.jsx(e.h2,{id:"slots",children:"Slots"}),`
+`,t.jsxs(e.table,{children:[t.jsx(e.thead,{children:t.jsxs(e.tr,{children:[t.jsx(e.th,{children:t.jsx(e.strong,{children:"Slot"})}),t.jsx(e.th,{children:t.jsx(e.strong,{children:"Description"})})]})}),t.jsx(e.tbody,{children:t.jsxs(e.tr,{children:[t.jsx(e.td,{children:t.jsx(e.code,{children:"snackbar-buttons"})}),t.jsxs(e.td,{children:[t.jsx(e.strong,{children:"Optional."})," Used to provide one or more action buttons displayed in the snackbar. If omitted, the snackbar is rendered without any action buttons."]})]})})]})]})}function K(n={}){const{wrapper:e}={...a(),...n.components};return e?t.jsx(e,{...n,children:t.jsx(i,{...n})}):i(n)}export{m as CSSPARTS,x as SNACKBAR_PARTS_METADATA,K as default};
