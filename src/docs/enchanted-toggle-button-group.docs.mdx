@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
 import * as EnchantedToggleButtonGroupStories from '../stories/enchanted-toggle-button-group.stories';
-import { TOGGLE_BUTTON_PARTS } from '../types/cssClassEnums';
+import { TOGGLE_BUTTON_PARTS, TOGGLE_BUTTON_GROUP_SLOTS } from '../types/cssClassEnums';
 
 export const TOGGLE_BUTTON_PARTS_METADATA = new Map([
   [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_DISABLED,  'The disabled state of the toggle button.' ],
@@ -35,6 +35,15 @@ export const TOGGLE_BUTTON_PARTS_METADATA = new Map([
 export const CSSPARTS = Object.values(TOGGLE_BUTTON_PARTS).map((part) => ({
     name: part,
     description: TOGGLE_BUTTON_PARTS_METADATA.get(part) ?? ''
+}));
+
+export const TOGGLE_BUTTON_GROUP_SLOTS_METADATA = new Map([
+  [TOGGLE_BUTTON_GROUP_SLOTS.DEFAULT_SLOT,  'Required. Used to provide one or more `enchanted-toggle-button` components that participate in toggle group. If omitted, the toggle group is rendered without any buttons and cannot be interacted with.' ],
+]);
+
+export const slots = Object.values(TOGGLE_BUTTON_GROUP_SLOTS).map((slot) => ({
+  name: slot,
+  description: TOGGLE_BUTTON_GROUP_SLOTS_METADATA.get(slot) ?? ''
 }));
 
 <Meta of={EnchantedToggleButtonGroupStories} />
@@ -71,6 +80,20 @@ The `enchanted-toggle-button-group` is a container for multiple toggle buttons i
 </table>
 
 ## Slots
-| **Slot** | **Description** |
-|----------|-----------------|
-| `default` | **Required.** Used to provide one or more `enchanted-toggle-button` components that participate in toggle group. If omitted, the toggle group is rendered without any buttons and cannot be interacted with. |
+
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+       <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>

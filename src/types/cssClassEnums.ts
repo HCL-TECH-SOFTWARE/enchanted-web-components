@@ -714,7 +714,9 @@ export enum FAB_SLOTS {
   ICON = 'icon',
   BADGE = 'badge'
 }
-
+export enum LIST_SLOTS {
+  DEFAULT = 'default-slot',
+}
 export enum MENU_SLOTS {
   MENU_ITEMS = 'menu-items',
   TARGET_ANCHOR = 'target-anchor',
@@ -733,4 +735,13 @@ export enum POPOVER_SLOTS {
 
 export enum SNACKBAR_SLOTS {
   SNACKBAR_BUTTONS = 'snackbar-buttons'
+}
+
+export enum TOGGLE_BUTTON_GROUP_SLOTS {
+  DEFAULT_SLOT = 'default-slot',
+}
+
+export enum TOOLTIP_SLOTS {
+  TARGET = 'target',
+  TOOLTIP = 'tooltip',
 }
