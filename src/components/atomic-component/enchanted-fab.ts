@@ -21,7 +21,7 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 // Helper imports
 import { getCurrentDirection } from "../localization";
 import { LOCALE_DIRECTIONS } from "../constants";
-import { FAB_PARTS, EnchantedFabType } from '../../types/cssClassEnums';
+import { FAB_PARTS, EnchantedFabType, FAB_SLOTS } from '../../types/cssClassEnums';
 
 // Component imports
 import  "./enchanted-badge";
@@ -50,7 +50,7 @@ export class EnchantedFab extends EnchantedAcBaseElement {
       >
         ${this.icon 
           ? html`<span part="${FAB_PARTS.ICON}">
-              <slot name="icon">
+              <slot name="${FAB_SLOTS.ICON}">
                 ${this.icon}
               </slot>
             </span>`
@@ -60,7 +60,7 @@ export class EnchantedFab extends EnchantedAcBaseElement {
           : nothing}
       </button>
       ${this.badge
-        ? html`<slot name="badge">
+        ? html`<slot name="${FAB_SLOTS.BADGE}">
           </slot>`
         : nothing}
     `;

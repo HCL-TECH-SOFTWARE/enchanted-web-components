@@ -705,3 +705,17 @@ export enum DIALOG_SLOTS {
   PAGINATION = 'pagination',
   FOOTER = 'footer',
 }
+
+export enum FAB_AI_SLOTS {
+  BADGE = 'badge'
+}
+
+export enum FAB_SLOTS {
+  ICON = 'icon',
+  BADGE = 'badge'
+}
+
+export enum MENU_SLOTS {
+  MENU_ITEMS = 'menu-items',
+  TARGET_ANCHOR = 'target-anchor',
+}
