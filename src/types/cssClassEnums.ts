@@ -694,3 +694,14 @@ export enum ACCORDION_SLOTS {
   SECONDARY = 'secondary',
   ACCORDION_ITEMS = 'accordion-items',
 }
+
+export enum CHIP_SLOTS {
+  CLEAR_ICON = 'clear-icon',
+}
+
+export enum DIALOG_SLOTS {
+  TITLE = 'title',
+  CONTENT = 'content',
+  PAGINATION = 'pagination',
+  FOOTER = 'footer',
+}

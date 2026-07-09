@@ -92,7 +92,7 @@ The `enchanted-toggle-button` is a compact icon-only toggle control for toolbar-
  <tbody>
   {slots.map((slot) => (
     <tr key={slot.name}>
-      <td><code>{slot.name}</code></td>
+      <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
       <td>{slot.description}</td>
     </tr>
   ))}

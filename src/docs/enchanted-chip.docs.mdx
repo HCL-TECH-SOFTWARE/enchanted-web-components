@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
 import * as EnchantedChipStories from '../stories/enchanted-chip.stories';
-import { CHIP_PARTS } from '../types/cssClassEnums';
+import { CHIP_PARTS, CHIP_SLOTS } from '../types/cssClassEnums';
 
 export const CHIP_PART_METADATA = new Map([
   [CHIP_PARTS.CHIP_DIV, 'Main chip container.'],
@@ -32,6 +32,14 @@ export const CSSPARTS = Object.values(CHIP_PARTS).map((part) => ({
     description: CHIP_PART_METADATA.get(part) ?? ''
 }));
 
+export const CHIP_SLOTS_METADATA = new Map([
+  [CHIP_SLOTS.CLEAR_ICON,  'Optional. Used to provide a custom clear or remove icon displayed at the end of the chip when `clearIcon` is enabled. If omitted, no clear icon is rendered.' ],
+]);
+
+export const slots = Object.values(CHIP_SLOTS).map((slot) => ({
+  name: slot,
+  description: CHIP_SLOTS_METADATA.get(slot) ?? ''
+}));
 
 <Meta of={EnchantedChipStories} />
 
@@ -67,6 +75,20 @@ The `enchanted-chip` displays compact elements with optional avatar, count badge
 </table>
 
 ## Slots
-| **Slot** | **Description** |
-|----------|-----------------|
-| `clear-icon` | **Optional.** Used to provide a custom clear or remove icon displayed at the end of the chip when `clearIcon` is enabled. If omitted, no clear icon is rendered. |
+
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+      <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>

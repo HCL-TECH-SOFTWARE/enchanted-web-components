@@ -96,7 +96,7 @@ The `enchanted-accordion` is a collapsible content container supporting multiple
  <tbody>
   {slots.map((slot) => (
     <tr key={slot.name}>
-      <td><code>{slot.name}</code></td>
+      <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
       <td>{slot.description}</td>
     </tr>
   ))}
