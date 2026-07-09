@@ -10,6 +10,11 @@
 
 ### Breaking changes
 
+## 7.1.1
+
+### Fixed
+- Fixing the publish workflow by updating npm to version 11. Please check this bug report: https://github.com/npm/cli/issues/9722
+
 ## 7.1.0
 
 ### Added
