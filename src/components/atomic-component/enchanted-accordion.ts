@@ -27,7 +27,7 @@ import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
 // Helper imports
 import { getCurrentDirection } from "../localization";
 import { LOCALE_DIRECTIONS } from "../constants";
-import { ACCORDION_PARTS } from "../../types/cssClassEnums";
+import { ACCORDION_PARTS, ACCORDION_SLOTS } from "../../types/cssClassEnums";
 
 //Icon import
 import "@hcl-software/enchanted-icons-web-component/dist/carbon/es/chevron--down";
@@ -95,15 +95,15 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
                 >
                   ${this.label}
                 </div>`
-              : html`<slot name="header"
+              : html`<slot name="${ACCORDION_SLOTS.HEADER}"
                   >${this.getMessage("accordion.header.text")}</slot
                 >`}
             ${this.showSecondaryText
               ? html`<div
-                  part=${this.isLTR ? "secondary-text" : "secondary-text-rtl"}
+                  part=${this.isLTR ? ACCORDION_PARTS.ENCHANTED_ACCORDION_SECONDARY_TEXT : ACCORDION_PARTS.ENCHANTED_ACCORDION_SECONDARY_TEXT_RTL}
                 >
                   ${this.secondaryText ||
-                  html`<slot name="secondary"
+                  html`<slot name="${ACCORDION_SLOTS.SECONDARY}"
                     >${this.getMessage("accordion.secondary.text")}</slot
                   >`}
                 </div>`
@@ -136,7 +136,7 @@ export class EnchantedAccordion extends EnchantedAcBaseElement {
                 : `${ACCORDION_PARTS.ENCHANTED_ACCORDION_CONTENT_RTL}`}
             >
               <slot
-                name="accordion-items"
+                name="${ACCORDION_SLOTS.ACCORDION_ITEMS}"
                 @slotchange=${this.handleSlotChange}
               ></slot>
             </div>

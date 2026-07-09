@@ -26,7 +26,7 @@ import './enchanted-badge';
 import './enchanted-tooltip';
 
 // Helper imports
-import { TOGGLE_BUTTON_PARTS, TOOLTIP_PLACEMENT } from '../../types/cssClassEnums';
+import { TOGGLE_BUTTON_PARTS, TOOLTIP_PLACEMENT, TOGGLE_BUTTON_SLOTS } from '../../types/cssClassEnums';
 import { TOOLTIP_EXPORT_PARTS } from '../exportParts';
 import { ENCHANTED_TOGGLE_BUTTON_TAG_NAME, ENCHANTED_TOOLTIP_TAG } from '../tags';
 
@@ -100,7 +100,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   private renderBadge() {
     return this.showBadge ? html`
     <div part="${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_BADGE_WRAPPER}">
-      <slot name="badge"></slot>
+      <slot name="${TOGGLE_BUTTON_SLOTS.BADGE}"></slot>
     </div>
     ` : nothing;
   }
@@ -120,7 +120,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
         data-testid="enchanted-toggle-single-button"
       >
         <span part=${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_FOCUS_RING}></span>
-        <slot name="icon"
+        <slot name="${TOGGLE_BUTTON_SLOTS.ICON}"
         part="${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_ICON}"></slot>
       </button>
     `;

@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
 import * as EnchantedAccordionStories from '../stories/enchanted-accordion.stories';
-import { ACCORDION_PARTS } from '../types/cssClassEnums';
+import { ACCORDION_PARTS, ACCORDION_SLOTS } from '../types/cssClassEnums';
 
 export const ACCORDION_PARTS_METADATA = new Map([
   [ACCORDION_PARTS.ENCHANTED_ACCORDION_CONTAINER, 'Styles the accordion container.'],
@@ -40,6 +40,17 @@ export const ACCORDION_PARTS_METADATA = new Map([
 export const CSSPARTS = Object.values(ACCORDION_PARTS).map((part) => ({
     name: part,
     description: ACCORDION_PARTS_METADATA.get(part) ?? ''
+}));
+
+export const ACCORDION_SLOTS_METADATA = new Map([
+  [ACCORDION_SLOTS.HEADER,  'Optional. Used to provide custom content for the accordion header. If omitted, the component displays its default header text.' ],
+  [ACCORDION_SLOTS.SECONDARY,  'Optional. Used to provide custom secondary text displayed beneath or alongside the main header. If omitted, the component displays the value of the `secondaryText` property or its default localized secondary text when enabled.' ],
+  [ACCORDION_SLOTS.ACCORDION_ITEMS,  'Required. Used to provide the accordion content that is displayed when the accordion is expanded. If omitted, the expanded accordion has no content to display.' ],
+]);
+
+export const slots = Object.values(ACCORDION_SLOTS).map((slot) => ({
+  name: slot,
+  description: ACCORDION_SLOTS_METADATA.get(slot) ?? ''
 }));
 
 <Meta of={EnchantedAccordionStories} />
@@ -74,8 +85,20 @@ The `enchanted-accordion` is a collapsible content container supporting multiple
 </table>
 
 ## Slots
-| **Slot** | **Description** |
-|----------|-----------------|
-| `header` | **Optional.** Used to provide custom content for the accordion header. If omitted, the component displays its default header text. | 
-| `secondary` | **Optional.** Used to provide custom secondary text displayed beneath or alongside the main header. If omitted, the component displays the value of the `secondaryText` property or its default localized secondary text when enabled. |
-| `accordion-items` | **Required.** Used to provide the accordion content that is displayed when the accordion is expanded. If omitted, the expanded accordion has no content to display. |
+
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+      <td><code>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>

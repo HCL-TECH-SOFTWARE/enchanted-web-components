@@ -682,3 +682,15 @@ export enum ARIA_ROLES {
   PRESENTATION = 'presentation',
   NONE = 'none',
 }
+
+// Slots 
+export enum TOGGLE_BUTTON_SLOTS {
+  ICON = 'icon',
+  BADGE = 'badge',
+}
+
+export enum ACCORDION_SLOTS {
+  HEADER = 'header',
+  SECONDARY = 'secondary',
+  ACCORDION_ITEMS = 'accordion-items',
+}

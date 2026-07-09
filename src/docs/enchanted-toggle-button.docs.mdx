@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls } from '@storybook/addon-docs/blocks';
 import * as EnchantedToggleButtonStories from '../stories/enchanted-toggle-button.stories';
-import { TOGGLE_BUTTON_PARTS } from '../types/cssClassEnums';
+import { TOGGLE_BUTTON_PARTS, TOGGLE_BUTTON_SLOTS } from '../types/cssClassEnums';
 
 export const TOGGLE_BUTTON_PARTS_METADATA = new Map([
   [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_DISABLED,  'The disabled state of the toggle button.' ],
@@ -32,9 +32,19 @@ export const TOGGLE_BUTTON_PARTS_METADATA = new Map([
   [TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_FOCUS_RING,  'Focus ring shown on the button.', ],
 ]);
 
+export const TOGGLE_BUTTON_SLOTS_METADATA = new Map([
+  [TOGGLE_BUTTON_SLOTS.ICON,  'Required. Used to provide the icon displayed inside the toggle button. If omitted, the component is rendered without an icon, which may result in an incomplete or unusable UI.' ],
+  [TOGGLE_BUTTON_SLOTS.BADGE,  'Optional. Used to display a badge or status indicator inside toggle button. If omitted, no badge is rendered.' ],
+]);
+
 export const CSSPARTS = Object.values(TOGGLE_BUTTON_PARTS).map((part) => ({
     name: part,
     description: TOGGLE_BUTTON_PARTS_METADATA.get(part) ?? ''
+}));
+
+export const slots = Object.values(TOGGLE_BUTTON_SLOTS).map((slot) => ({
+  name: slot,
+  description: TOGGLE_BUTTON_SLOTS_METADATA.get(slot) ?? ''
 }));
 
 <Meta of={EnchantedToggleButtonStories} />
@@ -72,7 +82,19 @@ The `enchanted-toggle-button` is a compact icon-only toggle control for toolbar-
 
 ## slots
 
-| **Slot** | **Description** |
-|----------|-----------------|
-| `icon`   | Required icon slot. Place an icon component or SVG element here.|
-| `badge`  | Optional badge slot. Use this for status or notification badges.|
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+      <td><code>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
