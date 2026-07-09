@@ -719,3 +719,18 @@ export enum MENU_SLOTS {
   MENU_ITEMS = 'menu-items',
   TARGET_ANCHOR = 'target-anchor',
 }
+
+export enum PANEL_SLOTS {
+  CENTER_TITLE_CONTENT = 'center-title-content',
+  CONTENT = 'content',
+}
+
+export enum POPOVER_SLOTS {
+  TARGET = 'target',
+  LABEL = 'label',
+  TEXT = 'text',
+}
+
+export enum SNACKBAR_SLOTS {
+  SNACKBAR_BUTTONS = 'snackbar-buttons'
+}

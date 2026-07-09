@@ -22,7 +22,7 @@ import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
 import { LOCALE_DIRECTIONS } from '../constants.js';
 import { getCurrentDirection } from '../localization.js';
 import  { EnchantedPopoverArrowPosition } from '../../types/enchanted-popover.js';
-import { POPOVER_PARTS } from "../../types/cssClassEnums";
+import { POPOVER_PARTS, POPOVER_SLOTS } from "../../types/cssClassEnums";
 import { generateIconTagName, ENCHANTED_POPOVER_TAG_NAME } from '../tags';
 
 const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-popover.ts');
@@ -90,7 +90,7 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
     return html`
     <div id="target" part="${POPOVER_PARTS.POPOVER_TARGET}" aria-label=${this.label}>
       <slot
-        name="target"
+        name="${POPOVER_SLOTS.TARGET}"
         @pointerenter=${this._showPopover}
         @pointerleave=${this._hidePopover}
         @focusin=${this._onFocusIn}
@@ -102,8 +102,8 @@ export class EnchantedPopover extends EnchantedAcBaseElement {
       <div part="${POPOVER_PARTS.POPOVER_ARROW}"></div>`: nothing}
         <div part=${this.isLTR ? POPOVER_PARTS.POPOVER_CONTAINER : POPOVER_PARTS.POPOVER_CONTAINER_RTL}>
           <div part="${POPOVER_PARTS.POPOVER_CONTENT}">
-            ${this.showLabel ? html`<div part="${POPOVER_PARTS.POPOVER_LABEL}"><slot name="label">${this.label}</slot></div>` : nothing}
-            ${this.showText ? html`<div part="${POPOVER_PARTS.POPOVER_TEXT}"><slot name="text">${this.text}</slot></div>` : nothing}
+            ${this.showLabel ? html`<div part="${POPOVER_PARTS.POPOVER_LABEL}"><slot name="${POPOVER_SLOTS.LABEL}">${this.label}</slot></div>` : nothing}
+            ${this.showText ? html`<div part="${POPOVER_PARTS.POPOVER_TEXT}"><slot name="${POPOVER_SLOTS.TEXT}">${this.text}</slot></div>` : nothing}
             
           </div>
           ${this.showCloseIcon ? html`<button part=${this.isLTR ? POPOVER_PARTS.POPOVER_CLOSE_ICON : POPOVER_PARTS.POPOVER_CLOSE_ICON_RTL} 
