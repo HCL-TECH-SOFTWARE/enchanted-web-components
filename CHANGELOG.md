@@ -3,15 +3,21 @@
 ## Unreleased
 
 ### Added
+
+### Fixed
+
+### Changed
+
+### Breaking changes
+
+## 7.1.0
+
+### Added
 - Added custom Storybook MDX documentation pages.
 - Added remark-gfm support for Markdown tables.
 
 ### Fixed
 - Standardized storybook documentation by adding CSS Part descriptions and slot descriptions.
-
-### Changed
-
-### Breaking changes
 
 ## 7.0.0
 
