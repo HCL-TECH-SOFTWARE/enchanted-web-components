@@ -5,7 +5,7 @@
   "types": "dist/index.d.ts",
   "author": "Hanjo Hagemeier <hanjo.hagemeier@hcl.com>",
   "license": "Apache-2.0",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "type": "module",
   "homepage": "https://github.com/HCL-TECH-SOFTWARE/enchanted-web-components#readme",
   "repository": {
@@ -75,7 +75,8 @@
     "storybook": "^9.1.16",
     "typescript": "~6.0.3",
     "uuid": "^14.0.0",
-    "wdio-json-html-reporter": "^1.5.14"
+    "wdio-json-html-reporter": "^1.5.14",
+    "remark-gfm": "^4.0.1"
   },
   "dependencies": {
     "@hcl-software/enchanted-icons-web-component": "^1.9.0",
