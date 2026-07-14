@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
 import * as EnchantedTooltipStories from '../stories/enchanted-tooltip.stories';
-import { TOOLTIP_PARTS } from '../types/cssClassEnums';
+import { TOOLTIP_PARTS, TOOLTIP_SLOTS } from '../types/cssClassEnums';
 
 export const TOOLTIP_PARTS_METADATA = new Map([
   [TOOLTIP_PARTS.TOOLTIP_ROOT,'Styles root container for the tooltip wrapper.'],
@@ -28,6 +28,16 @@ export const TOOLTIP_PARTS_METADATA = new Map([
 export const CSSPARTS = Object.values(TOOLTIP_PARTS).map((part) => ({
     name: part,
     description: TOOLTIP_PARTS_METADATA.get(part) ?? ''
+}));
+
+export const TOOLTIP_SLOTS_METADATA = new Map([
+  [TOOLTIP_SLOTS.TOOLTIP,  'Optional. Used to provide custom tooltip content. If omitted, the component displays the value of the `tooltiptext` property.' ],
+  [TOOLTIP_SLOTS.TARGET,  'Required. Used to provide the element that displays the tooltip when hovered or focused. If omitted, the tooltip has no target and cannot be shown.' ],
+]);
+
+export const slots = Object.values(TOOLTIP_SLOTS).map((slot) => ({
+  name: slot,
+  description: TOOLTIP_SLOTS_METADATA.get(slot) ?? ''
 }));
 
 <Meta of={EnchantedTooltipStories} />
@@ -65,7 +75,19 @@ The `enchanted-tooltip` displays contextual help or information text when hoveri
 
 ## Slots
 
-| **Slot** | **Description** |
-|----------|-----------------|
-| `tooltip` | **Optional.** Used to provide custom tooltip content. If omitted, the component displays the value of the `tooltiptext` property.   |
-| `target` | **Required.** Used to provide the element that displays the tooltip when hovered or focused. If omitted, the tooltip has no target and cannot be shown. |
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+       <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>

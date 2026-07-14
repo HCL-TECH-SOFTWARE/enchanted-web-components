@@ -26,7 +26,7 @@ import './enchanted-svg-icon';
 import './enchanted-button';
 
 // Helper imports
-import { DIALOG_PARTS } from '../../types/cssClassEnums';
+import { DIALOG_PARTS, DIALOG_SLOTS } from '../../types/cssClassEnums';
 import { DialogSizes } from '../../types/enchanted-dialog';
 import { isLTR } from '../localization';
 import { KeyboardInputKeys } from '../../utils/keyboardEventKeys';
@@ -310,7 +310,7 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
             >
               <div part="${!this.overrideTitle ? DIALOG_PARTS.TITLE : nothing}">
                 ${this.overrideTitle
-                  ? html`<slot name="title"></slot>`
+                  ? html`<slot name="${DIALOG_SLOTS.TITLE}"></slot>`
                   : html`
                     <div part=${isLTR() ? DIALOG_PARTS.TITLE_ROOT : DIALOG_PARTS.TITLE_ROOT_RTL}>
                       <p part=${isLTR() ? DIALOG_PARTS.TITLE_TEXT : DIALOG_PARTS.TITLE_TEXT_RTL}>
@@ -330,13 +330,13 @@ export class EnchantedDialog extends EnchantedAcBaseElement {
                     </div>`}
               </div>
               <div part=${this.getContentPart()}>
-                <slot name="content"></slot>
+                <slot name="${DIALOG_SLOTS.CONTENT}"></slot>
               </div>
               <div part=${this.getPaginationPart()}>
-                <slot name="pagination"></slot>
+                <slot name="${DIALOG_SLOTS.PAGINATION}"></slot>
               </div>
               <div part=${this.getActionPart()}>
-                <slot name="footer"></slot>
+                <slot name="${DIALOG_SLOTS.FOOTER}"></slot>
               </div>
             </div>
           </div>

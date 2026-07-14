@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
 import * as EnchantedDialogStories from '../stories/enchanted-dialog.stories';
-import { DIALOG_PARTS } from '../types/cssClassEnums';
+import { DIALOG_PARTS, DIALOG_SLOTS } from '../types/cssClassEnums';
 
 export const DIALOG_PART_METADATA = new Map([
   [DIALOG_PARTS.DIALOG_ROOT, 'Styles the root wrapper of the standard dialog.'],
@@ -63,6 +63,18 @@ export const CSSPARTS = Object.values(DIALOG_PARTS).map((part) => ({
     description: DIALOG_PART_METADATA.get(part) ?? ''
 }));
 
+export const DIALOG_SLOTS_METADATA = new Map([
+  [DIALOG_SLOTS.TITLE,  'Optional. Used to provide custom dialog header content when `overrideTitle` is enabled. If omitted, the component displays the value of the `dialogTitle` property.' ],
+  [DIALOG_SLOTS.CONTENT,  'Required. Used to provide the primary content displayed inside the dialog. If omitted, the dialog is rendered without any body content.' ],
+  [DIALOG_SLOTS.PAGINATION,  'Optional. Used to provide pagination controls below the dialog content. If omitted, the pagination section remains empty.' ],
+  [DIALOG_SLOTS.FOOTER,  'Optional. Used to provide action buttons or other footer content. If omitted, the dialog is rendered without footer actions.' ],
+]);
+
+export const slots = Object.values(DIALOG_SLOTS).map((slot) => ({
+  name: slot,
+  description: DIALOG_SLOTS_METADATA.get(slot) ?? ''
+}));
+
 <Meta of={EnchantedDialogStories} />
 
 <Title />
@@ -96,10 +108,21 @@ The `enchanted-dialog` is a modal component for displaying important content or 
   </tbody>
 </table>
 
-## Slots
-| **Slot** | **Description** |
-|----------|-----------------|
-| `title` | **Optional.** Used to provide custom dialog header content when `overrideTitle` is enabled. If omitted, the component displays the value of the `dialogTitle` property. |
-| `content` | **Required.** Used to provide the primary content displayed inside the dialog. If omitted, the dialog is rendered without any body content. |
-| `pagination` | **Optional.** Used to provide pagination controls below the dialog content. If omitted, the pagination section remains empty.|
-| `footer` | **Optional.** Used to provide action buttons or other footer content. If omitted, the dialog is rendered without footer actions. |
+## slots
+
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+       <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>

@@ -18,7 +18,7 @@ import { property } from "lit/decorators.js";
 import createDebug from 'debug';
 
 import { EnchantedAcBaseElement } from "./enchanted-ac-base-element";
-import { FAB_PARTS } from "../../types/cssClassEnums";
+import { FAB_PARTS, FAB_AI_SLOTS } from "../../types/cssClassEnums";
 import "./enchanted-fab";
 import { ENCHANTED_FAB_AI_TAG_NAME, ENCHANTED_FAB_TAG } from "../tags";
 
@@ -58,7 +58,7 @@ export class EnchantedFabAi extends EnchantedAcBaseElement {
         .icon=${this.icon}
         ?badge=${this.badge}
       >
-        <slot name="badge" slot="badge"></slot>
+        <slot name="${FAB_AI_SLOTS.BADGE}" slot="badge"></slot>
       </${ENCHANTED_FAB_TAG}>
     `;
   }

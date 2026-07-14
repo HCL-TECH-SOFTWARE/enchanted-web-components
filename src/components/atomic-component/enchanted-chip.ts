@@ -23,7 +23,7 @@ import createDebug from 'debug';
 import './enchanted-avatar';
 
 // Helper imports
-import { AVATAR_TYPE, AVATAR_VARIANT, CHIP_PARTS } from '../../types/cssClassEnums';
+import { AVATAR_TYPE, AVATAR_VARIANT, CHIP_PARTS, CHIP_SLOTS } from '../../types/cssClassEnums';
 import { getCurrentDirection } from '../localization';
 import { LOCALE_DIRECTIONS } from '../constants';
 import { ENCHANTED_AVATAR_TAG, ENCHANTED_CHIP_TAG_NAME } from '../tags';
@@ -60,7 +60,7 @@ export class EnchantedChip extends EnchantedAcBaseElement {
           ? html`<span part=${chipCountPart}>${this.count}</span>`
           : nothing}
         ${this.clearIcon
-          ? html`<slot name="clear-icon"></slot>`
+          ? html`<slot name="${CHIP_SLOTS.CLEAR_ICON}"></slot>`
           : nothing}
       </div>
     `;

@@ -22,7 +22,7 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import './enchanted-circular-progress';
 
 // Helper imports
-import { SNACKBAR_PARTS, SNACKBAR_TYPE } from '../../types/cssClassEnums';
+import { SNACKBAR_PARTS, SNACKBAR_TYPE, SNACKBAR_SLOTS } from '../../types/cssClassEnums';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/checkmark--outline';
@@ -78,7 +78,7 @@ export class EnchantedSnackbar extends EnchantedAcBaseElement {
             .innerHTML=${this.message}
           ></span>
           <div part=${SNACKBAR_PARTS.SNACKBAR_BUTTON_CONTAINER}>
-            <div part=${SNACKBAR_PARTS.SNACKBAR_BUTTONS}><slot name="snackbar-buttons"></slot></div>
+            <div part=${SNACKBAR_PARTS.SNACKBAR_BUTTONS}><slot name="${SNACKBAR_SLOTS.SNACKBAR_BUTTONS}"></slot></div>
           </div>
         </div>
       `;
