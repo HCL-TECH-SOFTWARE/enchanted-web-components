@@ -71,8 +71,8 @@ const meta: Meta<EnchantedToggleButtonProps> = {
       description: 'Icon size, 16 or 20',
       table: { defaultValue: { summary: '20' } },
     },
-    firstType: { control: 'boolean', description: 'Whether this button is the first in a group (for styling)', table: { defaultValue: { summary: 'true' } } },
-    lastType: { control: 'boolean', description: 'Whether this button is the last in a group (for styling)', table: { defaultValue: { summary: 'true' } } },
+    firstType: { control: 'boolean', description: 'Whether this button is the first in a group (for styling)', table: { defaultValue: { summary: 'false' } } },
+    lastType: { control: 'boolean', description: 'Whether this button is the last in a group (for styling)', table: { defaultValue: { summary: 'false' } } },
   },
   args: {
     toggleOn: false,
@@ -82,8 +82,8 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     iconSize: '16',
     tooltipText: '',
     ariaLabel: 'Toggle',
-    firstType: true,
-    lastType: true,
+    firstType: false,
+    lastType: false,
   },
 
   render: (args) => {
