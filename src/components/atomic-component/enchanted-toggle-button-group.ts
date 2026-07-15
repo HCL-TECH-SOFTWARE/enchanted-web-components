@@ -65,16 +65,16 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
       const isFirst = index === 0;
       const isLast = index === this.toggleItems.length - 1;
       const isSingle = this.toggleItems.length === 1;
-      if(!isHorizontal) {
+      if (!isHorizontal) {
         button.firstType = false;
         button.lastType = false;
-      } else if(isSingle) {
+      } else if (isSingle) {
         button.firstType = false;
         button.lastType = false;
-      } else if(isFirst) {
+      } else if (isFirst) {
         button.firstType = true;
         button.lastType = false;
-      } else if(isLast) {
+      } else if (isLast) {
         button.firstType = false;
         button.lastType = true;
       } else {
