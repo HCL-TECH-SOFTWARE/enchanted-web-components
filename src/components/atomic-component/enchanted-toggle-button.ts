@@ -47,7 +47,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   padding = false;
 
   @property({ type: String })
-  iconSize: '16' | '20' = '16';
+  iconSize: 'small' | 'large' = 'small';
 
   @property({ type: String })
   tooltipText = '';
@@ -81,7 +81,8 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
       : assignedIcon?.querySelector('*') as HTMLElement | null;
     const iconWithSize = iconElement as (HTMLElement & { size?: string }) | null;
     if (iconWithSize) {
-      iconWithSize.size = this.iconSize;
+      const resolvedIconSize = this.iconSize === 'large' ? '20' : '16';
+      iconWithSize.size = resolvedIconSize;
     }
   }
 
@@ -90,7 +91,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   // }
 
   private getSizepart(): string {
-    return this.iconSize === '16' ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL : TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE;
+    return this.iconSize === 'small' ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL : TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE;
   }
 
   private getPaddingPart(): string {

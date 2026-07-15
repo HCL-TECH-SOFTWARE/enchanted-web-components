@@ -37,7 +37,7 @@ afterEach(() => {
 
 const renderDefaultGroup = (
   orientation: 'horizontal' | 'vertical' = 'horizontal',
-  size: '16' | '20' = '20',
+  size: 'small' | 'large' = 'large',
   disabled = false,
   selectedIndex = 0,
 ) => {
@@ -103,13 +103,13 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     const groupElement = getGroup();
     await groupElement.updateComplete;
     await expect(groupElement.orientation).toBe('horizontal');
-    await expect(groupElement.size).toBe('20');
+    await expect(groupElement.size).toBe('large');
     await expect(groupElement.disabled).toBe(false);
     await expect(groupElement.selectedIndex).toBe(0);
   });
 
   it('should apply horizontal firstType/lastType and selected toggleOn states', async () => {
-    renderDefaultGroup('horizontal', '20', false, 1);
+    renderDefaultGroup('horizontal', 'large', false, 1);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -120,8 +120,8 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     await expect(buttons[0].lastType).toBe(false);
     await expect(buttons[0].toggleOn).toBe(false);
 
-    await expect(buttons[1].firstType).toBe(false);
-    await expect(buttons[1].lastType).toBe(false);
+    await expect(buttons[1].firstType).toBe(true);
+    await expect(buttons[1].lastType).toBe(true);
     await expect(buttons[1].toggleOn).toBe(true);
 
     await expect(buttons[2].firstType).toBe(false);
@@ -137,29 +137,29 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
     await browser.pause(50); // Wait for shape changes to propagate to buttons
 
     const buttons = await getButtons();
-    await expect(buttons[0].firstType).toBe(true);
-    await expect(buttons[0].lastType).toBe(true);
-    await expect(buttons[1].firstType).toBe(true);
-    await expect(buttons[1].lastType).toBe(true);
-    await expect(buttons[2].firstType).toBe(true);
-    await expect(buttons[2].lastType).toBe(true);
+    await expect(buttons[0].firstType).toBe(false);
+    await expect(buttons[0].lastType).toBe(false);
+    await expect(buttons[1].firstType).toBe(false);
+    await expect(buttons[1].lastType).toBe(false);
+    await expect(buttons[2].firstType).toBe(false);
+    await expect(buttons[2].lastType).toBe(false);
   });
 
   it('should propagate size to all child buttons', async () => {
-    renderDefaultGroup('horizontal', '16');
+    renderDefaultGroup('horizontal', 'small');
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
     await browser.pause(50); // Wait for size changes to propagate to buttons
 
     const buttons = await getButtons();
-    await expect(buttons[0].iconSize).toBe('16');
-    await expect(buttons[1].iconSize).toBe('16');
-    await expect(buttons[2].iconSize).toBe('16');
+    await expect(buttons[0].iconSize).toBe('small');
+    await expect(buttons[1].iconSize).toBe('small');
+    await expect(buttons[2].iconSize).toBe('small');
   });
 
   it('should propagate disabled=true to all child buttons', async () => {
-    renderDefaultGroup('horizontal', '20', true);
+    renderDefaultGroup('horizontal', 'large', true);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -172,7 +172,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should propagate disabled=false to all child buttons after re-enabling group', async () => {
-    renderDefaultGroup('horizontal', '20', true);
+    renderDefaultGroup('horizontal', 'large', true);
 
     const groupElement = await getGroup();
     await groupElement.updateComplete;
@@ -189,7 +189,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should update selectedIndex and emit toggle-group-change when a different button is clicked', async () => {
-    renderDefaultGroup('horizontal', '20', false, 0);
+    renderDefaultGroup('horizontal', 'large', false, 0);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -213,7 +213,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should not emit toggle-group-change when clicking the already selected button', async () => {
-    renderDefaultGroup('horizontal', '20', false, 1);
+    renderDefaultGroup('horizontal', 'large', false, 1);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -231,7 +231,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should ignore toggle-change from a button that is not part of the group', async () => {
-    renderDefaultGroup('horizontal', '20', false, 0);
+    renderDefaultGroup('horizontal', 'large', false, 0);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -245,7 +245,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should return early in handleSlotChange when slot is missing', async () => {
-    renderDefaultGroup('horizontal', '20', false, 0);
+    renderDefaultGroup('horizontal', 'large', false, 0);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;

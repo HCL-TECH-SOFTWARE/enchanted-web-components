@@ -41,7 +41,7 @@
     }
 
     & enchanted-toggle-button[firstType]:not([lastType])[disabled]::part(toggle-single-button),
-    & enchanted-toggle-button:not([firstType]):not([lastType])[disabled]::part(toggle-single-button) {
+    & enchanted-toggle-button[lastType][firstType][disabled]::part(toggle-single-button) {
         border-right-color: transparent;
     }
 }

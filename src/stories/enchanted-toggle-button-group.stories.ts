@@ -31,7 +31,7 @@ import { ENCHANTED_TOGGLE_BUTTON_GROUP_TAG, ENCHANTED_TOGGLE_BUTTON_TAG, generat
 interface EnchantedToggleButtonGroupStoryArgs {
   // Group-level props
   orientation: 'horizontal' | 'vertical';
-  size: '16' | '20';
+  size: 'small' | 'large';
   disabled: boolean;
   selectedIndex: number;
 
@@ -66,9 +66,9 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
     },
     size: {
       control: { type: 'select' },
-      options: ['16', '20'],
+      options: ['small', 'large'],
       description: 'Icon size applied to every button in the group',
-      table: { category: 'Group', defaultValue: { summary: '20' } },
+      table: { category: 'Group', defaultValue: { summary: 'large' } },
     },
     disabled: {
       control: 'boolean',
@@ -149,7 +149,7 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
   },
   args: {
     orientation: 'horizontal',
-    size: '20',
+    size: 'large',
     disabled: false,
     selectedIndex: 0,
 
@@ -216,7 +216,7 @@ export const AllStates: Story = {
   render: () => {
     return html`
         <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-end; padding: 20px 24px 24px;">
-          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="horizontal" size="20">
+          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="horizontal" size="large">
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Add"} tooltipText="Add">
               <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
@@ -229,7 +229,7 @@ export const AllStates: Story = {
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
           </${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}>
 
-          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="horizontal" size="16" .selectedIndex=${1}>
+          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="horizontal" size="small" .selectedIndex=${1}>
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Add"} tooltipText="Add">
               <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
@@ -242,7 +242,7 @@ export const AllStates: Story = {
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
           </${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}>
 
-          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="vertical" size="20" ?disabled=${true}>
+          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="vertical" size="large" ?disabled=${true}>
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Add"} tooltipText="Add">
               <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>

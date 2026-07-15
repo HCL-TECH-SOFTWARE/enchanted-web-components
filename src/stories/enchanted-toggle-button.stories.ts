@@ -46,7 +46,7 @@ export interface EnchantedToggleButtonProps {
   showBadge?: boolean;
   disabled?: boolean;
   padding?: boolean;
-  iconSize?: '16' | '20';
+  iconSize?: 'small' | 'large';
   tooltipText?: string;
   ariaLabel?: string;
   firstType?: boolean;
@@ -67,9 +67,9 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     ariaLabel: { control: 'text', description: 'Aria label for the button', table: { defaultValue: { summary: '' } } },
     iconSize: {
       control: { type: 'select' },
-      options: ['16', '20'],
-      description: 'Icon size, 16 or 20',
-      table: { defaultValue: { summary: '20' } },
+      options: ['small', 'large'],
+      description: 'Icon size, small or large',
+      table: { defaultValue: { summary: 'small' } },
     },
     firstType: { control: 'boolean', description: 'Whether this button is the first in a group (for styling)', table: { defaultValue: { summary: 'false' } } },
     lastType: { control: 'boolean', description: 'Whether this button is the last in a group (for styling)', table: { defaultValue: { summary: 'false' } } },
@@ -79,7 +79,7 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     showBadge: false,
     disabled: false,
     padding: false,
-    iconSize: '16',
+    iconSize: 'small',
     tooltipText: '',
     ariaLabel: 'Toggle',
     firstType: false,
@@ -134,13 +134,13 @@ export const AllStates: Story = {
       <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-end;">
         <div>
           <div>Default</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Default"  firstType lastType>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Default">
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>Toggle On</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="On" toggleOn firstType lastType>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="On" toggleOn>
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
@@ -149,15 +149,13 @@ export const AllStates: Story = {
           <${ENCHANTED_TOGGLE_BUTTON_TAG}
             ariaLabel="Tooltip"
             tooltipText="Toggle tooltip"
-            firstType
-            lastType
           >
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
         <div>
           <div>With Badge Slot</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Badge" showBadge firstType lastType>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Badge" showBadge>
             <${iconTag} slot="icon"></${iconTag}>
             <enchanted-badge
               slot="badge"
@@ -169,7 +167,7 @@ export const AllStates: Story = {
         </div>
         <div>
           <div>Disabled</div>
-          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Disabled" disabled firstType lastType>
+          <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Disabled" disabled>
             <${iconTag} slot="icon"></${iconTag}>
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </div>
