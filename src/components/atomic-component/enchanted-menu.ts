@@ -26,7 +26,7 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import './enchanted-list';
 
 // Helper imports
-import { BUTTON_PARTS, LIST_PARTS, MENU_PARTS } from '../../types/cssClassEnums';
+import { BUTTON_PARTS, LIST_PARTS, MENU_PARTS, MENU_SLOTS } from '../../types/cssClassEnums';
 import { isLTR } from '../localization';
 import { EnchantedMenuPlacement, EnchantedMenuSize } from '../../types/enchanted-menu';
 import { ENCHANTED_LIST_TAG, ENCHANTED_MENU_ITEM_SELECTOR, ENCHANTED_MENU_TAG_NAME } from '../tags';
@@ -179,7 +179,7 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
               exportparts="${Object.values(LIST_PARTS).join(',')}"
               @menuItemClick=${this.handleMenuItemClick}
             >
-              <slot name="menu-items"></slot>
+              <slot name="${MENU_SLOTS.MENU_ITEMS}"></slot>
             </${ENCHANTED_LIST_TAG}>
           </div>
         </div>
@@ -197,7 +197,7 @@ export class EnchantedMenu extends EnchantedAcBaseElement {
         exportparts="${Object.values(BUTTON_PARTS).join(',')}"
 
       >
-        <slot name="target-anchor">
+        <slot name="${MENU_SLOTS.TARGET_ANCHOR}">
         </slot>
       </div>
       ${this.renderMenu()}

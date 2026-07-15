@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
 import * as EnchantedSnackbarStories from '../stories/enchanted-snackbar.stories';
-import { SNACKBAR_PARTS } from '../types/cssClassEnums';
+import { SNACKBAR_PARTS, SNACKBAR_SLOTS } from '../types/cssClassEnums';
 
 export const SNACKBAR_PARTS_METADATA = new Map([
   [SNACKBAR_PARTS.SNACKBAR_CONTAINER,'Styles root snackbar container.'],
@@ -31,6 +31,15 @@ export const SNACKBAR_PARTS_METADATA = new Map([
 export const CSSPARTS = Object.values(SNACKBAR_PARTS).map((part) => ({
     name: part,
     description: SNACKBAR_PARTS_METADATA.get(part) ?? ''
+}));
+
+export const SNACKBAR_SLOTS_METADATA = new Map([
+  [SNACKBAR_SLOTS.SNACKBAR_BUTTONS,  'Optional. Used to provide one or more action buttons displayed in the snackbar. If omitted, the snackbar is rendered without any action buttons.' ],
+]);
+
+export const slots = Object.values(SNACKBAR_SLOTS).map((slot) => ({
+  name: slot,
+  description: SNACKBAR_SLOTS_METADATA.get(slot) ?? ''
 }));
 
 <Meta of={EnchantedSnackbarStories} />
@@ -67,6 +76,20 @@ The `enchanted-snackbar` displays brief temporary notifications at the bottom of
 </table>
 
 ## Slots
-| **Slot** | **Description** |
-|----------|-----------------|
-| `snackbar-buttons` | **Optional.** Used to provide one or more action buttons displayed in the snackbar. If omitted, the snackbar is rendered without any action buttons. |
+
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+       <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>

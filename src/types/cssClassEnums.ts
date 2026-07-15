@@ -682,3 +682,66 @@ export enum ARIA_ROLES {
   PRESENTATION = 'presentation',
   NONE = 'none',
 }
+
+// Slots 
+export enum TOGGLE_BUTTON_SLOTS {
+  ICON = 'icon',
+  BADGE = 'badge',
+}
+
+export enum ACCORDION_SLOTS {
+  HEADER = 'header',
+  SECONDARY = 'secondary',
+  ACCORDION_ITEMS = 'accordion-items',
+}
+
+export enum CHIP_SLOTS {
+  CLEAR_ICON = 'clear-icon',
+}
+
+export enum DIALOG_SLOTS {
+  TITLE = 'title',
+  CONTENT = 'content',
+  PAGINATION = 'pagination',
+  FOOTER = 'footer',
+}
+
+export enum FAB_AI_SLOTS {
+  BADGE = 'badge'
+}
+
+export enum FAB_SLOTS {
+  ICON = 'icon',
+  BADGE = 'badge'
+}
+export enum LIST_SLOTS {
+  DEFAULT = 'default-slot',
+}
+export enum MENU_SLOTS {
+  MENU_ITEMS = 'menu-items',
+  TARGET_ANCHOR = 'target-anchor',
+}
+
+export enum PANEL_SLOTS {
+  CENTER_TITLE_CONTENT = 'center-title-content',
+  CONTENT = 'content',
+}
+
+export enum POPOVER_SLOTS {
+  TARGET = 'target',
+  LABEL = 'label',
+  TEXT = 'text',
+}
+
+export enum SNACKBAR_SLOTS {
+  SNACKBAR_BUTTONS = 'snackbar-buttons'
+}
+
+export enum TOGGLE_BUTTON_GROUP_SLOTS {
+  DEFAULT_SLOT = 'default-slot',
+}
+
+export enum TOOLTIP_SLOTS {
+  TARGET = 'target',
+  TOOLTIP = 'tooltip',
+}

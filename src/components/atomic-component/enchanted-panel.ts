@@ -22,7 +22,7 @@ import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import './enchanted-button';
 
 // Helper imports
-import { BUTTON_PARTS, BUTTON_VARIANT, PANEL_PARTS, PANEL_POSITION } from '../../types/cssClassEnums';
+import { BUTTON_PARTS, BUTTON_VARIANT, PANEL_PARTS, PANEL_POSITION, PANEL_SLOTS } from '../../types/cssClassEnums';
 
 // Icon imports
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/close';
@@ -67,7 +67,7 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
             <span>${this.headerTitle}</span>
           </div>
           <div>
-            <slot name="center-title-content"></slot>
+            <slot name="${PANEL_SLOTS.CENTER_TITLE_CONTENT}"></slot>
           </div>
           <${ENCHANTED_BUTTON_TAG}
             part=${PANEL_PARTS.PANEL_CLOSE_BUTTON}
@@ -81,7 +81,7 @@ export class EnchantedPanel extends EnchantedAcBaseElement {
           </${ENCHANTED_BUTTON_TAG}>
         </div>
         <div part=${PANEL_PARTS.PANEL_CONTENT} tabindex="-1">
-          <slot name="content"></slot>
+          <slot name="${PANEL_SLOTS.CONTENT}"></slot>
         </div>
       </div>
     `;

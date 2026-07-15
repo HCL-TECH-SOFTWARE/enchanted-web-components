@@ -16,7 +16,7 @@
 
 import { Meta, Title, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
 import * as EnchantedPopoverStories from '../stories/enchanted-popover.stories';
-import { POPOVER_PARTS } from '../types/cssClassEnums';
+import { POPOVER_PARTS, POPOVER_SLOTS } from '../types/cssClassEnums';
 
 export const POPOVER_PARTS_METADATA = new Map([
   [POPOVER_PARTS.POPOVER_WRAPPER,'Styles Wrapper around the popover content.'],
@@ -34,6 +34,17 @@ export const POPOVER_PARTS_METADATA = new Map([
 export const CSSPARTS = Object.values(POPOVER_PARTS).map((part) => ({
     name: part,
     description: POPOVER_PARTS_METADATA.get(part) ?? ''
+}));
+
+export const POPOVER_SLOTS_METADATA = new Map([
+  [POPOVER_SLOTS.TARGET,  'Required. Used to provide the element that triggers the popover on hover or keyboard focus. If omitted, the popover has no target and cannot be displayed.' ],
+  [POPOVER_SLOTS.LABEL,  'Optional. Used to provide custom label content when `showLabel` is enabled. If omitted, the component displays the value of the `label` property.' ],
+  [POPOVER_SLOTS.TEXT,  'Optional. Used to provide custom popover body content when `showText` is enabled. If omitted, the component displays the value of the `text` property.' ],
+]);
+
+export const slots = Object.values(POPOVER_SLOTS).map((slot) => ({
+  name: slot,
+  description: POPOVER_PARTS_METADATA.get(slot) ?? ''
 }));
 
 <Meta of={EnchantedPopoverStories} />
@@ -70,8 +81,20 @@ The `enchanted-popover` displays contextual content in a floating panel anchored
 </table>
 
 ## Slots
-| **Slot** | **Description** |
-|----------|-----------------|
-| `target` | **Required.** Used to provide the element that triggers the popover on hover or keyboard focus. If omitted, the popover has no target and cannot be displayed. |
-| `label` | **Optional.** Used to provide custom label content when `showLabel` is enabled. If omitted, the component displays the value of the `label` property. |
-| `text` | **Optional.** Used to provide custom popover body content when `showText` is enabled. If omitted, the component displays the value of the `text` property.|
+
+<table>
+ <thead>
+   <tr>
+     <th> Slot </th>
+     <th> Description </th>
+    </tr>
+ </thead>
+ <tbody>
+  {slots.map((slot) => (
+    <tr key={slot.name}>
+       <td><code style={{ whiteSpace: 'nowrap'}}>{slot.name}</code></td>
+      <td>{slot.description}</td>
+    </tr>
+  ))}
+  </tbody>
+</table>
