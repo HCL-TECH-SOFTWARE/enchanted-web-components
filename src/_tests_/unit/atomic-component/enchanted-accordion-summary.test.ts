@@ -46,7 +46,7 @@ describe(`${ENCHANTED_ACCORDION_SUMMARY_TAG_NAME} render`, () => {
   it("should render part='secondary' with correct text", async () => {
     renderSummaryTemplate({ secondaryText: "Test Secondary Text" });
     const summary = await $(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);
-    const secondaryTextPart = await summary.shadow$('[part="summary"]');
+    const secondaryTextPart = await summary.shadow$('[part="secondary"]');
     expect(secondaryTextPart).not.toBeNull();
     const secondaryText = await secondaryTextPart.getText();
     expect(secondaryText).toBe("Test Secondary Text");
