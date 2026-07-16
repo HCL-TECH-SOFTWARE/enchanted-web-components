@@ -23,6 +23,8 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/delete';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/copy';
 
 import { ENCHANTED_TOGGLE_BUTTON_GROUP_TAG, ENCHANTED_TOGGLE_BUTTON_TAG, generateIconTagName } from '../components/tags';
+import  { EnchantedToggleButtonSize, EnchantedToggleGroupOrientation  } from '../types/enchanted-toggle-button';
+
 
 /**
  * Args that drive the Controls panel — kept JSON-serialisable (no TemplateResult).
@@ -30,8 +32,8 @@ import { ENCHANTED_TOGGLE_BUTTON_GROUP_TAG, ENCHANTED_TOGGLE_BUTTON_TAG, generat
  */
 interface EnchantedToggleButtonGroupStoryArgs {
   // Group-level props
-  orientation: 'horizontal' | 'vertical';
-  size: 'small' | 'large';
+  orientation: EnchantedToggleGroupOrientation;
+  size: EnchantedToggleButtonSize;
   disabled: boolean;
   selectedIndex: number;
 
@@ -60,15 +62,15 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
     // ── Group ─────────────────────────────────────────────────
     orientation: {
       control: { type: 'select' },
-      options: ['horizontal', 'vertical'],
+      options: [EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleGroupOrientation.VERTICAL],
       description: 'Layout direction of the button group',
-      table: { category: 'Group', defaultValue: { summary: 'horizontal' } },
+      table: { category: 'Group', defaultValue: { summary: EnchantedToggleGroupOrientation.HORIZONTAL } },
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'large'],
+      options: [EnchantedToggleButtonSize.SMALL, EnchantedToggleButtonSize.LARGE],
       description: 'Icon size applied to every button in the group',
-      table: { category: 'Group', defaultValue: { summary: 'large' } },
+      table: { category: 'Group', defaultValue: { summary: EnchantedToggleButtonSize.LARGE } },
     },
     disabled: {
       control: 'boolean',
@@ -148,8 +150,8 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
     },
   },
   args: {
-    orientation: 'horizontal',
-    size: 'large',
+    orientation: EnchantedToggleGroupOrientation.HORIZONTAL,
+    size: EnchantedToggleButtonSize.LARGE,
     disabled: false,
     selectedIndex: 0,
 

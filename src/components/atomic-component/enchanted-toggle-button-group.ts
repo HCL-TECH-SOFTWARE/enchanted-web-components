@@ -21,16 +21,18 @@ import './enchanted-toggle-button';
 import { ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME } from "../tags";
 import { TOGGLE_BUTTON_PARTS } from "../../types/cssClassEnums";
 import { EnchantedToggleButton } from "./enchanted-toggle-button";
+import  { EnchantedToggleButtonSize, EnchantedToggleGroupOrientation } from '../../types/enchanted-toggle-button';
+
 
 const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-toggle-button-group.ts');
 
 export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
 
   @property({ type: String, reflect: true })
-  orientation: 'horizontal' | 'vertical' = 'horizontal';
+  orientation = EnchantedToggleGroupOrientation.HORIZONTAL;
 
   @property({ type: String })
-  size: 'small' | 'large' = 'large';
+  size = EnchantedToggleButtonSize.LARGE;
 
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -59,8 +61,8 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
     if (!this.toggleItems.length) {
       return;
     }
-    const isHorizontal = this.orientation === 'horizontal';
-    const resolvedSize: 'small' | 'large' = this.size === 'small' ? 'small' : 'large';
+    const isHorizontal = this.orientation === EnchantedToggleGroupOrientation.HORIZONTAL;
+    const resolvedSize: EnchantedToggleButtonSize = this.size === EnchantedToggleButtonSize.SMALL ? EnchantedToggleButtonSize.SMALL : EnchantedToggleButtonSize.LARGE;
     this.toggleItems.forEach((button, index) => {
       const isFirst = index === 0;
       const isLast = index === this.toggleItems.length - 1;

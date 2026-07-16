@@ -23,7 +23,7 @@ import {
   EnchantedBadgeType,
 } from '../types/cssClassEnums';
 import { ENCHANTED_TOGGLE_BUTTON_TAG, generateIconTagName } from '../components/tags';
-
+import  { EnchantedToggleButtonSize } from '../types/enchanted-toggle-button';
 /**
  * @typedef EnchantedToggleButtonProps
  * Props for the enchanted-toggle-button web component.
@@ -46,7 +46,7 @@ export interface EnchantedToggleButtonProps {
   showBadge?: boolean;
   disabled?: boolean;
   padding?: boolean;
-  iconSize?: 'small' | 'large';
+  iconSize?: EnchantedToggleButtonSize;
   tooltipText?: string;
   ariaLabel?: string;
   firstType?: boolean;
@@ -67,9 +67,9 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     ariaLabel: { control: 'text', description: 'Aria label for the button', table: { defaultValue: { summary: '' } } },
     iconSize: {
       control: { type: 'select' },
-      options: ['small', 'large'],
+      options: [EnchantedToggleButtonSize.SMALL, EnchantedToggleButtonSize.LARGE],
       description: 'Icon size, small or large',
-      table: { defaultValue: { summary: 'small' } },
+      table: { defaultValue: { summary: EnchantedToggleButtonSize.SMALL } },
     },
     firstType: { control: 'boolean', description: 'Whether this button is the first in a group (for styling)', table: { defaultValue: { summary: 'false' } } },
     lastType: { control: 'boolean', description: 'Whether this button is the last in a group (for styling)', table: { defaultValue: { summary: 'false' } } },
@@ -79,7 +79,7 @@ const meta: Meta<EnchantedToggleButtonProps> = {
     showBadge: false,
     disabled: false,
     padding: false,
-    iconSize: 'small',
+    iconSize: EnchantedToggleButtonSize.SMALL,
     tooltipText: '',
     ariaLabel: 'Toggle',
     firstType: false,
