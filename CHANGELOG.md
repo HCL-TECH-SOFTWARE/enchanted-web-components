@@ -40,6 +40,7 @@
 
 ### Breaking changes
 - Refactored `enchanted-toggle-button` component and replaced singleButton, outlined, selectedValue, iconUrls, singleButtonTitle, singleButtonAria properties  with padding, iconSize, tooltipText, lastType, firstType, ariaLabel properties.
+- Application that using wdio for its testing framework and vite for build tool need to update their wdio config to include `debug` in `optimizeDeps.include` to ensure Vite pre-bundles the debug logging dependency used by enchanted-web-components, preventing module resolution failures during unit tests.
 
 ## 6.0.0
 
