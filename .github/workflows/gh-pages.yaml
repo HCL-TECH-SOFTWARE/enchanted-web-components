@@ -35,3 +35,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: storybook-static # The folder the action should deploy.
+          jekyll: false # This automatically creates the .nojekyll file
