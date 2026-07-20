@@ -35,4 +35,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: storybook-static # The folder the action should deploy.
-          jekyll: false # This automatically creates the .nojekyll file
+          jekyll: false # This automatically creates the .nojekyll file (https://www.ianwootten.co.uk/2022/11/08/how-to-use-underscores-with-github-pages/)
