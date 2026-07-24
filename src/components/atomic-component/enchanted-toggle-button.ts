@@ -22,8 +22,8 @@ import createDebug from 'debug';
 // Component imports
 import { EnchantedAcBaseElement } from './enchanted-ac-base-element';
 import './enchanted-badge';
-// import './enchanted-icon-button';
 import './enchanted-tooltip';
+import  { EnchantedToggleButtonSize } from '../../types/enchanted-toggle-button';
 
 // Helper imports
 import { TOGGLE_BUTTON_PARTS, TOOLTIP_PLACEMENT, TOGGLE_BUTTON_SLOTS } from '../../types/cssClassEnums';
@@ -47,7 +47,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
   padding = false;
 
   @property({ type: String })
-  iconSize: '16' | '20' = '16';
+  iconSize = EnchantedToggleButtonSize.SMALL;
 
   @property({ type: String })
   tooltipText = '';
@@ -81,16 +81,13 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
       : assignedIcon?.querySelector('*') as HTMLElement | null;
     const iconWithSize = iconElement as (HTMLElement & { size?: string }) | null;
     if (iconWithSize) {
-      iconWithSize.size = this.iconSize;
+      const resolvedIconSize = this.iconSize === EnchantedToggleButtonSize.LARGE ? '20' : '16';
+      iconWithSize.size = resolvedIconSize;
     }
   }
 
-  // private getButtonStatePart(): string {
-  //   return this.toggleOn ? TOGGLE_BUTTON_PARTS.TOGGLE_ON_SINGLE_BUTTON : TOGGLE_BUTTON_PARTS.TOGGLE_OFF_SINGLE_BUTTON;
-  // }
-
-  private getSizepart(): string {
-    return this.iconSize === '16' ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL : TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE;
+  private getSizePart(): string {
+    return this.iconSize === EnchantedToggleButtonSize.SMALL ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL : TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE;
   }
 
   private getPaddingPart(): string {
@@ -116,7 +113,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
         ?disabled=${this.disabled}
         @click=${this.handleClick}
         tabindex='0'
-        part="${TOGGLE_BUTTON_PARTS.TOGGLE_SINGLE_BUTTON} ${this.getSizepart()} ${this.getPaddingPart()}"
+        part="${TOGGLE_BUTTON_PARTS.TOGGLE_SINGLE_BUTTON} ${this.getSizePart()} ${this.getPaddingPart()}"
         data-testid="enchanted-toggle-single-button"
       >
         <span part=${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_FOCUS_RING}></span>

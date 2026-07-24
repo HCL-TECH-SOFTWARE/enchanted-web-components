@@ -179,12 +179,12 @@
   }
 
   // firstType=false, lastType=false when toggleOn=true.
-  &:not([firstType]):not([lastType])[toggleOn]::part(toggle-single-button) {
+  &[firstType][lastType][toggleOn]::part(toggle-single-button) {
     border-radius: 0;
   }
 
   // firstType=false, lastType=false when toggleOn=false.
-  &:not([firstType]):not([lastType]):not([toggleOn])::part(toggle-single-button) {
+  &[firstType][lastType]:not([toggleOn])::part(toggle-single-button) {
     border-right: 1px solid transparent;
     border-radius: 0;
   }
@@ -198,12 +198,12 @@
 
   // Allow group to collapse disabled seam for selected non-last buttons.
   &[firstType][toggleOn][disabled]:not([lastType])::part(toggle-single-button),
-  &:not([firstType]):not([lastType])[toggleOn][disabled]::part(toggle-single-button) {
+  &[firstType][lastType][toggleOn][disabled]::part(toggle-single-button) {
     border-right-color: var(--_toggle-group-disabled-seam-border-right-color, transparent);
   }
 
   &[firstType]:not([lastType])::part(toggle-single-button),
-  &:not([firstType]):not([lastType])::part(toggle-single-button) {
+  &[firstType][lastType]::part(toggle-single-button) {
     margin-right: -1px;
   }
 }
