@@ -54,7 +54,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
     await expect(toggleButton.showBadge).toBe(false);
     await expect(toggleButton.disabled).toBe(false);
     await expect(toggleButton.padding).toBe(false);
-    await expect(toggleButton.iconSize).toBe('small');
+    await expect(toggleButton.iconSize).toBe(EnchantedToggleButtonSize.SMALL);
     await expect(toggleButton.tooltipText).toBe('');
     await expect(toggleButton.firstType).toBe(false);
     await expect(toggleButton.lastType).toBe(false);
@@ -80,7 +80,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
 
   it('should include small-size and padding part tokens when configured', async () => {
     renderComponent(html`
-      <${ENCHANTED_TOGGLE_BUTTON_TAG} iconSize="small" padding ariaLabel="Toggle">
+      <${ENCHANTED_TOGGLE_BUTTON_TAG} iconSize=${EnchantedToggleButtonSize.SMALL} padding ariaLabel="Toggle">
         <icon-add slot="icon"></icon-add>
       </${ENCHANTED_TOGGLE_BUTTON_TAG}>
     `);

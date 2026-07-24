@@ -30,14 +30,15 @@ import {
   ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME,
   ENCHANTED_TOGGLE_BUTTON_TAG_NAME,
 } from '../../../components/tags';
+import { EnchantedToggleButtonSize, EnchantedToggleGroupOrientation } from '../../../types/enchanted-toggle-button';
 
 afterEach(() => {
   document.body.innerHTML = '';
 });
 
 const renderDefaultGroup = (
-  orientation: 'horizontal' | 'vertical' = 'horizontal',
-  size: 'small' | 'large' = 'large',
+  orientation: EnchantedToggleGroupOrientation = EnchantedToggleGroupOrientation.HORIZONTAL,
+  size: EnchantedToggleButtonSize = EnchantedToggleButtonSize.LARGE,
   disabled = false,
   selectedIndex = 0,
 ) => {
@@ -102,14 +103,14 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
-    await expect(groupElement.orientation).toBe('horizontal');
-    await expect(groupElement.size).toBe('large');
+    await expect(groupElement.orientation).toBe(EnchantedToggleGroupOrientation.HORIZONTAL);
+    await expect(groupElement.size).toBe(EnchantedToggleButtonSize.LARGE);
     await expect(groupElement.disabled).toBe(false);
     await expect(groupElement.selectedIndex).toBe(0);
   });
 
   it('should apply horizontal firstType/lastType and selected toggleOn states', async () => {
-    renderDefaultGroup('horizontal', 'large', false, 1);
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.LARGE, false, 1);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -130,7 +131,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should set all buttons as standalone shape in vertical orientation', async () => {
-    renderDefaultGroup('vertical');
+    renderDefaultGroup(EnchantedToggleGroupOrientation.VERTICAL);
 
     const groupElement =  getGroup();
     await groupElement.updateComplete;
@@ -146,20 +147,20 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should propagate size to all child buttons', async () => {
-    renderDefaultGroup('horizontal', 'small');
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.SMALL);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
     await browser.pause(50); // Wait for size changes to propagate to buttons
 
     const buttons = await getButtons();
-    await expect(buttons[0].iconSize).toBe('small');
-    await expect(buttons[1].iconSize).toBe('small');
-    await expect(buttons[2].iconSize).toBe('small');
+    await expect(buttons[0].iconSize).toBe(EnchantedToggleButtonSize.SMALL);
+    await expect(buttons[1].iconSize).toBe(EnchantedToggleButtonSize.SMALL);
+    await expect(buttons[2].iconSize).toBe(EnchantedToggleButtonSize.SMALL);
   });
 
   it('should propagate disabled=true to all child buttons', async () => {
-    renderDefaultGroup('horizontal', 'large', true);
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.LARGE, true);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -172,7 +173,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should propagate disabled=false to all child buttons after re-enabling group', async () => {
-    renderDefaultGroup('horizontal', 'large', true);
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.LARGE, true);
 
     const groupElement = await getGroup();
     await groupElement.updateComplete;
@@ -189,7 +190,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should update selectedIndex and emit toggle-group-change when a different button is clicked', async () => {
-    renderDefaultGroup('horizontal', 'large', false, 0);
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.LARGE, false, 0);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -213,7 +214,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should not emit toggle-group-change when clicking the already selected button', async () => {
-    renderDefaultGroup('horizontal', 'large', false, 1);
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.LARGE, false, 1);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -231,7 +232,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should ignore toggle-change from a button that is not part of the group', async () => {
-    renderDefaultGroup('horizontal', 'large', false, 0);
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.LARGE, false, 0);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;
@@ -245,7 +246,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME} - unit test`, () => {
   });
 
   it('should return early in handleSlotChange when slot is missing', async () => {
-    renderDefaultGroup('horizontal', 'large', false, 0);
+    renderDefaultGroup(EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleButtonSize.LARGE, false, 0);
 
     const groupElement = getGroup();
     await groupElement.updateComplete;

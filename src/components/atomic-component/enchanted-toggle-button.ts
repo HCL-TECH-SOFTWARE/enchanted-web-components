@@ -86,7 +86,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
     }
   }
 
-  private getSizepart(): string {
+  private getSizePart(): string {
     return this.iconSize === EnchantedToggleButtonSize.SMALL ? TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_SMALL : TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_LARGE;
   }
 
@@ -113,7 +113,7 @@ export class EnchantedToggleButton extends EnchantedAcBaseElement {
         ?disabled=${this.disabled}
         @click=${this.handleClick}
         tabindex='0'
-        part="${TOGGLE_BUTTON_PARTS.TOGGLE_SINGLE_BUTTON} ${this.getSizepart()} ${this.getPaddingPart()}"
+        part="${TOGGLE_BUTTON_PARTS.TOGGLE_SINGLE_BUTTON} ${this.getSizePart()} ${this.getPaddingPart()}"
         data-testid="enchanted-toggle-single-button"
       >
         <span part=${TOGGLE_BUTTON_PARTS.TOGGLE_BUTTON_FOCUS_RING}></span>
