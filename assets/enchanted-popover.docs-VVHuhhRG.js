@@ -1,0 +1,17 @@
+import{j as e,M as p,T as d,C as h,a as m}from"./blocks-D7FCWugj.js";import{useMDXComponents as c}from"./index-DYDNvvCy.js";import{E as x,a as i}from"./enchanted-popover.stories-BllyTtCv.js";import{q as o,r}from"./cssClassEnums-CY7zIYSt.js";import"./preload-helper-C1FmrZbK.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./iframe-B4blCNHZ.js";import"./tags-BB5KXmdF.js";import"./index-CWwr-8yc.js";import"./index-CuTRIAwF.js";import"./tags-C8bWlkz1.js";import"./localization-BPNcoI2x.js";import"./enchanted-button-D6oqnDeG.js";import"./state-B-Bwqa8u.js";import"./query-BApjzB0v.js";import"./keyboardEventKeys-BnoN8uA3.js";const l=new Map([[o.POPOVER_WRAPPER,"Styles Wrapper around the popover content."],[o.POPOVER_ARROW,"Styles arrow element for the popover."],[o.POPOVER_CONTAINER,"Styles popover content container."],[o.POPOVER_CONTAINER_RTL,"Styles RTL popover content container."],[o.POPOVER_CONTENT,"Styles content area."],[o.POPOVER_LABEL,"Styles label content slot."],[o.POPOVER_TEXT,"Styles text content slot."],[o.POPOVER_CLOSE_ICON,"Styles close icon button."],[o.POPOVER_CLOSE_ICON_RTL,"Styles RTL close icon button."],[o.POPOVER_TARGET,"Styles target element that anchors the popover."]]),O=Object.values(o).map(t=>({name:t,description:l.get(t)??""})),w=new Map([[r.TARGET,"Required. Used to provide the element that triggers the popover on hover or keyboard focus. If omitted, the popover has no target and cannot be displayed."],[r.LABEL,"Optional. Used to provide custom label content when `showLabel` is enabled. If omitted, the component displays the value of the `label` property."],[r.TEXT,"Optional. Used to provide custom popover body content when `showText` is enabled. If omitted, the component displays the value of the `text` property."]]),P=Object.values(r).map(t=>({name:t,description:l.get(t)??""}));function a(t){const n={code:"code",h2:"h2",p:"p",...c(),...t.components};return e.jsxs(e.Fragment,{children:[`
+`,`
+`,`
+`,`
+`,`
+`,`
+`,e.jsx(p,{of:x}),`
+`,e.jsx(d,{}),`
+`,e.jsxs(n.p,{children:["The ",e.jsx(n.code,{children:"enchanted-popover"})," displays contextual content in a floating panel anchored to a target element. Supports 13 arrow positions, dark/light themes, optional close buttons, and full RTL support for flexible positioning."]}),`
+`,e.jsx(n.h2,{id:"interactive-example",children:"Interactive example"}),`
+`,e.jsx(h,{of:i}),`
+`,e.jsx(n.h2,{id:"properties",children:"Properties"}),`
+`,e.jsx(m,{of:i}),`
+`,e.jsx(n.h2,{id:"css-parts",children:"CSS Parts"}),`
+`,e.jsxs("table",{children:[e.jsx("thead",{children:e.jsxs("tr",{children:[e.jsx("th",{children:" Part "}),e.jsx("th",{children:" Description "})]})}),e.jsx("tbody",{children:O.map(s=>e.jsxs("tr",{children:[e.jsx("td",{children:e.jsx("code",{children:s.name})}),e.jsx("td",{children:s.description})]},s.name))})]}),`
+`,e.jsx(n.h2,{id:"slots",children:"Slots"}),`
+`,e.jsxs("table",{children:[e.jsx("thead",{children:e.jsxs("tr",{children:[e.jsx("th",{children:" Slot "}),e.jsx("th",{children:" Description "})]})}),e.jsx("tbody",{children:P.map(s=>e.jsxs("tr",{children:[e.jsx("td",{children:e.jsx("code",{style:{whiteSpace:"nowrap"},children:s.name})}),e.jsx("td",{children:s.description})]},s.name))})]})]})}function M(t={}){const{wrapper:n}={...c(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(a,{...t})}):a(t)}export{O as CSSPARTS,l as POPOVER_PARTS_METADATA,w as POPOVER_SLOTS_METADATA,M as default,P as slots};
