@@ -3,14 +3,18 @@
 ## Unreleased
 
 ### Added
-- Disable Jekyll processing to allow Storybook assets with leading underscores to load correctly.
 
 ### Fixed
-- Standardized storybook documentation by adding CSS Part descriptions and slot descriptions.
 
 ### Changed
 
 ### Breaking changes
+
+## 7.1.1
+
+### Fixed
+- Standardized storybook documentation by adding CSS Part descriptions and slot descriptions.
+- Disable Jekyll processing to allow Storybook assets with leading underscores to load correctly.
 
 ## 7.1.0
 
