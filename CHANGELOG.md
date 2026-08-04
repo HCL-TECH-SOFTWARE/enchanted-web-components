@@ -10,6 +10,14 @@
 
 ### Breaking changes
 
+## 7.1.2
+
+### Fixed
+- GH pages publish task, disabling jekyll processing to allow Storybook assets with leading underscores to load correctly.
+
+### Changed
+- Update toggle button component. Introducing a `EnchantedToggleButtonSize` and `EnchantedToggleGroupOrientation` enum.
+
 ## 7.1.1
 
 ### Fixed
