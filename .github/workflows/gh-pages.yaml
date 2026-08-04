@@ -28,9 +28,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Checkout 🛎️
         uses: actions/checkout@v4
-        run: npm ci
-        run: npm run build-storybook
-        run: touch ./storybook-static/.nojekyll # Creating of the .nojekyll file (https://www.ianwootten.co.uk/2022/11/08/how-to-use-underscores-with-github-pages/)
+      - run: npm ci
+      - run: npm run build-storybook
+      - run: touch ./storybook-static/.nojekyll # Creating of the .nojekyll file (https://www.ianwootten.co.uk/2022/11/08/how-to-use-underscores-with-github-pages/)
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
