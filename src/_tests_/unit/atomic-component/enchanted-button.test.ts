@@ -22,6 +22,7 @@ import '../../../components/atomic-component/enchanted-button';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
+import { BUTTON_PARTS, BUTTON_VARIANT, ICON_BUTTON_SIZES } from '../../../types/cssClassEnums';
 
 // Icon imports
 import { svgIconSearch } from '../../assets/svg-search';
@@ -217,5 +218,53 @@ describe(`${ENCHANTED_BUTTON_TAG_NAME} component testing`, () => {
     // Verify that the button is focused
     const activeElement = document.querySelector(ENCHANTED_BUTTON_TAG_NAME)?.shadowRoot?.activeElement?.getAttribute('data-testid');
     await expect(activeElement).toBe(enchantedButton.getAttribute('data-testid'));
+  });
+
+  it('should render the requested disabled, focused, inverse, and outlined button parts', () => {
+    const cases = [
+      { disabled: true, inverseColor: true, variant: BUTTON_VARIANT.BUTTON_TEXT_VAR, part: BUTTON_PARTS.BUTTON_ENCHANTED_TEXT_DISABLED_INVERSE },
+      { disabled: true, variant: BUTTON_VARIANT.BUTTON_OUTLINED_VAR, part: BUTTON_PARTS.BUTTON_ENCHANTED_OUTLINED_DISABLED },
+      { focused: true, inverseColor: true, variant: BUTTON_VARIANT.BUTTON_TEXT_VAR, part: BUTTON_PARTS.BUTTON_ENCHANTED_TEXT_FOCUSED_INVERSE },
+      { focused: true, variant: BUTTON_VARIANT.BUTTON_OUTLINED_VAR, part: BUTTON_PARTS.BUTTON_ENCHANTED_OUTLINED_FOCUSED },
+      { inverseColor: true, variant: BUTTON_VARIANT.BUTTON_TEXT_VAR, part: BUTTON_PARTS.BUTTON_ENCHANTED_TEXT_INVERSE },
+      { variant: BUTTON_VARIANT.BUTTON_OUTLINED_VAR, part: BUTTON_PARTS.BUTTON_ENCHANTED_OUTLINED },
+    ];
+
+    cases.forEach(({ disabled = false, focused = false, inverseColor = false, variant, part }) => {
+      const button = new EnchantedButton();
+      button.disabled = disabled;
+      button.focused = focused;
+      button.inverseColor = inverseColor;
+      button.variant = variant;
+      render(button.render(), document.body);
+
+      expect(document.querySelector(`button[part="${part}"]`)).not.toBeNull();
+    });
+  });
+
+  it('should render the requested start and end icon parts', () => {
+    const mediumIconButton = new EnchantedButton();
+    mediumIconButton.size = ICON_BUTTON_SIZES.MEDIUM;
+    mediumIconButton.withPadding = true;
+    mediumIconButton.imgurl = 'medium-icon';
+    render(mediumIconButton.render(), document.body);
+    expect(document.querySelector(`img[part="${BUTTON_PARTS.BUTTON_START_ICON_MEDIUM_WITH_PADDING}"]`)).not.toBeNull();
+
+    document.documentElement.dir = 'rtl';
+    try {
+      const rtlButton = new EnchantedButton();
+      rtlButton.buttontext = 'RTL button';
+      rtlButton.imgurl = 'rtl-icon';
+      render(rtlButton.render(), document.body);
+      expect(document.querySelector(`img[part="${BUTTON_PARTS.BUTTON_START_ICON_RTL_MARGIN}"]`)).not.toBeNull();
+    } finally {
+      document.documentElement.dir = 'ltr';
+    }
+
+    const endIconButton = new EnchantedButton();
+    endIconButton.endicon = true;
+    endIconButton.imgurl = 'end-icon';
+    render(endIconButton.render(), document.body);
+    expect(document.querySelector(`img[part="${BUTTON_PARTS.BUTTON_END_ICON}"]`)).not.toBeNull();
   });
 });

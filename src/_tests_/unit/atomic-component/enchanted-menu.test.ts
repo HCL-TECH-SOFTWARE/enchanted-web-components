@@ -110,4 +110,65 @@ describe(`${ENCHANTED_MENU_TAG_NAME} component testing`, () => {
       expect(menuMockFunction).toHaveBeenCalledTimes(1);
     });
   });
+
+  it('should dispatch menuItemClick when Enter is pressed', async () => {
+    const menuObject = { id: 'item-1' };
+    render(
+      html`
+        <${ENCHANTED_MENU_ITEM_TAG}
+          text="Menu item"
+          value="item-1"
+          .menuObject=${menuObject}
+        ></${ENCHANTED_MENU_ITEM_TAG}>
+      `,
+      document.body
+    );
+
+    const menuItem = await $(ENCHANTED_MENU_ITEM_TAG_NAME).getElement();
+    const result = await browser.execute((element) => {
+      const item = element as HTMLElement & { eventDetail?: unknown; eventCount?: number; handleMenuItemEnter: (event: KeyboardEvent) => void };
+      item.eventCount = 0;
+      item.addEventListener('menuItemClick', (event) => {
+        item.eventCount = (item.eventCount || 0) + 1;
+        item.eventDetail = (event as CustomEvent).detail;
+      });
+
+      item.handleMenuItemEnter(new KeyboardEvent('keydown', { key: 'Enter' }));
+      item.handleMenuItemEnter(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      return { eventCount: item.eventCount, eventDetail: item.eventDetail };
+    }, menuItem);
+
+    await expect(result.eventCount).toBe(1);
+    await expect(result.eventDetail).toEqual({
+      text: 'Menu item',
+      value: 'item-1',
+      menuObject,
+    });
+  });
+
+  it('should set a title when the menu item text overflows', async () => {
+    render(
+      html`
+        <${ENCHANTED_MENU_ITEM_TAG} text="Long menu item"></${ENCHANTED_MENU_ITEM_TAG}>
+      `,
+      document.body
+    );
+
+    const menuItem = await $(ENCHANTED_MENU_ITEM_TAG_NAME).getElement();
+    const title = await browser.execute((element) => {
+      const textRoot = document.createElement('div');
+      Object.defineProperty(textRoot, 'offsetWidth', { value: 50 });
+      Object.defineProperty(textRoot, 'scrollWidth', { value: 100 });
+      document.body.appendChild(textRoot);
+
+      (element as HTMLElement & { handleMenuItemTooltip: (event: MouseEvent) => void }).handleMenuItemTooltip(
+        { currentTarget: textRoot } as unknown as MouseEvent
+      );
+      const assignedTitle = textRoot.getAttribute('title');
+      textRoot.remove();
+      return assignedTitle;
+    }, menuItem);
+
+    await expect(title).toBe('Long menu item');
+  });
 });

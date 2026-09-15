@@ -121,6 +121,24 @@ describe(`${ENCHANTED_PANEL_TAG_NAME} component testing`, () => {
     expect(ariaHiddenValue).toBe('true');
   });
 
+  it('should show the panel when show is called', async () => {
+    render(
+      html`
+        <${ENCHANTED_PANEL_TAG} />
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_PANEL_TAG_NAME).getElement();
+    await browser.execute((element) => {
+      (element as HTMLElement & { show: () => void }).show();
+    }, component);
+    await browser.pause(100);
+
+    await expect(component).toHaveAttribute('open', 'true');
+    await expect(component.shadow$('[part="panel-container"]')).toHaveAttribute('aria-hidden', 'false');
+  });
+
   it('should focus on the panel when opened', async () => {
     render(
       html`

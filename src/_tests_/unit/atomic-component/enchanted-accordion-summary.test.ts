@@ -43,6 +43,20 @@ describe(`${ENCHANTED_ACCORDION_SUMMARY_TAG_NAME} render`, () => {
     const labelText = await labelPart.getText();
     expect(labelText).toBe("Test Label");
   });
+  it("should render the RTL label part with correct text", async () => {
+    document.documentElement.dir = "rtl";
+    try {
+      renderSummaryTemplate({ label: "Test RTL Label" });
+
+      const summary = await $(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);
+      const labelPart = await summary.shadow$('[part="label-rtl"]');
+      const labelText = await labelPart.getText();
+
+      expect(labelText).toBe("Test RTL Label");
+    } finally {
+      document.documentElement.dir = "ltr";
+    }
+  });
   it("should render part='secondary' with correct text", async () => {
     renderSummaryTemplate({ secondaryText: "Test Secondary Text" });
     const summary = await $(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);

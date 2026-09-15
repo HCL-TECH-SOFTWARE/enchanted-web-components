@@ -18,14 +18,16 @@ import { html } from 'lit/static-html.js';
 import { $, expect } from '@wdio/globals';
 
 // Component imports
-import '../../../components/atomic-component/enchanted-alert';
+import { EnchantedAlert } from '../../../components/atomic-component/enchanted-alert';
 
 // Helpers imports
+import { initSessionStorage } from '../../utils';
 import { ALERT_SEVERITY, ALERT_VARIANTS } from '../../../types/cssClassEnums';
 import { ENCHANTED_ALERT_TAG, ENCHANTED_ALERT_TAG_NAME } from '../../../components/tags';
 
 describe(`${ENCHANTED_ALERT_TAG_NAME} component testing`, () => {
-  before(() => {
+  before(async () => {
+    await initSessionStorage();
     render(nothing, document.body);
   });
 
@@ -151,6 +153,26 @@ describe(`${ENCHANTED_ALERT_TAG_NAME} component testing`, () => {
     await expect(component).toHaveAttribute('variant', ALERT_VARIANTS.ALERT_OUTLINED);
     await expect(component).toHaveAttribute('severity', ALERT_SEVERITY.ALERT_ERROR);
     await expect(component).toHaveAttribute('message', 'outlined-error');
+  });
+
+  it('should render the title when alertTitle is provided', async () => {
+    const component = new EnchantedAlert();
+    component.alertTitle = 'Alert title';
+    component.message = 'Alert message';
+    render(component.render(), document.body);
+
+    const title = document.querySelector('[part="alert-title"]');
+
+    expect(title?.textContent).toBe('Alert title');
+  });
+
+  it('should use empty fallback parts for an unknown severity', async () => {
+    const component = new EnchantedAlert();
+    component.severity = 'unknown';
+    render(component.render(), document.body);
+    const getAlertSVG = (component as unknown as { getAlertSVG: () => string }).getAlertSVG;
+
+    expect(getAlertSVG.call(component)).toBe('');
   });
 
 });

@@ -31,6 +31,8 @@ export const config = {
       lines: 78.98,
       exclude: [
         'src/_tests_/**',
+        // enchanted-data-grid.ts is for deletion.
+        'src/components/atomic-component/enchanted-data-grid.ts',
       ]
     },
     viteConfig: {

@@ -77,6 +77,23 @@ describe(`${ENCHANTED_CHIP_TAG_NAME} component testing`, () => {
     await expect(component).toHaveAttribute('showChipCount', '');
   });
 
+  it('should render avatar content when showAvatar is true', async () => {
+    render(
+      html`
+        <${ENCHANTED_CHIP_TAG}
+          name="tag cloud"
+          showAvatar
+        ></${ENCHANTED_CHIP_TAG}>
+      `,
+      document.body
+    );
+
+    const component = document.querySelector(ENCHANTED_CHIP_TAG_NAME) as HTMLElement | null;
+    await expect(component).toBeTruthy();
+    const avatar = component?.shadowRoot?.querySelector('enchanted-avatar');
+    await expect(avatar).toBeTruthy();
+  });
+
   it('should render web component with a badge counter if showChipCount attribute is set to true', async () => {
     render(
       html`

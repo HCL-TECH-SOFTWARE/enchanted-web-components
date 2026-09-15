@@ -616,6 +616,52 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
     }
   });
 
+  it('should keep menu keyboard flow inside the open menu and return early', async () => {
+    const element = document.createElement(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as any;
+    const menuIcon = document.createElement('button');
+    const menuItem = document.createElement('button');
+    const menuButton = document.createElement('button');
+    const menu = document.createElement(ENCHANTED_MENU_TAG_NAME) as any;
+    let menuItemFocused = false;
+
+    menuIcon.id = 'enchanted-data-grid-action-item-button-0-0-1';
+
+    menuItem.id = 'enchanted-data-grid-menu-item-0-0-0-0';
+    menuItem.focus = () => { menuItemFocused = true; };
+
+    menuButton.id = 'enchanted-data-grid-action-item-button-0-0-0';
+    menu.openMenu = true;
+
+    element.data = { searchItems: sampleSearchResultResponse.hits.hits };
+    element.actions = ['0-0', '0-1'];
+    element.focused = 0;
+    element.focusedRowActionButtons = [menuButton, menuIcon];
+    element.programmaticClick = false;
+
+    Object.defineProperty(element, 'renderRoot', {
+      value: {
+        querySelector: (selector: string) => {
+          if (selector === ENCHANTED_MENU_TAG_NAME) return menu;
+          if (selector === '#enchanted-data-grid-action-item-button-0-0-1') return menuIcon;
+          if (selector === '#enchanted-data-grid-action-item-button-0-0-0') return menuButton;
+          if (selector === '#enchanted-data-grid-menu-item-0-0-0-0') return menuItem;
+          return null;
+        }
+      },
+      configurable: true
+    });
+
+    const rightTabEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, composed: true });
+    Object.defineProperty(rightTabEvent, 'target', { value: menuButton, configurable: true });
+    element.handleActionItemKeydown(rightTabEvent, 0, 0, 0, true);
+    await expect(element.programmaticClick).toBe(true);
+
+    const arrowDownEvent = new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true });
+    Object.defineProperty(arrowDownEvent, 'target', { value: menuIcon, configurable: true });
+    element.handleActionItemKeydown(arrowDownEvent, 0, 0, 0, true);
+    await expect(menuItemFocused).toBe(true);
+  });
+
   it('should support RTL Keyboard Navigation', async () => {
 
     render(

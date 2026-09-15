@@ -15,7 +15,7 @@
 // External imports
 import { render, nothing } from 'lit';
 import { html } from 'lit/static-html.js';
-import { $, expect } from '@wdio/globals';
+import { $, expect, browser } from '@wdio/globals';
 import { waitFor } from '@testing-library/dom';
 
 // Component imports
@@ -24,6 +24,7 @@ import '../../../components/atomic-component/enchanted-table-pagination';
 // Helper imports
 import { initSessionStorage } from '../../utils';
 import { EnchantedInputFieldType } from '../../../types/enchanted-select';
+import { EnchantedPaginationActions } from '../../../types/enchanted-table-pagination';
 import {
   ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_LIST_ITEM_TAG_NAME, ENCHANTED_LIST_TAG_NAME, ENCHANTED_SELECT_TAG_NAME,
   ENCHANTED_TABLE_PAGINATION_TAG, ENCHANTED_TABLE_PAGINATION_TAG_NAME
@@ -187,5 +188,59 @@ describe(`${ENCHANTED_TABLE_PAGINATION_TAG_NAME} component testing`, () => {
       const buttonElement = await inputElement.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
       expect(await buttonElement.getAttribute('buttontext')).toContain('2');
     });
+  });
+
+  it('should handle all pagination navigation actions', async () => {
+    render(
+      html`
+        <${ENCHANTED_TABLE_PAGINATION_TAG}
+          .localization=${localization}
+          currentPage=${3}
+          totalCount=${64}
+          rowSize=${10}
+        ></${ENCHANTED_TABLE_PAGINATION_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_TABLE_PAGINATION_TAG_NAME).getElement();
+    const actionCases = [
+      { action: EnchantedPaginationActions.FIRST_PAGE, expectedPage: 1, expectedValue: 1 },
+      { action: EnchantedPaginationActions.PREVIOUS_PAGE, expectedPage: 2, expectedValue: 2 },
+      { action: EnchantedPaginationActions.NEXT_PAGE, expectedPage: 4, expectedValue: 4 },
+      { action: EnchantedPaginationActions.LAST_PAGE, expectedPage: 7, expectedValue: 7 },
+      { action: 'unknown', expectedPage: 3, expectedValue: undefined },
+    ];
+
+    for (const actionCase of actionCases) {
+      const result = await browser.execute(async (element, action) => {
+        const pagination = element as HTMLElement & {
+          currentPageState: number;
+          pagesCount: number;
+          handleClick: (actionButton: string) => Promise<void>;
+          changeDetail?: { value: number; type: string };
+        };
+        pagination.currentPageState = 3;
+        pagination.pagesCount = 7;
+        pagination.changeDetail = undefined;
+        const changeListener = (event: Event) => {
+          pagination.changeDetail = (event as CustomEvent<{ value: number; type: string }>).detail;
+        };
+        pagination.addEventListener('change', changeListener);
+        await pagination.handleClick(action);
+        pagination.removeEventListener('change', changeListener);
+        return {
+          page: pagination.currentPageState,
+          detail: pagination.changeDetail,
+        };
+      }, component, actionCase.action);
+
+      await expect(result.page).toBe(actionCase.expectedPage);
+      if (actionCase.expectedValue === undefined) {
+        await expect(result.detail).toBeNull();
+      } else {
+        await expect(result.detail?.value).toBe(actionCase.expectedValue);
+      }
+    }
   });
 });

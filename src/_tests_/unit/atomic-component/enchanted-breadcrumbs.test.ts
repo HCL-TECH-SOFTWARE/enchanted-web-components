@@ -80,6 +80,29 @@ describe(`${ENCHANTED_BREADCRUMBS_TAG_NAME} component testing`, () => {
     await expect(enchantedBreadcrumbsTitle).toBeExisting();
   });
 
+  it('should render RTL separator and final breadcrumb parts', async () => {
+    document.documentElement.dir = 'rtl';
+    try {
+      const items = [
+        { link: 'firstLink', title: 'First breadcrumb' },
+        { link: 'lastLink', title: 'Last breadcrumb' },
+      ];
+      render(
+        html`<${ENCHANTED_BREADCRUMBS_TAG} .paths=${items}></${ENCHANTED_BREADCRUMBS_TAG}>`,
+        document.body
+      );
+
+      const component = await $(ENCHANTED_BREADCRUMBS_TAG_NAME).getElement();
+      const separator = await component.$(`>>>li[part="${BREADCRUMBS_PART.BREADCRUMBS_SEPARATOR}"]`);
+      const finalItem = await component.$(`>>>li[part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LIST}"]:last-child`);
+
+      await expect(separator).toBeExisting();
+      await expect(finalItem).toBeExisting();
+    } finally {
+      document.documentElement.dir = 'ltr';
+    }
+  });
+
   it('should trigger handleBreadcrumbClick when clicked', async () => {
     let items = [
       { link: 'sampleLink', icon: svgIconInfo, title: 'Breadcrumbs1' },
@@ -221,6 +244,53 @@ describe(`${ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME} component testing`, () => {
 
     let breadcrumbsIcon = await component.$(`>>>[part="${BREADCRUMBS_PART.BREADCRUMBS_ICON}"]`).getElement();
     await expect(breadcrumbsIcon).toBeExisting();
+  });
+
+  it('should render information and last-item iconName parts', async () => {
+    const exportParts = Object.values(BREADCRUMBS_PART).join(', ');
+    const informationPath = { iconName: BREADCRUMBS_ICON_TYPE.INFORMATION, title: 'Information' };
+    const lastPath = { iconName: BREADCRUMBS_ICON_TYPE.HOME, title: 'Home' };
+
+    render(
+      html`<${ENCHANTED_BREADCRUMBS_ITEM_TAG}
+        .path=${informationPath}
+        exportparts=${exportParts}
+        .partProp=${BREADCRUMBS_PART.BREADCRUMBS_ITEM}
+      ></${ENCHANTED_BREADCRUMBS_ITEM_TAG}>`,
+      document.body
+    );
+    const informationComponent = await $(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME).getElement();
+    const informationIcon = await informationComponent.$(`>>>[part="${BREADCRUMBS_PART.BREADCRUMBS_ICON}"]`).getElement();
+    await expect(informationIcon).toBeExisting();
+
+    render(
+      html`<${ENCHANTED_BREADCRUMBS_ITEM_TAG}
+        .path=${lastPath}
+        exportparts=${exportParts}
+        .partProp=${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LAST}
+      ></${ENCHANTED_BREADCRUMBS_ITEM_TAG}>`,
+      document.body
+    );
+    const lastComponent = await $(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME).getElement();
+    const lastIcon = await lastComponent.$(`>>>[part="${BREADCRUMBS_PART.BREADCRUMBS_ITEM_LAST_ICON}"]`).getElement();
+    await expect(lastIcon).toBeExisting();
+  });
+
+  it('should render no icon for an unsupported iconName', async () => {
+    const path = { iconName: 'unsupported-icon', title: 'Unsupported' };
+    const exportParts = Object.values(BREADCRUMBS_PART).join(', ');
+    render(
+      html`<${ENCHANTED_BREADCRUMBS_ITEM_TAG}
+        .path=${path}
+        exportparts=${exportParts}
+        .partProp=${BREADCRUMBS_PART.BREADCRUMBS_ITEM}
+      ></${ENCHANTED_BREADCRUMBS_ITEM_TAG}>`,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_BREADCRUMBS_ITEM_TAG_NAME).getElement();
+    const icon = await component.$(`>>>${ENCHANTED_SVG_ICON_TAG_NAME}[data-testid="breadcrumbs-item-icon"]`);
+    await expect(icon).not.toBeExisting();
   });
 });
  

@@ -116,6 +116,55 @@ describe(`${ENCHANTED_ICON_BUTTON_TAG_NAME} component testing`, () => {
     await expect(svgElement).toBeExisting();
   });
 
+  it('should handle Enter and Space keyboard events when enabled', async () => {
+    render(
+      html`
+        <${ENCHANTED_ICON_BUTTON_TAG}></${ENCHANTED_ICON_BUTTON_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_ICON_BUTTON_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-icon-button"]`).getElement();
+
+    await browser.execute((button) => {
+      button.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        cancelable: true,
+      }));
+      button.dispatchEvent(new KeyboardEvent('keydown', {
+        key: ' ',
+        bubbles: true,
+        cancelable: true,
+      }));
+    }, buttonElement);
+
+    await expect(component).toBeDisplayed();
+  });
+
+  it('should ignore keyboard events when disabled', async () => {
+    render(
+      html`
+        <${ENCHANTED_ICON_BUTTON_TAG} disabled></${ENCHANTED_ICON_BUTTON_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_ICON_BUTTON_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-icon-button"]`).getElement();
+
+    await browser.execute((button) => {
+      button.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        cancelable: true,
+      }));
+    }, buttonElement);
+
+    await expect(buttonElement).toHaveAttribute('disabled');
+  });
+
   it('should focus the button when _focusButton is called', async () => {
     render(
       html`

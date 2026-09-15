@@ -23,6 +23,7 @@ import '../../../components/atomic-component/enchanted-list-item';
 // Helper imports
 import { initSessionStorage } from '../../utils';
 import { ENCHANTED_LIST_ITEM_TAG, ENCHANTED_LIST_ITEM_TAG_NAME } from '../../../components/tags';
+import { LIST_ITEM_PARTS } from '../../../types/cssClassEnums';
 
 describe(`${ENCHANTED_LIST_ITEM_TAG_NAME} component testing`, () => {
   before(async () => {
@@ -71,6 +72,18 @@ describe(`${ENCHANTED_LIST_ITEM_TAG_NAME} component testing`, () => {
     await expect(component).toBeDisplayed();
     let listElement = await component.$('>>>li[data-testid="enchanted-list-item-list"]').getElement();
     await expect(listElement).toHaveAttribute('key', 'test_key');
+  });
+
+  it('should use the menu item part when role is menuitem', async () => {
+    render(
+      html`<${ENCHANTED_LIST_ITEM_TAG} role="menuitem" isSelected></${ENCHANTED_LIST_ITEM_TAG}>`,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_LIST_ITEM_TAG_NAME).getElement();
+    const listElement = await component.$('>>>li[data-testid="enchanted-list-item-list"]').getElement();
+
+    await expect(listElement).toHaveAttribute('part', LIST_ITEM_PARTS.MENU_ITEM);
   });
 
   it('should focus shadow li when focusListItem is called', async () => {

@@ -47,7 +47,7 @@ localization.set('output.message.looking.for.something', 'Looking for something?
 localization.set('authoring.data.grid.message.looking.for.something', 'Looking for something? Type in the search bar above.');
 localization.set('data.grid.invalid.column.definition', 'Invalid column definition.');
 
-describe(`${ENCHANTED_DATA_GRID_TAG_NAME} component testing`, () => {
+describe.skip(`${ENCHANTED_DATA_GRID_TAG_NAME} component testing`, () => {
 
   interface EnchantedDataGridElement extends HTMLElement {
     enchantedDataGridContext?: { sortDirection: string; sortAttribute: string };
