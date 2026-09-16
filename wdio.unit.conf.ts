@@ -25,10 +25,10 @@ export const config = {
     preset: process.env.WDIO_PRESET,
     coverage: {
       enabled: true,
-      statements: 80.57,
-      branches: 65.68,
-      functions: 77.77,
-      lines: 78.98,
+      statements: 94.56,
+      branches: 85.6,
+      functions: 93.65,
+      lines: 94.20,
       exclude: [
         'src/_tests_/**',
         // enchanted-data-grid.ts is for deletion.

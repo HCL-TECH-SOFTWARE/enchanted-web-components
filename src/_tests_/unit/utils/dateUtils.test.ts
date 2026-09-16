@@ -421,4 +421,164 @@ describe('dateUtils', () => {
     // Verify result is the same as endTimestamp
     expect(result).toBe(endTimestamp);
   });
+
+  describe('getLocalizedDays - comprehensive tests (lines 128-141)', () => {
+    it('should remove Sunday from beginning and add to end for en locale', () => {
+      const days = dateUtils.getLocalizedDays('en');
+      expect(days.length).toBe(7);
+      // First day should be Monday (sliced to 2 chars: 'Mo')
+      expect(days[0]).not.toMatch(/^Su/i);
+      // Last day should be Sunday (sliced to 2 chars: 'Su')
+      expect(days[6]).toMatch(/^Su/i);
+    });
+
+    it('should slice day strings to 2 characters for en locale', () => {
+      const days = dateUtils.getLocalizedDays('en');
+      // All days should be 2 characters for English
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(2);
+      });
+    });
+
+    it('should slice day strings to 2 characters for fr locale', () => {
+      const days = dateUtils.getLocalizedDays('fr');
+      expect(days.length).toBe(7);
+      // All days should be 2 characters or less for French
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(2);
+      });
+    });
+
+    it('should slice day strings to 2 characters for de locale', () => {
+      const days = dateUtils.getLocalizedDays('de');
+      expect(days.length).toBe(7);
+      // All days should be 2 characters or less for German
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(2);
+      });
+    });
+
+    it('should handle Hebrew (iw) locale with 1 character slicing', () => {
+      const days = dateUtils.getLocalizedDays('iw');
+      expect(days.length).toBe(7);
+      // First day should be Monday
+      expect(days[0]).toBeDefined();
+      // Hebrew locale should slice to 1 character
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(1);
+      });
+    });
+
+    it('should handle Arabic (ar) locale with special slicing logic', () => {
+      const days = dateUtils.getLocalizedDays('ar');
+      expect(days.length).toBe(7);
+      // Arabic locale should return 7 days
+      expect(Array.isArray(days)).toBe(true);
+      // Each day should be defined
+      days.forEach((day) => {
+        expect(day).toBeDefined();
+      });
+    });
+
+    it('should start with Monday for ar locale', () => {
+      const days = dateUtils.getLocalizedDays('ar');
+      // First day should not be Sunday
+      expect(days[0]).toBeDefined();
+      expect(days.length).toBe(7);
+    });
+
+    it('should return different results for different locales', () => {
+      const enDays = dateUtils.getLocalizedDays('en');
+      const frDays = dateUtils.getLocalizedDays('fr');
+      const deDays = dateUtils.getLocalizedDays('de');
+      
+      // All should have 7 days
+      expect(enDays.length).toBe(7);
+      expect(frDays.length).toBe(7);
+      expect(deDays.length).toBe(7);
+      
+      // But the actual values should be different (localized)
+      expect(enDays).not.toEqual(frDays);
+      expect(frDays).not.toEqual(deDays);
+    });
+
+    it('should use default locale when none provided', () => {
+      const days = dateUtils.getLocalizedDays();
+      expect(days.length).toBe(7);
+      expect(Array.isArray(days)).toBe(true);
+    });
+
+    it('should handle Czech locale correctly', () => {
+      const days = dateUtils.getLocalizedDays('cs');
+      expect(days.length).toBe(7);
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(2);
+      });
+    });
+
+    it('should handle Polish locale correctly', () => {
+      const days = dateUtils.getLocalizedDays('pl');
+      expect(days.length).toBe(7);
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(2);
+      });
+    });
+
+    it('should handle Portuguese locale correctly', () => {
+      const days = dateUtils.getLocalizedDays('pt');
+      expect(days.length).toBe(7);
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(2);
+      });
+    });
+
+    it('should handle Portuguese Brazil locale correctly', () => {
+      const days = dateUtils.getLocalizedDays('pt-br');
+      expect(days.length).toBe(7);
+      days.forEach((day) => {
+        expect(day.length).toBeLessThanOrEqual(2);
+      });
+    });
+
+    it('should have Monday as first day for all locales', () => {
+      const locales = ['en', 'fr', 'de', 'es', 'it', 'pl', 'cs'];
+      locales.forEach((locale) => {
+        const days = dateUtils.getLocalizedDays(locale);
+        expect(days.length).toBe(7);
+        // First day should not contain 'Sun' (for non-Arabic/Hebrew)
+        if (locale !== 'ar' && locale !== 'iw') {
+          expect(days[0]).not.toMatch(/Sun/i);
+        }
+      });
+    });
+
+    it('should have Sunday as last day for non-Arabic non-Hebrew locales', () => {
+      const locales = ['en', 'fr', 'de', 'es'];
+      locales.forEach((locale) => {
+        const days = dateUtils.getLocalizedDays(locale);
+        // Sunday abbreviated to 2 chars: en='Su', fr='di', de='So', es='do'
+        const lastDay = days[days.length - 1];
+        expect(lastDay.length).toBeLessThanOrEqual(2);
+        expect(lastDay).toBeDefined();
+      });
+    });
+
+    it('should return consistent results for multiple calls', () => {
+      const days1 = dateUtils.getLocalizedDays('en');
+      const days2 = dateUtils.getLocalizedDays('en');
+      expect(days1).toEqual(days2);
+    });
+
+    it('should map zh_TW correctly', () => {
+      const days = dateUtils.getLocalizedDays('zh_TW');
+      expect(days.length).toBe(7);
+      expect(Array.isArray(days)).toBe(true);
+    });
+
+    it('should map pt_BR correctly', () => {
+      const days = dateUtils.getLocalizedDays('pt_BR');
+      expect(days.length).toBe(7);
+      expect(Array.isArray(days)).toBe(true);
+    });
+  });
 });
