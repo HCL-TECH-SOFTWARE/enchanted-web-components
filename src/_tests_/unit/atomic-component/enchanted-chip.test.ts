@@ -22,7 +22,7 @@ import '../../../components/atomic-component/enchanted-chip';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
-import { ENCHANTED_CHIP_TAG, ENCHANTED_CHIP_TAG_NAME } from '../../../components/tags';
+import { ENCHANTED_AVATAR_TAG_NAME, ENCHANTED_CHIP_TAG, ENCHANTED_CHIP_TAG_NAME } from '../../../components/tags';
  
 describe(`${ENCHANTED_CHIP_TAG_NAME} component testing`, () => {
   before(async () => {
@@ -90,7 +90,7 @@ describe(`${ENCHANTED_CHIP_TAG_NAME} component testing`, () => {
 
     const component = document.querySelector(ENCHANTED_CHIP_TAG_NAME) as HTMLElement | null;
     await expect(component).toBeTruthy();
-    const avatar = component?.shadowRoot?.querySelector('enchanted-avatar');
+    const avatar = component?.shadowRoot?.querySelector(ENCHANTED_AVATAR_TAG_NAME);
     await expect(avatar).toBeTruthy();
   });
 

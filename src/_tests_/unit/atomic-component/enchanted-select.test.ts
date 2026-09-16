@@ -148,7 +148,7 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
     const labelElement = component.shadow$('label[data-testid="enchanted-select-label"]');
 
     await expect(labelElement).toBeDisplayed();
-    const labelText = await browser.execute((element) => element.textContent?.trim(), await labelElement);
+    const labelText = await browser.execute((element) => {return element.textContent?.trim();}, await labelElement);
     await expect(labelText).toBe('Select an attribute');
   });
 

@@ -22,6 +22,7 @@ import { Key } from 'webdriverio';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-data-grid-generic';
+import { EnchantedMenu } from '../../../components/atomic-component/enchanted-menu';
 
 // Helper imports
 import { EnchantedDataGridColDef, SortOrder } from '../../../types/enchanted-data-grid';
@@ -36,6 +37,24 @@ import {
   ENCHANTED_DATA_GRID_GENERIC_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME,
   ENCHANTED_MENU_ITEM_TAG_NAME, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG_NAME
 } from '../../../components/tags';
+
+interface DataGridKeyboardTestSubject {
+  data: EnchantedDataGridGeneric['data'];
+  actions: string[];
+  focused: number;
+  focusedRowActionButtons: Array<{ id: string, focus: () => void }>;
+  programmaticClick: boolean;
+  renderRoot: {
+    querySelector: (selector: string) => HTMLElement | null;
+  };
+  handleActionItemKeydown: (
+    evt: KeyboardEvent,
+    index: number,
+    headerIndex: number,
+    itemIndex: number,
+    isMenu?: boolean
+  ) => void;
+}
 
 describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
   const localization: Map<string, string> = initDataGridLocalizedStrings();
@@ -617,11 +636,11 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
   });
 
   it('should keep menu keyboard flow inside the open menu and return early', async () => {
-    const element = document.createElement(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as any;
+    const element = document.createElement(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as unknown as DataGridKeyboardTestSubject;
     const menuIcon = document.createElement('button');
     const menuItem = document.createElement('button');
     const menuButton = document.createElement('button');
-    const menu = document.createElement(ENCHANTED_MENU_TAG_NAME) as any;
+    const menu = document.createElement(ENCHANTED_MENU_TAG_NAME) as EnchantedMenu;
     let menuItemFocused = false;
 
     menuIcon.id = 'enchanted-data-grid-action-item-button-0-0-1';

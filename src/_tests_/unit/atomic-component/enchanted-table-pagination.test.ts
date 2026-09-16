@@ -213,6 +213,7 @@ describe(`${ENCHANTED_TABLE_PAGINATION_TAG_NAME} component testing`, () => {
     ];
 
     for (const actionCase of actionCases) {
+      const expectedValue = actionCase.expectedValue as number | undefined;
       const result = await browser.execute(async (element, action) => {
         const pagination = element as HTMLElement & {
           currentPageState: number;
@@ -236,10 +237,11 @@ describe(`${ENCHANTED_TABLE_PAGINATION_TAG_NAME} component testing`, () => {
       }, component, actionCase.action);
 
       await expect(result.page).toBe(actionCase.expectedPage);
-      if (actionCase.expectedValue === undefined) {
-        await expect(result.detail).toBeNull();
+      const detail = result.detail as { value: number; type: string } | undefined;
+      if (expectedValue === undefined) {
+        await expect(detail).toBeNull();
       } else {
-        await expect(result.detail?.value).toBe(actionCase.expectedValue);
+        await expect(detail?.value).toBe(expectedValue);
       }
     }
   });

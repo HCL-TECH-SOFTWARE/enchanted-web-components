@@ -361,7 +361,7 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
     await browser.execute((element) => {
       const componentElement = element as HTMLElement & { toggleDropDown: boolean };
       componentElement.toggleDropDown = false;
-      const inputElement = componentElement.shadowRoot?.querySelector('input#input-field');
+      const inputElement = componentElement.shadowRoot?.querySelector<HTMLInputElement>('input#input-field');
       inputElement?.focus();
       inputElement?.dispatchEvent(new KeyboardEvent('keydown', {
         key: ' ',
