@@ -31,7 +31,7 @@ export const config = {
       lines: 94.20,
       exclude: [
         'src/_tests_/**',
-        // enchanted-data-grid.ts is for deletion.
+        // enchanted-data-grid.ts has been deprecated in favor of enchanted-data-grid-generic.
         'src/components/atomic-component/enchanted-data-grid.ts',
       ]
     },
