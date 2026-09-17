@@ -207,6 +207,37 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
     await expect(component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`)).toBeDisplayed();
   });
 
+  it('should open dropdown when pressing Enter on the input container', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const inputContainer = component.shadow$('div[role="combobox"]');
+
+    await browser.execute((element) => {
+      element.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+    }, await inputContainer);
+    await browser.pause(300);
+
+    await expect(inputContainer).toHaveAttribute('aria-expanded', 'true');
+    await expect(component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`)).toBeDisplayed();
+  });
+
   it('should not immediately close dropdown after single Enter key press on toggle button', async () => {
     render(
       html`
@@ -270,6 +301,86 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
     await input.click();
     await input.setValue('Option 2');
     await browser.pause(500);
+  });
+
+  it('should add a custom option when pressing Enter with empty options', async () => {
+    let changeEventDetail: MultiSelectChangeDetail | null = null;
+
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        field="test"
+        emptyOptions
+        @change=${(event: CustomEvent) => {
+          changeEventDetail = event.detail;
+        }}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const input = component.shadow$('input#input-field');
+    await input.setValue('CustomOption');
+    await browser.keys('Enter');
+    await browser.pause(100);
+
+    const selectedValues = await browser.execute((element) => {
+      return (element as HTMLElement & { selectedValues: unknown[] }).selectedValues;
+    }, await component);
+    await expect(selectedValues).toEqual([
+      { id: 'CustomOption', name: 'CustomOption', value: 'CustomOption' }
+    ]);
+    await expect(input).toHaveValue('');
+    await expect(changeEventDetail).toEqual({
+      value: [{ id: 'CustomOption', name: 'CustomOption', value: 'CustomOption' }],
+      type: 'test'
+    });
+  });
+
+  it('should focus the first option when pressing Space with an empty input', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        .options=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const toggleButton = component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-multi-select-button"]`);
+    await toggleButton.click();
+    await browser.pause(300);
+
+    await browser.execute((element) => {
+      const componentElement = element as HTMLElement & { toggleDropDown: boolean };
+      componentElement.toggleDropDown = false;
+      const inputElement = componentElement.shadowRoot?.querySelector<HTMLInputElement>('input#input-field');
+      inputElement?.focus();
+      inputElement?.dispatchEvent(new KeyboardEvent('keydown', {
+        key: ' ',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+    }, await component);
+    await browser.pause(300);
+
+    await expect(component.shadow$(`${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-multi-select-list"]`)).toBeDisplayed();
+    const firstListItem = component.shadow$(`${ENCHANTED_LIST_ITEM_TAG_NAME}[data-testid="enchanted-multi-select-listitem"]`);
+    const isShadowListItemFocused = await browser.execute((element) => {
+      const listItem = element as HTMLElement & { shadowRoot?: ShadowRoot | null };
+      const listElement = listItem.shadowRoot?.querySelector('li[data-testid="enchanted-list-item-list"]');
+      return Boolean(listElement && listItem.shadowRoot?.activeElement === listElement);
+    }, await firstListItem);
+
+    await expect(isShadowListItemFocused).toBe(true);
   });
 
   it('should apply custom width', async () => {
@@ -338,6 +449,107 @@ describe(`${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME} component testing`, () => {
 
     const selectedValues = await component.getProperty('selectedValues');
     expect(selectedValues).toEqual([{ id: '2', name: 'Option 2', value: 'Option 2' }]);
+  });
+
+  it('should remove a chip when its clear icon receives Enter', async () => {
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        .selectedValues=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' }
+        ]}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const clearIcon = component.shadow$('span[data-testid="clear-icon"]');
+    await browser.execute((element) => {
+      element.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+    }, await clearIcon);
+    await browser.pause(100);
+
+    await expect(component.shadow$(`${ENCHANTED_CHIP_TAG_NAME}[data-testid="enchanted-multiple-select-chip"]`)).not.toBeDisplayed();
+    const selectedValues = await browser.execute((element) => {
+      return (element as HTMLElement & { selectedValues: unknown[] }).selectedValues;
+    }, await component);
+    await expect(selectedValues).toEqual([]);
+  });
+
+  it('should dispatch remove details when the remove label is clicked', async () => {
+    let removeEventDetail: { name: string; type: string } | null = null;
+
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        name="Test selector"
+        field="test-field"
+        showRemoveLabel
+        @remove=${(event: CustomEvent) => {
+          removeEventDetail = event.detail;
+        }}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const removeLabel = component.shadow$('label[data-testid="multiple-select-remove-label"]');
+    await removeLabel.click();
+
+    await expect(removeEventDetail).toEqual({
+      name: 'Test selector',
+      type: 'test-field'
+    });
+  });
+
+  it('should clear all selected values from the clear-all control', async () => {
+    let changeEventDetail: MultiSelectChangeDetail | null = null;
+
+    render(
+      html`
+      <${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}
+        .localization=${localization}
+        field="test"
+        .selectedValues=${[
+          { id: '1', name: 'Option 1', value: 'Option 1' },
+          { id: '2', name: 'Option 2', value: 'Option 2' }
+        ]}
+        @change=${(event: CustomEvent) => {
+          changeEventDetail = event.detail;
+        }}
+      ></${ENCHANTED_MULTIPLE_SELECT_CHIP_TAG}>
+    `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_MULTIPLE_SELECT_CHIP_TAG_NAME);
+    const clearAllButton = component.shadow$('[data-testid="enchanted-multi-select-clear-all-button"]');
+
+    await browser.execute((element) => {
+      element.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+    }, await clearAllButton);
+    await browser.pause(100);
+
+    const selectedValues = await browser.execute((element) => {
+      return (element as HTMLElement & { selectedValues: unknown[] }).selectedValues;
+    }, await component);
+    await expect(selectedValues).toEqual([]);
+    await expect(component.shadow$('[data-testid="enchanted-multi-select-clear-all-button"]')).not.toBeDisplayed();
+    await expect(changeEventDetail).toEqual({ value: [], type: 'test' });
   });
 
   it('should be non-interactive when disabled', async () => {

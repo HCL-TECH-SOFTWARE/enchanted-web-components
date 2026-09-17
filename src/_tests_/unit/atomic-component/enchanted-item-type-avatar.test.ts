@@ -564,4 +564,34 @@ describe(`${ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME} component testing`, () => {
     await expect(iconElement).toBeExisting();
   });
 
+  it('should render an avatar for every ICON_ITEM_TYPE getSvgIcon case', async () => {
+    render(
+      html`
+        <${ENCHANTED_ITEM_TYPE_AVATAR_TAG}></${ENCHANTED_ITEM_TYPE_AVATAR_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_ITEM_TYPE_AVATAR_TAG_NAME).getElement();
+
+    for (const itemType of Object.values(ICON_ITEM_TYPE)) {
+      await browser.execute((element, value) => {
+        element.setAttribute('itemType', value as string);
+      }, component, itemType);
+      await browser.pause(50);
+
+      await expect(component).toHaveAttribute('itemType', itemType);
+      const avatarElement = component.$(`>>>${ENCHANTED_AVATAR_TAG_NAME}[data-testid="enchanted-item-type-avatar"]`);
+      await expect(avatarElement).toBeExisting();
+    }
+
+    await browser.execute((element) => {
+      element.setAttribute('itemType', 'unsupported-item-type');
+    }, component);
+    await browser.pause(50);
+
+    const defaultAvatarElement = component.$(`>>>${ENCHANTED_AVATAR_TAG_NAME}[data-testid="enchanted-item-type-avatar"]`);
+    await expect(defaultAvatarElement).toBeExisting();
+  });
+
 });

@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -42,6 +42,20 @@ describe(`${ENCHANTED_ACCORDION_SUMMARY_TAG_NAME} render`, () => {
     const labelPart = await summary.shadow$('[part="label"]');
     const labelText = await labelPart.getText();
     expect(labelText).toBe("Test Label");
+  });
+  it("should render the RTL label part with correct text", async () => {
+    document.documentElement.dir = "rtl";
+    try {
+      renderSummaryTemplate({ label: "Test RTL Label" });
+
+      const summary = await $(ENCHANTED_ACCORDION_SUMMARY_TAG_NAME);
+      const labelPart = await summary.shadow$('[part="label-rtl"]');
+      const labelText = await labelPart.getText();
+
+      expect(labelText).toBe("Test RTL Label");
+    } finally {
+      document.documentElement.dir = "ltr";
+    }
   });
   it("should render part='secondary' with correct text", async () => {
     renderSummaryTemplate({ secondaryText: "Test Secondary Text" });

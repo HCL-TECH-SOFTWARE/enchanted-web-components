@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -17,7 +17,7 @@ import { html } from 'lit/static-html.js';
 import { expect, $, browser } from "@wdio/globals";
 
 // Helper import
-import { renderComponent } from "../../utils";
+import { initSessionStorage, renderComponent } from "../../utils";
 
 // Component import
 import "../../../components/atomic-component/enchanted-accordion";
@@ -25,6 +25,9 @@ import { ENCHANTED_ACCORDION_TAG, ENCHANTED_ACCORDION_TAG_NAME } from '../../../
 
 afterEach(() => {
   document.body.innerHTML = "";
+});
+beforeEach(async () => {
+  await initSessionStorage();
 });
 async function waitForAccordion() {
   const accordion = await $(`${ENCHANTED_ACCORDION_TAG_NAME}`);
@@ -149,5 +152,67 @@ describe(`${ENCHANTED_ACCORDION_TAG_NAME} - toggle behavior tests (click on head
     );
     const isOpenFinally = await accordion.getProperty("open");
     await expect(isOpenFinally).toBe(false);
+  });
+
+  it('should toggle open state from keyboard and arrow click handlers', async () => {
+    const accordion = await waitForAccordion();
+    await browser.execute((tagName) => {
+      const element = document.querySelector(tagName);
+      const labelColumn = element?.shadowRoot?.querySelector('[part="label-column"]');
+      labelColumn?.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        cancelable: true,
+      }));
+    }, ENCHANTED_ACCORDION_TAG_NAME);
+    await browser.waitUntil(async () => {
+      return (await accordion.getProperty('open')) === true;
+    });
+
+    await browser.execute((tagName) => {
+      const element = document.querySelector(tagName);
+      const arrow = element?.shadowRoot?.querySelector('[part="arrow"]');
+      arrow?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    }, ENCHANTED_ACCORDION_TAG_NAME);
+    await browser.waitUntil(async () => {
+      return (await accordion.getProperty('open')) === false;
+    });
+
+    await browser.execute((tagName) => {
+      const element = document.querySelector(tagName);
+      const labelColumn = element?.shadowRoot?.querySelector('[part="label-column"]');
+      labelColumn?.dispatchEvent(new KeyboardEvent('keydown', {
+        key: ' ',
+        bubbles: true,
+        cancelable: true,
+      }));
+    }, ENCHANTED_ACCORDION_TAG_NAME);
+    await browser.waitUntil(async () => {
+      return (await accordion.getProperty('open')) === true;
+    });
+  });
+});
+
+describe(`${ENCHANTED_ACCORDION_TAG_NAME} - RTL rendering`, () => {
+  beforeEach(() => {
+    document.documentElement.dir = 'rtl';
+    renderComponent(html`<${ENCHANTED_ACCORDION_TAG}>
+      <span slot="header">My accordion Header</span>
+      <div slot="accordion-items">tests</div>
+    </${ENCHANTED_ACCORDION_TAG}>`);
+  });
+
+  afterEach(() => {
+    document.documentElement.dir = 'ltr';
+  });
+
+  it('should render the RTL accordion container part', async () => {
+    await waitForAccordion();
+    const containerPart = await browser.execute((tagName) => {
+      const element = document.querySelector(tagName);
+      return element?.shadowRoot?.querySelector('[part="container-rtl"]')?.getAttribute('part');
+    }, ENCHANTED_ACCORDION_TAG_NAME);
+
+    expect(containerPart).toBe('container-rtl');
   });
 });

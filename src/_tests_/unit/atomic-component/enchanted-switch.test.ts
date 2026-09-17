@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -13,7 +13,7 @@
  * limitations under the License.                                           *
  * ======================================================================== */
 // External imports
-import { $, expect } from '@wdio/globals';
+import { $, expect, browser } from '@wdio/globals';
 import { render, nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 
@@ -139,6 +139,75 @@ describe(`${ENCHANTED_SWITCH_TAG_NAME} component testing`, () => {
     await expect(inputElement).toHaveElementProperty('checked', true); // After clicking switch must be checked
     labelElement.click();
     await expect(inputElement).toHaveElementProperty('checked', false); // After clicking once again switch must be unchecked
+  });
+
+  it('should toggle the switch and dispatch its change detail from the label', async () => {
+    render(
+      html`
+        <${ENCHANTED_SWITCH_TAG}></${ENCHANTED_SWITCH_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SWITCH_TAG_NAME).getElement();
+    let changeDetail: { isChecked: boolean } | undefined;
+    await browser.execute((element) => {
+      element.addEventListener('change', (event) => {
+        (element as HTMLElement & { changeDetail?: { isChecked: boolean } }).changeDetail = (event as CustomEvent<{ isChecked: boolean }>).detail;
+      });
+      element.shadowRoot?.querySelector('label[data-testid="enchanted-switch-label"]')?.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      }));
+    }, component);
+
+    changeDetail = await browser.execute((element) => {
+      return (element as HTMLElement & { changeDetail?: { isChecked: boolean } }).changeDetail;
+    }, component);
+    await expect(component).toHaveElementProperty('isChecked', true);
+    await expect(changeDetail).toEqual({ isChecked: true });
+  });
+
+  it('should handle Space and ignore unrelated keys on the label', async () => {
+    render(
+      html`
+        <${ENCHANTED_SWITCH_TAG}></${ENCHANTED_SWITCH_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SWITCH_TAG_NAME).getElement();
+    const keyResults = await browser.execute((element) => {
+      const label = element.shadowRoot?.querySelector('label[data-testid="enchanted-switch-label"]');
+      if (!label) return { spaceDefaultPrevented: false, unrelatedDefaultPrevented: false };
+
+      const spaceEvent = new KeyboardEvent('keydown', {
+        key: ' ',
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+      label.dispatchEvent(spaceEvent);
+
+      const unrelatedEvent = new KeyboardEvent('keydown', {
+        key: 'ArrowRight',
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+      label.dispatchEvent(unrelatedEvent);
+
+      return {
+        spaceDefaultPrevented: spaceEvent.defaultPrevented,
+        unrelatedDefaultPrevented: unrelatedEvent.defaultPrevented,
+      };
+    }, component);
+
+    await expect(keyResults.spaceDefaultPrevented).toBe(true);
+    await expect(keyResults.unrelatedDefaultPrevented).toBe(false);
+    await expect(component).toHaveElementProperty('isChecked', true);
   });
 
   it('should render switch with checked and disabled state and validate part attribute', async () => {

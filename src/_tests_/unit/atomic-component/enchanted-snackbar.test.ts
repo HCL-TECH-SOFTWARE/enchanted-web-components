@@ -23,7 +23,10 @@ import '../../../components/atomic-component/enchanted-snackbar';
 // Helper imports
 import { BUTTON_PARTS, BUTTON_VARIANT, SNACKBAR_TYPE } from '../../../types/cssClassEnums';
 import { initSessionStorage } from '../../utils';
-import { COMPONENT_PREFIX, ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_SNACKBAR_TAG, ENCHANTED_SNACKBAR_TAG_NAME } from '../../../components/tags';
+import {
+  COMPONENT_PREFIX, ENCHANTED_BUTTON_TAG, ENCHANTED_BUTTON_TAG_NAME, ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME,
+  ENCHANTED_SNACKBAR_TAG, ENCHANTED_SNACKBAR_TAG_NAME
+} from '../../../components/tags';
 
 describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
   before(async () => {
@@ -69,6 +72,50 @@ describe(`${ENCHANTED_SNACKBAR_TAG_NAME} component testing`, () => {
     await expect(messageElement).toBeExisting();
     let svgInfoIcon = await component.shadow$(`${COMPONENT_PREFIX}icon-information`).getElement();
     await expect(svgInfoIcon).toBeExisting();
+  });
+
+  it('should render a progress indicator for the progress type', async () => {
+    render(
+      html`
+        <${ENCHANTED_SNACKBAR_TAG}
+          message="Loading"
+          type=${SNACKBAR_TYPE.SNACKBAR_PROGRESS}
+        ></${ENCHANTED_SNACKBAR_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SNACKBAR_TAG_NAME).getElement();
+    const progressContainer = await component.$('>>>div[part="snackbar-progress"]').getElement();
+    const progress = await progressContainer.$(`>>>${ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME}`).getElement();
+
+    await expect(progressContainer).toBeExisting();
+    await expect(progress).toHaveAttribute('size', '36');
+    await expect(progress).toHaveAttribute('strokewidth', '2');
+  });
+
+  it('should render the correct icon for warning, error, and success types', async () => {
+    const iconCases = [
+      { type: SNACKBAR_TYPE.SNACKBAR_WARNING, iconName: 'icon-warning-alt' },
+      { type: SNACKBAR_TYPE.SNACKBAR_ERROR, iconName: 'icon-warning' },
+      { type: SNACKBAR_TYPE.SNACKBAR_SUCCESS, iconName: 'icon-checkmark-outline' },
+    ];
+
+    for (const iconCase of iconCases) {
+      render(
+        html`
+          <${ENCHANTED_SNACKBAR_TAG}
+            type=${iconCase.type}
+          ></${ENCHANTED_SNACKBAR_TAG}>
+        `,
+        document.body
+      );
+
+      const component = await $(ENCHANTED_SNACKBAR_TAG_NAME).getElement();
+      const icon = await component.shadow$(`${COMPONENT_PREFIX}${iconCase.iconName}`).getElement();
+
+      await expect(icon).toHaveAttribute('part', `snackbar-icon icon-${iconCase.type}`);
+    }
   });
 
   it('should render with buttons in the slot', async () => {

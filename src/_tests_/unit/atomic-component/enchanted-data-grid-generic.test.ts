@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -22,6 +22,7 @@ import { Key } from 'webdriverio';
 
 // Component imports
 import '../../../components/atomic-component/enchanted-data-grid-generic';
+import { EnchantedMenu } from '../../../components/atomic-component/enchanted-menu';
 
 // Helper imports
 import { EnchantedDataGridColDef, SortOrder } from '../../../types/enchanted-data-grid';
@@ -36,6 +37,24 @@ import {
   ENCHANTED_DATA_GRID_GENERIC_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME,
   ENCHANTED_MENU_ITEM_TAG_NAME, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG_NAME
 } from '../../../components/tags';
+
+interface DataGridKeyboardTestSubject {
+  data: EnchantedDataGridGeneric['data'];
+  actions: string[];
+  focused: number;
+  focusedRowActionButtons: Array<{ id: string, focus: () => void }>;
+  programmaticClick: boolean;
+  renderRoot: {
+    querySelector: (selector: string) => HTMLElement | null;
+  };
+  handleActionItemKeydown: (
+    evt: KeyboardEvent,
+    index: number,
+    headerIndex: number,
+    itemIndex: number,
+    isMenu?: boolean
+  ) => void;
+}
 
 describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
   const localization: Map<string, string> = initDataGridLocalizedStrings();
@@ -614,6 +633,52 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
       }
       await expect(focusNextElementSpy).toHaveBeenCalledTimes(1);
     }
+  });
+
+  it('should keep menu keyboard flow inside the open menu and return early', async () => {
+    const element = document.createElement(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME) as unknown as DataGridKeyboardTestSubject;
+    const menuIcon = document.createElement('button');
+    const menuItem = document.createElement('button');
+    const menuButton = document.createElement('button');
+    const menu = document.createElement(ENCHANTED_MENU_TAG_NAME) as EnchantedMenu;
+    let menuItemFocused = false;
+
+    menuIcon.id = 'enchanted-data-grid-action-item-button-0-0-1';
+
+    menuItem.id = 'enchanted-data-grid-menu-item-0-0-0-0';
+    menuItem.focus = () => { menuItemFocused = true; };
+
+    menuButton.id = 'enchanted-data-grid-action-item-button-0-0-0';
+    menu.openMenu = true;
+
+    element.data = { searchItems: sampleSearchResultResponse.hits.hits };
+    element.actions = ['0-0', '0-1'];
+    element.focused = 0;
+    element.focusedRowActionButtons = [menuButton, menuIcon];
+    element.programmaticClick = false;
+
+    Object.defineProperty(element, 'renderRoot', {
+      value: {
+        querySelector: (selector: string) => {
+          if (selector === ENCHANTED_MENU_TAG_NAME) return menu;
+          if (selector === '#enchanted-data-grid-action-item-button-0-0-1') return menuIcon;
+          if (selector === '#enchanted-data-grid-action-item-button-0-0-0') return menuButton;
+          if (selector === '#enchanted-data-grid-menu-item-0-0-0-0') return menuItem;
+          return null;
+        }
+      },
+      configurable: true
+    });
+
+    const rightTabEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, composed: true });
+    Object.defineProperty(rightTabEvent, 'target', { value: menuButton, configurable: true });
+    element.handleActionItemKeydown(rightTabEvent, 0, 0, 0, true);
+    await expect(element.programmaticClick).toBe(true);
+
+    const arrowDownEvent = new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true });
+    Object.defineProperty(arrowDownEvent, 'target', { value: menuIcon, configurable: true });
+    element.handleActionItemKeydown(arrowDownEvent, 0, 0, 0, true);
+    await expect(menuItemFocused).toBe(true);
   });
 
   it('should support RTL Keyboard Navigation', async () => {

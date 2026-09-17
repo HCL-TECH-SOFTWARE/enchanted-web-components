@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -123,6 +123,35 @@ describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
     await expect(input).toHaveAttribute('name', 'Sample form name');
   });
 
+  it('should dispatch a remove event when the remove label is activated by Enter or Space', async () => {
+    const removeEventDetails: Array<{ name: string; type: string }> = [];
+    render(
+      html`
+        <${ENCHANTED_DATEPICKER_TAG}
+          name="sample-date"
+          field="sample-field"
+          showremovelabel
+          @remove=${(e: CustomEvent) => {return removeEventDetails.push(e.detail);}}
+        ></${ENCHANTED_DATEPICKER_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
+    const removeLabel = await component.shadow$('[data-testid$="-remove-label"]').getElement();
+    await expect(removeLabel).toBeDisplayed();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, removeLabel);
+    await browser.keys(Key.Enter);
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, removeLabel);
+    await browser.keys(Key.Space);
+
+    expect(removeEventDetails).toEqual([
+      { name: 'sample-date', type: 'sample-field' },
+      { name: 'sample-date', type: 'sample-field' },
+    ]);
+  });
+
   it('should be able to open calendar and select a date', async () => {
     render(
       html`
@@ -197,6 +226,66 @@ describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
     await expect(await input.getValue()).toEqual(new Intl.DateTimeFormat("en-US", {
       month: '2-digit', day: '2-digit', year: 'numeric'
     }).format(selectedDate));
+  });
+
+  it('should support keyboard interaction with the Today button', async () => {
+    render(
+      html`
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
+    const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
+    await calendarBtn.click();
+    await browser.pause(400);
+
+    let todayButton = await component.shadow$(`button[data-testid$="-today-button"]`).getElement();
+    await expect(todayButton).toBeDisplayed();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, todayButton);
+    await browser.keys(Key.Tab);
+    const yearViewButton = await component.shadow$(`button[data-testid$="-year-view-button"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, yearViewButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, todayButton);
+    await browser.keys([Key.Shift, Key.Tab]);
+    const todayDateButton = await component.shadow$(`button[data-testid$="-date-${new Date().getDate()}"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, todayDateButton)).toBeTruthy();
+
+    await yearViewButton.click();
+    await browser.pause(400);
+    todayButton = await component.shadow$(`button[data-testid$="-today-button"]`).getElement();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, todayButton);
+    await browser.keys([Key.Shift, Key.Tab]);
+    const selectedYearButton = await component.shadow$(`button[data-testid$="-year-${new Date().getFullYear()}"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, selectedYearButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, todayButton);
+    await browser.keys(Key.Enter);
+    await browser.pause(400);
+    let calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
+    await expect(calendarDiv).not.toBeDisplayed();
+
+    let reopenedCalendarButton = await component.shadow$(`button[data-testid$="-calendar-button"]`).getElement();
+    await reopenedCalendarButton.click();
+    await browser.pause(400);
+    todayButton = await component.shadow$(`button[data-testid$="-today-button"]`).getElement();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, todayButton);
+    await browser.keys(Key.Space);
+    await browser.pause(400);
+    calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
+    await expect(calendarDiv).not.toBeDisplayed();
+
+    reopenedCalendarButton = await component.shadow$(`button[data-testid$="-calendar-button"]`).getElement();
+    await reopenedCalendarButton.click();
+    await browser.pause(400);
+    todayButton = await component.shadow$(`button[data-testid$="-today-button"]`).getElement();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, todayButton);
+    await browser.keys(Key.Escape);
+    await browser.pause(400);
+    calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
+    await expect(calendarDiv).not.toBeDisplayed();
   });
 
   it('should be able to open calendar and change Year and reopen calendar and year view again', async () => {
@@ -276,6 +365,93 @@ describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
 
     calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
     await expect(calendarDiv).toBeDisplayed();
+  });
+
+  it('should support keyboard interaction with the year view button', async () => {
+    render(
+      html`
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
+    const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
+    await calendarBtn.click();
+    await browser.pause(400);
+
+    const yearViewBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR_YEAR_VIEW_BUTTON}]`).getElement();
+    await yearViewBtn.click();
+    await browser.pause(400);
+
+    const selectedYearBtn = await component.shadow$(`button[data-testid$="-year-${yearNow}"]`).getElement();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearViewBtn);
+    await browser.keys(Key.Tab);
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, selectedYearBtn)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearViewBtn);
+    await browser.keys(Key.Enter);
+    await browser.pause(400);
+    let yearSelection = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION}]`).getElement();
+    await expect(yearSelection).not.toBeDisplayed();
+
+    await yearViewBtn.click();
+    await browser.pause(400);
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearViewBtn);
+    await browser.keys(Key.Space);
+    await browser.pause(400);
+    yearSelection = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION}]`).getElement();
+    await expect(yearSelection).not.toBeDisplayed();
+
+    const reopenedYearViewBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR_YEAR_VIEW_BUTTON}]`).getElement();
+    await expect(reopenedYearViewBtn).toBeDisplayed();
+    await reopenedYearViewBtn.click();
+    await browser.pause(400);
+
+    const yearButton = await component.shadow$(`button[data-testid$="-year-${yearNow}"]`).getElement();
+    await expect(yearButton).toBeDisplayed();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearButton);
+    await browser.keys(Key.Tab);
+    const todayButton = await component.shadow$(`button[data-testid$="-today-button"]`).getElement();
+    await expect(todayButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, todayButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearButton);
+    await browser.keys([Key.Shift, Key.Tab]);
+    const yearViewButton = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR_YEAR_VIEW_BUTTON}]`).getElement();
+    await expect(yearViewButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, yearViewButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearButton);
+    await browser.keys(Key.ArrowLeft);
+    const previousYearButton = await component.shadow$(`button[data-testid$="-year-${yearNow - 1}"]`).getElement();
+    await expect(previousYearButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, previousYearButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearButton);
+    await browser.keys(Key.ArrowRight);
+    const nextYearButton = await component.shadow$(`button[data-testid$="-year-${yearNow + 1}"]`).getElement();
+    await expect(nextYearButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, nextYearButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearButton);
+    await browser.keys(Key.ArrowUp);
+    const previousRowYearButton = await component.shadow$(`button[data-testid$="-year-${yearNow - 3}"]`).getElement();
+    await expect(previousRowYearButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, previousRowYearButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearButton);
+    await browser.keys(Key.ArrowDown);
+    const nextRowYearButton = await component.shadow$(`button[data-testid$="-year-${yearNow + 3}"]`).getElement();
+    await expect(nextRowYearButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, nextRowYearButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, yearButton);
+    await browser.keys(Key.Enter);
+    await browser.pause(400);
+
+    yearSelection = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_YEAR_SELECTION}]`).getElement();
+    await expect(yearSelection).not.toBeDisplayed();
   });
 
 
@@ -445,7 +621,6 @@ describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
       .down(Key.Tab)
       .down(Key.Shift)
       .down(Key.Tab)
-      .down(Key.Enter)
       .perform();
 
     await browser.pause(400);
@@ -603,6 +778,121 @@ describe(`${ENCHANTED_DATEPICKER_TAG_NAME} component testing`, () => {
       month: '2-digit', day: '2-digit', year: 'numeric',
     }).format(selectedDate);
     await expect(await input.getValue()).toEqual(formattedDate1);
+  });
+
+  it('should cover date button keyboard navigation', async () => {
+    render(
+      html`
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
+    const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
+    await expect(calendarBtn).toBeDisplayed();
+    await calendarBtn.click();
+    await browser.pause(400);
+
+    let calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
+    await expect(calendarDiv).toBeDisplayed();
+
+    const dateButton = await component.shadow$(`button[data-testid$="-date-15"]`).getElement();
+    await expect(dateButton).toBeDisplayed();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, dateButton);
+    await browser.keys(Key.Tab);
+    const todayButton = await component.shadow$(`button[data-testid$="-today-button"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, todayButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, dateButton);
+    await browser.keys([Key.Shift, Key.Tab]);
+    const nextMonthButton = await component.shadow$(`button[data-testid$="-month-next-button"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, nextMonthButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, dateButton);
+    await browser.keys(Key.ArrowLeft);
+    const previousDateButton = await component.shadow$(`button[data-testid$="-date-14"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, previousDateButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, dateButton);
+    await browser.keys(Key.ArrowRight);
+    const nextDateButton = await component.shadow$(`button[data-testid$="-date-16"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, nextDateButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, dateButton);
+    await browser.keys(Key.ArrowUp);
+    const previousWeekButton = await component.shadow$(`button[data-testid$="-date-8"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, previousWeekButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, dateButton);
+    await browser.keys(Key.ArrowDown);
+    const nextWeekButton = await component.shadow$(`button[data-testid$="-date-22"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, nextWeekButton)).toBeTruthy();
+
+    const firstDateButton = await component.shadow$(`button[data-testid$="-date-1"]`).getElement();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, firstDateButton);
+    await browser.keys(Key.ArrowLeft);
+    await browser.pause(400);
+    calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
+    const previousMonthDates = await calendarDiv.shadow$$(`button[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR_DATES_BUTTON}]`).getElements();
+    const previousMonthLastDate = previousMonthDates[previousMonthDates.length - 1];
+    await expect(previousMonthLastDate).toBeDisplayed();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, previousMonthLastDate);
+    await browser.keys(Key.ArrowRight);
+    await browser.pause(400);
+    const nextMonthFirstDate = await component.shadow$(`button[data-testid$="-date-1"]`).getElement();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, nextMonthFirstDate)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, nextMonthFirstDate);
+    await browser.keys(Key.Escape);
+    await browser.pause(400);
+    calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
+    await expect(calendarDiv).not.toBeDisplayed();
+
+    const reopenedCalendarButton = await component.shadow$(`button[data-testid$="-calendar-button"]`).getElement();
+    await reopenedCalendarButton.click();
+    await browser.pause(400);
+    const reopenedDateButton = await component.shadow$(`button[data-testid$="-date-15"]`).getElement();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, reopenedDateButton);
+    await browser.keys(Key.Space);
+    await browser.pause(400);
+    calendarDiv = await component.shadow$(`div[part=${DATEPICKER_PARTS.DATEPICKER_CALENDAR}]`).getElement();
+    await expect(calendarDiv).not.toBeDisplayed();
+  });
+
+  it('should navigate to the previous month when ArrowUp crosses its boundary', async () => {
+    render(
+      html`
+        <${ENCHANTED_DATEPICKER_TAG}></${ENCHANTED_DATEPICKER_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_DATEPICKER_TAG_NAME).getElement();
+    const calendarBtn = await component.shadow$(`button[part=${DATEPICKER_PARTS.DATEPICKER_DIV_CALENDAR_BUTTON}]`).getElement();
+    await calendarBtn.click();
+    await browser.pause(400);
+
+    const dateButton = await component.shadow$(`button[data-testid$="-date-5"]`).getElement();
+    await expect(dateButton).toBeDisplayed();
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, dateButton);
+    await browser.keys(Key.ArrowUp);
+    await browser.pause(400);
+
+    const previousMonthDays = new Date(yearNow, monthNow, 0).getDate();
+    const expectedDate = previousMonthDays - 2;
+    const previousMonthDateButton = await component.shadow$(`button[data-testid$="-date-${expectedDate}"]`).getElement();
+    await expect(previousMonthDateButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, previousMonthDateButton)).toBeTruthy();
+
+    await browser.execute((element) => {return (element as HTMLElement).focus();}, previousMonthDateButton);
+    await browser.keys(Key.ArrowDown);
+    await browser.pause(400);
+
+    const nextMonthDateButton = await component.shadow$(`button[data-testid$="-date-5"]`).getElement();
+    await expect(nextMonthDateButton).toBeDisplayed();
+    await expect(await browser.execute((element) => {return (element as HTMLElement).matches(':focus');}, nextMonthDateButton)).toBeTruthy();
   });
 
   it('should be able to open calendar and close it via Escape key', async () => {

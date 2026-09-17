@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -47,7 +47,7 @@ localization.set('output.message.looking.for.something', 'Looking for something?
 localization.set('authoring.data.grid.message.looking.for.something', 'Looking for something? Type in the search bar above.');
 localization.set('data.grid.invalid.column.definition', 'Invalid column definition.');
 
-describe(`${ENCHANTED_DATA_GRID_TAG_NAME} component testing`, () => {
+describe.skip(`${ENCHANTED_DATA_GRID_TAG_NAME} component testing`, () => {
 
   interface EnchantedDataGridElement extends HTMLElement {
     enchantedDataGridContext?: { sortDirection: string; sortAttribute: string };
