@@ -99,9 +99,9 @@ const meta: Meta = {
   },
   args: {
     type: 'outlined',
-    showCheckbox: true,
+    showCheckbox: false,
     disabled: false,
-    showSecondaryText: true,
+    showSecondaryText: false,
     open: false,
     label: 'Accordion label',
     secondaryText: 'Secondary text',
@@ -167,11 +167,11 @@ export const EnchantedAccordion: Story = {
 export const AllStates: Story = {
   render: () => {
     return html`
-      <div style="display: flex; flex-direction: column;">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
         <div><strong>Outlined Type</strong></div>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
-          label="Accordion - Closed"
+          label="Outlined - Closed"
           ?open=${false}
         >
           <${ENCHANTED_ACCORDION_SUMMARY_TAG}
@@ -181,7 +181,7 @@ export const AllStates: Story = {
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
-          label="Accordion - Open"
+          label="Outlined - Open"
           ?open=${true}
         >
           <${ENCHANTED_ACCORDION_SUMMARY_TAG}
