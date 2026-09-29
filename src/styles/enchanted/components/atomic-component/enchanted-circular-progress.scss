@@ -56,7 +56,7 @@
   }
 }
 
-@mixin enchanted-circular-progress-base-styles {
+@mixin enchanted-circular-progress-parts-styles {
   // Color tokens
   --enchanted-circular-progress-track-color: #{map.get(themeMap.$enchantedPalette, NG200)};
   --enchanted-circular-progress-progress-color: #{map.get(themeMap.$enchantedPalette, HCLSOFTWAREBLUE06)};
@@ -69,8 +69,6 @@
   --enchanted-circular-progress-pulse-duration: 1.5s;
   --enchanted-circular-progress-pulse-timing: ease-in-out;
   --enchanted-circular-progress-pulse-opacity-min: 0.5;
-
-  display: inline-block;
 
   // Root container styles
   &::part(circular-progress-root) {
@@ -127,4 +125,9 @@
       var(--enchanted-circular-progress-pulse-timing) 
       infinite;
   }
+}
+
+@mixin enchanted-circular-progress-base-styles {
+  display: inline-block;
+  @include enchanted-circular-progress-parts-styles;
 }

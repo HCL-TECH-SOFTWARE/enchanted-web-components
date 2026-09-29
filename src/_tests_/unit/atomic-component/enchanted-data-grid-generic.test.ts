@@ -26,7 +26,7 @@ import '../../../components/atomic-component/enchanted-data-grid-generic';
 // Helper imports
 import { EnchantedDataGridColDef, SortOrder } from '../../../types/enchanted-data-grid';
 import { initSessionStorage } from '../../utils';
-import { DATA_GRID_PARTS } from '../../../types/cssClassEnums';
+import { CIRCULAR_PROGRESS_PARTS, DATA_GRID_PARTS } from '../../../types/cssClassEnums';
 import { SampleDataRow } from '../../types';
 import { sampleData as sampleSearchResultResponse } from '../fixture/sampleData';
 import { initDataGridLocalizedStrings, pressKeyAndWait } from '../../helpers';
@@ -152,6 +152,9 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
       const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-loading-text"]').getElement();
       await expect(resultLabel).toBeDisplayed();
+
+      const loadingIndicator = await table.$('>>>enchanted-circular-progress').getElement();
+      await expect(loadingIndicator).toHaveAttribute('exportparts', Object.values(CIRCULAR_PROGRESS_PARTS).join(','));
     });
   });
 

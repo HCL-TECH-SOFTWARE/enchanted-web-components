@@ -35,7 +35,7 @@ import './enchanted-icon-button';
 import { ActionColumn, ActionMenu, EnchantedDataGridColDef, HandleItemClickHandler, SortOrder } from '../../types/enchanted-data-grid';
 import { getObjectValue } from '../../utils/commonUtils';
 import { isLTR, getFormattedString } from '../localization';
-import { BUTTON_PARTS, LIST_ITEM_PARTS, LIST_PARTS, MENU_ITEM_PARTS, MENU_PARTS, DATA_GRID_PARTS } from '../../types/cssClassEnums';
+import { BUTTON_PARTS, CIRCULAR_PROGRESS_PARTS, LIST_ITEM_PARTS, LIST_PARTS, MENU_ITEM_PARTS, MENU_PARTS, DATA_GRID_PARTS } from '../../types/cssClassEnums';
 import { EnchantedDataGridContextType } from './contexts/enchanted-data-grid-context';
 import { ICON_BUTTON_EXPORT_PARTS, ITEM_TYPE_AVATAR_EXPORT_PARTS, TOOLTIP_EXPORT_PARTS } from '../exportParts';
 import { EnchantedInputFieldType } from '../../types/enchanted-select';
@@ -867,7 +867,9 @@ export class EnchantedDataGridGeneric extends EnchantedAcBaseElement {
             tabindex="-1"
             aria-label="${this.getMessage('output.message.loading.search.results')}"
           >
-            <${ENCHANTED_CIRCULAR_PROGRESS_TAG}></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
+            <${ENCHANTED_CIRCULAR_PROGRESS_TAG}
+              exportparts="${Object.values(CIRCULAR_PROGRESS_PARTS).join(',')}"
+            ></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
             <p data-testid="table-loading-text" part="${DATA_GRID_PARTS.TABLE_LOADING_TEXT}">${this.getMessage('output.message.loading.search.results')}</p>
           </div>
         `;

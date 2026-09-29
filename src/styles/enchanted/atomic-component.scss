@@ -93,6 +93,7 @@ $component-prefix: '' !default;
 
 #{$component-prefix}enchanted-data-grid {
   @include enchanted-data-grid.enchanted-data-grid-styles;
+  @include enchanted-circular-progress.enchanted-circular-progress-parts-styles;
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
   @include enchanted-menu.enchanted-menu-base-styles;
   @include enchanted-list.enchanted-list-base-styles;
@@ -104,6 +105,7 @@ $component-prefix: '' !default;
 
 #{$component-prefix}enchanted-data-grid-generic {
   @include enchanted-data-grid-generic.enchanted-data-grid-generic-styles;
+  @include enchanted-circular-progress.enchanted-circular-progress-parts-styles;
   @include enchanted-icon-button.enchanted-icon-button-base-styles;
   @include enchanted-menu.enchanted-menu-base-styles;
   @include enchanted-list.enchanted-list-base-styles;
