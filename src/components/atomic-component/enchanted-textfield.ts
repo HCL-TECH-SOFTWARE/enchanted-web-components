@@ -101,6 +101,12 @@ export class EnchantedInputTextfield extends EnchantedAcBaseElement {
     if (!this.multiline) return;
     const textarea = this.renderRoot.querySelector('textarea') as HTMLTextAreaElement;
     if (!textarea) return;
+    // Empty textarea should always be 1 row — skip scrollHeight measurement
+    // which can produce 2 due to browser sub-pixel rounding.
+    if (!textarea.value) {
+      textarea.rows = 1;
+      return;
+    }
     // Reset to 1 row to get accurate scrollHeight
     textarea.rows = 1;
     const style = window.getComputedStyle(textarea);
