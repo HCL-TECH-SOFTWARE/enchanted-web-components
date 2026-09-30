@@ -23,6 +23,9 @@ import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/delete';
 import '@hcl-software/enchanted-icons-web-component/dist/carbon/es/copy';
 
 import { ENCHANTED_TOGGLE_BUTTON_GROUP_TAG, ENCHANTED_TOGGLE_BUTTON_TAG, generateIconTagName } from '../components/tags';
+import  { EnchantedToggleButtonSize, EnchantedToggleGroupOrientation  } from '../types/enchanted-toggle-button';
+import { EnchantedBadgeType } from '../types/cssClassEnums';
+
 
 /**
  * Args that drive the Controls panel — kept JSON-serialisable (no TemplateResult).
@@ -30,8 +33,8 @@ import { ENCHANTED_TOGGLE_BUTTON_GROUP_TAG, ENCHANTED_TOGGLE_BUTTON_TAG, generat
  */
 interface EnchantedToggleButtonGroupStoryArgs {
   // Group-level props
-  orientation: 'horizontal' | 'vertical';
-  size: '16' | '20';
+  orientation: EnchantedToggleGroupOrientation;
+  size: EnchantedToggleButtonSize;
   disabled: boolean;
   selectedIndex: number;
 
@@ -60,15 +63,15 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
     // ── Group ─────────────────────────────────────────────────
     orientation: {
       control: { type: 'select' },
-      options: ['horizontal', 'vertical'],
+      options: [EnchantedToggleGroupOrientation.HORIZONTAL, EnchantedToggleGroupOrientation.VERTICAL],
       description: 'Layout direction of the button group',
-      table: { category: 'Group', defaultValue: { summary: 'horizontal' } },
+      table: { category: 'Group', defaultValue: { summary: EnchantedToggleGroupOrientation.HORIZONTAL } },
     },
     size: {
       control: { type: 'select' },
-      options: ['16', '20'],
+      options: [EnchantedToggleButtonSize.SMALL, EnchantedToggleButtonSize.LARGE],
       description: 'Icon size applied to every button in the group',
-      table: { category: 'Group', defaultValue: { summary: '20' } },
+      table: { category: 'Group', defaultValue: { summary: EnchantedToggleButtonSize.LARGE } },
     },
     disabled: {
       control: 'boolean',
@@ -148,8 +151,8 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
     },
   },
   args: {
-    orientation: 'horizontal',
-    size: '20',
+    orientation: EnchantedToggleGroupOrientation.HORIZONTAL,
+    size: EnchantedToggleButtonSize.LARGE,
     disabled: false,
     selectedIndex: 0,
 
@@ -184,7 +187,7 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
             ?padding=${args.button1Padding}
           >
             <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
-            ${args.button1ShowBadge ? html`<enchanted-badge slot="badge" badge="dot"></enchanted-badge>` : ''}
+            ${args.button1ShowBadge ? html`<enchanted-badge slot="badge" badge=${EnchantedBadgeType.DOT}></enchanted-badge>` : ''}
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
           <${ENCHANTED_TOGGLE_BUTTON_TAG}
             .ariaLabel=${args.button2AriaLabel}
@@ -193,7 +196,7 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
             ?padding=${args.button2Padding}
           >
             <${generateIconTagName('icon-edit')} slot="icon"></${generateIconTagName('icon-edit')}>
-            ${args.button2ShowBadge ? html`<enchanted-badge slot="badge" badge="dot"></enchanted-badge>` : ''}
+            ${args.button2ShowBadge ? html`<enchanted-badge slot="badge" badge=${EnchantedBadgeType.DOT}></enchanted-badge>` : ''}
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
           <${ENCHANTED_TOGGLE_BUTTON_TAG}
             .ariaLabel=${args.button3AriaLabel}
@@ -202,7 +205,7 @@ const meta: Meta<EnchantedToggleButtonGroupStoryArgs> = {
             ?padding=${args.button3Padding}
           >
             <${generateIconTagName('icon-delete')} slot="icon"></${generateIconTagName('icon-delete')}>
-            ${args.button3ShowBadge ? html`<enchanted-badge slot="badge" badge="dot"></enchanted-badge>` : ''}
+            ${args.button3ShowBadge ? html`<enchanted-badge slot="badge" badge=${EnchantedBadgeType.DOT}></enchanted-badge>` : ''}
           </${ENCHANTED_TOGGLE_BUTTON_TAG}>
         </${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}>
         `;
@@ -216,7 +219,10 @@ export const AllStates: Story = {
   render: () => {
     return html`
         <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-end; padding: 20px 24px 24px;">
-          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="horizontal" size="20">
+          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}
+            orientation=${EnchantedToggleGroupOrientation.HORIZONTAL}
+            size=${EnchantedToggleButtonSize.LARGE}
+          >
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Add"} tooltipText="Add">
               <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
@@ -225,11 +231,15 @@ export const AllStates: Story = {
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Delete"} tooltipText="Delete" showBadge>
               <${generateIconTagName('icon-delete')} slot="icon"></${generateIconTagName('icon-delete')}>
-              <enchanted-badge slot="badge" badge="dot"></enchanted-badge>
+              <enchanted-badge slot="badge" badge=${EnchantedBadgeType.DOT}></enchanted-badge>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
           </${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}>
 
-          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="horizontal" size="16" .selectedIndex=${1}>
+          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}
+            orientation=${EnchantedToggleGroupOrientation.HORIZONTAL}
+            size=${EnchantedToggleButtonSize.SMALL}
+            .selectedIndex=${1}
+          >
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Add"} tooltipText="Add">
               <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
@@ -238,11 +248,15 @@ export const AllStates: Story = {
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Delete"} tooltipText="Delete" showBadge>
               <${generateIconTagName('icon-delete')} slot="icon"></${generateIconTagName('icon-delete')}>
-              <enchanted-badge slot="badge" badge="dot"></enchanted-badge>
+              <enchanted-badge slot="badge" badge=${EnchantedBadgeType.DOT}></enchanted-badge>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
           </${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}>
 
-          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG} orientation="vertical" size="20" ?disabled=${true}>
+          <${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}
+            orientation=${EnchantedToggleGroupOrientation.VERTICAL}
+            size=${EnchantedToggleButtonSize.LARGE}
+            ?disabled=${true}
+          >
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Add"} tooltipText="Add">
               <${generateIconTagName('icon-add')} slot="icon"></${generateIconTagName('icon-add')}>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
@@ -251,7 +265,7 @@ export const AllStates: Story = {
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
             <${ENCHANTED_TOGGLE_BUTTON_TAG} .ariaLabel=${"Delete"} tooltipText="Delete" showBadge>
               <${generateIconTagName('icon-delete')} slot="icon"></${generateIconTagName('icon-delete')}>
-              <enchanted-badge slot="badge" badge="dot"></enchanted-badge>
+              <enchanted-badge slot="badge" badge=${EnchantedBadgeType.DOT}></enchanted-badge>
             </${ENCHANTED_TOGGLE_BUTTON_TAG}>
           </${ENCHANTED_TOGGLE_BUTTON_GROUP_TAG}>
         </div>

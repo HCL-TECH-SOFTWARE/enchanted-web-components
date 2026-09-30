@@ -104,6 +104,106 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
     await expect(buttonElement).toHaveAttribute('buttontext', 'Option 1');
   });
 
+  it('should render labels for each supported input field', async () => {
+    const fields = [
+      EnchantedInputFieldType.CONTENT_SOURCE,
+      EnchantedInputFieldType.ADD_SEARCH_FILTER,
+      EnchantedInputFieldType.ADD_STATUS_FILTER,
+      EnchantedInputFieldType.PAGINATION_ROWS,
+      EnchantedInputFieldType.PAGINATION_PAGE,
+    ];
+
+    for (const field of fields) {
+      render(
+        html`
+          <${ENCHANTED_SELECT_TAG}
+            .localization=${localization}
+            field=${field}
+            .options=${['Option 1']}
+          ></${ENCHANTED_SELECT_TAG}>
+        `,
+        document.body
+      );
+
+      const component = $(ENCHANTED_SELECT_TAG_NAME);
+      const labelElement = component.shadow$('label[data-testid="enchanted-select-label"]');
+      await expect(labelElement).toBeDisplayed();
+      await expect(labelElement.getText()).not.toBe('');
+    }
+  });
+
+  it('should use the attribute label for document object type when no label is provided', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field=${EnchantedInputFieldType.DOCUMENT_OBJECT_TYPE}
+          .options=${['Option 1']}
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_SELECT_TAG_NAME);
+    const labelElement = component.shadow$('label[data-testid="enchanted-select-label"]');
+
+    await expect(labelElement).toBeDisplayed();
+    const labelText = await browser.execute((element) => {return element.textContent?.trim();}, await labelElement);
+    await expect(labelText).toBe('Select an attribute');
+  });
+
+  it('should render the configured disabled, hidden, and remove-label states', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field=${EnchantedInputFieldType.CONTENT_SOURCE}
+          .options=${['Option 1']}
+          ?disabled=${true}
+          hiddenLabel
+          hiddenIcon
+          showRemoveLabel
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_SELECT_TAG_NAME);
+    await expect(component.shadow$('label[data-testid="enchanted-select-label"]')).not.toBeDisplayed();
+    await expect(component.shadow$('label[data-testid="enchanted-select-remove-label"]')).toHaveAttribute('tabindex', '-1');
+    await expect(component.shadow$(`${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`)).toHaveAttribute('disabled');
+  });
+
+  it('should parse string and array options and resolve the selected id', async () => {
+    const component = document.createElement(ENCHANTED_SELECT_TAG_NAME) as HTMLElement & {
+      options: string | string[] | Array<{ id: string; name: string; value: string }>;
+      selectedValue: string | undefined;
+      selectedId: string | undefined;
+      parseOptions: () => unknown[];
+    };
+    component.options = '["One", "Two"]';
+    component.selectedValue = 'Two';
+    const parsedStringOptions = component.parseOptions();
+    const stringSelectedId = component.selectedId;
+
+    component.options = '{"not":"an array"}';
+    const parsedObjectOptions = component.parseOptions();
+
+    component.options = 'invalid json';
+    const parsedInvalidOptions = component.parseOptions();
+
+    component.options = [{ id: 'option-1', name: 'First', value: 'first' }];
+    component.selectedValue = 'First';
+    const parsedArrayOptions = component.parseOptions();
+
+    await expect(parsedStringOptions).toEqual(['One', 'Two']);
+    await expect(stringSelectedId).toBe('Two');
+    await expect(parsedObjectOptions).toEqual([]);
+    await expect(parsedInvalidOptions).toEqual([]);
+    await expect(parsedArrayOptions).toEqual([{ id: 'option-1', name: 'First', value: 'first' }]);
+    await expect(component.selectedId).toBe('option-1');
+  });
+
   it('should render component and validate label and initial dropdown value', async () => {
     render(
       html`
@@ -375,6 +475,158 @@ describe(`${ENCHANTED_SELECT_TAG_NAME} component testing`, () => {
 
     await expect(component.$(`>>>${ENCHANTED_LIST_TAG_NAME}[data-testid="enchanted-select-list"]`)).not.toBeDisplayed();
     await expect(component).toHaveElementProperty('toggleDropDown', false);
+  });
+
+  it('should close the dropdown and prevent default on Escape from the select button', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          .options=${SEARCH_COMMON_FIELDS}
+          label="Select input"
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const buttonElement = await component.$(`>>>${ENCHANTED_BUTTON_TAG_NAME}[data-testid="enchanted-select-button"]`).getElement();
+    await buttonElement.click();
+    await browser.pause(300);
+
+    const result = await browser.execute(async (element) => {
+      const select = element as HTMLElement & {
+        handleButtonKeyDown: (event: KeyboardEvent) => Promise<void>;
+        toggleDropDown: boolean;
+      };
+      const escapeEvent = new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+      await select.handleButtonKeyDown(escapeEvent);
+      return {
+        defaultPrevented: escapeEvent.defaultPrevented,
+        toggleDropDown: select.toggleDropDown,
+      };
+    }, component);
+
+    await expect(result.defaultPrevented).toBe(true);
+    await expect(result.toggleDropDown).toBe(false);
+  });
+
+  it('should handle focus transitions inside and outside the select', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          .options=${SEARCH_COMMON_FIELDS}
+          label="Select input"
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const result = await browser.execute((element) => {
+      const select = element as HTMLElement & {
+        toggleDropDown: boolean;
+        ignoreNextFocusOut: boolean;
+        handleFocusOut: (event: FocusEvent) => void;
+      };
+      const insideElement = document.createElement('span');
+      select.appendChild(insideElement);
+      const outsideElement = document.createElement('span');
+      document.body.appendChild(outsideElement);
+
+      select.toggleDropDown = true;
+      select.ignoreNextFocusOut = true;
+      select.handleFocusOut(new FocusEvent('focusout', { relatedTarget: outsideElement }));
+      const afterIgnoredFocusOut = {
+        isOpen: select.toggleDropDown,
+        ignoreNextFocusOut: select.ignoreNextFocusOut,
+      };
+
+      select.handleFocusOut(new FocusEvent('focusout', { relatedTarget: insideElement }));
+      const afterInsideFocusOut = select.toggleDropDown;
+
+      select.handleFocusOut(new FocusEvent('focusout', { relatedTarget: outsideElement }));
+      const afterOutsideFocusOut = select.toggleDropDown;
+
+      outsideElement.remove();
+      insideElement.remove();
+      return { afterIgnoredFocusOut, afterInsideFocusOut, afterOutsideFocusOut };
+    }, component);
+
+    await expect(result.afterIgnoredFocusOut).toEqual({ isOpen: true, ignoreNextFocusOut: false });
+    await expect(result.afterInsideFocusOut).toBe(true);
+    await expect(result.afterOutsideFocusOut).toBe(false);
+  });
+
+  it('should dispatch the field when the remove label is clicked', async () => {
+    let removeEventDetail: { type: string } | null = null;
+
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field="test-field"
+          showRemoveLabel
+          @remove=${(event: CustomEvent) => {
+            removeEventDetail = event.detail;
+          }}
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = $(ENCHANTED_SELECT_TAG_NAME);
+    const removeLabel = component.shadow$('label[data-testid="enchanted-select-remove-label"]');
+    await removeLabel.click();
+
+    await expect(removeEventDetail).toEqual({ type: 'test-field' });
+  });
+
+  it('should dispatch remove on Enter and ignore unrelated remove-label keys', async () => {
+    render(
+      html`
+        <${ENCHANTED_SELECT_TAG}
+          .localization=${localization}
+          field="test-field"
+          showRemoveLabel
+        ></${ENCHANTED_SELECT_TAG}>
+      `,
+      document.body
+    );
+
+    const component = await $(ENCHANTED_SELECT_TAG_NAME).getElement();
+    const result = await browser.execute((element) => {
+      const select = element as HTMLElement & { removeCount?: number; removeType?: string };
+      select.removeCount = 0;
+      select.addEventListener('remove', (event) => {
+        select.removeCount = (select.removeCount || 0) + 1;
+        select.removeType = (event as CustomEvent<{ type: string }>).detail.type;
+      });
+
+      const removeLabel = select.shadowRoot?.querySelector('label[data-testid="enchanted-select-remove-label"]');
+      removeLabel?.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+      removeLabel?.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'ArrowDown',
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }));
+
+      return { removeCount: select.removeCount, removeType: select.removeType };
+    }, component);
+
+    await expect(result).toEqual({ removeCount: 1, removeType: 'test-field' });
   });
 
   it('should select focused option on Enter via handleDropdownNav', async () => {

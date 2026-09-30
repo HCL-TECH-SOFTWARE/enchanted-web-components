@@ -29,6 +29,7 @@ import {
   ENCHANTED_TOGGLE_BUTTON_TAG_NAME,
   ENCHANTED_TOOLTIP_TAG_NAME,
 } from '../../../components/tags';
+import { EnchantedToggleButtonSize } from '../../../types/enchanted-toggle-button';
 
 afterEach(() => {
   document.body.innerHTML = '';
@@ -53,7 +54,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
     await expect(toggleButton.showBadge).toBe(false);
     await expect(toggleButton.disabled).toBe(false);
     await expect(toggleButton.padding).toBe(false);
-    await expect(toggleButton.iconSize).toBe('16');
+    await expect(toggleButton.iconSize).toBe(EnchantedToggleButtonSize.SMALL);
     await expect(toggleButton.tooltipText).toBe('');
     await expect(toggleButton.firstType).toBe(false);
     await expect(toggleButton.lastType).toBe(false);
@@ -79,7 +80,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
 
   it('should include small-size and padding part tokens when configured', async () => {
     renderComponent(html`
-      <${ENCHANTED_TOGGLE_BUTTON_TAG} iconSize="16" padding ariaLabel="Toggle">
+      <${ENCHANTED_TOGGLE_BUTTON_TAG} iconSize=${EnchantedToggleButtonSize.SMALL} padding ariaLabel="Toggle">
         <icon-add slot="icon"></icon-add>
       </${ENCHANTED_TOGGLE_BUTTON_TAG}>
     `);
@@ -220,7 +221,7 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
     await toggleButton.updateComplete;
     await expect(icon.size).toBe('16');
 
-    toggleButton.iconSize = '20';
+    toggleButton.iconSize = EnchantedToggleButtonSize.LARGE;
     await toggleButton.updateComplete;
     await expect(icon.size).toBe('20');
   });
@@ -229,13 +230,13 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
     renderComponent(html`<${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Toggle"></${ENCHANTED_TOGGLE_BUTTON_TAG}>`);
 
     const toggleButton = await getToggleButton();
-    toggleButton.iconSize = '20';
+    toggleButton.iconSize = EnchantedToggleButtonSize.LARGE;
     await toggleButton.updateComplete;
 
-    await expect(toggleButton.iconSize).toBe('20');
+    await expect(toggleButton.iconSize).toBe(EnchantedToggleButtonSize.LARGE);
   });
 
-  it('should safely handle iconSize update when icon slot lookup returns null', async () => {
+  it('should safely handle size update when icon slot lookup returns null', async () => {
     renderComponent(html`
       <${ENCHANTED_TOGGLE_BUTTON_TAG} ariaLabel="Toggle">
         <icon-add slot="icon"></icon-add>
@@ -251,11 +252,11 @@ describe(`${ENCHANTED_TOGGLE_BUTTON_TAG_NAME} - unit test`, () => {
       return null;
     };
 
-    toggleButton.iconSize = '20';
+    toggleButton.iconSize = EnchantedToggleButtonSize.LARGE;
     await toggleButton.updateComplete;
 
     renderRoot.querySelector = originalQuerySelector;
-    await expect(toggleButton.iconSize).toBe('20');
+    await expect(toggleButton.iconSize).toBe(EnchantedToggleButtonSize.LARGE);
   });
 
   it('should treat non-string tooltipText as empty and render without tooltip wrapper', async () => {

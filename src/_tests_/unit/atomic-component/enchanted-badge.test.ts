@@ -18,7 +18,7 @@ import { html } from 'lit/static-html.js';
 import { $, browser, expect } from '@wdio/globals';
 
 // Component imports
-import '../../../components/atomic-component/enchanted-badge';
+import { EnchantedBadge } from '../../../components/atomic-component/enchanted-badge';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
@@ -96,6 +96,20 @@ describe(`${ENCHANTED_BADGE_TAG_NAME} component testing`, () => {
     const component = $(ENCHANTED_BADGE_TAG_NAME);
     await expect(component).toBeDisplayed();
     await expect(component).toHaveText('99');
+  });
+
+  it('should render the RTL text badge part', () => {
+    document.documentElement.dir = 'rtl';
+    try {
+      const badge = new EnchantedBadge();
+      badge.text = '99';
+      render(badge.render(), document.body);
+
+      const badgePart = document.querySelector('[part="badge-text-rtl"]');
+      expect(badgePart?.textContent?.trim()).toBe('99');
+    } finally {
+      document.documentElement.dir = 'ltr';
+    }
   });
 
   it('should render dot badge', async () => {

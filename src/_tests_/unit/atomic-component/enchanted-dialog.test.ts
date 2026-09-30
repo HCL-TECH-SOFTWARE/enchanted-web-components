@@ -212,6 +212,27 @@ describe(`${ENCHANTED_DIALOG_TAG_NAME} component testing`, () => {
     await expect(component).toHaveAttribute('size', DialogSizes.SM);
   });
 
+  it('should support size xs', async () => {
+    render(
+      html`
+        <${ENCHANTED_DIALOG_TAG} size="${DialogSizes.XS}" open .localization=${localization}></${ENCHANTED_DIALOG_TAG}>
+      `,
+      document.body
+    );
+    const component = $(ENCHANTED_DIALOG_TAG_NAME);
+    await component.waitForDisplayed();
+    await expect(component).toBeDisplayed();
+    await expect(component).toHaveAttribute('size', DialogSizes.XS);
+    const container = component.$(`>>>[part*="${DIALOG_PARTS.CONTAINER_XS}"]`);
+    const paper = component.$(`>>>[part*="${DIALOG_PARTS.PAPER_XS}"]`);
+    const content = component.$(`>>>[part*="${DIALOG_PARTS.CONTENT_XS}"]`);
+    const pagination = component.$(`>>>[part*="${DIALOG_PARTS.PAGINATION_XS}"]`);
+    await expect(container).toBeExisting();
+    await expect(paper).toBeExisting();
+    await expect(content).toBeExisting();
+    await expect(pagination).toBeExisting();
+  });
+
   it('should support size xl', async () => {
     render(
       html`
@@ -224,6 +245,49 @@ describe(`${ENCHANTED_DIALOG_TAG_NAME} component testing`, () => {
     await component.waitForDisplayed();
     await expect(component).toBeDisplayed();
     await expect(component).toHaveAttribute('size', DialogSizes.XL);
+  });
+
+  it('should use default dialog parts for unsupported size values', async () => {
+    render(
+      html`
+        <${ENCHANTED_DIALOG_TAG} size="unsupported" open .localization=${localization}></${ENCHANTED_DIALOG_TAG}>
+      `,
+      document.body
+    );
+    const component = $(ENCHANTED_DIALOG_TAG_NAME);
+    await component.waitForDisplayed();
+    await expect(component).toBeDisplayed();
+    await expect(component).toHaveAttribute('size', 'unsupported');
+
+    const defaultContainer = component.$(`>>>[part="${DIALOG_PARTS.CONTAINER_XL}"]`);
+    const defaultPaper = component.$(`>>>[part="${DIALOG_PARTS.PAPER_XL}"]`);
+    const defaultContent = component.$(`>>>[part="${DIALOG_PARTS.CONTENT_XL}"]`);
+    const defaultPagination = component.$(`>>>[part="${DIALOG_PARTS.PAGINATION_XL}"]`);
+    const defaultAction = component.$(`>>>[part="${DIALOG_PARTS.ACTION}"]`);
+
+    await expect(defaultContainer).toBeExisting();
+    await expect(defaultPaper).toBeExisting();
+    await expect(defaultContent).toBeExisting();
+    await expect(defaultPagination).toBeExisting();
+    await expect(defaultAction).toBeExisting();
+  });
+
+  it('should apply no-border content and action variants when removeBorder is true', async () => {
+    render(
+      html`
+        <${ENCHANTED_DIALOG_TAG} size="${DialogSizes.XL}" open removeBorder .localization=${localization}></${ENCHANTED_DIALOG_TAG}>
+      `,
+      document.body
+    );
+    const component = $(ENCHANTED_DIALOG_TAG_NAME);
+    await component.waitForDisplayed();
+    await expect(component).toBeDisplayed();
+
+    const content = component.$(`>>>[part="${DIALOG_PARTS.CONTENT_XL_NO_BORDER}"]`);
+    const action = component.$(`>>>[part="${DIALOG_PARTS.ACTION_NO_BORDER}"]`);
+
+    await expect(content).toBeExisting();
+    await expect(action).toBeExisting();
   });
 
   it('should render dialog in chat mode', async () => {

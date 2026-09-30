@@ -21,16 +21,18 @@ import './enchanted-toggle-button';
 import { ENCHANTED_TOGGLE_BUTTON_GROUP_TAG_NAME } from "../tags";
 import { TOGGLE_BUTTON_PARTS } from "../../types/cssClassEnums";
 import { EnchantedToggleButton } from "./enchanted-toggle-button";
+import  { EnchantedToggleButtonSize, EnchantedToggleGroupOrientation } from '../../types/enchanted-toggle-button';
+
 
 const debug = createDebug('enchanted-web-components:components:atomic-component:enchanted-toggle-button-group.ts');
 
 export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
 
   @property({ type: String, reflect: true })
-  orientation: 'horizontal' | 'vertical' = 'horizontal';
+  orientation = EnchantedToggleGroupOrientation.HORIZONTAL;
 
   @property({ type: String })
-  size: '16' | '20' = '20';
+  size = EnchantedToggleButtonSize.LARGE;
 
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -59,11 +61,28 @@ export class EnchantedToggleButtonGroup extends EnchantedAcBaseElement {
     if (!this.toggleItems.length) {
       return;
     }
-    const isHorizontal = this.orientation === 'horizontal';
-    const resolvedSize: '16' | '20' = this.size === '16' ? '16' : '20';
+    const isHorizontal = this.orientation === EnchantedToggleGroupOrientation.HORIZONTAL;
+    const resolvedSize: EnchantedToggleButtonSize = this.size === EnchantedToggleButtonSize.SMALL ? EnchantedToggleButtonSize.SMALL : EnchantedToggleButtonSize.LARGE;
     this.toggleItems.forEach((button, index) => {
-      button.firstType = isHorizontal ? index === 0 : true;
-      button.lastType = isHorizontal ? index === this.toggleItems.length - 1 : true;
+      const isFirst = index === 0;
+      const isLast = index === this.toggleItems.length - 1;
+      const isSingle = this.toggleItems.length === 1;
+      if (!isHorizontal) {
+        button.firstType = false;
+        button.lastType = false;
+      } else if (isSingle) {
+        button.firstType = false;
+        button.lastType = false;
+      } else if (isFirst) {
+        button.firstType = true;
+        button.lastType = false;
+      } else if (isLast) {
+        button.firstType = false;
+        button.lastType = true;
+      } else {
+        button.firstType = true;
+        button.lastType = true;
+      }
       button.toggleOn = index === this.selectedIndex;
       button.iconSize = resolvedSize;
       button.disabled = this.disabled;
