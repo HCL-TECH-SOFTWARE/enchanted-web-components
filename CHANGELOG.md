@@ -5,6 +5,8 @@
 ### Added
 
 ### Fixed
+- Enhance EnchantedDataGrid and EnchantedDataGridGeneric to include circular progress parts in loading state.
+- Fix enchanted-textfield multiline textarea showing 2 rows instead of 1 when empty due to scrollHeight sub-pixel rounding.
 
 ### Changed
 

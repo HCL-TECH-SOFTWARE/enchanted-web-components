@@ -35,7 +35,7 @@ import '../atomic-component/enchanted-tooltip';
 import { ChangeFocusValue, EnchantedDataGridColDef, OverflowList, SortOrder } from '../../types/enchanted-data-grid';
 import { getMenuItemCount, getObjectValue, getOverflowItemProperty, getActionLink, getFilteredOverflowList } from '../../utils/commonUtils';
 import { isLTR, getFormattedString } from '../localization';
-import { LIST_ITEM_PARTS, LIST_PARTS, MENU_ITEM_PARTS, MENU_PARTS, DATA_GRID_PARTS } from '../../types/cssClassEnums';
+import { CIRCULAR_PROGRESS_PARTS, LIST_ITEM_PARTS, LIST_PARTS, MENU_ITEM_PARTS, MENU_PARTS, DATA_GRID_PARTS } from '../../types/cssClassEnums';
 import { ICON_BUTTON_EXPORT_PARTS, ITEM_TYPE_AVATAR_EXPORT_PARTS } from '../exportParts';
 import { enchantedDataGridContext, EnchantedDataGridContextType } from './contexts/enchanted-data-grid-context';
 import { EnchantedInputFieldType } from '../../types/enchanted-select';
@@ -853,7 +853,9 @@ export class EnchantedDataGrid extends EnchantedAcBaseElement {
 	    if (this.isLoading === 'true') {
 	      return html`
 					<div part="${DATA_GRID_PARTS.TABLE_BODY_CONTAINER}">
-						<${ENCHANTED_CIRCULAR_PROGRESS_TAG}></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
+						<${ENCHANTED_CIRCULAR_PROGRESS_TAG}
+							exportparts="${Object.values(CIRCULAR_PROGRESS_PARTS).join(',')}"
+						></${ENCHANTED_CIRCULAR_PROGRESS_TAG}>
 						<p data-testid="table-loading-text" part="${DATA_GRID_PARTS.TABLE_LOADING_TEXT}">${this.getMessage('output.message.loading.search.results')}</p>
 					</div>
 				`;

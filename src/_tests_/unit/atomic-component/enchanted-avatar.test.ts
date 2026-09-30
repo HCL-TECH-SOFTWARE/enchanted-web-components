@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -99,6 +99,53 @@ describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
     await expect(letterElement).toHaveText('Ab');
   });
 
+  it('should render no content for an empty rounded letter avatar', async () => {
+    render(
+      html`<${ENCHANTED_AVATAR_TAG}
+        variant=${AVATAR_VARIANT.AVATAR_LETTER}
+        type=${AVATAR_TYPE.AVATAR_ROUNDED}
+        avatarText=""
+      ></${ENCHANTED_AVATAR_TAG}>`,
+      document.body
+    );
+
+    await expect($(ENCHANTED_AVATAR_TAG_NAME)).toBeDisplayed();
+  });
+
+  it('should render circular letter content and handle empty or invalid letter types', async () => {
+    render(
+      html`<${ENCHANTED_AVATAR_TAG}
+        variant=${AVATAR_VARIANT.AVATAR_LETTER}
+        type=${AVATAR_TYPE.AVATAR_CIRCULAR}
+        avatarText="Abc"
+      ></${ENCHANTED_AVATAR_TAG}>`,
+      document.body
+    );
+    const circularAvatar = await $(ENCHANTED_AVATAR_TAG_NAME);
+    const circularLetter = await circularAvatar.$('>>>span[data-testid="enchanted-avatar-letter"]');
+    await expect(circularLetter).toHaveText('Ab');
+
+    render(
+      html`<${ENCHANTED_AVATAR_TAG}
+        variant=${AVATAR_VARIANT.AVATAR_LETTER}
+        type=${AVATAR_TYPE.AVATAR_CIRCULAR}
+        avatarText=""
+      ></${ENCHANTED_AVATAR_TAG}>`,
+      document.body
+    );
+    await expect($(ENCHANTED_AVATAR_TAG_NAME)).toBeDisplayed();
+
+    render(
+      html`<${ENCHANTED_AVATAR_TAG}
+        variant=${AVATAR_VARIANT.AVATAR_LETTER}
+        type="invalid"
+        avatarText="Abc"
+      ></${ENCHANTED_AVATAR_TAG}>`,
+      document.body
+    );
+    await expect($(ENCHANTED_AVATAR_TAG_NAME)).toBeDisplayed();
+  });
+
   it('should render component with icon rounded variant and validate', async () => {
     render(
       html`
@@ -147,6 +194,19 @@ describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
     await expect(iconElement).toHaveElementProperty('alt', AVATAR_PARTS.AVATAR_ICON_CIRCULAR);
   });
 
+  it('should render no content for an invalid icon type', async () => {
+    render(
+      html`<${ENCHANTED_AVATAR_TAG}
+        variant=${AVATAR_VARIANT.AVATAR_ICON}
+        type="invalid"
+        iconUrl="testIconURL"
+      ></${ENCHANTED_AVATAR_TAG}>`,
+      document.body
+    );
+
+    await expect($(ENCHANTED_AVATAR_TAG_NAME)).toBeDisplayed();
+  });
+
   it('should render component with icon template, rounded, color and validate', async () => {
     render(
       html`
@@ -187,6 +247,19 @@ describe(`${ENCHANTED_AVATAR_TAG_NAME} component testing`, () => {
     let divElement = await component.$('>>>div[data-testid="enchanted-avatar-div-circular"]').getElement();
     let iconElement = await divElement.$('>>>span[data-testid="enchanted-avatar-icon-template"]').getElement();
     await expect(iconElement).toBeExisting();
+  });
+
+  it('should render no content for an invalid icon template type', async () => {
+    render(
+      html`<${ENCHANTED_AVATAR_TAG}
+        variant=${AVATAR_VARIANT.AVATAR_ICON_TEMPLATE}
+        type="invalid"
+        .iconTemplate=${html`<span>Icon</span>`}
+      ></${ENCHANTED_AVATAR_TAG}>`,
+      document.body
+    );
+
+    await expect($(ENCHANTED_AVATAR_TAG_NAME)).toBeDisplayed();
   });
 
   it('should render component with selected css as per setting mode in circular variant', async () => {

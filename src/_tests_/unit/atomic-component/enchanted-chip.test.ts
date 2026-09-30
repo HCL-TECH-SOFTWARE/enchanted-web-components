@@ -1,5 +1,5 @@
 /* ======================================================================== *
- * Copyright 2025 HCL America Inc.                                          *
+ * Copyright 2025, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -22,7 +22,7 @@ import '../../../components/atomic-component/enchanted-chip';
 
 // Helper imports
 import { initSessionStorage } from '../../utils';
-import { ENCHANTED_CHIP_TAG, ENCHANTED_CHIP_TAG_NAME } from '../../../components/tags';
+import { ENCHANTED_AVATAR_TAG_NAME, ENCHANTED_CHIP_TAG, ENCHANTED_CHIP_TAG_NAME } from '../../../components/tags';
  
 describe(`${ENCHANTED_CHIP_TAG_NAME} component testing`, () => {
   before(async () => {
@@ -75,6 +75,23 @@ describe(`${ENCHANTED_CHIP_TAG_NAME} component testing`, () => {
     await expect(component).toHaveAttribute('name', 'tag cloud');
     await expect(component).toHaveAttribute('count', '100');
     await expect(component).toHaveAttribute('showChipCount', '');
+  });
+
+  it('should render avatar content when showAvatar is true', async () => {
+    render(
+      html`
+        <${ENCHANTED_CHIP_TAG}
+          name="tag cloud"
+          showAvatar
+        ></${ENCHANTED_CHIP_TAG}>
+      `,
+      document.body
+    );
+
+    const component = document.querySelector(ENCHANTED_CHIP_TAG_NAME) as HTMLElement | null;
+    await expect(component).toBeTruthy();
+    const avatar = component?.shadowRoot?.querySelector(ENCHANTED_AVATAR_TAG_NAME);
+    await expect(avatar).toBeTruthy();
   });
 
   it('should render web component with a badge counter if showChipCount attribute is set to true', async () => {
