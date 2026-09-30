@@ -27,14 +27,14 @@ import { EnchantedMenu } from '../../../components/atomic-component/enchanted-me
 // Helper imports
 import { EnchantedDataGridColDef, SortOrder } from '../../../types/enchanted-data-grid';
 import { initSessionStorage } from '../../utils';
-import { DATA_GRID_PARTS } from '../../../types/cssClassEnums';
+import { CIRCULAR_PROGRESS_PARTS, DATA_GRID_PARTS } from '../../../types/cssClassEnums';
 import { SampleDataRow } from '../../types';
 import { sampleData as sampleSearchResultResponse } from '../fixture/sampleData';
 import { initDataGridLocalizedStrings, pressKeyAndWait } from '../../helpers';
 import { ENCHANTED_DATA_GRID_COLUMNS, LONG_PAUSE, SHORT_PAUSE } from '../../constants';
 import { EnchantedDataGridGeneric } from '../../../components/atomic-component/enchanted-data-grid-generic';
 import {
-  ENCHANTED_DATA_GRID_GENERIC_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME,
+  ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME, ENCHANTED_DATA_GRID_GENERIC_TAG, ENCHANTED_DATA_GRID_GENERIC_TAG_NAME, ENCHANTED_ICON_BUTTON_TAG_NAME,
   ENCHANTED_MENU_ITEM_TAG_NAME, ENCHANTED_MENU_TAG_NAME, ENCHANTED_TOOLTIP_TAG_NAME
 } from '../../../components/tags';
 
@@ -171,6 +171,9 @@ describe(`${ENCHANTED_DATA_GRID_GENERIC_TAG_NAME} component testing`, () => {
       const table = await $(ENCHANTED_DATA_GRID_GENERIC_TAG_NAME).getElement();
       let resultLabel = await table.$('>>>p[data-testid="table-loading-text"]').getElement();
       await expect(resultLabel).toBeDisplayed();
+
+      const loadingIndicator = await table.$(`>>>${ENCHANTED_CIRCULAR_PROGRESS_TAG_NAME}`).getElement();
+      await expect(loadingIndicator).toHaveAttribute('exportparts', Object.values(CIRCULAR_PROGRESS_PARTS).join(','));
     });
   });
 
