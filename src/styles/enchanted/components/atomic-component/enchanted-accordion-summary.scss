@@ -23,7 +23,7 @@ $label-horizontal-padding: 10px;
 @mixin enchanted-accordion-summary-base-styles {
   &::part(summary),
   &::part(summary-rtl) {
-        display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
