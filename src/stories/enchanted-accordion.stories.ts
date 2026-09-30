@@ -167,7 +167,7 @@ export const EnchantedAccordion: Story = {
 export const AllStates: Story = {
   render: () => {
     return html`
-      <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; flex-direction: column;">
         <div><strong>Outlined Type</strong></div>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
