@@ -5,7 +5,7 @@
 ### Added
 
 ### Fixed
-- Enhance EnchantedDataGrid to include circular progress parts in loading state.
+- Enhance EnchantedDataGrid and EnchantedDataGridGeneric to include circular progress parts in loading state.
 
 ### Changed
 
