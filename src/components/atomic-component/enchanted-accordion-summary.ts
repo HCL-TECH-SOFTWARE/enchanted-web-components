@@ -65,9 +65,7 @@ export class EnchantedAccordionSummary extends EnchantedAcBaseElement {
                   ? `${ACCORDION_SUMMARY_PARTS.ENCHANTED_ACCORDION_SECONDARY}`
                   : `${ACCORDION_SUMMARY_PARTS.ENCHANTED_ACCORDION_SECONDARY_RTL}`}"
               >
-                <slot name="secondary-text"
-                  >${this.getMessage("accordion.summary.secondary.text")}</slot
-                >
+                <slot name="secondary-text"></slot>
               </div>
             `}
         <slot></slot>

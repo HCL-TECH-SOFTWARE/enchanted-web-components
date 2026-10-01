@@ -15,6 +15,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit/static-html.js';
 import '../components/atomic-component/enchanted-accordion';
+import '../components/atomic-component/enchanted-accordion-summary';
 import { ENCHANTED_ACCORDION_SUMMARY_TAG, ENCHANTED_ACCORDION_TAG } from '../components/tags';
 
 const meta: Meta = {
@@ -79,6 +80,22 @@ const meta: Meta = {
         defaultValue: { summary: '' },
       },
     },
+    summaryLabel: {
+      control: { type: 'text' },
+      description: 'Label text displayed in the accordion-summary content slot',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
+    },
+    summarySecondaryText: {
+      control: { type: 'text' },
+      description: 'Secondary text displayed in the accordion-summary content slot',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
+    },
   },
   args: {
     type: 'outlined',
@@ -88,6 +105,8 @@ const meta: Meta = {
     open: false,
     label: 'Accordion label',
     secondaryText: 'Secondary text',
+    summaryLabel: 'Accordion summary label',
+    summarySecondaryText: 'Accordion summary secondary text',
   },
   parameters: {
     docs: {
@@ -110,6 +129,8 @@ type Story = StoryObj<{
   open: boolean;
   label: string;
   secondaryText: string;
+  summaryLabel: string;
+  summarySecondaryText: string;
 }>;
 
 export const EnchantedAccordion: Story = {
@@ -124,34 +145,11 @@ export const EnchantedAccordion: Story = {
         .label=${args.label}
         .secondaryText=${args.secondaryText}
       >
-        <div slot="accordion-items">Accordion content goes here.</div>
         <${ENCHANTED_ACCORDION_SUMMARY_TAG}
           slot="accordion-items"
-          label="security settings"
-          secondaryText="Security settings description"
+          .label=${args.summaryLabel}
+          .secondaryText=${args.summarySecondaryText}
         ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
-      </${ENCHANTED_ACCORDION_TAG}>
-      <${ENCHANTED_ACCORDION_TAG}
-        type=${args.type}
-        ?showCheckbox=${args.showCheckbox}
-        ?disabled=${args.disabled}
-        ?showSecondaryText=${args.showSecondaryText}
-        ?open=${args.open}
-        .label=${args.label}
-        .secondaryText=${args.secondaryText}
-      >
-        <div slot="accordion-items">Accordion content goes here.</div>
-      </${ENCHANTED_ACCORDION_TAG}>
-      <${ENCHANTED_ACCORDION_TAG}
-        type=${args.type}
-        ?showCheckbox=${args.showCheckbox}
-        ?disabled=${args.disabled}
-        ?showSecondaryText=${args.showSecondaryText}
-        ?open=${args.open}
-        .label=${args.label}
-        .secondaryText=${args.secondaryText}
-      >
-        <div slot="accordion-items">Accordion content goes here.</div>
       </${ENCHANTED_ACCORDION_TAG}>
     `;
   },
@@ -169,28 +167,37 @@ export const EnchantedAccordion: Story = {
 export const AllStates: Story = {
   render: () => {
     return html`
-      <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; flex-direction: column;">
         <div><strong>Outlined Type</strong></div>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
           label="Outlined - Closed"
           ?open=${false}
         >
-          <div slot="accordion-items">Content for outlined accordion.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content for outlined accordion."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
           label="Outlined - Open"
           ?open=${true}
         >
-          <div slot="accordion-items">Content for outlined accordion.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content for outlined accordion."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
           label="Outlined - With Checkbox"
           ?showCheckbox=${true}
         >
-          <div slot="accordion-items">Content with checkbox.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content with checkbox."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
@@ -198,14 +205,20 @@ export const AllStates: Story = {
           secondaryText="This is secondary text"
           ?showSecondaryText=${true}
         >
-          <div slot="accordion-items">Content with secondary text.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content with secondary text."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="outlined"
           label="Outlined - Disabled"
           ?disabled=${true}
         >
-          <div slot="accordion-items">Disabled accordion content.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Disabled accordion content."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
 
         <div style="margin-top: 24px;"><strong>No-Outline Type</strong></div>
@@ -214,21 +227,30 @@ export const AllStates: Story = {
           label="No-Outline - Closed"
           ?open=${false}
         >
-          <div slot="accordion-items">Content for no-outline accordion.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content for no-outline accordion."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="no-outline"
           label="No-Outline - Open"
           ?open=${true}
         >
-          <div slot="accordion-items">Content for no-outline accordion.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content for no-outline accordion."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="no-outline"
           label="No-Outline - With Checkbox"
           ?showCheckbox=${true}
         >
-          <div slot="accordion-items">Content with checkbox.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content with checkbox."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="no-outline"
@@ -236,14 +258,20 @@ export const AllStates: Story = {
           secondaryText="This is secondary text"
           ?showSecondaryText=${true}
         >
-          <div slot="accordion-items">Content with secondary text.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Content with secondary text."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
         <${ENCHANTED_ACCORDION_TAG}
           type="no-outline"
           label="No-Outline - Disabled"
           ?disabled=${true}
         >
-          <div slot="accordion-items">Disabled accordion content.</div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="Disabled accordion content."
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
 
         <div style="margin-top: 24px;"><strong>Combined Features</strong></div>
@@ -255,9 +283,11 @@ export const AllStates: Story = {
           ?showSecondaryText=${true}
           ?open=${true}
         >
-          <div slot="accordion-items">
-            This accordion demonstrates all features: outlined type, checkbox, secondary text, and open state.
-          </div>
+          <${ENCHANTED_ACCORDION_SUMMARY_TAG}
+            slot="accordion-items"
+            label="This accordion demonstrates all features: outlined type, checkbox, secondary text, and open state."
+            secondaryText="This is secondary text"
+          ></${ENCHANTED_ACCORDION_SUMMARY_TAG}>
         </${ENCHANTED_ACCORDION_TAG}>
       </div>
     `;

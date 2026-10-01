@@ -173,6 +173,10 @@ $icon-gap: 8px;
       border-bottom-right-radius: 4px;
     }
   }
+  // Avoid doubled borders where two outlined accordions sit directly next to each other.
+  &[type="outlined"] + &[type="outlined"] {
+    border-top: none;
+  }
   &[type="no-outline"] {
     border: none;
   }
