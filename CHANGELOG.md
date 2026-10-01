@@ -5,13 +5,17 @@
 ### Added
 
 ### Fixed
-- Enhance EnchantedDataGrid and EnchantedDataGridGeneric to include circular progress parts in loading state.
-- Fix enchanted-textfield multiline textarea showing 2 rows instead of 1 when empty due to scrollHeight sub-pixel rounding.
-- updated `enchanted-accordion` Storybook story to use `enchanted-accordion-summary` as a child component instead of standard HTML elements.
 
 ### Changed
 
 ### Breaking changes
+
+## 7.1.3
+
+### Fixed
+- Enhance EnchantedDataGrid and EnchantedDataGridGeneric to include circular progress parts in loading state.
+- Fix enchanted-textfield multiline textarea showing 2 rows instead of 1 when empty due to scrollHeight sub-pixel rounding.
+- Updated `enchanted-accordion` Storybook story to use `enchanted-accordion-summary` as a child component instead of standard HTML elements.
 
 ## 7.1.2
 
